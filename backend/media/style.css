@@ -1,0 +1,200 @@
+body, html { 
+  color: #000000;
+  background: rgb(249,249,255);
+  padding-left: 1.5em;
+  width: 90%;
+}
+
+img {  
+  border-style: none;
+}
+
+h3 {
+        font-size: 145% ;
+        font-weight: bold ;
+        color: #4A4A3C ;
+        color-grey: #bbbbbb
+}
+
+
+a {
+        text-decoration: none ;
+        color: #991133 ;
+        background: rgb(230,234,240);
+}
+
+a:hover {
+        text-decoration: underline
+}
+
+body {
+        font-family: arial, sans-serif ;
+        background: rgb(249,249,255);
+        font-size: 9pt ;
+        margin: 25
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 2.5em;
+}
+
+li {
+	padding-bottom: 20px
+}
+
+DIV.section {
+    border-radius:10px;
+    -moz-border-radius:10px;
+    background-image: -o-linear-gradient(left,rgba(249,249,255),rgba(230,234,240));
+    background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(230,234,240)));
+    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));
+    margin-left: auto;
+    padding: 10px;
+    margin-right: auto;
+    width:500px;
+    text-align: left;
+/*    -moz-box-shadow:inset 0 0 5px rgb(17,0,54);*/
+    -moz-box-shadow:2px 2px 2px #333333;
+    box-shadow:2px 2px 2px #333333;
+    background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));
+}
+
+DIV.about {
+/*    color:rgb(38,0,117);*/
+    color:black;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000');
+    background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));
+    background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(230,234,240)));
+    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));
+    margin-left: auto;
+    padding: 10px;
+    margin-right: auto;
+    text-align: left;
+    -moz-box-shadow:2px 2px 2px #333333;
+/*    -moz-box-shadow:inset 0 0 5px black;*/
+    box-shadow:2px 2px 2px #333333;
+}
+
+DIV.about h3{
+/*    color:rgb(38,0,117);*/
+    color: black;
+}
+
+/*DIV.section table{
+    color:rgb(38,0,117);
+}*/
+
+DIV.section input{
+    color:black;
+}
+
+DIV.section a{
+    background-color: rgb(249,249,255);
+}
+
+DIV.progresscontainer {
+    margin-left:auto;
+    margin-right: auto;
+    width: 500px;
+    text-align: center;
+}
+
+DIV.map {
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 50px;
+    border: 3px solid;
+    border-color: rgb(38,0,117);
+    
+}
+
+Div.label{
+    width: 150px;
+    text-align: center;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 50px;
+    margin-bottom: 5px;
+}
+
+DIV.radiodiv {
+    text-align: center;
+}
+
+DIV.graphdisplay {
+    margin-left:auto;
+    margin-right: auto;
+}
+
+DIV.progressbar {
+    width: 500px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+
+
+DIV.graphdiv {
+    margin-left:auto;
+    margin-right: auto;
+    width: 600px;
+    height: 300px;
+    
+}
+
+DIV.outergraphdiv {
+    margin-left:auto;
+    margin-right:auto;
+    width:602px;
+    height: 302px;
+    border: 2px solid;
+    border-color: rgb(38,0,117);
+    padding: 2px;
+}
+DIV.projects ul {
+	list-style-type: circle;
+	padding-left: 2.5em;
+}
+
+DIV.projects li {
+	padding-bottom: 0px;
+}
+
+
+DIV.traps a {
+   background: #ffffff;
+   color: #ffffff;
+   visited: #ffffff;
+}
+
+
+
+
+a:visited { 
+  background: #ffffff;
+  color:  #408860;
+}
+
+
+p.lastupdated { 
+  font-size: 70%;
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+p.contact {
+  margin-top: 0;
+  font-size: 70%;
+}
+
+p.footnote {
+  margin-top: 0;
+  font-size: 85%;
+}

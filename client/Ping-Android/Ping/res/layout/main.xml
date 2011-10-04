@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <Button
+        android:id="@+id/ping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ping" />
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ping"
+        android:layout_alignTop="@id/ping"
+        android:text="Export" />
+    <EditText
+        android:id="@+id/entry"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/save"
+        android:text="Enter ip address"/>
+    <EditText
+        android:id="@+id/cmd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entry"
+        android:text="Enter command"/>
+	<TextView
+        android:id="@+id/output"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cmd"
+    	android:singleLine="false"
+    	android:maxLines="20"
+        android:text="Usage: ping [-LRUbdfnqrvVaA] [-c count] [-i interval] [-w deadline]\n
+        	[-p pattern] [-s packetsize] [-t ttl] [-I interface or address]\n
+            [-M mtu discovery hint] [-S sndbuf]\n
+            [ -T timestamp option ] [ -Q tos ] [hop1 ...]"
+      	android:scrollbars="vertical"/>
+</RelativeLayout>

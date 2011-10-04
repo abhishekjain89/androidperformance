@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class ="section">
+    <h1>BISMark Device           <a href ="/editDevicePage/{{detail.hashkey}}"> Edit </a></h1>
+    <script src="/static/jquery-latest.js"></script>
+
+    <table>
+	<!--
+        <tr><td>MAC Address</td><td>{{ detail.macid }}</td></tr>
+        <tr><td>Type</td><td>{{ detail.type }}</td></tr>
+        <tr><td>Operating System</td><td>{{ detail.os }}</td></tr> -->
+        <tr><td><b>Name</b></td><td><b>{{ detail.name }}</b></td></tr>
+        <tr><td>ISP</td><td>{{ detail.isp }}</td></tr>
+        <tr><td>Location</td><td><div id="location{{ deviceid }}"></div><script type="text/javascript">
+
+		$.ajax({
+                type: "GET",
+                url: "/getLocation/{{ deviceid }}/",
+                success: OnSuccess
+            });
+		
+		function OnSuccess(data)
+		{
+		document.getElementById('location{{ deviceid }}').innerHTML = data;
+		}
+
+		</script></td>
+        </tr>     
+        <tr><td>Service Plan</td><td>{{ detail.serviceplan }}</td></tr>
+        <tr><td>Download Rate</td><td>{{ detail.downloadrate}} kbps</td></tr>
+        <tr><td>Upload Rate</td><td>{{ detail.uploadrate}} kbps</td></tr>
+    
+ 
+  
+        
+	
+
+<tr><td>First Measurement</td><td>{{ firstUpdate }}</td></tr>
+<tr><td>Last Measurement</td><td>{{ lastUpdate }}</td></tr>
+
+ 
+<tr><td>Raw Data</td></td><td><a href="http://projectbismark.net/data/{{ deviceid }}">Download XML</a></td></tr>
+<script type="text/javascript">
+    function convertURL(name){
+        return encodeURIComponent(name);
+    }
+</script>
+<tr><td>URL for this device page</td><td><input id="url" type="text" style="width:320px;" value="http://networkdashboard.org/displayDevice/{{ detail.hashkey }}" dojoType="dijit.form.TextBox" /></td>
+</table>
+
+
+</div>
+<br />
+
+<div class="section">
+
+<script type="text/javascript" src="/static/swfobject.js"></script>
+<script type="text/javascript" src="/static/dygraph-combined.js"></script>
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js"
+        djConfig="parseOnLoad: true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dijit.form.DateTextBox");http://danvk.org/dygraphs/dygraph-combined.js
+            dojo.require("dijit.ProgressBar");
+            dojo.require("dijit.Menu");
+            dojo.require("dijit.MenuItem");
+            dojo.require("dijit.form.RadioButton");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.TitlePane");
+            dojo.require("dijit.layout.ContentPane");
+	   dojo.require("dijit.form.Textarea");
+        </script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"
+        />
+
+<body class=" claro " onload="CloseProgressBar();">
+
+<label for="fromDate">
+            From:
+        </label>
+        
+        <input id="fromDate" type="text" value="{{calenderFrom}}" name="fromDate" dojoType="dijit.form.DateTextBox"
+        required="true" onChange="dijit.byId('toDate').constraints.min = arguments[0];" 
+        />
+        
+        <label for="toDate">
+            To:
+        </label>
+        <input id="toDate" type="text" value="{{calenderTo}}" name="toDate" dojoType="dijit.form.DateTextBox"
+        required="true" onChange="dijit.byId('fromDate').constraints.max = arguments[0];"
+        /><br/><br/>
+
+<table border="0"> 
+
+<tr>
+<td>
+<input type="radio" name="g1" id="g1rb3" value="weather" dojoType="dijit.form.RadioButton" checked>
+
+<label for="g1rb3">Upload and Download Throughput (kbps)</label><br/><br/>
+
+<input type="radio" name="g1" id="g1rb2" value="talk" dojoType="dijit.form.RadioButton">
+
+<label for="g1rb2">Last-Mile Latency (ms)</label><br/><br/>
+<!--
+<input type="radio" name="g1" id="g1rb4" value="weather" dojoType="dijit.form.RadioButton">
+
+<label for="g1rb4">Passive Usage</label><br/><br/>
+<div class="chart" id="chart_demo" style="display:block;" ></div>
+-->
+<input type="radio" name="g1" id="g1rb1" value="news" dojoType="dijit.form.RadioButton">
+
+<label for="g1rb1">Round Trip Time (ms)</label><br/><br/>
+
+
+
+
+
+
+</td>
+<td>
+
+
+
+</td>
+<tr/>
+
+</table>
+
+<button dojoType="dijit.form.Button" type="submit" name="submit" onClick="render()">Display</button>
+</div>
+
+        
+
+<br />
+<div class="progresscontainer">
+    <div class="progressbar" id="progress" indeterminate="true" title="loading" dojoType="dijit.ProgressBar"></div>
+</div>
+<br /><br /><br />
+<div class ="graphdisplay" id = "display_tag" >
+    <div id="graph_place_holder" style="width:600px; height: 300px;"></div>
+</div>
+    
+<!--    <div class ="radiodiv"
+    <input type="radio" name = "mode" id="lin" onClick="setDisplayMode(false)" checked>
+    <label for="lin">Linear</label>
+
+    <input type="radio" name = "mode" id="log" onClick ="setDisplayMode(true)">
+    <label for="log">Log</label><br /><br />
+    </div>-->
+<script type="text/javascript">
+
+
+	var content="[not loaded]";
+	var limit = 9999999;
+	var units = "val";
+	var paramselect = "RTT";
+        var logdisplay = false;
+        var special = true;
+
+	
+	var loc = window.location.href;
+	spl = loc.split('/');
+
+	if(spl[spl.length-1].length>2) loc="/data_chart/"+spl[spl.length-1];
+	else loc="/data_chart/"+spl[spl.length-2];
+       	
+	function start()
+	{
+            CloseProgressBar();
+	}
+        
+
+	function createStyle()
+	{
+
+		if(g1rb1.checked)
+		{
+			limit = 1000;
+			units = "msec"
+			paramselect = "RTT"
+                        special = true;
+		}
+		else if(g1rb2.checked)
+		{
+			limit = 1000;
+			units = "msec"
+			paramselect = "LMRTT"
+                        special = true;
+		}
+		else if(g1rb3.checked)
+		{
+			limit = 1000000;
+			units = "kbps"
+			paramselect = "AGGL3BITRATE"
+                        special = false;
+		}
+                 
+	}
+
+        function OnSuccess(data)
+        {
+          content=data;
+
+	  
+
+             g = new Dygraph(document.getElementById("graph_div_1"),
+                       content,
+                       {
+                       rollPeriod: 1,
+                       showRoller: true,
+                       logscale: (logdisplay&&special),
+                       errorBars: false,
+                       connectSeparatedPoints: true,
+
+                       }
+                       );
+
+	  
+	 CloseProgressBar();
+         addRadios();
+         addLabels();
+         
+        }
+         
+         function OnSuccess2(data)
+        {
+          content=data;
+
+	  
+
+	         g2 = new Dygraph(document.getElementById("graph_div_2"),
+			   content,
+			   {
+	      		   rollPeriod: 1,
+	      		   showRoller: true,
+                           logscale: (logdisplay&&special),
+                           connectSeparatedPoints: true,
+                           errorBars: false
+	    		   }
+			   );
+	  
+	 CloseProgressBar();
+        }
+        
+        function setDisplayMode(log){
+            g.updateOptions({logscale:log})
+            logdisplay = log;
+        }
+        
+        function convertURL(name){
+            return encodeURIComponent(name);
+        }
+        
+
+	
+        function OnError(data)
+        {
+	  alert("data loading failed");
+        }
+        
+        function deleteDivs(){
+            
+            var dtag = document.getElementById('display_tag');
+            while(dtag.hasChildNodes()){
+                dtag.removeChild(dtag.lastChild);
+            }  
+        }
+        
+        function createGraphDivs(){
+            var dtag = document.getElementById('display_tag');
+            var outer = document.createElement('div');
+            outer.setAttribute('id','graph_div_outer');
+            outer.setAttribute('class','outergraphdiv');
+            var gd1 = document.createElement('div');
+            gd1.setAttribute('id','graph_div_1');
+            gd1.setAttribute('class','graphdiv');
+            outer.appendChild(gd1);
+            dtag.appendChild(outer);
+            if (paramselect == 'AGGL3BITRATE'){
+                outer = document.createElement('div');
+                outer.setAttribute('id','graph_div_outer');
+                outer.setAttribute('class','outergraphdiv');
+                var gd2 = document.createElement('div');
+                gd2.setAttribute('id','graph_div_2');
+                gd2.setAttribute('class','graphdiv');
+                outer.appendChild(gd2);
+                dtag.appendChild(outer);
+            }
+            
+        }
+        
+        
+        function addRadios(){
+            setDisplayMode(false);
+            if(document.getElementById('lin')){
+                return;
+            }
+            if(paramselect=='AGGL3BITRATE'){
+                return;
+            }
+            var dtag = document.getElementById('display_tag');
+            var rdiv = document.createElement('div');
+            rdiv.setAttribute('class','radiodiv');
+            rdiv.setAttribute('id', 'radio_div');
+            var r1 = "<input type='radio' name = 'mode' id='lin' onClick='setDisplayMode(false)' checked>";
+            var r2 = "<input type='radio' name = 'mode' id='log' onClick='setDisplayMode(true)'> <br />";
+            rdiv.innerHTML = "Linear: ";
+            rdiv.innerHTML += r1;
+            rdiv.innerHTML += "Log: ";
+            rdiv.innerHTML += r2;
+            dtag.insertBefore(rdiv,dtag.firstChild);
+        }
+        
+        
+        function addLabels(){
+            
+            if(document.getElementById('label_1')){
+                return;
+            }
+            var dtag = document.getElementById('display_tag');
+            var label1 = document.createElement('div');
+            
+            if(paramselect == "AGGL3BITRATE"){
+                label1.innerHTML = '<b>Download Throughput (kbps)</b> <br />';
+                var label2 = document.createElement('div');
+                label2.innerHTML = '<br/><br/><b>Upload Throughput (kbps)</b><br />';
+                label2.setAttribute('id','label_2');
+                label2.setAttribute('align','center');
+                dtag.insertBefore(label2,dtag.lastChild);
+            }
+            else if(paramselect == "RTT"){
+                label1.innerHTML = '<b> Round Trip Time (msec)</b><br />';
+            }
+            else if(paramselect == "LMRTT"){
+                label1.innerHTML = '<b> Last-Mile Latency (msec)</b><br />';
+            }
+            
+            label1.setAttribute('id','label_1');
+            label1.setAttribute('align','center');
+            dtag.insertBefore(label1,dtag.firstChild);
+            
+        }
+            
+	
+	function render()
+	{
+        createStyle();
+        deleteDivs();
+        createGraphDivs();
+	OpenProgressBar();
+        var startDate = document.getElementById('fromDate').value;
+        var endDate = document.getElementById('toDate').value;
+        
+	
+	
+	$.ajax({
+                type: "GET",
+                url: loc,
+                data: {'graphno' : 1, 'deviceid': "{{deviceid}}", 'param': paramselect, 'limit': limit, 'unit': units, 'start': startDate, 'end': endDate},
+                success: OnSuccess
+            });
+        
+        if(paramselect=="AGGL3BITRATE"){
+            $.ajax({
+                type: "GET",
+                url: loc,
+                data: {'graphno' : 2, 'deviceid': "{{deviceid}}", 'param': paramselect, 'limit': limit, 'unit': units, 'start': startDate, 'end': endDate},
+                success: OnSuccess2
+            });
+        }
+        
+        }
+
+	function CloseProgressBar() {
+		    var progressbar_container = document.getElementById("progress");
+                    progressbar_container.style.display="none";
+		    //document.getElementById("graph_div").display = "block";
+		
+        }
+
+	function OpenProgressBar() {
+		var progressbar_container = document.getElementById("progress");
+                progressbar_container.style.display="block";
+		    
+            
+        }
+
+
+</script>
+</body>
+
+
+{% endblock %}

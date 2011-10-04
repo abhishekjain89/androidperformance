@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h3>BISMark Devices</h3>
+
+   <script type ="text/javascript">
+   function changeAction(url) {
+	document.device_form.action = "/device/";
+   }
+   </script>
+   
+   <form method = "POST" name="device_form" action = "">
+   <input type = "text" name = "device" onChange = "changeAction(this.value)"/>
+   <input type = "submit" value = "search">
+   </form>
+
+  
+
+{% endblock %}
+

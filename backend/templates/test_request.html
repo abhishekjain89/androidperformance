@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <table border="0">
+        <tr>
+            <td>URL</td>
+            <td>
+                <input type ="text" id ="url" value = "{{detail.name}}" size ="50"/>
+            </td>
+        </tr>
+  	<tr>
+            <td>request_body</td>
+            <td>
+                <input type ="text" id ="request_body" value = "" size ="200"/>
+            </td>
+        </tr>
+	<tr>
+            <td>response</td>
+            <td>
+                <input type ="text" id ="response" value = "" size ="200"/>
+            </td>
+        </tr>
+    </table>
+    <input type ="submit" value ="Request" onClick="render()"/><\br/>
+
+<script src="/static/jquery-latest.js"></script>
+<script type="text/javascript">
+	
+	function render()
+	{
+        	$.ajax({
+                	type: "POST",
+                	url: document.getElementById('url').value,
+                	data: document.getElementById('request_body').value,
+                	success: OnSuccess
+	            });
+	}
+
+	
+        function OnSuccess(data)
+        {
+          document.getElementById('response').value = data;
+        }
+        
+</script>
+
+
+{% endblock %}
