@@ -1,4 +1,4 @@
-package young.test.ping;
+package com.android.activities;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -22,6 +22,8 @@ import java.util.Date;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
+import com.android.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,7 +38,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class PingActivity extends Activity 
+public class AnalysisActivity extends Activity 
 {
 
 	private final int UPDATE_MSG = 0;
