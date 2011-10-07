@@ -1,101 +1,96 @@
 package com.android.models;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import android.view.View;
+import java.util.Date;
 
 public class Ping {
 
-	String title = "";
-	String thumb_url = "";
-	String description = "";
-	String link="";
-	String type="";
-	String author="";
+	String deviceId;
+	String srcIp;
+	String dstIp;
+	String eventStamp;
+	int max;
+	int min;
+	int average;
+	int stddev;
+	Date time;
 	
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	int resource;
-	
-	public Ping(String title,String thumb_url, String description,int resource,String type,String link) {
-		this.title = title;
-		this.thumb_url = thumb_url;
-		this.description = description;
-		this.resource = resource;
-		this.link = link;
-		this.type = type;
+	public Ping(String deviceId, String scrIp, String dstIp, String eventStamp, int max, int min, int average, int stddev) {
+		//from an activity object, to get the device id :
+		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
+		this.deviceId=deviceId;
+		this.srcIp=scrIp;
+		this.dstIp=dstIp;
+		this.eventStamp=eventStamp;
+		this.max=max;
+		this.min=min;
+		this.average=average;
+		this.stddev=stddev;
+		time=new Date();
 	}
 	
-	public Ping(String title,String thumb_url, String description,int resource,String type, String author, String link) {
-		this.title = title;
-		this.thumb_url = thumb_url;
-		this.description = description;
-		this.resource = resource;
-		this.link = link;
-		this.type = type;
-		this.author = author;
-		
+	public String getEventStamp() {
+		return eventStamp;
 	}
 
-	public String getTitle() {
-		return title;
+	public void setEventStamp(String eventStamp) {
+		this.eventStamp = eventStamp;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public String getThumb_url() {
-		return thumb_url;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	public void setThumb_url(String thumb_url) {
-		this.thumb_url = thumb_url;
+	public String getSrcIp() {
+		return srcIp;
 	}
 
-	public String getDescription() {
-		return description;
+	public void setSrcIp(String srcIp) {
+		this.srcIp = srcIp;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public String getDstIp() {
+		return dstIp;
 	}
 
-	public int getResource() {
-		return resource;
+	public void setDstIp(String dstIp) {
+		this.dstIp = dstIp;
 	}
 
-	public void setResource(int resource) {
-		this.resource = resource;
+	public int getMax() {
+		return max;
 	}
 
-	public String getLink() {
-		return link;
+	public void setMax(int max) {
+		this.max = max;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public int getMin() {
+		return min;
 	}
 
-	public String getType() {
-		return type;
+	public void setMin(int min) {
+		this.min = min;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public int getAverage() {
+		return average;
 	}
 
-	
-	
+	public void setAverage(int average) {
+		this.average = average;
+	}
+
+	public int getStddev() {
+		return stddev;
+	}
+
+	public void setStddev(int stddev) {
+		this.stddev = stddev;
+	}
+
 
 }

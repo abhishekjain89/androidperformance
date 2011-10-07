@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, PingActivity!</string>
     <string name="app_name">Ping</string>
+    <string name="testButton">test</string>
 </resources>

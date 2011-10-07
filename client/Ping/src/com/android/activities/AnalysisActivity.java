@@ -22,7 +22,7 @@ import java.util.Date;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import com.android.R;
+import com.android.activities.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -41,7 +41,7 @@ import android.widget.TextView;
 public class AnalysisActivity extends Activity 
 {
 
-	private final int UPDATE_MSG = 0;
+	/*private final int UPDATE_MSG = 0;
 
 	private Button 		pingButton;
 	private Button 		saveButton;
@@ -54,7 +54,9 @@ public class AnalysisActivity extends Activity
 	private String		message;
 	private UIUpdateThread mUIUpdateThread = null;
 	private String 	   pingMsg = "";
-	private Object     pingMsgLock = new Object();
+	private Object     pingMsgLock = new Object();*/
+	
+	private Button testButton;
 
 
 	@Override
@@ -62,8 +64,20 @@ public class AnalysisActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		testButton=(Button)findViewById(R.id.test);
+		
+		testButton.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) 
+			{
+				//Whatever we need to call
+			}
+		});
+		
+		
 
-		handler.post(new Runnable(){
+		/*handler.post(new Runnable(){
 
 			public void run() {
 				// call your function
@@ -129,14 +143,14 @@ public class AnalysisActivity extends Activity
 			{
 				cmd.setText("");
 			}
-		});
+		});*/
 	}
 
 	/**
 	 * Saves ping data to external storage
 	 * @param msg
 	 */
-	public void saveToExternalFile (String msg)
+	/*public void saveToExternalFile (String msg)
 	{
 		OutputStream outStream = null;
 		String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
@@ -214,7 +228,7 @@ public class AnalysisActivity extends Activity
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 		
 
 		/**
@@ -222,7 +236,7 @@ public class AnalysisActivity extends Activity
 		 * @param ipAddress
 		 */
 		//public void ping (InetAddress in)
-		public void ping (Editable editable)
+		/*public void ping (Editable editable)
 		{
 			Process process;
 			String ping_cmd = "/system/bin/ping " + cmd.getText().toString() + " " + input.getText().toString();
@@ -326,5 +340,5 @@ public class AnalysisActivity extends Activity
 			//Exception handling
 			}
 		}
-	}
+	}*/
 }
