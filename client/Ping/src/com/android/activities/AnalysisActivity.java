@@ -1,41 +1,13 @@
 package com.android.activities;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.Date;
-
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-
-import com.android.activities.R;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.android.helpers.PingHelper;
 
 
 public class AnalysisActivity extends Activity 
@@ -57,7 +29,8 @@ public class AnalysisActivity extends Activity
 	private Object     pingMsgLock = new Object();*/
 	
 	private Button testButton;
-
+	private TextView tv;
+	private PingHelper ph;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -66,12 +39,19 @@ public class AnalysisActivity extends Activity
 		setContentView(R.layout.main);
 		
 		testButton=(Button)findViewById(R.id.test);
+		tv = (TextView)findViewById(R.id.textView1);
+		
 		
 		testButton.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) 
 			{
 				//Whatever we need to call
+				ph = new PingHelper();
+				ph.pingHelp();
+				String output = ph.getPingOutput();
+				output += "";
+				tv.append(output);
 			}
 		});
 		

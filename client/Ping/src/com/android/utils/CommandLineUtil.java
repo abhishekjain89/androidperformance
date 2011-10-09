@@ -18,7 +18,7 @@ public class CommandLineUtil {
 		Process process;
 		String line 		= "";
 		String message 		= "";
-		String runtimeInput = "/system/bin/" + cmd + " " + input + " " + options;
+		String runtimeInput = "/system/bin/" + cmd + " " + options + " " + input;
 		
 		try {
 			process = Runtime.getRuntime().exec(runtimeInput);
