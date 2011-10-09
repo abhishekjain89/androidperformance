@@ -1,0 +1,56 @@
+package com.android.tasks;
+
+import java.util.Map;
+import java.util.Timer;
+
+import com.android.listeners.ResponseListener;
+
+import android.content.Context;
+import android.util.Log;
+
+public abstract class ServerTask implements Runnable{
+
+	private Context context;
+	private Map<String,String> reqParams;
+	private ResponseListener listener;
+
+	public ServerTask(Context context, Map<String, String> reqParams,
+			ResponseListener listener) {
+		super();
+		this.context = context;
+		this.reqParams = reqParams;
+		this.listener = listener;
+	}
+
+	public void run() {
+		
+		long startTime = System.currentTimeMillis();
+		
+		this.runTask();
+		
+		long endTime = System.currentTimeMillis();
+		Log.v(toString(), "Total execution time: " + (endTime-startTime) + " ms");
+
+	}
+
+	public abstract void runTask();
+	
+	public abstract String toString();
+	
+	public Context getContext()
+	{
+		return context;
+	}
+	
+	public Map<String,String> getReqParams()
+	{
+		return reqParams;
+	}
+	
+	public ResponseListener getResponseListener()
+	{
+		return listener;
+	}
+	
+	
+}
