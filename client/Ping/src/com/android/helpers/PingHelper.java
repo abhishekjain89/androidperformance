@@ -1,5 +1,6 @@
 package com.android.helpers;
 
+import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.utils.CommandLineUtil;
 import com.android.utils.ParseUtil;
@@ -45,10 +46,10 @@ public class PingHelper {
 		output = cmdUtil.runCommand(cmd, ip, options);
 		pingOutput = output;
 		
-		Ping ping_output = ParseUtil.PingParser(output);
+		Measurement ping_measurement = ParseUtil.PingParser(output);
 		
 		
-		return ping_output;
+		return null;
 	}
 
 	public static String getPingOutput() {
