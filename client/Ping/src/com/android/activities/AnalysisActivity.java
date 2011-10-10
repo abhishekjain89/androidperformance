@@ -2,9 +2,16 @@ package com.android.activities;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,9 +20,12 @@ import android.widget.TextView;
 
 
 import com.android.R;
+import com.android.Session;
 import com.android.helpers.PingHelper;
-import com.inhaledigital.android.activities.DealItem.ShowDealListener;
-import com.inhaledigital.android.tasks.ShowDealTask;
+import com.android.helpers.ServerHelper;
+import com.android.listeners.BaseResponseListener;
+import com.android.models.Ping;
+import com.android.tasks.PingTask;
 
 
 public class AnalysisActivity extends Activity 
@@ -39,6 +49,9 @@ public class AnalysisActivity extends Activity
 	private Button testButton;
 	private TextView tv;
 	private PingHelper ph;
+	private Activity activity;
+	private ServerHelper serverhelper;
+	private Session session = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -46,6 +59,9 @@ public class AnalysisActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
+		activity = this;
+		session =  (Session) getApplicationContext();
+		serverhelper = new ServerHelper(session);
 		testButton=(Button)findViewById(R.id.test);
 		tv = (TextView)findViewById(R.id.textView1);
 		
@@ -53,15 +69,8 @@ public class AnalysisActivity extends Activity
 		testButton.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) 
-			{
-				//Whatever we need to call
-			
-				PingHelper.pingHelp();
-				String output = PingHelper.getPingOutput();
-				output += "";
-				tv.append(output);
-				
-				//helper.execute(new ShowDealTask(this,new HashMap<String,String>(), deal, new ShowDealListener()));
+			{		
+				serverhelper.execute(new PingTask(activity,new HashMap<String,String>(), new PingListener()));
 			}
 		});
 		
@@ -135,7 +144,34 @@ public class AnalysisActivity extends Activity
 			}
 		});*/
 	}
+	
+	private class PingListener extends BaseResponseListener{
 
+		public void onCompletePing(Ping response) {
+			handler.sendEmptyMessage(0);		
+		}
+
+		public void onComplete(String response) {
+		
+		}
+	}
+
+	private Handler handler = new Handler() {
+		public void  handleMessage(Message msg) {
+
+			try
+			{
+				String output = PingHelper.getPingOutput();
+				tv.setText(output);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	
 	/**
 	 * Saves ping data to external storage
 	 * @param msg

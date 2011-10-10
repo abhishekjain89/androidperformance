@@ -1,5 +1,8 @@
 package com.android;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 import com.android.utils.IDThreadPoolExecutor;
 
 import android.app.Application;
@@ -8,9 +11,15 @@ import android.app.Application;
 
 public class Session extends Application {
 	
-	private static IDThreadPoolExecutor tpe;
-
-
+	private IDThreadPoolExecutor tpe;
+	
+	
+	public Session(){
+			
+	tpe = new IDThreadPoolExecutor(2, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
+	
+	}
+	
 	public IDThreadPoolExecutor getThreadPoolExecutor()
 	{
 		return  tpe;

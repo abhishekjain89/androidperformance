@@ -11,7 +11,7 @@ public interface ResponseListener {
 
     public void onComplete(String response);
     
-    public void onCompletePing(Ping p);
+    public void onCompletePing(Ping response);
     
     public void onIOException(IOException e);
 
