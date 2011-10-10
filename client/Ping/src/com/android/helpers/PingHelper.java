@@ -2,6 +2,7 @@ package com.android.helpers;
 
 import com.android.models.Ping;
 import com.android.utils.CommandLineUtil;
+import com.android.utils.ParseUtil;
 
 public class PingHelper {
 	
@@ -43,9 +44,11 @@ public class PingHelper {
 		cmdUtil = new CommandLineUtil();
 		output = cmdUtil.runCommand(cmd, ip, options);
 		pingOutput = output;
-		// Parse output and edit p
-		// p.~~~~
-		return null;
+		
+		Ping ping_output = ParseUtil.PingParser(output);
+		
+		
+		return ping_output;
 	}
 
 	public String getPingOutput() {
