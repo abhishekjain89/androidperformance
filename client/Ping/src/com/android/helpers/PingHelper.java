@@ -8,14 +8,14 @@ public class PingHelper {
 	
 	public static CommandLineUtil cmdUtil;
 	public static String ip_address = "localhost";
-	public String pingOutput;
+	public static String pingOutput;
 	
 	/**
 	 * PingHelp helps run ping command by creating cmd and inputs
 	 * @param p - Ping object
 	 * @return
 	 */
-	public Ping pingHelp(Ping p)
+	public static Ping pingHelp(Ping p)
 	{
 		String ip 		= p.getDstIp();
 		String cmd 		= "ping";
@@ -33,7 +33,7 @@ public class PingHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public Ping pingHelp()
+	public static Ping pingHelp()
 	{
 		Ping p 			= null;
 		String ip 		= ip_address;
@@ -51,12 +51,9 @@ public class PingHelper {
 		return ping_output;
 	}
 
-	public String getPingOutput() {
+	public static String getPingOutput() {
 		return pingOutput;
 	}
 
-	public void setPingOutput(String pingOutput) {
-		this.pingOutput = pingOutput;
-	}
 	
 }

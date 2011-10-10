@@ -1,6 +1,8 @@
 package com.android.activities;
 
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import com.android.R;
 import com.android.helpers.PingHelper;
+import com.inhaledigital.android.activities.DealItem.ShowDealListener;
+import com.inhaledigital.android.tasks.ShowDealTask;
 
 
 public class AnalysisActivity extends Activity 
@@ -51,11 +55,13 @@ public class AnalysisActivity extends Activity
 			public void onClick(View v) 
 			{
 				//Whatever we need to call
-				ph = new PingHelper();
-				ph.pingHelp();
-				String output = ph.getPingOutput();
+			
+				PingHelper.pingHelp();
+				String output = PingHelper.getPingOutput();
 				output += "";
 				tv.append(output);
+				
+				//helper.execute(new ShowDealTask(this,new HashMap<String,String>(), deal, new ShowDealListener()));
 			}
 		});
 		
