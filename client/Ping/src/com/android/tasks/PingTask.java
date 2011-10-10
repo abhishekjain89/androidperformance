@@ -1,13 +1,12 @@
 package com.android.tasks;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import android.content.Context;
 
 import com.android.helpers.PingHelper;
 import com.android.listeners.ResponseListener;
 import com.android.models.Ping;
-
-import android.content.Context;
 
 
 
@@ -40,8 +39,7 @@ public class PingTask extends ServerTask {
 		
 	}
 	
-	public String toString()
-	{
+	public String toString() {
 		return "PingTask";
 	}
 

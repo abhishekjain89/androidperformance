@@ -16,8 +16,7 @@ public class PingHelper {
 	 * @param p - Ping object
 	 * @return
 	 */
-	public static Ping pingHelp(Ping p)
-	{
+	public static Ping pingHelp(Ping p) {
 		String ip 		= p.getDstIp();
 		String cmd 		= "ping";
 		String options 	= "-c 5";
@@ -34,8 +33,7 @@ public class PingHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Ping pingHelp()
-	{
+	public static Ping pingHelp() {
 		Ping p 			= null;
 		String ip 		= ip_address;
 		String cmd 		= "ping";
