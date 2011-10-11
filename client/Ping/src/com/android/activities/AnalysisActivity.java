@@ -54,7 +54,8 @@ public class AnalysisActivity extends Activity
 	private class PingListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			handler.sendEmptyMessage(0);		
+			Message msg=Message.obtain(handler, 0, response);
+			handler.sendMessage(msg);		
 		}
 
 		public void onComplete(String response) {
@@ -65,8 +66,8 @@ public class AnalysisActivity extends Activity
 	private Handler handler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
-				String output = PingHelper.getPingOutput();
-				tv.setText(output);
+				Ping p=(Ping)msg.obj;
+				tv.setText(""+p.getMeasure().getAverage()+" "+p.getMeasure().getMax()+" "+p.getMeasure().getMin()+" "+p.getMeasure().getStddev());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

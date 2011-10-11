@@ -28,8 +28,10 @@ public class PingHelper {
 		
 		Measurement ping_measurement = ParseUtil.PingParser(output);
 		
+		p=new Ping("deviceid","src","dst",ping_measurement);
 		
-		return null;
+		
+		return p;
 	}
 
 	public static String getPingOutput() {

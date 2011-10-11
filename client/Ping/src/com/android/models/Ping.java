@@ -7,30 +7,20 @@ public class Ping {
 	String deviceId;
 	String srcIp;
 	String dstIp;
-	String eventStamp;
 	Measurement measure;
 	
 	Date time;
 	
-	public Ping(String deviceId, String scrIp, String dstIp, String eventStamp, Measurement measure) {
+	public Ping(String deviceId, String scrIp, String dstIp, Measurement measure) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		this.deviceId=deviceId;
 		this.srcIp=scrIp;
 		this.dstIp=dstIp;
-		this.eventStamp=eventStamp;
 		this.measure = measure;
-		time=new Date();
+		this.time=new Date();
 	}
 	
-	public String getEventStamp() {
-		return eventStamp;
-	}
-
-	public void setEventStamp(String eventStamp) {
-		this.eventStamp = eventStamp;
-	}
-
 	public String getDeviceId() {
 		return deviceId;
 	}
@@ -55,5 +45,14 @@ public class Ping {
 		this.dstIp = dstIp;
 	}
 
+	public Measurement getMeasure() {
+		return measure;
+	}
+
+	public void setMeasure(Measurement measure) {
+		this.measure = measure;
+	}
+	
+	
 
 }
