@@ -16,7 +16,7 @@ public class Session extends Application {
 	
 	public Session(){
 			
-	tpe = new IDThreadPoolExecutor(2, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
+	tpe = new IDThreadPoolExecutor(1, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
 	
 	}
 	

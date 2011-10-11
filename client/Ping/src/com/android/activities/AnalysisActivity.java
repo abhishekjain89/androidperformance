@@ -18,6 +18,7 @@ import com.android.helpers.PingHelper;
 import com.android.helpers.ServerHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Ping;
+import com.android.tasks.MeasurementTask;
 import com.android.tasks.PingTask;
 import com.android.utils.ParseUtil;
 
@@ -45,13 +46,13 @@ public class AnalysisActivity extends Activity
 		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {		
-				serverhelper.execute(new PingTask(activity,new HashMap<String,String>(), new PingListener()));
+				serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 			}
 		});
 
 	}
 	
-	private class PingListener extends BaseResponseListener{
+	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(handler, 0, response);

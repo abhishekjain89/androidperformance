@@ -15,7 +15,7 @@ public class PingHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Ping pingHelp(String ip_address, String count) {
+	public static Ping pingHelp(String ip_address, int count) {
 		Ping p 			= null;
 		String ip 		= ip_address;
 		String cmd 		= "ping";
