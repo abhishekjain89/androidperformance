@@ -23,10 +23,10 @@ public class ParseUtil {
 		scanLastLine=new Scanner(lastLine);
 		scanLastLine.findInLine("=");
 		
-		if (scanLastLine.hasNext()){
+		if (scanLastLine.hasNext()) {
 			scanValues=new Scanner(scanLastLine.next());
 			scanValues.useDelimiter("/");
-			try{
+			try {
 				min=scanValues.nextDouble();
 				avr=scanValues.nextDouble();
 				max=scanValues.nextDouble();

@@ -29,9 +29,9 @@ public class PingTask extends ServerTask {
 		
 		try {
 		
-		Ping p = PingHelper.pingHelp();	
+			Ping p = PingHelper.pingHelp("localhost", "5");	
 		
-		getResponseListener().onCompletePing(p);
+			getResponseListener().onCompletePing(p);
 		
 		} catch (Exception e) {
 			getResponseListener().onException(e);
