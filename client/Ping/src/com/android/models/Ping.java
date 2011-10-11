@@ -8,23 +8,18 @@ public class Ping {
 	String srcIp;
 	String dstIp;
 	String eventStamp;
-	int max;
-	int min;
-	int average;
-	int stddev;
+	Measurement measure;
+	
 	Date time;
 	
-	public Ping(String deviceId, String scrIp, String dstIp, String eventStamp, int max, int min, int average, int stddev) {
+	public Ping(String deviceId, String scrIp, String dstIp, String eventStamp, Measurement measure) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		this.deviceId=deviceId;
 		this.srcIp=scrIp;
 		this.dstIp=dstIp;
 		this.eventStamp=eventStamp;
-		this.max=max;
-		this.min=min;
-		this.average=average;
-		this.stddev=stddev;
+		this.measure = measure;
 		time=new Date();
 	}
 	
@@ -58,38 +53,6 @@ public class Ping {
 
 	public void setDstIp(String dstIp) {
 		this.dstIp = dstIp;
-	}
-
-	public int getMax() {
-		return max;
-	}
-
-	public void setMax(int max) {
-		this.max = max;
-	}
-
-	public int getMin() {
-		return min;
-	}
-
-	public void setMin(int min) {
-		this.min = min;
-	}
-
-	public int getAverage() {
-		return average;
-	}
-
-	public void setAverage(int average) {
-		this.average = average;
-	}
-
-	public int getStddev() {
-		return stddev;
-	}
-
-	public void setStddev(int stddev) {
-		this.stddev = stddev;
 	}
 
 

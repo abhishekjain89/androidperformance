@@ -1,21 +1,22 @@
 package com.android.helpers;
 
+import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.utils.CommandLineUtil;
+import com.android.utils.ParseUtil;
 
 public class PingHelper {
 	
 	public static CommandLineUtil cmdUtil;
 	public static String ip_address = "localhost";
-	public String pingOutput;
+	public static String pingOutput;
 	
 	/**
 	 * PingHelp helps run ping command by creating cmd and inputs
 	 * @param p - Ping object
 	 * @return
 	 */
-	public Ping pingHelp(Ping p)
-	{
+	public static Ping pingHelp(Ping p) {
 		String ip 		= p.getDstIp();
 		String cmd 		= "ping";
 		String options 	= "-c 5";
@@ -32,8 +33,7 @@ public class PingHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public Ping pingHelp()
-	{
+	public static Ping pingHelp() {
 		Ping p 			= null;
 		String ip 		= ip_address;
 		String cmd 		= "ping";
@@ -43,17 +43,16 @@ public class PingHelper {
 		cmdUtil = new CommandLineUtil();
 		output = cmdUtil.runCommand(cmd, ip, options);
 		pingOutput = output;
-		// Parse output and edit p
-		// p.~~~~
+		
+		Measurement ping_measurement = ParseUtil.PingParser(output);
+		
+		
 		return null;
 	}
 
-	public String getPingOutput() {
+	public static String getPingOutput() {
 		return pingOutput;
 	}
 
-	public void setPingOutput(String pingOutput) {
-		this.pingOutput = pingOutput;
-	}
 	
 }
