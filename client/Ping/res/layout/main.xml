@@ -2,7 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" android:weightSum="1">
     <Button android:text="@string/testButton" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/test" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_alignParentRight="true"></Button>
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/textView1" android:layout_below="@+id/test" android:layout_alignParentLeft="true"></TextView>
+    <TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0.65" android:id="@+id/tableLayout1">
+    	<TableRow>
+	        <TextView
+	        	android:layout_column="1"
+	            android:text="X"
+	            android:padding="3dip" />
+	        <TextView
+	        	android:layout_column="2"
+	            android:text="Export..."
+	            android:padding="3dip" />
+	        <TextView
+	        	android:layout_column="3"
+	            android:text="Ctrl-E"
+	            android:gravity="right"
+	            android:padding="3dip" />
+	       	<TextView
+	        	android:layout_column="4"
+	            android:text="Ctrl-E"
+	            android:gravity="right"
+	            android:padding="3dip" />
+	        <TextView
+	        	android:layout_column="5"
+	            android:text="Ctrl-E"
+	            android:gravity="right"
+	            android:padding="3dip" />
+    	</TableRow>
+    </TableLayout>
 </LinearLayout>
