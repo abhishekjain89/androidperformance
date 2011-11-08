@@ -21,6 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <service android:name=".services.PerformanceService" android:enabled="true" android:permission="android.permission.INTERNET"></service>
     </application>
 </manifest>
