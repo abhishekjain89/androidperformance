@@ -3,6 +3,12 @@ package com.android.utils;
 import android.location.Location;
 
 public class GPSUtil {
+	
+	/**
+	 * Gets gps location 
+	 * @param location
+	 * @return 
+	 */
 	public String getGPS(Location location) {
 
 		double lat, lng, alt;
