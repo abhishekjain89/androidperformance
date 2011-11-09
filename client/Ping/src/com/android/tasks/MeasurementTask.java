@@ -6,8 +6,12 @@ import java.util.Map;
 import android.content.Context;
 
 import com.android.Session;
+import com.android.helpers.DeviceHelper;
+import com.android.helpers.PingHelper;
 import com.android.helpers.ServerHelper;
 import com.android.listeners.ResponseListener;
+import com.android.models.Device;
+import com.android.models.Ping;
 
 /*
  * Measurement Task 
@@ -26,11 +30,16 @@ public class MeasurementTask extends ServerTask{
 
 	@Override
 	public void runTask() {
-		Session session =  (Session) getContext().getApplicationContext();
-		ServerHelper serverhelper = new ServerHelper(session);
-		// TODO Run ping task with list of things such as ip address and number of pings
 		
-		serverhelper.execute(new PingTask(getContext(),"localhost",5, getResponseListener()));
+		
+		// TODO Run ping task with list of things such as ip address and number of pings	
+		
+		Ping ping = PingHelper.pingHelp("localhost", 5);
+		getResponseListener().onCompletePing(ping);
+		
+		
+		Device device = DeviceHelper.deviceHelp(getContext());
+		
 		
 	}
 
@@ -38,5 +47,6 @@ public class MeasurementTask extends ServerTask{
 	public String toString() {
 		return "Measurement Task";
 	}
+	
 
 }
