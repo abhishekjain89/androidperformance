@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 import urllib2, urllib, json
 from django.shortcuts import render_to_response
 from backend.summary.models import *
-from pyofc2 import *
+
 import random
 from datetime import datetime, timedelta
 from time import time,mktime,strftime
