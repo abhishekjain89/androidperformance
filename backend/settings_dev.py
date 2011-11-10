@@ -38,7 +38,7 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 # CHANGE to something that is local to you for testing
-MEDIA_ROOT = '/home/abhishek/Desktop/gitrepo/androidperformance/template'
+MEDIA_ROOT = '/home/abhishek/Desktop/gitrepo/androidperformance/backend/template'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -66,13 +66,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'androidperformance.urls'
+ROOT_URLCONF = 'backend.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/abhishek/Desktop/gitrepo/androidperformance/templates',
+    '/home/abhishek/Desktop/gitrepo/androidperformance/backend/templates',
 )
 
 INSTALLED_APPS = (
@@ -81,7 +81,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'androidperformance.summary'
+    'backend.summary'
 )
 
 
