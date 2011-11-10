@@ -18,10 +18,10 @@ urlpatterns = patterns('',
      (r'^admin/', include(admin.site.urls)),
 
     # site URLs
-     (r'^$', 'androidperformance.summary.views.index'),
-     (r'^register', 'androidperformance.summary.views.register'),
-     (r'^check_register', 'androidperformance.summary.views.check_register'),
-     (r'^measurement', 'androidperformance.summary.views.measurement'),
+     (r'^$', 'backend.summary.views.index'),
+     (r'^register', 'backend.summary.views.register'),
+     (r'^check_register', 'backend.summary.views.check_register'),
+     (r'^measurement', 'backend.summary.views.measurement'),
      (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.MEDIA_ROOT})
 
 )
