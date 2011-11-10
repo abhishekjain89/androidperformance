@@ -2,7 +2,6 @@ package com.android.listeners;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import com.android.models.Ping;
 

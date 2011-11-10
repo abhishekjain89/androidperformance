@@ -3,4 +3,7 @@
     <string name="hello">Hello World, PingActivity!</string>
     <string name="app_name">Ping</string>
     <string name="testButton">test</string>
+    <string name="configButton">Settings</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="saveButton">Save</string>
 </resources>

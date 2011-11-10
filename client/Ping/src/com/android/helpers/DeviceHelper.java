@@ -1,7 +1,6 @@
 package com.android.helpers;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.telephony.TelephonyManager;
 
 import com.android.models.Device;

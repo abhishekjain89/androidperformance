@@ -3,7 +3,6 @@ package com.android.utils;
 import java.util.Scanner;
 
 import com.android.models.Measurement;
-import com.android.models.Ping;
 
 public class ParseUtil {
 	

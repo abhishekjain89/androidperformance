@@ -1,6 +1,7 @@
 package com.android.activities;
 
 
+import com.android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import com.android.R;
 
 
 public class ConfigActivity extends Activity 

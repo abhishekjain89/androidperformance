@@ -1,12 +1,11 @@
 package com.android.tasks;
 
 import java.util.Map;
-import java.util.Timer;
-
-import com.android.listeners.ResponseListener;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.android.listeners.ResponseListener;
 
 public abstract class ServerTask implements Runnable{
 

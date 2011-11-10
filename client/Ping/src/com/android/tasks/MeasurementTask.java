@@ -1,14 +1,11 @@
 package com.android.tasks;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
 
-import com.android.Session;
 import com.android.helpers.DeviceHelper;
 import com.android.helpers.PingHelper;
-import com.android.helpers.ServerHelper;
 import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.Ping;
