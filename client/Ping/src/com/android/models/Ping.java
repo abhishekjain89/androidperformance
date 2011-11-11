@@ -7,11 +7,11 @@ public class Ping {
 	String deviceId;
 	String srcIp;
 	String dstIp;
-	Measurement measure;
+	Measure measure;
 	
 	Date time;
 	
-	public Ping(String deviceId, String scrIp, String dstIp, Measurement measure) {
+	public Ping(String deviceId, String scrIp, String dstIp, Measure measure) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		this.deviceId=deviceId;
@@ -45,11 +45,11 @@ public class Ping {
 		this.dstIp = dstIp;
 	}
 
-	public Measurement getMeasure() {
+	public Measure getMeasure() {
 		return measure;
 	}
 
-	public void setMeasure(Measurement measure) {
+	public void setMeasure(Measure measure) {
 		this.measure = measure;
 	}
 	

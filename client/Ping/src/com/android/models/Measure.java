@@ -1,13 +1,13 @@
 package com.android.models;
 
-public class Measurement {
+public class Measure {
 	
 	double max;
 	double min;
 	double average;
 	double stddev;
 	
-	public Measurement(double max, double min, double average, double stddev){
+	public Measure(double max, double min, double average, double stddev){
 		this.max = max;
 		this.min = min;
 		this.average = average;
