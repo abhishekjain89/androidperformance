@@ -1,5 +1,6 @@
 package com.android.tasks;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
@@ -41,9 +42,9 @@ public abstract class ServerTask implements Runnable{
 		return context;
 	}
 	
-	public Map<String,String> getReqParams()
+	public HashMap<String, String> getReqParams()
 	{
-		return reqParams;
+		return (HashMap<String, String>) reqParams;
 	}
 	
 	public ResponseListener getResponseListener()

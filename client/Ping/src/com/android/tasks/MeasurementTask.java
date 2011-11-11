@@ -8,6 +8,7 @@ import com.android.helpers.DeviceHelper;
 import com.android.helpers.PingHelper;
 import com.android.listeners.ResponseListener;
 import com.android.models.Device;
+import com.android.models.Measurement;
 import com.android.models.Ping;
 
 /*
@@ -28,11 +29,13 @@ public class MeasurementTask extends ServerTask{
 	@Override
 	public void runTask() {
 		
+		Measurement measurement;
 		
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		
 		Ping ping = PingHelper.pingHelp("localhost", 5);
 		getResponseListener().onCompletePing(ping);
+		
 		
 		
 		Device device = DeviceHelper.deviceHelp(getContext());
