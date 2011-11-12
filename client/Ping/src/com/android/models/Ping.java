@@ -53,10 +53,10 @@ public class Ping {
 		JSONObject obj = new JSONObject();
 		try {
 			
-			obj.put("src_ip", srcIp);
-			obj.put("dst_ip", dstIp);
-			obj.put("time", time);
-			obj.put("measure", measure.toJSON());
+			obj.putOpt("src_ip", srcIp);
+			obj.putOpt("dst_ip", dstIp);
+			obj.putOpt("time", time);
+			obj.putOpt("measure", measure.toJSON());
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
