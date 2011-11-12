@@ -38,8 +38,8 @@ public class MeasurementTask extends ServerTask{
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		ArrayList pings = new ArrayList<Ping>();
 		
-		pings.add(PingHelper.pingHelp("localhost", 5));
-		
+		Ping ping = (PingHelper.pingHelp("localhost", 5));
+		pings.add(ping);
 		getResponseListener().onCompletePing(ping);
 		
 		
