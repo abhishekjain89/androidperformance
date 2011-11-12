@@ -10,31 +10,31 @@
 from django.db import models
 
 class Device(models.Model):
-    deviceid = models.CharField(max_length=-1, primary_key=True)
+    deviceid = models.CharField(max_length=20, primary_key=True)
     class Meta:
         db_table = u'device'
 
 
 class Measurement(models.Model):
-    measurementid = models.CharField(max_length=-1, primary_key=True)
+    measurementid = models.CharField(max_length=20, primary_key=True)
     deviceid = models.ForeignKey(Device, db_column='deviceid')
-    simoperatorcode = models.CharField(max_length=-1)
-    networktype = models.CharField(max_length=-1)
+    simoperatorcode = models.CharField(max_length=20)
+    networktype = models.CharField(max_length=10)
     simserialnumber = models.FloatField()
     phonetype = models.FloatField()
-    altitude = models.CharField(max_length=-1)
-    networkcountry = models.CharField(max_length=-1)
-    connectiontype = models.CharField(max_length=-1)
-    simnetworkcountry = models.CharField(max_length=-1)
+    altitude = models.CharField(max_length=10)
+    networkcountry = models.CharField(max_length=10)
+    connectiontype = models.CharField(max_length=10)
+    simnetworkcountry = models.CharField(max_length=10)
     networkoperatorid = models.IntegerField()
-    mobilenetworkdetailedstate = models.CharField(max_length=-1)
-    simstate = models.CharField(max_length=-1)
+    mobilenetworkdetailedstate = models.CharField(max_length=10)
+    simstate = models.CharField(max_length=5)
     time = models.DateTimeField()
-    mobilenetworkstate = models.CharField(max_length=-1)
-    longitude = models.CharField(max_length=-1)
-    latitude = models.CharField(max_length=-1)
-    simoperatorname = models.CharField(max_length=-1)
-    networkname = models.CharField(max_length=-1)
+    mobilenetworkstate = models.CharField(max_length=10)
+    longitude = models.CharField(max_length=10)
+    latitude = models.CharField(max_length=10)
+    simoperatorname = models.CharField(max_length=20)
+    networkname = models.CharField(max_length=20)
     class Meta:
         db_table = u'measurement'
 
@@ -44,10 +44,10 @@ class Ping(models.Model):
     stdev = models.FloatField()
     min = models.FloatField()
     max = models.FloatField()
-    scrip = models.CharField(max_length=-1)
-    dstip = models.CharField(max_length=-1)
+    scrip = models.CharField(max_length=20)
+    dstip = models.CharField(max_length=20)
     time = models.DateTimeField()
     measurementid = models.ForeignKey(Measurement, db_column='measurementid')
-    pingid = models.CharField(max_length=-1, primary_key=True)
+    pingid = models.CharField(max_length=20, primary_key=True)
     class Meta:
         db_table = u'ping'
