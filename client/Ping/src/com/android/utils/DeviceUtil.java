@@ -1,8 +1,6 @@
 package com.android.utils;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Date;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -10,7 +8,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
 
 import com.android.models.Measurement;
 
@@ -190,6 +187,8 @@ public class DeviceUtil {
 				dev.setWifiState(cSummary);
 			} 
 		}
+		
+		dev.setTime(new Date().toString());
 		
 		/*
 		TelephonyManager tm = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);

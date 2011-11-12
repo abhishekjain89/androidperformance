@@ -49,7 +49,7 @@ public class MeasurementTask extends ServerTask{
 		HTTPUtil http = new HTTPUtil();
 		
 		try {
-			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
+			//String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
 	
 		} catch (Exception e) {
 			e.printStackTrace();

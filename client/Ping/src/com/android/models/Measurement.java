@@ -21,6 +21,8 @@ public class Measurement {
 	String networkDetail;	
 	String deviceId;
 	
+	String time;
+
 	String phoneType;
 	String softwareVersion;
 	String networkCountry;
@@ -41,6 +43,15 @@ public class Measurement {
 	String altitude;
 	String cellId;
 	String cellLac;
+	
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 	
 	public String getCellId() {
 		return cellId;
@@ -295,7 +306,8 @@ public class Measurement {
 			obj.putOpt("latitude", latitude);
 			obj.putOpt("altitude", altitude);
 			obj.putOpt("cellId", cellId);
-			obj.putOpt("cellLac", cellLac);			
+			obj.putOpt("cellLac", cellLac);		
+			obj.putOpt("time", time);			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
