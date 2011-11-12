@@ -1,15 +1,14 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 	String name;
-	String location;
-	String carrier;
 	String plantype;
 	
 	public User(String name, String location, String carrier, String pantype){
 		this.name=name;
-		this.location=location;
-		this.carrier=carrier;
 		this.plantype=plantype;
 	}
 
@@ -21,21 +20,6 @@ public class User {
 		this.name = name;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getCarrier() {
-		return carrier;
-	}
-
-	public void setCarrier(String carrier) {
-		this.carrier = carrier;
-	}
 
 	public String getPlantype() {
 		return plantype;
@@ -43,6 +27,21 @@ public class User {
 
 	public void setPlantype(String plantype) {
 		this.plantype = plantype;
+	}
+	
+	public JSONObject toJSON(){
+		
+		try {
+			JSONObject obj = new JSONObject();
+			obj.put("name", name);
+			obj.put("plantype", plantype);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return obj;
+		
 	}
 
 }
