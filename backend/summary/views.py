@@ -72,10 +72,10 @@ def check_register(request):
 def measurement(request):
 
     response = {}
-    print request.POST
+    print request.raw_post_data
 
     try:
-    	request_object = ast.literal_eval(request.POST)
+    	request_object = ast.literal_eval(request.raw_post_data)
 
 	print "worked"
 	print request_object
