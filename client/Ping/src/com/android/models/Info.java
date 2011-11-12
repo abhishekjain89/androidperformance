@@ -4,15 +4,17 @@ import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 
 public class Info {
-	
-	String phoneDetail;
-	String networkDetail;
 
+	// Not used at the moment
+	String phoneDetail;
+	String phoneNumber;
+	String networkDetail;	
+	String deviceId;
+	GPS gps;
+	//
 
 	String phoneType;
-	String deviceId;
 	String softwareVersion;
-	String phoneNumber;
 	String networkCountry;
 	String networkOperatorId;
 	String networkName;
@@ -29,7 +31,6 @@ public class Info {
 	String longitude;
 	String latitude;
 	String altitude;
-	GPS gps;
 
 	public GPS getGps() {
 		return gps;

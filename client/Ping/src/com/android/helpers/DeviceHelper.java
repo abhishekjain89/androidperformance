@@ -3,6 +3,7 @@ package com.android.helpers;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.android.models.GPS;
 import com.android.models.Info;
 import com.android.utils.DeviceUtil;
 
@@ -23,7 +24,10 @@ public class DeviceHelper {
 		GPSHelper gpsH = new GPSHelper();
 		Info dev = new Info();
 		dev = deviceUtil.getFullDetail(context);
-		dev.setGps(gpsH.getGps(context));
+		GPS gps = gpsH.getGps(context);
+		dev.setAltitude(gps.getAltitude());
+		dev.setLatitude(gps.getLatitude());
+		dev.setLongitude(gps.getLongitude());
 		return dev;
 	}
 	

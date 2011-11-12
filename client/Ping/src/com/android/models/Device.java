@@ -4,12 +4,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Device {
+
 	String name;
-	String plantype;
+	String planType ;
+	String deviceId;
+	String phoneNumber;
 	
 	public Device(String name, String location, String carrier, String pantype){
-		this.name=name;
-		this.plantype=plantype;
+		this.name = name;
+		this.planType = planType ;
 	}
 
 	public String getName() {
@@ -19,14 +22,29 @@ public class Device {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-	public String getPlantype() {
-		return plantype;
+	
+	public String getPlanType() {
+		return planType;
 	}
 
-	public void setPlantype(String plantype) {
-		this.plantype = plantype;
+	public void setPlanType(String planType) {
+		this.planType = planType;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 	public JSONObject toJSON(){
@@ -35,7 +53,10 @@ public class Device {
 		try {
 			
 			obj.put("name", name);
-			obj.put("plantype", plantype);
+			obj.put("plantype",  planType );
+			obj.put("deviceId", deviceId);
+			obj.put("phoneNumber", phoneNumber);
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
