@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class Measurement {
 	
 	//Info info;
-	Device device;
+	
 	ArrayList<Ping> pings;
 	
 
@@ -20,9 +20,7 @@ public class Measurement {
 	String phoneNumber;
 	String networkDetail;	
 	String deviceId;
-	GPS gps;
-	//
-
+	
 	String phoneType;
 	String softwareVersion;
 	String networkCountry;
@@ -41,14 +39,6 @@ public class Measurement {
 	String longitude;
 	String latitude;
 	String altitude;
-
-	public GPS getGps() {
-		return gps;
-	}
-
-	public void setGps(GPS gps) {
-		this.gps = gps;
-	}
 	
 	public String getPhoneType() {
 		return phoneType;
@@ -233,16 +223,6 @@ public class Measurement {
 	public void setAltitude(String altitude) {
 		this.altitude = altitude;
 	}
-
-
-	public Device getDevice() {
-		return device;
-	}
-
-	public void setUser(Device user) {
-		this.device = user;
-	}
-
 	public ArrayList<Ping> getPings() {
 		return pings;
 	}
@@ -269,7 +249,6 @@ public class Measurement {
 		
 		try {
 			obj.put("device", null);
-			obj.put("user", device.toJSON());
 			
 			JSONArray array = new JSONArray();
 			
