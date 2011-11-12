@@ -1,5 +1,8 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Measure {
 	
 	double max;
@@ -37,6 +40,22 @@ public class Measure {
 	}
 	public void setStddev(int stddev) {
 		this.stddev = stddev;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {
+			
+			obj.put("max",  max);
+			obj.put("min", min);
+			obj.put("average", average);
+			obj.put("stddev", stddev);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 
 }

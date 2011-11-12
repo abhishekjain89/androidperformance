@@ -31,14 +31,14 @@ public class User {
 	
 	public JSONObject toJSON(){
 		
+		JSONObject obj = new JSONObject();
 		try {
-			JSONObject obj = new JSONObject();
+			
 			obj.put("name", name);
 			obj.put("plantype", plantype);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
 		
 		return obj;
 		

@@ -28,7 +28,7 @@ public class PingHelper {
 		
 		Measure ping_measurement = ParseUtil.PingParser(output);
 		
-		p=new Ping("deviceid","src","dst",ping_measurement);
+		p=new Ping("src","dst",ping_measurement);
 		
 		
 		return p;
