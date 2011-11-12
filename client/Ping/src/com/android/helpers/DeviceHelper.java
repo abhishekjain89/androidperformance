@@ -4,13 +4,13 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.android.models.GPS;
-import com.android.models.Info;
+import com.android.models.Measurement;
 import com.android.utils.DeviceUtil;
 
 public class DeviceHelper {
 
 	
-	public static Info deviceHelp(Context context){
+	public static Measurement deviceHelp(Context context){
 		
 		//String phoneDetail = runPhoneDetail(context);
 		//String networkDetail = runNetworkDetail(context);
@@ -19,7 +19,8 @@ public class DeviceHelper {
 		return runFullDetail(context);
 	}
 	
-	public static Info runFullDetail(Context context) {
+	public static Measurement runFullDetail(Context context) {
+		/*
 		DeviceUtil deviceUtil = new DeviceUtil();
 		GPSHelper gpsH = new GPSHelper();
 		Info dev = new Info();
@@ -29,6 +30,17 @@ public class DeviceHelper {
 		dev.setLatitude(gps.getLatitude());
 		dev.setLongitude(gps.getLongitude());
 		return dev;
+		*/
+		DeviceUtil deviceUtil = new DeviceUtil();
+		GPSHelper gpsH = new GPSHelper();
+		Measurement info = new Measurement();
+		info = deviceUtil.getFullDetail(context);
+		GPS gps = gpsH.getGps(context);
+		info.setAltitude(gps.getAltitude());
+		info.setLatitude(gps.getLatitude());
+		info.setLongitude(gps.getLongitude());
+		return info;
+		
 	}
 	
 	public static String runPhoneDetail(Context context) {

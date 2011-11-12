@@ -7,13 +7,13 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
-import com.android.models.Info;
+import com.android.models.Measurement;
 
 public class DeviceUtil {
 	
-	public Info getFullDetail(Context context)
+	public Measurement getFullDetail(Context context)
 	{
-		Info dev = new Info();
+		Measurement dev = new Measurement();
 		String srvnName = context.TELEPHONY_SERVICE;
 		String service = context.CONNECTIVITY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);

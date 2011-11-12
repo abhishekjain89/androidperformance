@@ -10,25 +10,237 @@ import org.json.JSONObject;
 
 public class Measurement {
 	
-	Info device;
-	Device user;
+	//Info info;
+	Device device;
 	ArrayList<Ping> pings;
 	
+
+	// Not used at the moment
+	String phoneDetail;
+	String phoneNumber;
+	String networkDetail;	
+	String deviceId;
+	GPS gps;
+	//
+
+	String phoneType;
+	String softwareVersion;
+	String networkCountry;
+	String networkOperatorId;
+	String networkName;
+	String networkType;
+	String simNetworkCountry;
+	String simState;
+	String simOperatorName;
+	String simOperatorCode;
+	String simSerialNumber;
+	String connectionType;
+	String mobileNetworkState;
+	String mobileNetworkDetailedState;
+	String wifiState;
+	String longitude;
+	String latitude;
+	String altitude;
+
+	public GPS getGps() {
+		return gps;
+	}
+
+	public void setGps(GPS gps) {
+		this.gps = gps;
+	}
 	
-	public Info getDevice() {
+	public String getPhoneType() {
+		return phoneType;
+	}
+
+	public void setPhoneType(String phoneType) {
+		this.phoneType = phoneType;
+	}
+
+	public String getPhoneDetail() {
+		return phoneDetail;
+	}
+
+	public void setPhoneDetail(String phoneDetail) {
+		this.phoneDetail = phoneDetail;
+	}
+
+	public String getNetworkDetail() {
+		return networkDetail;
+	}
+
+	public void setNetworkDetail(String networkDetail) {
+		this.networkDetail = networkDetail;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public String getSoftwareVersion() {
+		return softwareVersion;
+	}
+
+	public void setSoftwareVersion(String softwareVersion) {
+		this.softwareVersion = softwareVersion;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getNetworkCountryISO() {
+		return networkCountry;
+	}
+
+	public void setNetworkCountryISO(String networkCountry) {
+		this.networkCountry = networkCountry;
+	}
+
+	public String getNetworkOperatorId() {
+		return networkOperatorId;
+	}
+
+	public void setNetworkOperatorId(String networkOperatorId) {
+		this.networkOperatorId = networkOperatorId;
+	}
+
+	public String getNetworkName() {
+		return networkName;
+	}
+
+	public void setNetworkName(String networkName) {
+		this.networkName = networkName;
+	}
+
+	public String getNetworkType() {
+		return networkType;
+	}
+
+	public void setNetworkType(String networkType) {
+		this.networkType = networkType;
+	}
+
+	public String getSimState() {
+		return simState;
+	}
+
+	public void setSimState(String simState) {
+		this.simState = simState;
+	}
+
+	public String getNetworkCountry() {
+		return networkCountry;
+	}
+
+	public void setNetworkCountry(String networkCountry) {
+		this.networkCountry = networkCountry;
+	}
+
+	public String getSimNetworkCountry() {
+		return simNetworkCountry;
+	}
+
+	public void setSimNetworkCountry(String simNetworkCountry) {
+		this.simNetworkCountry = simNetworkCountry;
+	}
+	
+	public String getSimOperatorCode() {
+		return simOperatorCode;
+	}
+
+	public void setSimOperatorCode(String simOperatorCode) {
+		this.simOperatorCode = simOperatorCode;
+	}
+
+	public String getSimOperatorName() {
+		return simOperatorName;
+	}
+
+	public void setSimOperatorName(String simOperatorName) {
+		this.simOperatorName = simOperatorName;
+	}
+
+	public String getSimSerialNumber() {
+		return simSerialNumber;
+	}
+
+	public void setSimSerialNumber(String simSerialNumber) {
+		this.simSerialNumber = simSerialNumber;
+	}
+
+	public String getConnectionType() {
+		return connectionType;
+	}
+
+	public void setConnectionType(String connectionType) {
+		this.connectionType = connectionType;
+	}
+
+	public String getMobileNetworkState() {
+		return mobileNetworkState;
+	}
+
+	public void setMobileNetworkState(String mobileNetworkState) {
+		this.mobileNetworkState = mobileNetworkState;
+	}
+
+	public String getMobileNetworkDetailedState() {
+		return mobileNetworkDetailedState;
+	}
+
+	public void setMobileNetworkDetailedState(String mobileNetworkDetailedState) {
+		this.mobileNetworkDetailedState = mobileNetworkDetailedState;
+	}
+
+	public String getWifiState() {
+		return wifiState;
+	}
+
+	public void setWifiState(String wifiState) {
+		this.wifiState = wifiState;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getAltitude() {
+		return altitude;
+	}
+
+	public void setAltitude(String altitude) {
+		this.altitude = altitude;
+	}
+
+
+	public Device getDevice() {
 		return device;
 	}
 
-	public void setDevice(Info device) {
-		this.device = device;
-	}
-
-	public Device getUser() {
-		return user;
-	}
-
 	public void setUser(Device user) {
-		this.user = user;
+		this.device = user;
 	}
 
 	public ArrayList<Ping> getPings() {
@@ -39,19 +251,25 @@ public class Measurement {
 		this.pings = pings;
 	}
 
+	public Measurement() {
+		
+	}
+	
+	/*
 	public Measurement(Info device, Device user, ArrayList<Ping> pings) {
 		super();
-		this.device = device;
-		this.user = user;
+		this.info = device;
+		this.device = user;
 		this.pings = pings;
 	}
+	*/
 
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		
 		try {
 			obj.put("device", null);
-			obj.put("user", user.toJSON());
+			obj.put("user", device.toJSON());
 			
 			JSONArray array = new JSONArray();
 			
