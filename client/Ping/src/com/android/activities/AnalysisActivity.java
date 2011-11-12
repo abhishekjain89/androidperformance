@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -82,9 +83,12 @@ public class AnalysisActivity extends Activity
 	private void initPingTable(){
 		LinearLayout row = new LinearLayout(this);
 		row.setOrientation(LinearLayout.HORIZONTAL);
-		row.setLayoutParams(new LinearLayout.LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+			     LinearLayout.LayoutParams.FILL_PARENT, 
+			     LinearLayout.LayoutParams.WRAP_CONTENT);
+
+		layoutParams.setMargins(0, 0, 0, 30);
+		row.setLayoutParams(layoutParams);
         
         TextView cell2 = new TextView(this);
         cell2.setText("Max");
@@ -294,9 +298,11 @@ public class AnalysisActivity extends Activity
 		LinearLayout row;
 		
 		for (String key=(String)keyes.next();keyes.hasNext();key=(String)keyes.next()){
-		
+			if (key.equals("pings"))
+				continue;
+			
 			row = new LinearLayout(this);
-			//row.setOrientation(HORIZONTAL);
+			row.setOrientation(LinearLayout.HORIZONTAL);
 			row.setLayoutParams(new LinearLayout.LayoutParams(
 	                LayoutParams.FILL_PARENT,
 	                LayoutParams.WRAP_CONTENT));
@@ -372,7 +378,7 @@ public class AnalysisActivity extends Activity
 	private Handler deviceHandler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
-				firstPing=false;
+				firstPing=true;
 				Device d=(Device)msg.obj;
 				newDeviceTable(d);
 			} catch (Exception e) {
@@ -384,7 +390,7 @@ public class AnalysisActivity extends Activity
 	private Handler measurementHandler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
-				firstPing=false;
+				firstPing=true;
 				Measurement m=(Measurement)msg.obj;
 				newMeasurementTable(m);
 			} catch (Exception e) {
