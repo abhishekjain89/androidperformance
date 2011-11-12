@@ -248,14 +248,13 @@ public class Measurement {
 		JSONObject obj = new JSONObject();
 		
 		try {
-			obj.put("device", null);
+			
+			//ADD key-value pairs
 			
 			JSONArray array = new JSONArray();
-			
 			for(Ping p: pings){
 				array.put(p.toJSON());
 			}
-			
 			obj.put("pings", array);
 			
 			
