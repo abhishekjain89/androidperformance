@@ -26,7 +26,7 @@ import java.util.TreeMap;
 public class HTTPUtil {
 
 	public static final String TAG = "APIUtil";
-	public static final String URL =  "ruggles.gtnoise.net";
+	public static final String URL =  "ruggles.gtnoise.net/";
 	
 	public static final String SHARED_SECRET = "shared_secret";
 

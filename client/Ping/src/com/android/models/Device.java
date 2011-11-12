@@ -57,10 +57,10 @@ public class Device {
 		JSONObject obj = new JSONObject();
 		try {
 			
-			obj.put("name", name);
-			obj.put("plantype",  planType );
-			obj.put("deviceId", deviceId);
-			obj.put("phoneNumber", phoneNumber);
+			obj.putOpt("name", name);
+			obj.putOpt("plantype",  planType );
+			obj.putOpt("deviceId", deviceId);
+			obj.putOpt("phoneNumber", phoneNumber);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
