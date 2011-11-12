@@ -26,7 +26,18 @@ public class Device {
 	String mobileNetworkState;
 	String mobileNetworkDetailedState;
 	String wifiState;
+	GPS gps;
 	
+	
+	
+
+	public GPS getGps() {
+		return gps;
+	}
+
+	public void setGps(GPS gps) {
+		this.gps = gps;
+	}
 
 	public Device() {
 		

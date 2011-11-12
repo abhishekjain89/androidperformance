@@ -20,7 +20,11 @@ public class DeviceHelper {
 	
 	public static Device runFullDetail(Context context) {
 		DeviceUtil deviceUtil = new DeviceUtil();
-		return deviceUtil.getFullDetail(context);
+		GPSHelper gpsH = new GPSHelper();
+		Device dev = new Device();
+		dev = deviceUtil.getFullDetail(context);
+		dev.setGps(gpsH.getGps(context));
+		return dev;
 	}
 	
 	public static String runPhoneDetail(Context context) {
