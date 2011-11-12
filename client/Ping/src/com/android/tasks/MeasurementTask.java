@@ -40,13 +40,12 @@ public class MeasurementTask extends ServerTask{
 		pings.add(ping);
 		getResponseListener().onCompletePing(ping);
 		
-		
-		
 		Measurement measurement = DeviceHelper.deviceHelp(getContext());
 		
-		//measurement = new Measurement(device,null,pings);
-	
+		measurement.setPings(pings);
+		
 		JSONObject object = measurement.toJSON();
+		
 		HTTPUtil http = new HTTPUtil();
 		
 		try {
