@@ -240,8 +240,7 @@ public class AnalysisActivity extends Activity
         
         table.addView(row,new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT,
-				(float) 0.25));
+                LayoutParams.WRAP_CONTENT));
 	}
 	
 	private void newDeviceTable(Device d){
@@ -266,7 +265,8 @@ public class AnalysisActivity extends Activity
 					(float) 0.5));
 	        row.addView(name,new LinearLayout.LayoutParams(
 	        		LayoutParams.FILL_PARENT,
-	                LayoutParams.WRAP_CONTENT));
+	                LayoutParams.WRAP_CONTENT, 
+					(float) 0.5));
 	       
 	        try {
 	        	TextView nameV = new TextView(this);
@@ -277,7 +277,8 @@ public class AnalysisActivity extends Activity
 						(float) 0.5));
 		        row.addView(nameV,new LinearLayout.LayoutParams(
 		        		LayoutParams.FILL_PARENT,
-		                LayoutParams.WRAP_CONTENT));
+		                LayoutParams.WRAP_CONTENT, 
+						(float) 0.5));
 			} catch (JSONException e) {e.printStackTrace();}
 	        
 	        
@@ -308,7 +309,8 @@ public class AnalysisActivity extends Activity
 					(float) 0.5));
 	        row.addView(name,new LinearLayout.LayoutParams(
 	        		LayoutParams.FILL_PARENT,
-	                LayoutParams.WRAP_CONTENT));
+	                LayoutParams.WRAP_CONTENT, 
+					(float) 0.5));
 	       
 	        try {
 	        	TextView nameV = new TextView(this);
@@ -319,7 +321,8 @@ public class AnalysisActivity extends Activity
 						(float) 0.5));
 		        row.addView(nameV,new LinearLayout.LayoutParams(
 		        		LayoutParams.FILL_PARENT,
-		                LayoutParams.WRAP_CONTENT));
+		                LayoutParams.WRAP_CONTENT, 
+						(float) 0.5));
 			} catch (JSONException e) {e.printStackTrace();}
 	        
 	        
