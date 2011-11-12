@@ -7,8 +7,188 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
-public class DeviceUtil {
+import com.android.models.Device;
 
+public class DeviceUtil {
+	
+	public Device getFullDetail(Context context)
+	{
+		Device dev = new Device();
+		String srvnName = context.TELEPHONY_SERVICE;
+		String service = context.CONNECTIVITY_SERVICE;
+		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
+		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
+		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
+		boolean isWIFI = false;		
+
+		
+		int phoneType = telephonyManager.getPhoneType();
+		switch (phoneType) {
+		case (TelephonyManager.PHONE_TYPE_CDMA) : 
+			dev.setPhoneType("CDMA");
+			break;
+		case (TelephonyManager.PHONE_TYPE_GSM) :
+			dev.setPhoneType("GSM");
+			break;
+		case (TelephonyManager.PHONE_TYPE_NONE) :
+			dev.setPhoneType("NONE");
+			break;
+		default:
+			break;
+		}
+
+		// Read the IMEI for GSM or MEID for CDMA
+		String deviceId = telephonyManager.getDeviceId();
+		
+		// Read the software version on the phone
+		String softwareVersion = telephonyManager.getDeviceSoftwareVersion();	
+		
+		// Get the phone's number
+		String phoneNumber = telephonyManager.getLine1Number();
+		
+		dev.setDeviceId(deviceId);
+		dev.setSoftwareVersion(softwareVersion);
+		dev.setPhoneType(phoneNumber);
+		
+		// Get connected network country ISO code
+		String networkCountry = telephonyManager.getNetworkCountryIso();
+		
+		// Get the connected network operator ID (MCC + MNC)
+		String networkOperatorId = telephonyManager.getNetworkOperator();
+		
+		// Get the connected network operator name // Carrier
+		String networkName = telephonyManager.getNetworkOperatorName();
+		
+		dev.setNetworkCountryISO(networkCountry);
+		dev.setNetworkOperatorId(networkOperatorId);
+		dev.setNetworkName(networkName);
+		
+		// Get the type of network you are connected to
+		int networkType = telephonyManager.getNetworkType();
+		switch (networkType) {
+		  case (TelephonyManager.NETWORK_TYPE_1xRTT)   :    
+			  dev.setNetworkType("1xRTT");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_CDMA)    :   
+			  dev.setNetworkType("CDMA");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_EDGE)    : 
+			  dev.setNetworkType("EDGE");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_EVDO_0)  : 
+			  dev.setNetworkType("EVDO_0");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_EVDO_A)  : 
+			  dev.setNetworkType("EVDO_A");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_GPRS)    : 
+			  dev.setNetworkType("GPRS");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_HSDPA)   : 
+			  dev.setNetworkType("HSDPA");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_HSPA)    : 
+			  dev.setNetworkType("HSPA");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_HSUPA)   : 
+			  dev.setNetworkType("HSUPA");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_UMTS)    : 
+			  dev.setNetworkType("UMTS");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_UNKNOWN) : 
+			  dev.setNetworkType("UNKNOWN");
+			  break;
+		  default: 
+			  break;
+		}
+		
+
+		String simDetail = "";
+		simDetail += "SIM State: ";
+		
+		int simState = telephonyManager.getSimState();
+		switch (simState) {
+		  case (TelephonyManager.SIM_STATE_ABSENT):
+			  dev.setSimState("ABSENT");
+			  break;
+		  case (TelephonyManager.SIM_STATE_NETWORK_LOCKED):
+			  dev.setSimState("NETWORK_LOCKED");
+			  break;
+		  case (TelephonyManager.SIM_STATE_PIN_REQUIRED): 
+			  dev.setSimState("PIN_REQUIRED");
+			  break;
+		  case (TelephonyManager.SIM_STATE_PUK_REQUIRED): 
+			  dev.setSimState("PUK_REQUIRED");
+			  break;
+		  case (TelephonyManager.SIM_STATE_UNKNOWN):
+			  dev.setSimState("UNKNOWN");
+			  break;
+		  case (TelephonyManager.SIM_STATE_READY): {
+			  dev.setSimState("READT");
+			  
+			  // Get the SIM country ISO code
+			  String simCountry = telephonyManager.getSimCountryIso();
+		    
+			  // Get the operator code of the active SIM (MCC + MNC)
+			  String simOperatorCode = telephonyManager.getSimOperator(); 
+		    
+			  // Get ther name of the SIM operator
+			  String simOperatorName = telephonyManager.getSimOperatorName();
+		    
+			  // Get the SIM's serial number
+			  String simSerial = telephonyManager.getSimSerialNumber();
+
+			  dev.setSimNetworkCountry(simCountry);
+			  dev.setSimOperatorCode(simOperatorCode);
+			  dev.setSimOperatorName(simOperatorName);
+			  dev.setSimSerialNumber(simSerial);
+			  break;
+		  }
+		}
+
+		
+		int connectionType = activeNetwork.getType();
+		switch (connectionType) {
+			case (ConnectivityManager.TYPE_MOBILE) : 
+				dev.setConnectionType("Mobile");
+				isWIFI = false;
+				break;
+		  	case (ConnectivityManager.TYPE_WIFI) : 
+		  		dev.setConnectionType("Wifi");
+		  		isWIFI = true;
+		  		break;
+		  	default: 
+		  		break;
+		}
+
+		if (!isWIFI) {		
+			// Get the mobile network information.
+			int network = ConnectivityManager.TYPE_MOBILE;
+			NetworkInfo mobileNetwork = connectivity.getNetworkInfo(network);
+			NetworkInfo.State state = mobileNetwork.getState();
+			NetworkInfo.DetailedState detailedState = mobileNetwork.getDetailedState();
+			
+			dev.setMobileNetworkState(state.toString());
+			dev.setMobileNetworkDetailedState(detailedState.toString());
+		}
+		else {
+			String srvc = context.WIFI_SERVICE;
+			WifiManager wifi = (WifiManager)context.getSystemService(srvc);
+			WifiInfo info = wifi.getConnectionInfo();
+			if (info.getBSSID() != null) {
+				int strength = WifiManager.calculateSignalLevel(info.getRssi(), 11);
+				int speed = info.getLinkSpeed();
+				String units = WifiInfo.LINK_SPEED_UNITS;
+				String ssid = info.getSSID();
+				String cSummary = String.format("Connected to %s at %s%s. Strength %s",
+			                                   ssid, speed, units, strength);
+				dev.setWifiState(cSummary);
+			} 
+		}
+		return dev;
+	}
+	
 	/**
 	 * Find phone type, unique ID (IMEI or MEID) and software version
 	 * @param telephonyManager

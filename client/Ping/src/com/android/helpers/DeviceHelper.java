@@ -11,9 +11,16 @@ public class DeviceHelper {
 	
 	public static Device deviceHelp(Context context){
 		
-		String phoneDetail = runPhoneDetail(context);
-		String networkDetail = runNetworkDetail(context);
-		return new Device(phoneDetail,networkDetail);
+		//String phoneDetail = runPhoneDetail(context);
+		//String networkDetail = runNetworkDetail(context);
+		//return new Device(phoneDetail,networkDetail);
+		
+		return runFullDetail(context);
+	}
+	
+	public static Device runFullDetail(Context context) {
+		DeviceUtil deviceUtil = new DeviceUtil();
+		return deviceUtil.getFullDetail(context);
 	}
 	
 	public static String runPhoneDetail(Context context) {
