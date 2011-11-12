@@ -47,7 +47,7 @@ public class MeasurementTask extends ServerTask{
 		Device device = DeviceHelper.deviceHelp(getContext());
 		
 		measurement = new Measurement(device,null,pings);
-		
+	
 		JSONObject object = measurement.toJSON();
 		HTTPUtil http = new HTTPUtil();
 		
