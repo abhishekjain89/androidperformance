@@ -1,11 +1,16 @@
 package com.android.utils;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 
 import com.android.models.Measurement;
 
@@ -21,7 +26,6 @@ public class DeviceUtil {
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
 		boolean isWIFI = false;		
 
-		
 		int phoneType = telephonyManager.getPhoneType();
 		switch (phoneType) {
 		case (TelephonyManager.PHONE_TYPE_CDMA) : 
@@ -186,6 +190,27 @@ public class DeviceUtil {
 				dev.setWifiState(cSummary);
 			} 
 		}
+		
+		/*
+		TelephonyManager tm = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+		GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
+		int cellId = loc.getCid();
+		int lac = loc.getLac();
+		
+		dev.setCellId("" + cellId);
+		dev.setCellLac("" + lac);
+		
+		/*
+		List<NeighboringCellInfo> cellinfo = tm.getNeighboringCellInfo();
+        
+        if(null != cellinfo){
+                for(NeighboringCellInfo info: cellinfo){
+                        deviceinfo += ("\tCellID: " + info.getCid() + ", RSSI: " + info.getRssi() + "\n");
+                }
+        }
+		 */
+		
+		
 		return dev;
 	}
 	

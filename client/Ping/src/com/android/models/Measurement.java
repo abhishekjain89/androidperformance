@@ -39,6 +39,26 @@ public class Measurement {
 	String longitude;
 	String latitude;
 	String altitude;
+	String cellId;
+	String cellLac;
+	
+	public String getCellId() {
+		return cellId;
+	}
+
+	public void setCellId(String cellId) {
+		this.cellId = cellId;
+	}
+
+	public String getCellLac() {
+		return cellLac;
+	}
+
+	public void setCellLac(String cellLac) {
+		this.cellLac = cellLac;
+	}
+
+	
 	
 	public String getPhoneType() {
 		return phoneType;
@@ -274,7 +294,8 @@ public class Measurement {
 			obj.putOpt("longitude", longitude);
 			obj.putOpt("latitude", latitude);
 			obj.putOpt("altitude", altitude);
-			
+			obj.putOpt("cellId", cellId);
+			obj.putOpt("cellLac", cellLac);			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
