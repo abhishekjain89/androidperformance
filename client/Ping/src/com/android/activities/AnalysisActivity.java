@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -80,16 +81,25 @@ public class AnalysisActivity extends Activity
         }
     }
 	
+	private void newLineTable(){
+		View row = new View(this);
+		row.setLayoutParams(new LayoutParams(
+			     LayoutParams.FILL_PARENT, 
+			     1));
+		row.setBackgroundColor(Color.WHITE);
+		
+		table.addView(row,new LayoutParams(
+                LayoutParams.FILL_PARENT,
+                1));
+	}
+	
 	private void initPingTable(){
 		LinearLayout row = new LinearLayout(this);
 		row.isVerticalScrollBarEnabled();
 		row.setOrientation(LinearLayout.HORIZONTAL);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+		row.setLayoutParams(new LinearLayout.LayoutParams(
 			     LinearLayout.LayoutParams.FILL_PARENT, 
-			     LinearLayout.LayoutParams.WRAP_CONTENT);
-
-		layoutParams.setMargins(0, 0, 0, 30);
-		row.setLayoutParams(layoutParams);
+			     LinearLayout.LayoutParams.WRAP_CONTENT));
         
         TextView cell2 = new TextView(this);
         cell2.setText("Max");
@@ -189,6 +199,8 @@ public class AnalysisActivity extends Activity
         table.addView(row,new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
+        
+        newLineTable();
 	}
 	
 	private void newPingTable(Ping p){
@@ -246,6 +258,8 @@ public class AnalysisActivity extends Activity
         table.addView(row,new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
+        
+        newLineTable();
 	}
 	
 	private void newDeviceTable(Device d){
@@ -264,6 +278,7 @@ public class AnalysisActivity extends Activity
 	        
 	        TextView name = new TextView(this);
 	        name.setText(key);
+	        name.setHorizontallyScrolling(true);
 	        name.setLayoutParams(new LayoutParams(
 					LayoutParams.WRAP_CONTENT, 
 					LayoutParams.WRAP_CONTENT, 
@@ -275,6 +290,8 @@ public class AnalysisActivity extends Activity
 	       
 	        try {
 	        	TextView nameV = new TextView(this);
+	        	//nameV.setHorizontallyScrolling(true);
+	        	//nameV.setGravity(Gravity.RIGHT);
 				nameV.setText((String)obj.get(key));
 				nameV.setLayoutParams(new LayoutParams(
 						LayoutParams.WRAP_CONTENT, 
@@ -290,6 +307,8 @@ public class AnalysisActivity extends Activity
 	        table.addView(row,new LinearLayout.LayoutParams(
 	                LayoutParams.FILL_PARENT,
 	                LayoutParams.WRAP_CONTENT));
+	        
+	        newLineTable();
 		}     
 	}
 	
@@ -310,6 +329,7 @@ public class AnalysisActivity extends Activity
 	        
 	        TextView name = new TextView(this);
 	        name.setText(key);
+	        name.setHorizontallyScrolling(true);
 	        name.setLayoutParams(new LayoutParams(
 					LayoutParams.WRAP_CONTENT, 
 					LayoutParams.WRAP_CONTENT, 
@@ -321,6 +341,8 @@ public class AnalysisActivity extends Activity
 	       
 	        try {
 	        	TextView nameV = new TextView(this);
+	        	//nameV.setGravity(Gravity.RIGHT);
+	        	//nameV.setHorizontallyScrolling(true);
 				nameV.setText((String)obj.get(key));
 				nameV.setLayoutParams(new LayoutParams(
 						LayoutParams.WRAP_CONTENT, 
@@ -336,6 +358,8 @@ public class AnalysisActivity extends Activity
 	        table.addView(row,new LinearLayout.LayoutParams(
 	                LayoutParams.FILL_PARENT,
 	                LayoutParams.WRAP_CONTENT));
+	        
+	        newLineTable();
 		}  
 	}
 	

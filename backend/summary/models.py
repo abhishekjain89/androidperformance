@@ -9,41 +9,45 @@
 
 from django.db import models
 
-class Devices(models.Model):
-    deviceid = models.TextField(primary_key=True) # This field type is a guess.
-    username = models.TextField() # This field type is a guess.
-    carrier = models.TextField() # This field type is a guess.
-    plantype = models.TextField() # This field type is a guess.
-    register = models.DateTimeField()
-    last_update = models.DateTimeField()
+class Device(models.Model):
+    deviceid = models.CharField(max_length=20, primary_key=True)
     class Meta:
-        db_table = u'devices'
+        db_table = u'device'
 
-class MThroughput(models.Model):
-    deviceid = models.TextField() # This field type is a guess.
-    srcip = models.IPAddressField()
-    dstip = models.IPAddressField()
-    eventstamp = models.DateTimeField()
-    average = models.FloatField()
-    std = models.FloatField()
-    minimum = models.FloatField()
-    maximum = models.FloatField()
-    median = models.FloatField()
-    type = models.CharField(max_length=20)
+
+class Measurement(models.Model):
+    measurementid = models.CharField(max_length=20, primary_key=True)
+    deviceid = models.ForeignKey(Device, db_column='deviceid')
+    simoperatorcode = models.CharField(max_length=20)
+    networktype = models.CharField(max_length=10)
+    simserialnumber = models.FloatField()
+    phonetype = models.FloatField()
+    altitude = models.CharField(max_length=10)
+    networkcountry = models.CharField(max_length=10)
+    connectiontype = models.CharField(max_length=10)
+    simnetworkcountry = models.CharField(max_length=10)
+    networkoperatorid = models.IntegerField()
+    mobilenetworkdetailedstate = models.CharField(max_length=10)
+    simstate = models.CharField(max_length=5)
+    time = models.DateTimeField()
+    mobilenetworkstate = models.CharField(max_length=10)
+    longitude = models.CharField(max_length=10)
+    latitude = models.CharField(max_length=10)
+    simoperatorname = models.CharField(max_length=20)
+    networkname = models.CharField(max_length=20)
     class Meta:
-        db_table = u'm_throughput'
+        db_table = u'measurement'
 
-class MRtt(models.Model):
-    deviceid = models.TextField() # This field type is a guess.
-    srcip = models.IPAddressField()
-    dstip = models.IPAddressField()
-    eventstamp = models.DateTimeField()
-    average = models.FloatField()
-    std = models.FloatField()
-    minimum = models.FloatField()
-    maximum = models.FloatField()
-    median = models.FloatField()
-    type = models.CharField(max_length=20)
+
+class Ping(models.Model):
+    avg = models.FloatField()
+    stdev = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    scrip = models.CharField(max_length=20)
+    dstip = models.CharField(max_length=20)
+    time = models.DateTimeField()
+    measurementid = models.ForeignKey(Measurement, db_column='measurementid')
+    pingid = models.CharField(max_length=20, primary_key=True)
     class Meta:
-        db_table = u'm_rtt'
-
+        db_table = u'ping'
