@@ -41,8 +41,8 @@ public class MeasurementTask extends ServerTask{
 		getResponseListener().onCompletePing(ping);
 		
 		Measurement measurement = DeviceHelper.deviceHelp(getContext());
-		//getResponseListener().onCompleteMeasurement(measurement);
 		measurement.setPings(pings);
+		getResponseListener().onCompleteMeasurement(measurement);
 		
 		JSONObject object = measurement.toJSON();
 		

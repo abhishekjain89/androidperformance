@@ -12,6 +12,8 @@ import android.os.Message;
 import com.android.Session;
 import com.android.helpers.ServerHelper;
 import com.android.listeners.BaseResponseListener;
+import com.android.models.Device;
+import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.tasks.MeasurementTask;
 
@@ -44,6 +46,16 @@ public class PerformanceService extends Service{
 
 		public void onComplete(String response) {
 		
+		}
+
+		public void onCompleteMeasurement(Measurement response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteDevice(Device response) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 

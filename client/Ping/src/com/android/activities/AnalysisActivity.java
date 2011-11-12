@@ -346,7 +346,7 @@ public class AnalysisActivity extends Activity
 		
 		public void onCompleteMeasurement(Measurement response) {
 			Message msg=Message.obtain(measurementHandler, 0, response);
-			deviceHandler.sendMessage(msg);		
+			measurementHandler.sendMessage(msg);		
 		}
 
 		public void onComplete(String response) {
