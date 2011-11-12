@@ -2,6 +2,8 @@ package com.android.models;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -45,8 +47,26 @@ public class Measurement {
 	}
 
 	public JSONObject getJSON() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject obj = new JSONObject();
+		
+		try {
+			obj.put("device", null);
+			obj.put("user", user.toJSON());
+			
+			JSONArray array = new JSONArray();
+			
+			for(Ping p: pings){
+				array.put(p.toJSON());
+			}
+			
+			obj.put("pings", array);
+			
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 	
 	
