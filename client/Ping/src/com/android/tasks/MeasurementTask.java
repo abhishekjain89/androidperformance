@@ -1,6 +1,9 @@
 package com.android.tasks;
 
+import java.util.ArrayList;
 import java.util.Map;
+
+import org.json.JSONObject;
 
 import android.content.Context;
 
@@ -10,6 +13,7 @@ import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.utils.HTTPUtil;
 
 /*
  * Measurement Task 
@@ -32,13 +36,28 @@ public class MeasurementTask extends ServerTask{
 		Measurement measurement;
 		
 		// TODO Run ping task with list of things such as ip address and number of pings	
+		ArrayList pings = new ArrayList<Ping>();
 		
-		Ping ping = PingHelper.pingHelp("localhost", 5);
+		pings.add(PingHelper.pingHelp("localhost", 5));
+		
 		getResponseListener().onCompletePing(ping);
 		
 		
 		
 		Device device = DeviceHelper.deviceHelp(getContext());
+		
+		measurement = new Measurement(device,null,pings);
+		
+		JSONObject object = measurement.toJSON();
+		HTTPUtil http = new HTTPUtil();
+		
+		try {
+			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		
 	}

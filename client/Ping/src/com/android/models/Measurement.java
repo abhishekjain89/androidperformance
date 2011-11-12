@@ -46,7 +46,7 @@ public class Measurement {
 		this.pings = pings;
 	}
 
-	public JSONObject getJSON() {
+	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		
 		try {
