@@ -82,6 +82,7 @@ public class AnalysisActivity extends Activity
 	
 	private void initPingTable(){
 		LinearLayout row = new LinearLayout(this);
+		row.isVerticalScrollBarEnabled();
 		row.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 			     LinearLayout.LayoutParams.FILL_PARENT, 
