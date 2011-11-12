@@ -10,24 +10,24 @@ import org.json.JSONObject;
 
 public class Measurement {
 	
-	Device device;
-	User user;
+	Info device;
+	Device user;
 	ArrayList<Ping> pings;
 	
 	
-	public Device getDevice() {
+	public Info getDevice() {
 		return device;
 	}
 
-	public void setDevice(Device device) {
+	public void setDevice(Info device) {
 		this.device = device;
 	}
 
-	public User getUser() {
+	public Device getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Device user) {
 		this.user = user;
 	}
 
@@ -39,7 +39,7 @@ public class Measurement {
 		this.pings = pings;
 	}
 
-	public Measurement(Device device, User user, ArrayList<Ping> pings) {
+	public Measurement(Info device, Device user, ArrayList<Ping> pings) {
 		super();
 		this.device = device;
 		this.user = user;

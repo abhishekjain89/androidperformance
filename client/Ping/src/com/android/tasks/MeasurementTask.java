@@ -10,7 +10,7 @@ import android.content.Context;
 import com.android.helpers.DeviceHelper;
 import com.android.helpers.PingHelper;
 import com.android.listeners.ResponseListener;
-import com.android.models.Device;
+import com.android.models.Info;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.utils.HTTPUtil;
@@ -44,7 +44,7 @@ public class MeasurementTask extends ServerTask{
 		
 		
 		
-		Device device = DeviceHelper.deviceHelp(getContext());
+		Info device = DeviceHelper.deviceHelp(getContext());
 		
 		measurement = new Measurement(device,null,pings);
 	

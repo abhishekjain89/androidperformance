@@ -3,13 +3,13 @@ package com.android.helpers;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.android.models.Device;
+import com.android.models.Info;
 import com.android.utils.DeviceUtil;
 
 public class DeviceHelper {
 
 	
-	public static Device deviceHelp(Context context){
+	public static Info deviceHelp(Context context){
 		
 		//String phoneDetail = runPhoneDetail(context);
 		//String networkDetail = runNetworkDetail(context);
@@ -18,10 +18,10 @@ public class DeviceHelper {
 		return runFullDetail(context);
 	}
 	
-	public static Device runFullDetail(Context context) {
+	public static Info runFullDetail(Context context) {
 		DeviceUtil deviceUtil = new DeviceUtil();
 		GPSHelper gpsH = new GPSHelper();
-		Device dev = new Device();
+		Info dev = new Info();
 		dev = deviceUtil.getFullDetail(context);
 		dev.setGps(gpsH.getGps(context));
 		return dev;
