@@ -72,7 +72,7 @@ def check_register(request):
 def measurement(request):
 
     response = {}
-    
+    print request.POST
     try:
     	request_object = ast.literal_eval(request.read())
     except:
