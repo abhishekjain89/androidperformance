@@ -81,7 +81,7 @@ public class AnalysisActivity extends Activity
 	
 	private void initPingTable(){
 		LinearLayout row = new LinearLayout(this);
-		//row.setOrientation(HORIZONTAL);
+		row.setOrientation(LinearLayout.HORIZONTAL);
 		row.setLayoutParams(new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
@@ -89,42 +89,46 @@ public class AnalysisActivity extends Activity
         TextView cell2 = new TextView(this);
         cell2.setText("Max");
         cell2.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT, 
-				LayoutParams.WRAP_CONTENT, 
+				LayoutParams.FILL_PARENT, 
+				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));
         row.addView(cell2,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell3 = new TextView(this);
         cell3.setText("Min");
         cell3.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT, 
-				LayoutParams.WRAP_CONTENT, 
+				LayoutParams.FILL_PARENT, 
+				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));
         row.addView(cell3,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell4 = new TextView(this);
         cell4.setText("StdDev");
         cell4.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT, 
-				LayoutParams.WRAP_CONTENT, 
+				LayoutParams.FILL_PARENT, 
+				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));
         row.addView(cell4,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell5 = new TextView(this);
         cell5.setText("Avr");
         cell5.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT, 
-				LayoutParams.WRAP_CONTENT, 
+				LayoutParams.FILL_PARENT, 
+				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));
         row.addView(cell5,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
 		
         /*TableRow tr = new TableRow(this);
         tr.setLayoutParams(new TableRow.LayoutParams(
@@ -184,7 +188,7 @@ public class AnalysisActivity extends Activity
 	
 	private void newPingTable(Ping p){
 		LinearLayout row = new LinearLayout(this);
-		//row.setOrientation(HORIZONTAL);
+		row.setOrientation(LinearLayout.HORIZONTAL);
 		row.setLayoutParams(new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
@@ -197,7 +201,8 @@ public class AnalysisActivity extends Activity
 				(float) 0.25));
         row.addView(cell2,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell3 = new TextView(this);
         cell3.setText(String.valueOf(p.getMeasure().getMin()));
@@ -207,7 +212,8 @@ public class AnalysisActivity extends Activity
 				(float) 0.25));
         row.addView(cell3,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell4 = new TextView(this);
         cell4.setText(String.valueOf(p.getMeasure().getStddev()));
@@ -217,7 +223,8 @@ public class AnalysisActivity extends Activity
 				(float) 0.25));
         row.addView(cell4,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         TextView cell5 = new TextView(this);
         cell5.setText(String.valueOf(p.getMeasure().getAverage()));
@@ -227,12 +234,14 @@ public class AnalysisActivity extends Activity
 				(float) 0.25));
         row.addView(cell5,new LinearLayout.LayoutParams(
         		LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
         
         
         table.addView(row,new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.WRAP_CONTENT,
+				(float) 0.25));
 	}
 	
 	private void newDeviceTable(Device d){
@@ -244,7 +253,7 @@ public class AnalysisActivity extends Activity
 		for (String key=(String)keyes.next();keyes.hasNext();key=(String)keyes.next()){
 		
 			row = new LinearLayout(this);
-			//row.setOrientation(HORIZONTAL);
+			row.setOrientation(LinearLayout.HORIZONTAL);
 			row.setLayoutParams(new LinearLayout.LayoutParams(
 	                LayoutParams.FILL_PARENT,
 	                LayoutParams.WRAP_CONTENT));
