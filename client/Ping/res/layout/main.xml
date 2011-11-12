@@ -18,18 +18,13 @@
 	    	android:layout_alignParentTop="true" 
 	    	android:layout_alignParentLeft="true" 
 	    	android:layout_alignParentRight="true"/>
-	    <TextView 
-	    	android:layout_width="wrap_content" 
-	    	android:layout_height="wrap_content" 
-	    	android:text="No ping" 
-	    	android:id="@+id/textView1" 
-	    	android:layout_alignParentLeft="true"/>
     </LinearLayout>
-    <TableLayout 
+    <LinearLayout 
     	android:layout_height="wrap_content" 
     	android:layout_width="fill_parent" 
-    	android:id="@+id/tableLayout1">
-   	</TableLayout>  
+    	android:orientation="vertical"
+    	android:id="@+id/measurementslayout">
+   	</LinearLayout>  
    	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"

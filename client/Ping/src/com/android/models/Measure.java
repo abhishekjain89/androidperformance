@@ -46,10 +46,10 @@ public class Measure {
 		JSONObject obj = new JSONObject();
 		try {
 			
-			obj.put("max",  max);
-			obj.put("min", min);
-			obj.put("average", average);
-			obj.put("stddev", stddev);
+			obj.putOpt("max",  max);
+			obj.putOpt("min", min);
+			obj.putOpt("average", average);
+			obj.putOpt("stddev", stddev);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

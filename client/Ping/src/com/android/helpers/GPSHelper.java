@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 
+import com.android.models.GPS;
 import com.android.utils.GPSUtil;
 
 public class GPSHelper {
@@ -22,8 +23,18 @@ public class GPSHelper {
 		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		
 		gpsUtil = new GPSUtil();
-		String gps = gpsUtil.getGPS(location);
+		String gps = gpsUtil.getGpsString(location);
 		this.setGpsOutput(gps);
+		return gps;
+	}
+	
+	public GPS getGps(Context context) {
+		LocationManager locationManager;
+		locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		
+		gpsUtil = new GPSUtil();
+		GPS gps = gpsUtil.getGps(location);
 		return gps;
 	}
 
