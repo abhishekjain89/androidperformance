@@ -14,18 +14,6 @@ class Device(models.Model):
     class Meta:
         db_table = u'device'
 
-class Ping(models.Model):
-    avg = models.FloatField()
-    stdev = models.FloatField()
-    min = models.FloatField()
-    max = models.FloatField()
-    scrip = models.CharField(max_length=-1)
-    dstip = models.CharField(max_length=-1)
-    time = models.DateTimeField()
-    measurementid = models.ForeignKey(Measurement, db_column='measurementid')
-    pingid = models.CharField(max_length=-1, primary_key=True)
-    class Meta:
-        db_table = u'ping'
 
 class Measurement(models.Model):
     measurementid = models.CharField(max_length=-1, primary_key=True)
@@ -50,3 +38,16 @@ class Measurement(models.Model):
     class Meta:
         db_table = u'measurement'
 
+
+class Ping(models.Model):
+    avg = models.FloatField()
+    stdev = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    scrip = models.CharField(max_length=-1)
+    dstip = models.CharField(max_length=-1)
+    time = models.DateTimeField()
+    measurementid = models.ForeignKey(Measurement, db_column='measurementid')
+    pingid = models.CharField(max_length=-1, primary_key=True)
+    class Meta:
+        db_table = u'ping'
