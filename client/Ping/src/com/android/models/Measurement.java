@@ -255,7 +255,25 @@ public class Measurement {
 			for(Ping p: pings){
 				array.put(p.toJSON());
 			}
-			obj.put("pings", array);
+			obj.putOpt("pings", array);
+			obj.putOpt("phoneType", phoneType);
+			obj.putOpt("softwareVersion", softwareVersion);
+			obj.putOpt("networkCountry", networkCountry);
+			obj.putOpt("networkOperatorId", networkOperatorId);
+			obj.putOpt("networkName", networkName);
+			obj.putOpt("networkType", networkType);
+			obj.putOpt("simNetworkCountry", simNetworkCountry);
+			obj.putOpt("simState", simState);
+			obj.putOpt("simOperatorName", simOperatorName);
+			obj.putOpt("simOperatorCode", simOperatorCode);
+			obj.putOpt("simSerialNumber", simSerialNumber);
+			obj.putOpt("connectionType", connectionType);
+			obj.putOpt("mobileNetworkState", mobileNetworkState);
+			obj.putOpt("mobileNetworkDetailedState", mobileNetworkDetailedState);
+			obj.putOpt("wifiState", wifiState);
+			obj.putOpt("longitude", longitude);
+			obj.putOpt("latitude", latitude);
+			obj.putOpt("altitude", altitude);
 			
 			
 		} catch (JSONException e) {
