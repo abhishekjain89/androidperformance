@@ -288,6 +288,7 @@ public class Measurement {
 			}
 			obj.putOpt("pings", array);
 			obj.putOpt("phoneType", phoneType);
+			obj.putOpt("deviceid", deviceId);
 			obj.putOpt("softwareVersion", softwareVersion);
 			obj.putOpt("networkCountry", networkCountry);
 			obj.putOpt("networkOperatorId", networkOperatorId);
