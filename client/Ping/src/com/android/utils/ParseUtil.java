@@ -2,11 +2,11 @@ package com.android.utils;
 
 import java.util.Scanner;
 
-import com.android.models.Measurement;
+import com.android.models.Measure;
 
 public class ParseUtil {
 	
-	public static Measurement PingParser(String s){
+	public static Measure PingParser(String s){
 		String lastLine=null;
 		Scanner scanLines=new Scanner(s);
 		Scanner scanLastLine;
@@ -30,7 +30,7 @@ public class ParseUtil {
 				avr=scanValues.nextDouble();
 				max=scanValues.nextDouble();
 				stddev=scanValues.nextDouble();
-				return (new Measurement(max,min,avr,stddev));
+				return (new Measure(max,min,avr,stddev));
 			}catch(Exception e){return null;}
 		}
 		else

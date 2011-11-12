@@ -10,9 +10,10 @@ public class DeviceHelper {
 
 	
 	public static Device deviceHelp(Context context){
+		
 		String phoneDetail = runPhoneDetail(context);
 		String networkDetail = runNetworkDetail(context);
-		return null;
+		return new Device(phoneDetail,networkDetail);
 	}
 	
 	public static String runPhoneDetail(Context context) {
