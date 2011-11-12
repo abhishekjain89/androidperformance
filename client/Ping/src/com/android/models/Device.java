@@ -4,15 +4,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Device {
-
+	
 	String name;
 	String planType ;
 	String deviceId;
 	String phoneNumber;
 	
-	public Device(String name, String location, String carrier, String pantype){
+	
+	public Device(String name, String planType, String deviceId,
+			String phoneNumber) {
+		super();
 		this.name = name;
-		this.planType = planType ;
+		this.planType = planType;
+		this.deviceId = deviceId;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getName() {
