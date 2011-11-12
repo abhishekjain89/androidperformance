@@ -75,7 +75,7 @@ def measurement(request):
     print request.POST
 
     try:
-    	request_object = ast.literal_eval(request.read())
+    	request_object = ast.literal_eval(request.POST)
 	print request_object
 	
     except:
