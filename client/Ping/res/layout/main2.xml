@@ -13,19 +13,19 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal" 
-	    android:weightSum=".5">
+	    android:weightSum="1">
     		<TextView 
     			android:text="Choose frequency of measurements: " 
     			android:gravity="center_vertical"
     			android:layout_height="match_parent"
-    			android:layout_width="120dp"
+    			android:layout_width="wrap_content"
+    			android:layout_weight=".25"
     			android:singleLine="false"
     			android:scrollHorizontally="false"/>
 	        <Spinner 
 	        	android:id="@+id/spinnerfreq" 
 	        	android:layout_width="wrap_content" 
-	        	android:layout_height="wrap_content"
-	        	android:layout_weight=".25"/>
+	        	android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
 	    android:layout_width="fill_parent"

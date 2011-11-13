@@ -72,9 +72,14 @@ def check_register(request):
 def measurement(request):
 
     response = {}
-    print request
+    print request.raw_post_data
+
     try:
-    	request_object = ast.literal_eval(request.read())
+    	request_object = ast.literal_eval(request.raw_post_data)
+
+	print "worked"
+	print request_object
+	
     except:
 	return HttpResponse(error_message_helper.invalid_format())
         
