@@ -1,6 +1,9 @@
 package com.android.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +15,7 @@ public class Ping {
 	String dstIp;
 	Measure measure;
 	
-	Date time;
+	String time;
 	
 	public Ping(String scrIp, String dstIp, Measure measure) {
 		//from an activity object, to get the device id :
@@ -20,8 +23,13 @@ public class Ping {
 		
 		this.srcIp=scrIp;
 		this.dstIp=dstIp;
-		this.measure = measure;
-		this.time=new Date();
+		this.measure = measure;		
+		
+
+	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	    String utcTime = sdf.format(new Date());
+	    this.time = utcTime;
 	}
 	
 	public String getSrcIp() {

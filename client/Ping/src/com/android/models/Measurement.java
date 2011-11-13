@@ -17,13 +17,12 @@ public class Measurement {
 
 	// Not used at the moment
 	String phoneDetail;
-	String phoneNumber;
 	String networkDetail;	
 	String deviceId;
 	
 	String time;
 
-	String phoneType;
+	String phoneNumber;
 	String softwareVersion;
 	String networkCountry;
 	String networkOperatorId;
@@ -72,11 +71,11 @@ public class Measurement {
 	
 	
 	public String getPhoneType() {
-		return phoneType;
+		return phoneNumber;
 	}
 
 	public void setPhoneType(String phoneType) {
-		this.phoneType = phoneType;
+		this.phoneNumber = phoneType;
 	}
 
 	public String getPhoneDetail() {
@@ -287,7 +286,7 @@ public class Measurement {
 				array.put(p.toJSON());
 			}
 			obj.putOpt("pings", array);
-			obj.putOpt("phoneType", phoneType);
+			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("deviceid", deviceId);
 			obj.putOpt("softwareVersion", softwareVersion);
 			obj.putOpt("networkCountry", networkCountry);

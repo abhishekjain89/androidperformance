@@ -13,12 +13,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -29,6 +27,7 @@ import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
 
 
@@ -59,6 +58,7 @@ public class AnalysisActivity extends Activity
 		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {		
+				//startService(new Intent(AnalysisActivity.this, PerformanceService.class));
 				serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 			}
 		});
@@ -95,6 +95,7 @@ public class AnalysisActivity extends Activity
 	
 	private void initPingTable(){
 		LinearLayout row = new LinearLayout(this);
+		row.isVerticalScrollBarEnabled();
 		row.setOrientation(LinearLayout.HORIZONTAL);
 		row.setLayoutParams(new LinearLayout.LayoutParams(
 			     LinearLayout.LayoutParams.FILL_PARENT, 

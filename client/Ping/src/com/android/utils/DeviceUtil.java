@@ -1,6 +1,9 @@
 package com.android.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -49,7 +52,7 @@ public class DeviceUtil {
 		
 		dev.setDeviceId(deviceId);
 		dev.setSoftwareVersion(softwareVersion);
-		dev.setPhoneType(phoneNumber);
+		dev.setPhoneNumber(phoneNumber);
 		
 		// Get connected network country ISO code
 		String networkCountry = telephonyManager.getNetworkCountryIso();
@@ -187,12 +190,15 @@ public class DeviceUtil {
 				dev.setWifiState(cSummary);
 			} 
 		}
+
+	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	    String utcTime = sdf.format(new Date());
+	    dev.setTime(utcTime);
 		
-		dev.setTime(new Date().toString());
-		
-		/*
-		TelephonyManager tm = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
-		GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
+/*		
+		telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+		GsmCellLocation loc = (GsmCellLocation) telephonyManager.getCellLocation();
 		int cellId = loc.getCid();
 		int lac = loc.getLac();
 		
@@ -200,7 +206,7 @@ public class DeviceUtil {
 		dev.setCellLac("" + lac);
 		
 		/*
-		List<NeighboringCellInfo> cellinfo = tm.getNeighboringCellInfo();
+		List<NeighboringCellInfo> cellinfo = telephonyManager.getNeighboringCellInfo();
         
         if(null != cellinfo){
                 for(NeighboringCellInfo info: cellinfo){

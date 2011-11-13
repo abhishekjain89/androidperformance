@@ -26,7 +26,7 @@ import java.util.TreeMap;
 public class HTTPUtil {
 
 	public static final String TAG = "APIUtil";
-	public static final String URL =  "ruggles.gtnoise.net/";
+	public static final String URL =  "http://ruggles.gtnoise.net/";
 	
 	public static final String SHARED_SECRET = "shared_secret";
 
@@ -34,10 +34,10 @@ public class HTTPUtil {
 	throws FileNotFoundException, MalformedURLException, IOException, NoSuchAlgorithmException {
 		
 		
-		return read(request(params,method,function,secret,URL,data));
+		return request(params,method,function,secret,URL,data);
 	}
 	
-	public InputStream request(HashMap<String, String> params,
+	public String request(HashMap<String, String> params,
 			String method, String function, String secret, String hostname,String data) 	throws FileNotFoundException, MalformedURLException, IOException, NoSuchAlgorithmException{
 		
 
@@ -55,13 +55,13 @@ public class HTTPUtil {
 		return null;
 	}
 
-	private InputStream openPostUrl(String url, HashMap<String,String> params, String secret,String data) throws MalformedURLException, IOException, NoSuchAlgorithmException {
+	private String openPostUrl(String url, HashMap<String,String> params, String secret,String data) throws MalformedURLException, IOException, NoSuchAlgorithmException {
 
 		params.put("method", "POST");	
 		
 		String charset = "UTF-8";
 		
-		String data_hashed = encodeUrl(data,secret);
+		String data_hashed = data; //encodeUrl(data,secret);
 		
 		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 		conn.setDoOutput(true);
@@ -77,15 +77,15 @@ public class HTTPUtil {
 		     if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
 		}
 
-		
-		InputStream response =  conn.getInputStream();
+		System.out.println(data_hashed.getBytes(charset));
+		String response =  read(conn.getInputStream());
 		conn.disconnect();
 		return response;
 		
 		
 	}
 
-	private InputStream openGetUrl(String url, HashMap<String,String> params, String secret)  throws MalformedURLException, IOException, NoSuchAlgorithmException {
+	private String openGetUrl(String url, HashMap<String,String> params, String secret)  throws MalformedURLException, IOException, NoSuchAlgorithmException {
 
 		params.put("method", "GET");	
 		
@@ -95,8 +95,9 @@ public class HTTPUtil {
 		conn.setRequestProperty("User-Agent", System.getProperties().getProperty("http.agent"));
 		conn.setRequestMethod("GET");
 
-		String response = "";
-		return conn.getInputStream();
+		String response =  read(conn.getInputStream());
+		conn.disconnect();
+		return response;
 		
 
 	}
