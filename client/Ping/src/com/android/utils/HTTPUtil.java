@@ -61,7 +61,7 @@ public class HTTPUtil {
 		
 		String charset = "UTF-8";
 		
-		String data_hashed = encodeUrl(data,secret);
+		String data_hashed = data; //encodeUrl(data,secret);
 		
 		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 		conn.setDoOutput(true);

@@ -5,10 +5,12 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
+import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.os.Message;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.android.R;
 import com.android.Session;
 import com.android.helpers.ServerHelper;
 import com.android.listeners.BaseResponseListener;
@@ -23,49 +25,45 @@ public class PerformanceService extends Service{
 	private ServerHelper serverhelper;
 	private Session session = null;
 
-	public void onCreate() {
-		
-	}
 	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
 	
+	@Override
+	public void onCreate() {
+		runTask();
+	}
+
+	@Override
+	public void onDestroy() {
+
+	}
+	
+	@Override
+	public void onStart(Intent intent, int startid) {
+
+	}
+	
 
 	private void runTask() {
 		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 	}
-	
+
 	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			Message msg=Message.obtain(handler, 0, response);
-			handler.sendMessage(msg);		
 		}
-
-		public void onComplete(String response) {
 		
-		}
-
-		public void onCompleteMeasurement(Measurement response) {
-			// TODO Auto-generated method stub
-			
-		}
-
 		public void onCompleteDevice(Device response) {
-			// TODO Auto-generated method stub
-			
+		}
+		
+		public void onCompleteMeasurement(Measurement response) {
+		}
+
+		public void onComplete(String response) {		
 		}
 	}
 
-	private Handler handler = new Handler() {
-		public void  handleMessage(Message msg) {
-			try {
-				Ping p=(Ping)msg.obj;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
 }
