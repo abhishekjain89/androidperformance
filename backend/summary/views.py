@@ -72,27 +72,48 @@ def check_register(request):
 def measurement(request):
 
     response = {}
-    print request.raw_post_data
+
 
     try:
     	request_object = ast.literal_eval(request.raw_post_data)
 
-	print "worked"
 	print request_object
 	
     except:
 	return HttpResponse(error_message_helper.invalid_format())
         
     try:
-	d_deviceid = request_object['deviceid']
-	d_srcip = request_object['scrip']
-	d_dstip = request_object['dstip']
-	d_average = request_object['average']
-	d_std = request_object['std']
-	d_minimum = request_object['minimum']
-	d_maximum = request_object['maximum']
-	d_type = request_object['type']
-	d_measurement = request_object['measurement']
+	m_deviceid = request_object['deviceid']
+	m_simoperatorcode = request_object['simOperatorCode']
+	m_networktype = request_object['networkType']
+	m_simserialnumber = request_object['simSerialNumber']
+	m_phonenumber = request_object['phoneNumber']
+	m_altitude = request_object['altitude']
+	m_networkcountry = request_object['networkCountry']
+	m_connectiontype = request_object['connectionType']
+	m_simnetworkcountry = request_object['simNetworkCountry']
+	m_networkoperatorid = request_object['networkOperatorId']
+	m_mobilenetworkdetailedstate = request_object['mobileNetworkDetailedState']
+	m_simstate = request_object['simState']
+	m_time = request_object['time']
+	m_mobilenetworkstate = request_object['mobileNetworkState']
+	m_longitude = request_object['longitude']
+	m_latitude = request_object['latitude']
+	m_simoperatorname = request_object['simOperatorName']
+	m_networkname = request_object['networkName']
+
+	pings = request_object['pings']	
+	for p in pings:
+		d_srcip = p['scr_ip']
+		d_dstip = p['dst_ip']
+		d_time = p['time']
+		measure = p['measure']
+		d_average = measure['average']
+		d_std = measure['stddev']
+		d_minimum = measure['minimum']
+		d_maximum = measure['maximum']
+		
+
 
     except:
 	return HttpResponse(error_message_helper.missing_attributes())    	
