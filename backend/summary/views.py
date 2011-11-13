@@ -81,8 +81,9 @@ def measurement(request):
 	
     except:
 	return HttpResponse(error_message_helper.invalid_format())
-        
+
     try:
+
 	m_deviceid = request_object['deviceid']
 	m_simoperatorcode = request_object['simOperatorCode']
 	m_networktype = request_object['networkType']
@@ -103,41 +104,43 @@ def measurement(request):
 	m_networkname = request_object['networkName']
 
 	pings = request_object['pings']	
+
+	
 	for p in pings:
-		d_srcip = p['scr_ip']
+		d_srcip = p['src_ip']
 		d_dstip = p['dst_ip']
 		d_time = p['time']
 		measure = p['measure']
 		d_average = measure['average']
-		d_std = measure['stddev']
-		d_minimum = measure['minimum']
-		d_maximum = measure['maximum']
+		d_std = measure['stddev']		
+		d_min = measure['min']
+		d_max = measure['max']
 		
 
-
+	
     except:
 	return HttpResponse(error_message_helper.missing_attributes())    	
 
     try:
-	details=Devices.objects.filter(deviceid=d_deviceid)
+	details=Devices.objects.filter(deviceid=m_deviceid)
+
+	if len(details)<1:
+		return HttpResponse(error_message_helper.device_not_found())
     except:	
-	return HttpResponse(error_message_helper.retrieve_entry_fail())	        
+	details = Device(deviceid = m_deviceid)
+	details.save()
+#	return HttpResponse(error_message_helper.retrieve_entry_fail())	        
 
-    if len(details)<1:
-	return HttpResponse(error_message_helper.device_not_found())
 
-    try:
-    	Device.objects.filter(deviceid=d_deviceid).update(last_update=datetime.now())
-	if (d_measurement == 'rtt'):
-    		details = MRtt(deviceid = d_deviceid, srcip=d_srcip,dstip=d_dstip, average=d_average, std=d_std, minimum=d_minimum, maximum=d_maximum, type=d_type, eventstamp= datetime.now())
-		details.save()
+   
+#    try:
+    measurement = Measurement(simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
+    measurement.save()
+	#m_id = measurement.measurementid
+	
 
-	elif (d_measurement == 'throughput'):
-		details = MThroughput(deviceid = d_deviceid, srcip=d_srcip,dstip=d_dstip, average=d_average, std=d_std, minimum=d_minimum, maximum=d_maximum, type=d_type, eventstamp= datetime.now())
-		details.save()
-
-    except:
-	return HttpResponse(error_message_helper.insert_entry_fail())	        
+#    except:
+#	return HttpResponse(error_message_helper.insert_entry_fail())	        
         
     response['message'] = 'measurement inserted'
     response['status'] = 'OK'
