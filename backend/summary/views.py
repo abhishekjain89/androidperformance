@@ -109,7 +109,7 @@ def measurement(request):
 	return HttpResponse(error_message_helper.missing_attributes())    	
 
     try:
-	details=Device.objects.filter(deviceid=m_deviceid)
+	details=Device.objects.filter(deviceid=m_deviceid)[0]
 
 	if len(details)<1:
 		details = Device(deviceid = m_deviceid)
@@ -121,7 +121,7 @@ def measurement(request):
   
     try:
     
-    	measurement = Measurement(deviceid = details[0],simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
+    	measurement = Measurement(deviceid = details,simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
     	measurement.save()
 
 	m_id = measurement.measurementid
