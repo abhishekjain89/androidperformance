@@ -144,7 +144,7 @@ def measurement(request):
 		
 		ping.save()
 
-  except:
+    except:
 	return HttpResponse(error_message_helper.insert_entry_fail("ping"))			
         
     response['message'] = 'measurement inserted'
