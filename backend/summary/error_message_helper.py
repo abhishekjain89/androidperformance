@@ -22,7 +22,7 @@ def missing_attributes():
 	response['status'] = 'error'
 	return str(response)
 
-def insert_entry_fail():
+def insert_entry_fail(tablename):
 	response={}
 	response['message'] = 'unable to insert entry in table'
 	response['status'] = 'error'

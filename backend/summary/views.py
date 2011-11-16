@@ -73,7 +73,7 @@ def measurement(request):
 
     response = {}
 
-
+    print "start"
     try:
     	request_object = ast.literal_eval(request.raw_post_data)
 
@@ -105,42 +105,47 @@ def measurement(request):
 
 	pings = request_object['pings']	
 
+    except:
+	return HttpResponse(error_message_helper.missing_attributes())    	
+
+    try:
+	details=Device.objects.filter(deviceid=m_deviceid)
+
+	if len(details)<1:
+		details = Device(deviceid = m_deviceid)
+		details.save()
+    except:	
+	details = Device(deviceid = m_deviceid)
+	details.save()
+
+  
+    try:
+    
+    	measurement = Measurement(deviceid = details[0],simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
+    	measurement.save()
+
+	m_id = measurement.measurementid
 	
+
+    except:
+	return HttpResponse(error_message_helper.insert_entry_fail("measurement"))	
+    try:
 	for p in pings:
 		d_srcip = p['src_ip']
 		d_dstip = p['dst_ip']
 		d_time = p['time']
 		measure = p['measure']
 		d_average = measure['average']
-		d_std = measure['stddev']		
+		d_std = measure['stddev']
 		d_min = measure['min']
 		d_max = measure['max']
 		
+		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
+		
+		ping.save()
 
-	
-    except:
-	return HttpResponse(error_message_helper.missing_attributes())    	
-
-    try:
-	details=Devices.objects.filter(deviceid=m_deviceid)
-
-	if len(details)<1:
-		return HttpResponse(error_message_helper.device_not_found())
-    except:	
-	details = Device(deviceid = m_deviceid)
-	details.save()
-#	return HttpResponse(error_message_helper.retrieve_entry_fail())	        
-
-
-   
-#    try:
-    measurement = Measurement(simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
-    measurement.save()
-	#m_id = measurement.measurementid
-	
-
-#    except:
-#	return HttpResponse(error_message_helper.insert_entry_fail())	        
+  except:
+	return HttpResponse(error_message_helper.insert_entry_fail("ping"))			
         
     response['message'] = 'measurement inserted'
     response['status'] = 'OK'
