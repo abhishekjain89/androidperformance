@@ -2,14 +2,14 @@
 {% block content %}
 
 <div class ="section" id="section_1">
-    <div class ="banner" id ="banner_1"></div>
+    <div class ="banner" id ="banner_2"></div>
     <div id="section_text">
         <h1>Device Details for {{measurements.deviceid}}</h1>
 
         <table>
             {% for measure in measurements}
             <tr>
-                <td>ID: <a href ="/measurement/{{measure.measurementid}}/">{{measure.measurementid}}</a></td>
+                <td>ID: <a href ="/measurementdetails/{{measure.measurementid}}/">{{measure.measurementid}}</a></td>
                 <td>{{measure.time}}</td>
             </tr>
         </table>

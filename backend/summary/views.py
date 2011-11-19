@@ -14,12 +14,11 @@ import error_message_helper
 def index(request):
     return render_to_response('index.html')
 
-def displaymeasurements(request,measurementid):
+def measurementdetails(request,measurementid):
     mid = str(measurementid)
     try:
         measurements = Measurement.object.filter(measurementid = mid)
-        deviceid = measurements[0].deviceid
-        return render_to_response('measurements.html',{'deviceid':deviceid,'measurements':measurements})
+        return render_to_response('measurement.html',{'measurement':deviceid,'measurements':measurements})
     except:
         return render_to_response('error.html')
         
