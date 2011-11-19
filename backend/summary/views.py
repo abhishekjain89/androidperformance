@@ -93,7 +93,8 @@ def devicesummary(request):
         else:
             return render_to_response('device.html', {'deviceid': device_id, 'measurements': measurements})
     except:
-        measurements = Measurement.objects.filter(deviceid=device_id)
+            return render_to_response('error.html', {'deviceid': device_id})
+        
     
 
 def measurement(request):
