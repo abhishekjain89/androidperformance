@@ -139,10 +139,11 @@ def measurement(request):
 		d_std = measure['stddev']
 		d_min = measure['min']
 		d_max = measure['max']
-		
-		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
-		
+		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)		
+
 		ping.save()
+
+
 
     except:
 	return HttpResponse(error_message_helper.insert_entry_fail("ping"))			
