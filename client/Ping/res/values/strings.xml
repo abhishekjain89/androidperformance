@@ -2,8 +2,9 @@
 <resources>
     <string name="hello">Hello World, PingActivity!</string>
     <string name="app_name">Ping</string>
-    <string name="testButton">test</string>
+    <string name="testButton">Manual Run</string>
     <string name="configButton">Settings</string>
     <string name="cancelButton">Cancel</string>
     <string name="saveButton">Save</string>
+    <string name="backButton">Back</string>
 </resources>

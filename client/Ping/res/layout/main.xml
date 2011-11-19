@@ -18,29 +18,12 @@
 	    	android:layout_alignParentLeft="true" 
 	    	android:layout_alignParentRight="true"/>
     </LinearLayout>
-    <ScrollView
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_below="@+id/sublinear1"
-    	android:layout_above="@+id/sublinear2">  
-	    <LinearLayout 
-	   		android:id="@+id/measurementslayout" 
-	   		android:layout_height="wrap_content" 
-	   		android:layout_width="fill_parent" 
-	   		android:scrollbars="vertical" 
-	   		android:orientation="vertical" 
-	   		android:layout_alignParentLeft="true"/>
-   	</ScrollView>
    	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    android:layout_alignParentBottom="true"
-	    android:id="@+id/sublinear2">   	
-   		<Button 
-	    	android:text="@string/configButton" 
-	    	android:layout_width="fill_parent" 
-	    	android:layout_height="wrap_content" 
-	    	android:id="@+id/config" />  
+	    android:id="@+id/sublinear2">  
 	</LinearLayout>
+   	<Button android:layout_width="fill_parent" android:id="@+id/config" android:layout_height="wrap_content" android:text="@string/configButton" android:layout_below="@+id/sublinear1" android:layout_alignParentLeft="true"></Button>
 </RelativeLayout>

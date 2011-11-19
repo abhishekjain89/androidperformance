@@ -15,17 +15,39 @@
 	    android:orientation="horizontal" 
 	    android:weightSum="1">
     		<TextView 
-    			android:text="Choose frequency of measurements: " 
+    			android:text="Frequency: " 
     			android:gravity="center_vertical" 
-    			android:layout_height="wrap_content" 
+    			android:layout_height="wrap_content"
+    			android:layout_width="wrap_content" 
 	        	android:singleLine="false"
-    			android:scrollHorizontally="false" 
-    			android:layout_width="120dp"/>
+    			android:scrollHorizontally="false"
+    			android:layout_weight=".5"/>
 	        <Spinner 
 	        	android:id="@+id/spinnerfreq" 
 	        	android:layout_width="wrap_content" 
 	        	android:layout_height="wrap_content" 
 	        	android:layout_weight=".5"/>
+        </LinearLayout>
+        <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:weightSum="1">
+    		<TextView 
+    			android:text="Service: " 
+    			android:gravity="center_vertical" 
+    			android:layout_height="wrap_content"
+    			android:layout_width="wrap_content" 
+	        	android:singleLine="false"
+    			android:scrollHorizontally="false"
+    			android:layout_weight=".5"/>
+	        <ToggleButton 
+	        	android:text="ToggleButton" 
+	        	android:layout_width="wrap_content" 
+	        	android:layout_height="wrap_content" 
+	        	android:id="@+id/toggleButton"
+	        	android:layout_weight=".5"/>
+    
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
