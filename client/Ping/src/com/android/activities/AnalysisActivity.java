@@ -58,8 +58,8 @@ public class AnalysisActivity extends Activity
 		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {		
-				//startService(new Intent(AnalysisActivity.this, PerformanceService.class));
-				serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
+				startService(new Intent(v.getContext(), PerformanceService.class));
+				//serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 			}
 		});
 		

@@ -38,7 +38,10 @@ public class MeasurementTask extends ServerTask{
 		
 		Ping ping = (PingHelper.pingHelp("localhost", 5));
 		pings.add(ping);
-		getResponseListener().onCompletePing(ping);
+		if(getResponseListener() != null)
+		{
+			getResponseListener().onCompletePing(ping);
+		}
 		
 		Measurement measurement = DeviceHelper.deviceHelp(getContext());
 		measurement.setPings(pings);
