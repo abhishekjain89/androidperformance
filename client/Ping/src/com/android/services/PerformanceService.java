@@ -23,6 +23,7 @@ public class PerformanceService extends Service{
 	private ServerHelper serverhelper;
 	private Session session = null;
 	private Timer updateTimer;
+	public static String TAG = "PerformanceService";
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -44,8 +45,8 @@ public class PerformanceService extends Service{
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		//SharedPreferences prefs = getSharedPreferences(Preferences.userRoot(), Activity.MODE_PRIVATE);
-		int freqValue = 15;
-		boolean autoUpdate = false;
+		int freqValue = 1;
+		boolean autoUpdate = true;
 		updateTimer.cancel();
 		if (autoUpdate) {
 			updateTimer = new Timer("measurementTask");

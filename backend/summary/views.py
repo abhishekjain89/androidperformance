@@ -69,6 +69,25 @@ def check_register(request):
 
     return HttpResponse(str(response))
 
+def devicesummary(request):
+    device_id = str(request.POST.get("device"))
+    try:
+        device = Device.objects.filter(deviceid=device_id)
+        if len(device)<1:
+            return render_to_response('error.html', {'deviceid': device_id})
+    except:
+            return render_to_response('error.html', {'deviceid': device_id})
+
+    try:
+        measurements = Measurement.objects.filter(deviceid=device_id)
+        if len(measurements)<1:
+            return render_to_response('error.html', {'deviceid': device_id})
+        else:
+            return render_to_response('device.html', {'deviceid': device_id, 'measurements': measurements})
+    except:
+        measurements = Measurement.objects.filter(deviceid=device_id)
+    
+
 def measurement(request):
 
     response = {}
@@ -139,11 +158,10 @@ def measurement(request):
 		d_std = measure['stddev']
 		d_min = measure['min']
 		d_max = measure['max']
-		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)		
-
+		
+		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
+		
 		ping.save()
-
-
 
     except:
 	return HttpResponse(error_message_helper.insert_entry_fail("ping"))			

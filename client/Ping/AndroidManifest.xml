@@ -29,5 +29,11 @@
                   android:label="@string/app_name">
         </activity>
         <service android:name=".services.PerformanceService" android:enabled="true" android:permission="android.permission.INTERNET"></service>
+        <receiver android:name="StartupIntentReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<category android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
     </application>
 </manifest>

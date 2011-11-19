@@ -43,6 +43,7 @@ public class AnalysisActivity extends Activity
 	private ServerHelper serverhelper;
 	private Session session = null;
 	private boolean firstPing=true;
+	public String serviceTag = "PerformanceService";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,16 @@ public class AnalysisActivity extends Activity
 		testButton=(Button)findViewById(R.id.test);
 		configButton=(Button)findViewById(R.id.config);
 		table = (LinearLayout)findViewById(R.id.measurementslayout);
+
+		processStartService(serviceTag);
 		
 		testButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {		
-				startService(new Intent(v.getContext(), PerformanceService.class));
-				//serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
+			public void onClick(View v) {	
+
+				processStopService(serviceTag);
+				//startService(new Intent(v.getContext(), PerformanceService.class));
+				serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
+				processStartService(serviceTag);
 			}
 		});
 		
@@ -70,6 +76,19 @@ public class AnalysisActivity extends Activity
 			}
 		});
 
+	}
+	
+	
+	private void processStartService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
+	    intent.addCategory(tag);
+	    startService(intent);
+	}
+	
+	private void processStopService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
+	    intent.addCategory(tag);
+	    stopService(intent);
 	}
 	
 	@Override
