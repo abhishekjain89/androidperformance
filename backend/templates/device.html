@@ -2,20 +2,17 @@
 {% block content %}
 
 <div class ="section" id="section_1">
-    <div class ="banner" id ="banner_1"></div>
+    <div class ="banner" id ="banner_2"></div>
     <div id="section_text">
         <h1>Device Details for {{measurements.deviceid}}</h1>
 
         <table>
-            <tr><td><b>Name</b></td><td><b>ph</b></td></tr>
-            <tr><td>ISP</td><td>ph</td></tr>   
-            <tr><td>Service Plan</td><td>ph</td></tr>
-            <tr><td>Download Rate</td><td>ph</td></tr>
-            <tr><td>Upload Rate</td><td>ph</td></tr>
-            <tr><td>First Measurement</td><td>ph</td></tr>
-            <tr><td>Last Measurement</td><td>ph</td></tr>
-            <tr><td>Raw Data</td><td>ph</td></tr>
-            <tr><td>URL for this device page</td><td>ph</td></tr> 
+            {% for measure in measurements}
+            <tr>
+                <td>ID: <a href ="/measurementdetails/{{measure.measurementid}}/">{{measure.measurementid}}</a></td>
+                <td>{{measure.time}}</td>
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>

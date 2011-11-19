@@ -11,16 +11,16 @@ from django.db import models
 
 class Device(models.Model):
     deviceid = models.CharField(max_length=20, primary_key=True)
+    phonenumber = models.CharField(max_length=20)
     class Meta:
         db_table = u'device'
 
 class Measurement(models.Model):
     measurementid = models.AutoField(primary_key=True)
-    deviceid = models.ForeignKey(Device, db_column='deviceid')
+    deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
     simoperatorcode = models.CharField(max_length=20)
     networktype = models.CharField(max_length=20)
     simserialnumber = models.CharField(max_length=20)
-    phonetype = models.CharField(max_length=20)
     altitude = models.CharField(max_length=20)
     networkcountry = models.CharField(max_length=20)
     connectiontype = models.CharField(max_length=20)
@@ -45,7 +45,7 @@ class Ping(models.Model):
     scrip = models.CharField(max_length=20)
     dstip = models.CharField(max_length=20)
     time = models.DateTimeField()
-    measurementid = models.ForeignKey(Measurement, db_column='measurementid')
+    measurementid = models.ForeignKey(Measurement,to_field='measurementid', db_column='measurementid')
     pingid = models.AutoField(primary_key=True)
     class Meta:
         db_table = u'ping'
