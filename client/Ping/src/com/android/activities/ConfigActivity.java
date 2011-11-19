@@ -19,7 +19,7 @@ public class ConfigActivity extends Activity
 	private Button saveButton;
 	private Spinner freqSpinner;
 	private String freq[];
-	private Spinner maxRunSpinner;
+	//private Spinner maxRunSpinner;
 	private String run[];
 
 	@Override
@@ -31,7 +31,7 @@ public class ConfigActivity extends Activity
 		saveButton=(Button)findViewById(R.id.save);
 		freqSpinner=(Spinner)findViewById(R.id.spinnerfreq);
 		freq=new String[30];
-		maxRunSpinner=(Spinner)findViewById(R.id.spinnermaxrun);
+		//maxRunSpinner=(Spinner)findViewById(R.id.spinnermaxrun);
 		run=new String[30];
 		
 		for (int i=0; i<30; i++)
@@ -43,12 +43,10 @@ public class ConfigActivity extends Activity
 		ArrayAdapter<String> adapterfreq = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, freq);
 		freqSpinner.setAdapter(adapterfreq);
 		freqSpinner.setSelection(2);
-		//freqSpinner.getSelectedItem();
 		
 		ArrayAdapter<String> adapterrun = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, run);
-		maxRunSpinner.setAdapter(adapterrun);
-		maxRunSpinner.setSelection(0);
-		//maxRunSpinner.getSelectedItem();
+		//maxRunSpinner.setAdapter(adapterrun);
+		//maxRunSpinner.setSelection(0);
 		
 		cancelButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -70,7 +68,7 @@ public class ConfigActivity extends Activity
 	
 	private void saveSettings(){
 		freqSpinner.getSelectedItem();
-		maxRunSpinner.getSelectedItem();
+		//maxRunSpinner.getSelectedItem();
 		
 	}
 }
