@@ -11,6 +11,7 @@ from django.db import models
 
 class Device(models.Model):
     deviceid = models.CharField(max_length=20, primary_key=True)
+    phonenumber = models.CharField(max_length=20)
     class Meta:
         db_table = u'device'
 
@@ -20,7 +21,6 @@ class Measurement(models.Model):
     simoperatorcode = models.CharField(max_length=20)
     networktype = models.CharField(max_length=20)
     simserialnumber = models.CharField(max_length=20)
-    phonetype = models.CharField(max_length=20)
     altitude = models.CharField(max_length=20)
     networkcountry = models.CharField(max_length=20)
     connectiontype = models.CharField(max_length=20)
