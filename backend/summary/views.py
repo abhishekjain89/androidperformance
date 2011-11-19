@@ -14,6 +14,15 @@ import error_message_helper
 def index(request):
     return render_to_response('index.html')
 
+def displaymeasurements(request,measurementid):
+    mid = str(measurementid)
+    try:
+        measurements = Measurement.object.filter(measurementid = mid)
+        deviceid = measurements[0].deviceid
+        return render_to_response('measurements.html',{'deviceid':deviceid,'measurements':measurements})
+    except:
+        return render_to_response('error.html')
+        
 def register(request):
     
     response = {}
@@ -131,16 +140,16 @@ def measurement(request):
 	details=Device.objects.filter(deviceid=m_deviceid)[0]
 
 	if len(details)<1:
-		details = Device(deviceid = m_deviceid,phonenumber=m_phonenumber)
+		details = Device(deviceid = m_deviceid)
 		details.save()
     except:	
-	details = Device(deviceid = m_deviceid,phonenumber=m_phonenumber)
+	details = Device(deviceid = m_deviceid)
 	details.save()
 
   
     try:
     
-    	measurement = Measurement(deviceid = details,simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
+    	measurement = Measurement(deviceid = details,simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,phonetype = m_phonenumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
     	measurement.save()
 
 	m_id = measurement.measurementid
