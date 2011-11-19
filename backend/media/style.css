@@ -1,6 +1,6 @@
 body, html { 
   color: #000000;
-  background: rgb(249,249,255);
+  background: rgb(230,234,240);
   padding-left: 1.5em;
   width: 90%;
 }
@@ -20,7 +20,6 @@ h3 {
 a {
         text-decoration: none ;
         color: #991133 ;
-        background: rgb(230,234,240);
 }
 
 a:hover {
@@ -29,7 +28,7 @@ a:hover {
 
 body {
         font-family: arial, sans-serif ;
-        background: rgb(249,249,255);
+        background: rgb(234,234,240);
         font-size: 9pt ;
         margin: 25
 }
@@ -44,35 +43,56 @@ li {
 }
 
 DIV.section {
-    border-radius:10px;
-    -moz-border-radius:10px;
-    background-image: -o-linear-gradient(left,rgba(249,249,255),rgba(230,234,240));
-    background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(230,234,240)));
-    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));
-    margin-left: auto;
-    padding: 10px;
-    margin-right: auto;
-    width:500px;
-    text-align: left;
+    border-left:3px solid rgb(44,44,88);
+/*    border-style: solid;
+    border-color: white;
+    border-width: 2px;*/
+/*    background-image: -o-linear-gradient(left,rgba(249,249,255),rgba(180,198,220));
+    background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(180,198,220)));
+    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(180,198,220));*/
+    padding: 0px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:rgb(249,249,255);
+    width:900px;
 /*    -moz-box-shadow:inset 0 0 5px rgb(17,0,54);*/
     -moz-box-shadow:2px 2px 2px #333333;
     box-shadow:2px 2px 2px #333333;
-    background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));
+/*    background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));*/
 }
 
+
+#feedback_link{
+    text-align:right;
+}
+#section_text{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align:left;
+}
+#banner_1{
+    position: relative;
+    background-color: rgb(44,44,88);
+    height: 30px;
+}
+
+#section_2{
+    position:relative;
+    top:30px;
+}
 DIV.about {
 /*    color:rgb(38,0,117);*/
-    color:black;
-    border-radius:10px;
+/*    border-radius:10px;
     -moz-border-radius:10px;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000');
     background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));
     background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(230,234,240)));
-    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));
+    background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));*/
+    background-color:rgb(249,249,255);
+    border-left: solid 3px rgb(44,44,88);
     margin-left: auto;
-    padding: 10px;
     margin-right: auto;
-    text-align: left;
     -moz-box-shadow:2px 2px 2px #333333;
 /*    -moz-box-shadow:inset 0 0 5px black;*/
     box-shadow:2px 2px 2px #333333;
@@ -91,9 +111,6 @@ DIV.section input{
     color:black;
 }
 
-DIV.section a{
-    background-color: rgb(249,249,255);
-}
 
 DIV.progresscontainer {
     margin-left:auto;
@@ -114,6 +131,12 @@ DIV.map {
     
 }
 
+#drop_menu_1{
+    position:absolute;
+    left: 275px;
+    top: 130px;
+}
+
 Div.label{
     width: 150px;
     text-align: center;
@@ -125,12 +148,13 @@ Div.label{
 }
 
 DIV.radiodiv {
-    text-align: center;
+    position:absolute;
+    top:-15%;
+    left: 45%;
+    text-align: left;
 }
 
 DIV.graphdisplay {
-    margin-left:auto;
-    margin-right: auto;
 }
 
 DIV.progressbar {
@@ -140,23 +164,62 @@ DIV.progressbar {
     text-align:center;
 }
 
+#error{
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    top:200px;
+    width:200px;
+    height:200px;
+    font-size: 20px;
+}
+
 
 DIV.graphdiv {
-    margin-left:auto;
-    margin-right: auto;
-    width: 600px;
-    height: 300px;
+    width: 900px;
+    height: 450px;
     
 }
 
+
 DIV.outergraphdiv {
+    margin-top: 50px;
     margin-left:auto;
     margin-right:auto;
-    width:602px;
-    height: 302px;
-    border: 2px solid;
+    width:901px;
+    height: 453px;
+    border: 3px solid;
+    border-radius:10px;
+    -moz-border-radius:10px;
     border-color: rgb(38,0,117);
-    padding: 2px;
+    padding-left:1px;
+/*    -moz-box-shadow:2px 2px 2px #333333;
+    box-shadow:2px 2px 2px #333333;*/
+}
+
+/*#graph_div_outer_1 {
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    top:10px;
+    
+}
+#graph_div_outer2 {
+    position: relative;
+    top:40px;
+}*/
+
+#label_1 {
+    position:absolute;
+    top:-20px;
+    left:230px;
+    
+}
+
+#label_2 {
+    position:absolute;
+    top:-45px;
+    left:230px;
 }
 DIV.projects ul {
 	list-style-type: circle;

@@ -12,7 +12,7 @@ import ast
 import error_message_helper
 
 def index(request):
-    return render_to_response('test_request.html')
+    return render_to_response('index.html')
 
 def register(request):
     
@@ -130,7 +130,6 @@ def measurement(request):
     except:
 	return HttpResponse(error_message_helper.insert_entry_fail("measurement"))	
     try:
-	print "starting pings"
 	for p in pings:
 		d_srcip = p['src_ip']
 		d_dstip = p['dst_ip']
@@ -140,11 +139,10 @@ def measurement(request):
 		d_std = measure['stddev']
 		d_min = measure['min']
 		d_max = measure['max']
-		print "starting creation"
-		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)		
-		print "ending creation"
+		
+		ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
+		
 		ping.save()
-		print "saving"
 
     except:
 	return HttpResponse(error_message_helper.insert_entry_fail("ping"))			
