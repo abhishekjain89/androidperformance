@@ -9,6 +9,12 @@ table td{
     padding-right: 10px;
 }
 
+table.ping{
+    border-style: inset;
+    border-spacing: 0px;
+    border-width: 1px;
+}
+
 img {  
   border-style: none;
 }
