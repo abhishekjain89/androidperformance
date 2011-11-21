@@ -15,10 +15,14 @@ def index(request):
     return render_to_response('index.html')
 
 def measurementdetails(request,measurementid):
-    mid = str(measurementid)
+    mid = measurementid
     try:
-        measurements = Measurement.object.filter(measurementid = mid)
-        return render_to_response('measurement.html',{'measurement':deviceid,'measurements':measurements})
+        
+        measurements = Measurement.objects.filter(measurementid = mid)
+        details = measurements[0]
+        pings = Ping.objects.filter(measurementid = mid)
+        print len(pings)
+        return render_to_response('measurement.html',{'pings':pings,'details':details})
     except:
         return render_to_response('error.html')
         
@@ -79,25 +83,21 @@ def check_register(request):
 
 def devicesummary(request):
     device_id = str(request.POST.get("device"))
-    print device_id
     try:
         device = Device.objects.filter(deviceid=device_id)
-        print device[0].phonenumber
         if len(device)<1:
             return render_to_response('error.html', {'deviceid': device_id})
     except:
-            print "here1"
             return render_to_response('error.html', {'deviceid': device_id})
 
     try:
         measurements = Measurement.objects.filter(deviceid=device_id)
-        print "test"
-        if len(measurements)<1:
+        if (len(measurements)<1):
             return render_to_response('error.html', {'deviceid': device_id})
         else:
             return render_to_response('device.html', {'deviceid': device_id, 'measurements': measurements})
+            
     except:
-            print "here2"
             return render_to_response('error.html', {'deviceid': device_id})
         
     

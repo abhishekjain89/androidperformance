@@ -5,6 +5,10 @@ body, html {
   width: 90%;
 }
 
+table td{
+    padding-right: 10px;
+}
+
 img {  
   border-style: none;
 }

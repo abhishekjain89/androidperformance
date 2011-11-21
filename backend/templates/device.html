@@ -1,21 +1,17 @@
 {% extends "base.html" %}
+
 {% block content %}
-
-<div class ="section" id="section_1">
-    <div class ="banner" id ="banner_2"></div>
-    <div id="section_text">
-        <h1>Device Details for {{measurements.deviceid}}</h1>
-
+<div class="about">
+    <div class ="banner" id ="banner_1"></div>
+    <div id ="section_text">
+        <h3>Measurements for device {{deviceid}}</h3>
         <table>
-            {% for measure in measurements}
-            <tr>
-                <td>ID: <a href ="/measurementdetails/{{measure.measurementid}}/">{{measure.measurementid}}</a></td>
-                <td>{{measure.time}}</td>
-            </tr>
+            <tr><td><b><U>Time</U></b></td><td><b><U>Measurement</U></b></td></tr>
+            {% for measure in measurements %}
+            <tr><td>{{measure.time}}</td><td><a href ="/measurementdetails/{{measure.measurementid}}/">Details</a></td></tr>
             {% endfor %}
         </table>
     </div>
 </div>
-
-
+        
 {% endblock %}
