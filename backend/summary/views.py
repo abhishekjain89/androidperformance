@@ -15,13 +15,12 @@ def index(request):
     return render_to_response('index.html')
 
 def measurementdetails(request,measurementid):
+    
     mid = measurementid
-    try:
-        
+    try:  
         measurements = Measurement.objects.filter(measurementid = mid)
         details = measurements[0]
         pings = Ping.objects.filter(measurementid = mid)
-        print len(pings)
         return render_to_response('measurement.html',{'pings':pings,'details':details})
     except:
         return render_to_response('error.html')
