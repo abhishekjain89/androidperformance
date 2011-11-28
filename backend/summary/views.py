@@ -81,13 +81,14 @@ def check_register(request):
     return HttpResponse(str(response))
 
 def devicesummary(request):
-    device_id = str(request.POST.get("device"))
+    phone_number = str(request.POST.get("code")) + str(request.POST.get("num"))
     try:
-        device = Device.objects.filter(deviceid=device_id)
+        device = Device.objects.filter(phonenumber=phone_number)
+        device_id = device[0].deviceid
         if len(device)<1:
-            return render_to_response('error.html', {'deviceid': device_id})
+            return render_to_response('error.html', {'deviceid': phone_number})
     except:
-            return render_to_response('error.html', {'deviceid': device_id})
+            return render_to_response('error.html', {'deviceid': phone_number})
 
     try:
         measurements = Measurement.objects.filter(deviceid=device_id)

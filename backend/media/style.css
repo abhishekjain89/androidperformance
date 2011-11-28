@@ -95,6 +95,15 @@ DIV.section {
     -moz-border-radius-topright: 10px;
 }
 
+#phone_id_2{
+    margin-left: 1%;
+    width: 110px;
+}
+
+#phone_id_1{
+    width:20px;
+}
+
 #section_2{
     position:relative;
     top:30px;
