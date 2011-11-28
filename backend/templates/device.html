@@ -8,7 +8,7 @@
         <table>
             <tr><td><b><U>Time</U></b></td><td><b><U>Measurement</U></b></td></tr>
             {% for measure in measurements %}
-            <tr><td>{{measure.time}}</td><td><a href ="/measurementdetails/{{measure.measurementid}}/">Details</a></td></tr>
+            <tr><td>{{measure.time}}</td><td><a href ="/details/{{measure.measurementid}}/">Details</a></td></tr>
             {% endfor %}
         </table>
     </div>
