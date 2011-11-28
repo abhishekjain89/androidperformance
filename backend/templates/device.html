@@ -2,14 +2,15 @@
 
 {% block content %}
 <div class="about">
-    <div class ="banner" id ="banner_1"></div>
     <div id ="section_text">
         <h3>Measurements for device {{deviceid}}</h3>
         <table>
             <tr><td><b><U>Time</U></b></td><td><b><U>Measurement</U></b></td></tr>
+            <div class="rows">
             {% for measure in measurements %}
             <tr><td>{{measure.time}}</td><td><a href ="/details/{{measure.measurementid}}/">Details</a></td></tr>
             {% endfor %}
+            </div>
         </table>
     </div>
 </div>

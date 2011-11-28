@@ -1,18 +1,23 @@
 body, html { 
-  color: #000000;
-  background: rgb(230,234,240);
+  /*background: rgb(230,234,240);*/
+  background: rgb(240,250,240);
   padding-left: 1.5em;
   width: 90%;
+  color: rgb(0,0,0);
 }
-
 table td{
     padding-right: 10px;
+}
+
+DIV.rows{
+    color:rgb(25,84,20);
 }
 
 table.ping{
     border-style: inset;
     border-spacing: 0px;
     border-width: 1px;
+    background-color:white;
 }
 
 img {  
@@ -20,10 +25,9 @@ img {
 }
 
 h3 {
-        font-size: 145% ;
+        font-size: 165% ;
         font-weight: bold ;
-        color: #4A4A3C ;
-        color-grey: #bbbbbb
+        color: rgb(25,84,20);
 }
 
 
@@ -38,7 +42,7 @@ a:hover {
 
 body {
         font-family: arial, sans-serif ;
-        background: rgb(234,234,240);
+        /*background: rgb(234,234,240);*/
         font-size: 9pt ;
         margin: 25
 }
@@ -83,8 +87,12 @@ DIV.section {
 }
 #banner_1{
     position: relative;
-    background-color: rgb(44,44,88);
+    background-color: rgb(25,84,20);
     height: 30px;
+    border-top-left-radius: 10px;
+    border-top-left-right: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
 }
 
 #section_2{
@@ -99,13 +107,25 @@ DIV.about {
     background-image: -o-linear-gradient(left,rgb(249,249,255),rgb(230,234,240));
     background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,249,255)), to(rgb(230,234,240)));
     background: -moz-linear-gradient(-45deg, rgb(249,249,255),rgb(230,234,240));*/
-    background-color:rgb(249,249,255);
-    border-left: solid 3px rgb(44,44,88);
+    /*background-color:rgb(249,249,255);*/
+    
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#054000', endColorstr='#000000');
+    background-image: -o-linear-gradient(left,rgb(249,255,249),rgb(255,255,255));
+    background: -webkit-gradient(linear, left top, right bottom, from(rgb(249,255,249)), to(rgb(255,255,255)));
+    background: -moz-linear-gradient(-45deg, rgb(249,255,249),rgb(210,240,210));
+    
+    color: rgb(5,64,0);
+
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    background-color: rgb(249,255,249);
+    border: solid 3px rgb(25,84,20);
+    border-top: solid 6px rgb(25,84,20);
     margin-left: auto;
     margin-right: auto;
-    -moz-box-shadow:2px 2px 2px #333333;
+    -moz-box-shadow:3px 3px 3px #333333;
 /*    -moz-box-shadow:inset 0 0 5px black;*/
-    box-shadow:2px 2px 2px #333333;
+    box-shadow:3px 3px 3px #333333;
 }
 
 DIV.about h3{
