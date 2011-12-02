@@ -4,6 +4,8 @@ package com.android.activities;
 import com.android.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +25,13 @@ public class ConfigActivity extends Activity
 	private String freq[];
 	//private Spinner maxRunSpinner;
 	private String run[];
+	
+	private SharedPreferences preferences;
+	
+	public int settingFreq;
+	public boolean settingServ;
+	
+	public static final String SETTINGS_FILE_NAME = "PingSettings";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,26 +43,16 @@ public class ConfigActivity extends Activity
 		freqSpinner=(Spinner)findViewById(R.id.spinnerfreq);
 		freq=new String[4];
 		on=(ToggleButton)findViewById(R.id.toggleButton);
-		//maxRunSpinner=(Spinner)findViewById(R.id.spinnermaxrun);
-		//run=new String[30];
 		
 		freq[0]="10 min";
 		freq[1]="15 min";
 		freq[2]="30 min";
 		freq[3]="60 min";
 		
-		/*for (int i=0; i<24; i++)
-			run[i]=String.valueOf(i+1);*/
-		
 		ArrayAdapter<String> adapterfreq = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, freq);
 		freqSpinner.setAdapter(adapterfreq);
-		freqSpinner.setSelection(1);
 		
-		on.setChecked(true);
-		
-		//ArrayAdapter<String> adapterrun = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, run);
-		//maxRunSpinner.setAdapter(adapterrun);
-		//maxRunSpinner.setSelection(0);
+		loadSettings();
 		
 		cancelButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -73,10 +72,63 @@ public class ConfigActivity extends Activity
 
 	}
 	
-	private void saveSettings(){
-		freqSpinner.getSelectedItem();
-		on.isChecked();
-		//maxRunSpinner.getSelectedItem();
+	private void loadSettings(){
+		preferences = getSharedPreferences(SETTINGS_FILE_NAME, MODE_PRIVATE);
+		settingFreq=preferences.getInt("freq", 15);
+		settingServ=preferences.getBoolean("serv", false);
 		
+		if (settingServ)
+			on.setChecked(true);
+		else
+			on.setChecked(false);
+		
+		switch(settingFreq){
+		case 10:
+			freqSpinner.setSelection(0);
+			break;
+		case 15:
+			freqSpinner.setSelection(1);
+			break;
+		case 30:
+			freqSpinner.setSelection(2);
+			break;
+		case 60:
+			freqSpinner.setSelection(3);
+			break;
+		default:
+			freqSpinner.setSelection(1);
+			break;
+		}
+		
+		
+	}
+	
+	private void saveSettings(){
+		Editor editor = preferences.edit();
+		
+		settingServ=on.isChecked();
+		editor.putBoolean("serv", settingServ);
+
+		switch(freqSpinner.getSelectedItemPosition()){
+			case 0:
+				settingFreq=10;
+				break;
+			case 1:
+				settingFreq=15;
+				break;
+			case 2:
+				settingFreq=30;
+				break;
+			case 3:
+				settingFreq=60;
+				break;
+			default:
+				settingFreq=15;
+				break;	
+		}
+		
+		editor.putInt("freq", settingFreq);
+		
+		editor.commit();
 	}
 }

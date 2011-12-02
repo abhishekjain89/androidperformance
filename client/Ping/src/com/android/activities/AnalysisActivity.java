@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +45,8 @@ public class AnalysisActivity extends Activity
 	private Session session = null;
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";
+	
+	public static final String SETTINGS_FILE_NAME = "PingSettings";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +82,7 @@ public class AnalysisActivity extends Activity
 			}
 		});
 
-	}
-	
+	}	
 	
 	private void processStartService(final String tag) {
 	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
