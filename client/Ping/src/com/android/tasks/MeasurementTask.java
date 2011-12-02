@@ -34,13 +34,17 @@ public class MeasurementTask extends ServerTask{
 		
 		
 		// TODO Run ping task with list of things such as ip address and number of pings	
-		ArrayList pings = new ArrayList<Ping>();
+		ArrayList<Ping> pings = new ArrayList<Ping>();
 		
-		Ping ping = (PingHelper.pingHelp("localhost", 5));
-		pings.add(ping);
+		pings.add(PingHelper.pingHelp("localhost", 5));
+		pings.add(PingHelper.pingHelp("143.215.131.173", 5));
+		pings.add(PingHelper.pingHelp("143.225.229.254", 5));
+		pings.add(PingHelper.pingHelp("128.48.110.150", 5));
+		
 		if(getResponseListener() != null)
 		{
-			getResponseListener().onCompletePing(ping);
+			for(Ping ping: pings)
+				getResponseListener().onCompletePing(ping);
 		}
 		
 		Measurement measurement = DeviceHelper.deviceHelp(getContext());

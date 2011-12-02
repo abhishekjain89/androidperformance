@@ -16,6 +16,7 @@
 
     <application android:name=".Session" android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".activities.AnalysisActivity"
+                  android:screenOrientation="nosensor" android:configChanges="keyboardHidden|orientation"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +24,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ConfigActivity"
+            	  android:screenOrientation="nosensor" android:configChanges="keyboardHidden|orientation"
                   android:label="@string/app_name">
         </activity>
         <activity android:name=".activities.RunActivity"
+                  android:screenOrientation="nosensor" android:configChanges="keyboardHidden|orientation"
                   android:label="@string/app_name">
         </activity>
         <service android:name=".services.PerformanceService" android:enabled="true" android:permission="android.permission.INTERNET"></service>

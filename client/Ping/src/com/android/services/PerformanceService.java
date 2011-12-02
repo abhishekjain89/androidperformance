@@ -16,6 +16,7 @@ import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.tasks.MeasurementTask;
+import com.android.utils.PreferencesUtil;
 
 public class PerformanceService extends Service{
 
@@ -44,8 +45,14 @@ public class PerformanceService extends Service{
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		//SharedPreferences prefs = getSharedPreferences(Preferences.userRoot(), Activity.MODE_PRIVATE);
-		int freqValue = 1;
+		int freqValue;
+		try{
+		freqValue = PreferencesUtil.getFrequency(this.context);
+		}
+		catch (Exception e){
+			freqValue = 15;
+		}
+		System.out.println("starting service, freq set to " + freqValue);
 		boolean autoUpdate = true;
 		updateTimer.cancel();
 		if (autoUpdate) {
@@ -85,6 +92,10 @@ public class PerformanceService extends Service{
 
 		public void onComplete(String response) {		
 		}
+	}
+	
+	public void onDestroyed(){
+	    super.onDestroy();
 	}
 
 }

@@ -2,6 +2,10 @@ package com.android.activities;
 
 
 import com.android.R;
+import com.android.services.PerformanceService;
+import com.android.utils.PreferencesUtil;
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,12 +30,12 @@ public class ConfigActivity extends Activity
 	//private Spinner maxRunSpinner;
 	private String run[];
 	
-	private SharedPreferences preferences;
+	public String serviceTag = "PerformanceService";
 	
 	public int settingFreq;
 	public boolean settingServ;
 	
-	public static final String SETTINGS_FILE_NAME = "PingSettings";
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +77,9 @@ public class ConfigActivity extends Activity
 	}
 	
 	private void loadSettings(){
-		preferences = getSharedPreferences(SETTINGS_FILE_NAME, MODE_PRIVATE);
-		settingFreq=preferences.getInt("freq", 15);
-		settingServ=preferences.getBoolean("serv", false);
+		
+		settingFreq=PreferencesUtil.getFrequency(this);
+		settingServ=PreferencesUtil.isPing(this);
 		
 		if (settingServ)
 			on.setChecked(true);
@@ -98,17 +102,12 @@ public class ConfigActivity extends Activity
 		default:
 			freqSpinner.setSelection(1);
 			break;
-		}
-		
+		}	
 		
 	}
 	
 	private void saveSettings(){
-		Editor editor = preferences.edit();
-		
-		settingServ=on.isChecked();
-		editor.putBoolean("serv", settingServ);
-
+				
 		switch(freqSpinner.getSelectedItemPosition()){
 			case 0:
 				settingFreq=10;
@@ -127,8 +126,21 @@ public class ConfigActivity extends Activity
 				break;	
 		}
 		
-		editor.putInt("freq", settingFreq);
+		PreferencesUtil.setData(this, settingFreq, settingServ);
 		
-		editor.commit();
+		processStopService(serviceTag);
+		processStartService(serviceTag);
+	}
+	
+	private void processStartService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
+	    intent.addCategory(tag);
+	    startService(intent);
+	}
+	
+	private void processStopService(final String tag) {
+	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
+	    intent.addCategory(tag);
+	    stopService(intent);
 	}
 }

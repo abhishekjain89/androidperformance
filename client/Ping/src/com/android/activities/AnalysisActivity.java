@@ -59,7 +59,8 @@ public class AnalysisActivity extends Activity
 		testButton=(Button)findViewById(R.id.test);
 		configButton=(Button)findViewById(R.id.config);
 		table = (LinearLayout)findViewById(R.id.measurementslayout);
-
+		
+		processStopService(serviceTag);
 		processStartService(serviceTag);
 		
 		testButton.setOnClickListener(new OnClickListener()  {
@@ -94,6 +95,7 @@ public class AnalysisActivity extends Activity
 	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
 	    intent.addCategory(tag);
 	    stopService(intent);
+	    
 	}
 	
 	@Override
