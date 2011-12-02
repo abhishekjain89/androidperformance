@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     # site URLs
      (r'^$', 'backend.summary.views.index'),
      (r'^device', 'backend.summary.views.devicesummary'),
+     (r'^data/(?P<deviceid>\w+)', 'backend.summary.views.showdata'),
      (r'^details/(?P<measurementid>\w+)', 'backend.summary.views.measurementdetails'),
      (r'^register', 'backend.summary.views.register'),
      (r'^check_register', 'backend.summary.views.check_register'),

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="about">
+    <div id ="section_text">
+        <h3>All Pings for device {{deviceid}} </h3>
+        {% for ping in pings %}
+        {{ping.avg}},{{ping.stdev}},{{ping.min}},{{ping.max}},{{ping.srcip}},{{ping.dstip}},{{ping.time}},{{ping.pingid}}<br/>
+        {% endfor %}
+    </div>
+</div>
+<br />
+        
+{% endblock %}

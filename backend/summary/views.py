@@ -14,13 +14,23 @@ import error_message_helper
 def index(request):
     return render_to_response('index.html')
 
+def showdata(request,deviceid):
+    did = deviceid
+    print(did);
+    try:
+        all_pings = Ping.objects.filter(measurementid__deviceid = did)
+        print len(all_pings)
+        return render_to_response('showdata.html',{'pings':all_pings,'deviceid':did})
+    except:
+        return render_to_response('error.html',{'deviceid':did})
+
 def measurementdetails(request,measurementid):
     
     mid = measurementid
     try:  
         measurements = Measurement.objects.filter(measurementid = mid)
         details = measurements[0]
-        pings = Ping.objects.filter(measurementid = mid)
+        pings = Ping.objects.filter(measurementid__measurementid = mid)
         return render_to_response('measurement.html',{'pings':pings,'details':details})
     except:
         return render_to_response('error.html')
