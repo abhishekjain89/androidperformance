@@ -64,7 +64,7 @@ public class Ping {
 			obj.putOpt("src_ip", srcIp);
 			obj.putOpt("dst_ip", dstIp);
 			obj.putOpt("time", time);
-			obj.putOpt("measure", measure.toJSON());
+		//	obj.putOpt("measure", measure.toJSON());
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

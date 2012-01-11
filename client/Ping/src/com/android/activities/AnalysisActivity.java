@@ -50,7 +50,10 @@ public class AnalysisActivity extends Activity
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		
+        
 		setContentView(R.layout.main);
 		
 		activity = this;
@@ -86,15 +89,15 @@ public class AnalysisActivity extends Activity
 	}	
 	
 	private void processStartService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    startService(intent);
+		/*Intent serviceIntent = new Intent();
+		serviceIntent.setAction("com.android.services.PerformanceService");
+		this.startService(serviceIntent);*/
 	}
 	
 	private void processStopService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    stopService(intent);
+		/*Intent serviceIntent = new Intent();
+		serviceIntent.setAction("com.android.services.PerformanceService");
+		stopService(serviceIntent);*/
 	    
 	}
 	

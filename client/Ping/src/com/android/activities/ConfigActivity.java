@@ -59,8 +59,10 @@ public class ConfigActivity extends Activity
 		loadSettings();
 		
 		cancelButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+			public void onClick(View v) {
+				
 				finish();
+				
 			}
 		});
 		
@@ -133,14 +135,15 @@ public class ConfigActivity extends Activity
 	}
 	
 	private void processStartService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    startService(intent);
+		/*Intent serviceIntent = new Intent();
+		serviceIntent.setAction("com.android.services.PerformanceService");
+		this.startService(serviceIntent);*/
 	}
 	
 	private void processStopService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    stopService(intent);
+		/*Intent serviceIntent = new Intent();
+		serviceIntent.setAction("com.android.services.PerformanceService");
+		stopService(serviceIntent);*/
+	    
 	}
 }
