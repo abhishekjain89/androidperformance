@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.android.R;
 import com.android.Session;
 import com.android.helpers.ServerHelper;
+import com.android.helpers.ServiceHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
@@ -63,8 +64,8 @@ public class AnalysisActivity extends Activity
 		configButton=(Button)findViewById(R.id.config);
 		table = (LinearLayout)findViewById(R.id.measurementslayout);
 		
-		processStopService(serviceTag);
-		processStartService(serviceTag);
+		ServiceHelper.processStopService(this,"com.android.services.PerformanceService");
+		ServiceHelper.processStartService(this,"com.android.services.PerformanceService");
 		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -88,18 +89,6 @@ public class AnalysisActivity extends Activity
 
 	}	
 	
-	private void processStartService(final String tag) {
-		/*Intent serviceIntent = new Intent();
-		serviceIntent.setAction("com.android.services.PerformanceService");
-		this.startService(serviceIntent);*/
-	}
-	
-	private void processStopService(final String tag) {
-		/*Intent serviceIntent = new Intent();
-		serviceIntent.setAction("com.android.services.PerformanceService");
-		stopService(serviceIntent);*/
-	    
-	}
 	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){

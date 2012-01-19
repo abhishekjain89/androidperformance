@@ -2,6 +2,7 @@ package com.android.activities;
 
 
 import com.android.R;
+import com.android.helpers.ServiceHelper;
 import com.android.services.PerformanceService;
 import com.android.utils.PreferencesUtil;
 
@@ -130,20 +131,11 @@ public class ConfigActivity extends Activity
 		
 		PreferencesUtil.setData(this, settingFreq, settingServ);
 		
-		processStopService(serviceTag);
-		processStartService(serviceTag);
+		ServiceHelper.processStopService(this,"com.android.services.PerformanceService");
+		ServiceHelper.processStartService(this,"com.android.services.PerformanceService");
 	}
 	
-	private void processStartService(final String tag) {
-		/*Intent serviceIntent = new Intent();
-		serviceIntent.setAction("com.android.services.PerformanceService");
-		this.startService(serviceIntent);*/
-	}
 	
-	private void processStopService(final String tag) {
-		/*Intent serviceIntent = new Intent();
-		serviceIntent.setAction("com.android.services.PerformanceService");
-		stopService(serviceIntent);*/
 	    
-	}
+	
 }

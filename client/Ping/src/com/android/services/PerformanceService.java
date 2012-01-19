@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.android.Session;
 import com.android.helpers.ServerHelper;
@@ -41,7 +42,8 @@ public class PerformanceService extends Service{
 
 	@Override
 	public void onDestroy() {
-
+		updateTimer.cancel();
+		Log.v("PerformanceService","Destroying PerformanceService");
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
