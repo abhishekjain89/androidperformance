@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -55,11 +56,16 @@ public class PerformanceService extends Service{
 			freqValue = 15;
 		}
 		System.out.println("starting service, freq set to " + freqValue);
+		 if (doRefresh != null) {
+				doRefresh.cancel();
+			}
+		doRefresh = new myTimerTask();
 		boolean autoUpdate = true;
 		updateTimer.cancel();
 		if (autoUpdate) {
 			updateTimer = new Timer("measurementTask");
 			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * 60 * 1000);
+			
 		}
 		else {
 			runTask();
@@ -69,32 +75,33 @@ public class PerformanceService extends Service{
 		return Service.START_STICKY;	
 	}
 
-	private TimerTask doRefresh = new TimerTask() {
-		public void run() {
-			runTask();
+	
+	  private Handler handler = new Handler();
+		myTimerTask doRefresh = null;
+		
+		public class myTimerTask extends TimerTask {
+			private Runnable runnable = new Runnable() {
+				public void run() {
+					try {
+						runTask();
+					} catch(Exception e) {
+						Log.e(">>>> Error executing runTaask ( PerformanceService ): " , 
+							e.getMessage());
+					}
+				}
+			};
+			
+			public void run() {
+				handler.post(runnable);
+			}
 		}
-	};
 	
 	private void runTask() {
 		//MeasurementTask mt = new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener());
-		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), null));
 		
 	}
-
-	private class MeasurementListener extends BaseResponseListener{
-
-		public void onCompletePing(Ping response) {
-		}
-		
-		public void onCompleteDevice(Device response) {
-		}
-		
-		public void onCompleteMeasurement(Measurement response) {
-		}
-
-		public void onComplete(String response) {		
-		}
-	}
+	
 	
 	public void onDestroyed(){
 	    super.onDestroy();
