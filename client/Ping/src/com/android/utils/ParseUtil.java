@@ -2,6 +2,7 @@ package com.android.utils;
 
 import java.util.Scanner;
 
+import com.android.models.Throughput;
 import com.android.models.Measure;
 
 public class ParseUtil {
@@ -35,6 +36,11 @@ public class ParseUtil {
 		}
 		else
 			return null;
+	}
+
+	public static com.android.models.Throughput ThroughputParser(String output) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

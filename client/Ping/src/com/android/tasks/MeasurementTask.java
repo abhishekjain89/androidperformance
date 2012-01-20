@@ -48,8 +48,8 @@ public class MeasurementTask extends ServerTask{
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 		
-		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"}; 
-		this.getResponseListener();
+		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
+		
 		
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new PingListener()));

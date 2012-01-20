@@ -15,10 +15,17 @@ public class CommandLineUtil {
 	 * @return
 	 */
 	public String runCommand(String cmd, String input, String options) {
+		
+		String runtimeInput = "/system/bin/" + cmd + " " + options + " " + input;
+		
+		return runCommand(runtimeInput);
+	}
+	
+	public String runCommand(String cmd) {
 		Process process;
 		String line 		= "";
 		String message 		= "";
-		String runtimeInput = "/system/bin/" + cmd + " " + options + " " + input;
+		String runtimeInput = cmd;
 		
 		try {
 			process = Runtime.getRuntime().exec(runtimeInput);
