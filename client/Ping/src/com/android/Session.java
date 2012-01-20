@@ -11,19 +11,11 @@ import com.android.utils.IDThreadPoolExecutor;
 
 public class Session extends Application {
 	
-	private IDThreadPoolExecutor tpe;
-	
-	
 	public Session(){
-			
-	tpe = new IDThreadPoolExecutor(1, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
 	
 	}
 	
-	public IDThreadPoolExecutor getThreadPoolExecutor()
-	{
-		return  tpe;
-	}
+	
 	
 
 }

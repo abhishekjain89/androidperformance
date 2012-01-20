@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.android.R;
 import com.android.Session;
-import com.android.helpers.ServerHelper;
+import com.android.helpers.ThreadPoolHelper;
 import com.android.helpers.ServiceHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
@@ -42,7 +42,7 @@ public class AnalysisActivity extends Activity
 	private Button configButton;
 	//private TextView tv;
 	private Activity activity;
-	private ServerHelper serverhelper;
+	private ThreadPoolHelper serverhelper;
 	private Session session = null;
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";
@@ -58,8 +58,8 @@ public class AnalysisActivity extends Activity
 		setContentView(R.layout.main);
 		
 		activity = this;
-		session =  (Session) getApplicationContext();		
-		serverhelper = new ServerHelper(session);
+				
+		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
 		configButton=(Button)findViewById(R.id.config);
 		table = (LinearLayout)findViewById(R.id.measurementslayout);

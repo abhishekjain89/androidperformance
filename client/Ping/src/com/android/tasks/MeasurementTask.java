@@ -1,15 +1,24 @@
 package com.android.tasks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
+import com.android.Session;
+import com.android.activities.RunActivity.MeasurementListener;
 import com.android.helpers.DeviceHelper;
 import com.android.helpers.PingHelper;
+import com.android.helpers.ThreadPoolHelper;
+import com.android.listeners.BaseResponseListener;
 import com.android.listeners.ResponseListener;
+import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.utils.HTTPUtil;
@@ -28,23 +37,31 @@ public class MeasurementTask extends ServerTask{
 			ResponseListener listener) {
 		super(context, reqParams, listener);
 	}
-
+	
+	ArrayList<Ping> pings = new ArrayList<Ping>();
+	
 	@Override
 	public void runTask() {
 		
 		
 		// TODO Run ping task with list of things such as ip address and number of pings	
-		ArrayList<Ping> pings = new ArrayList<Ping>();
+
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 		
-		pings.add(PingHelper.pingHelp("localhost", 5));
-		pings.add(PingHelper.pingHelp("143.215.131.173", 5));
-		pings.add(PingHelper.pingHelp("143.225.229.254", 5));
-		pings.add(PingHelper.pingHelp("128.48.110.150", 5));
+		String[] dstIps = {"localhost","143.215.131.173", "143.225.229.254","128.48.110.150"}; 
+		this.getResponseListener();
 		
-		if(getResponseListener() != null)
-		{
-			for(Ping ping: pings)
-				getResponseListener().onCompletePing(ping);
+		for(int i=0;i<dstIps.length;i++)
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new PingListener()));
+		
+		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
 		}
 		
 		Measurement measurement = DeviceHelper.deviceHelp(getContext());
@@ -71,5 +88,45 @@ public class MeasurementTask extends ServerTask{
 		return "Measurement Task";
 	}
 	
+	
+	private class PingListener extends BaseResponseListener{
+
+		public void onCompletePing(Ping response) {
+			Message msg=Message.obtain(pingHandler, 0, response);
+			pingHandler.sendMessage(msg);		
+		}
+		
+		public void onComplete(String response) {
+		
+		}
+
+		public void onCompleteMeasurement(Measurement response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteDevice(Device response) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	
+	private Handler pingHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				Ping p=(Ping)msg.obj;
+				pings.add(p);
+				if(getResponseListener() != null)
+				{
+					getResponseListener().onCompletePing(p);
+				}
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
 
 }

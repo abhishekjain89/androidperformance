@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import com.android.R;
 import com.android.Session;
-import com.android.helpers.ServerHelper;
+import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
@@ -38,7 +38,7 @@ public class RunActivity extends Activity
 {
 	private LinearLayout table;
 	
-	private ServerHelper serverhelper;
+	private ThreadPoolHelper serverhelper;
 	private Session session = null;
 	private Activity activity;
 	private boolean firstPing=true;
@@ -52,8 +52,8 @@ public class RunActivity extends Activity
 		setContentView(R.layout.main3);
 		
 		activity = this;
-		session =  (Session) getApplicationContext();	
-		serverhelper = new ServerHelper(session);
+			
+		serverhelper = new ThreadPoolHelper(5,10);
 		backButton=(Button)findViewById(R.id.back);
 		progress=(ProgressBar)findViewById(R.id.progressBar);
 		
@@ -312,7 +312,7 @@ public class RunActivity extends Activity
 		}  
 	}
 	
-	private class MeasurementListener extends BaseResponseListener{
+	public class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);

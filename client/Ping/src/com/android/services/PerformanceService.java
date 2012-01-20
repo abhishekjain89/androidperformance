@@ -9,10 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 
 import com.android.Session;
-import com.android.helpers.ServerHelper;
+import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
@@ -23,8 +24,8 @@ import com.android.utils.PreferencesUtil;
 public class PerformanceService extends Service{
 
 	private Context context;
-	private ServerHelper serverhelper;
-	private Session session = null;
+	private ThreadPoolHelper serverhelper;
+
 	private Timer updateTimer;
 	public static String TAG = "PerformanceService";
 	
@@ -37,8 +38,8 @@ public class PerformanceService extends Service{
 	public void onCreate() {
 		updateTimer = new Timer("measurementTask");
 		context = this.getApplicationContext();
-		session = (Session) (this.getApplicationContext());
-		serverhelper = new ServerHelper(session);
+		
+		serverhelper = new ThreadPoolHelper(5,10);
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class PerformanceService extends Service{
 	
 	private void runTask() {
 		//MeasurementTask mt = new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener());
-		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), null));
+		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener()));
 		
 	}
 	
@@ -106,5 +107,25 @@ public class PerformanceService extends Service{
 	public void onDestroyed(){
 	    super.onDestroy();
 	}
+	
+	public class MeasurementListener extends BaseResponseListener{
+
+		public void onCompletePing(Ping response) {
+			
+		}
+		
+		public void onCompleteDevice(Device response) {
+			
+		}
+		
+		public void onCompleteMeasurement(Measurement response) {
+			
+		}
+
+		public void onComplete(String response) {
+		
+		}
+	}
+	
 
 }
