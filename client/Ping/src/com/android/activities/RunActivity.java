@@ -358,7 +358,7 @@ public class RunActivity extends Activity
 				Measurement m=(Measurement)msg.obj;
 				newMeasurementTable(m);
 				progress.setVisibility(View.GONE);
-
+			
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

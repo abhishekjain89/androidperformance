@@ -48,7 +48,7 @@ public class MeasurementTask extends ServerTask{
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 		
-		String[] dstIps = {"143.215.131.173" };//, "143.225.229.254","128.48.110.150","localhost"}; 
+		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"}; 
 		this.getResponseListener();
 		
 		for(int i=0;i<dstIps.length;i++)
