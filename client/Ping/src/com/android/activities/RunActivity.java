@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.android.R;
 import com.android.Session;
+import com.android.helpers.ServiceHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
@@ -65,22 +66,11 @@ public class RunActivity extends Activity
 			}
 		});
 		
-		processStopService(serviceTag);
+		ServiceHelper.processStopService(this,serviceTag);
 		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 		
 	}
 	
-	private void processStartService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    startService(intent);
-	}
-	
-	private void processStopService(final String tag) {
-	    Intent intent = new Intent(getApplicationContext(), PerformanceService.class);
-	    intent.addCategory(tag);
-	    stopService(intent);
-	}
 	
 	private void newLineTable(){
 		View row = new View(this);
@@ -368,7 +358,7 @@ public class RunActivity extends Activity
 				Measurement m=(Measurement)msg.obj;
 				newMeasurementTable(m);
 				progress.setVisibility(View.GONE);
-				processStartService(serviceTag);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
