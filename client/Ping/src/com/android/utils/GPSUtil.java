@@ -56,4 +56,26 @@ public class GPSUtil {
 		}
 		return gps;
 	}
+	
+	public GPS setGps(Location location) {
+		double lat, lng, alt;
+		GPS gps = new GPS();
+		if (location != null)
+		{
+			lat = location.getLatitude();
+			lng = location.getLongitude();
+			alt = location.getAltitude();
+
+			GPS.setOldLatitude("" + lat);
+			GPS.setOldLongitude("" + lng);
+			GPS.setOldAltitude("" + alt);
+		}
+		else
+		{
+			GPS.setOldLatitude("Not Found");
+			GPS.setOldLongitude("Not Found");
+			GPS.setOldAltitude("Not Found");
+		}
+		return gps;
+	}
 }

@@ -34,11 +34,18 @@ public class DeviceHelper {
 		DeviceUtil deviceUtil = new DeviceUtil();
 		GPSHelper gpsH = new GPSHelper();
 		Measurement info = new Measurement();
-		info = deviceUtil.getFullDetail(context);
 		GPS gps = gpsH.getGps(context);
-		info.setAltitude(gps.getAltitude());
-		info.setLatitude(gps.getLatitude());
-		info.setLongitude(gps.getLongitude());
+		info = deviceUtil.getFullDetail(context);
+//		if (gps.getLatitude() == ("Not Found"))	{
+//			info.setAltitude(GPS.getOldAltitude());
+//			info.setLatitude(GPS.getOldLatitude());
+//			info.setLongitude(GPS.getOldLongitude());
+//		}
+//		else {
+			info.setAltitude(gps.getAltitude());
+			info.setLatitude(gps.getLatitude());
+			info.setLongitude(gps.getLongitude());
+//		}
 		return info;
 		
 	}

@@ -1,8 +1,8 @@
 package com.android.utils;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import android.content.Context;
@@ -10,7 +10,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 
 import com.android.models.Measurement;
 
@@ -19,8 +21,8 @@ public class DeviceUtil {
 	public Measurement getFullDetail(Context context)
 	{
 		Measurement dev = new Measurement();
-		String srvnName = context.TELEPHONY_SERVICE;
-		String service = context.CONNECTIVITY_SERVICE;
+		String srvnName = Context.TELEPHONY_SERVICE;
+		String service = Context.CONNECTIVITY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
@@ -43,28 +45,26 @@ public class DeviceUtil {
 
 		// Read the IMEI for GSM or MEID for CDMA
 		String deviceId = telephonyManager.getDeviceId();
+		dev.setDeviceId(deviceId);
 		
 		// Read the software version on the phone
 		String softwareVersion = telephonyManager.getDeviceSoftwareVersion();	
+		dev.setSoftwareVersion(softwareVersion);
 		
 		// Get the phone's number
 		String phoneNumber = telephonyManager.getLine1Number();
-		
-		dev.setDeviceId(deviceId);
-		dev.setSoftwareVersion(softwareVersion);
 		dev.setPhoneNumber(phoneNumber);
 		
 		// Get connected network country ISO code
 		String networkCountry = telephonyManager.getNetworkCountryIso();
+		dev.setNetworkCountryISO(networkCountry);
 		
 		// Get the connected network operator ID (MCC + MNC)
 		String networkOperatorId = telephonyManager.getNetworkOperator();
+		dev.setNetworkOperatorId(networkOperatorId);
 		
 		// Get the connected network operator name // Carrier
 		String networkName = telephonyManager.getNetworkOperatorName();
-		
-		dev.setNetworkCountryISO(networkCountry);
-		dev.setNetworkOperatorId(networkOperatorId);
 		dev.setNetworkName(networkName);
 		
 		// Get the type of network you are connected to
@@ -133,20 +133,20 @@ public class DeviceUtil {
 			  
 			  // Get the SIM country ISO code
 			  String simCountry = telephonyManager.getSimCountryIso();
+			  dev.setSimNetworkCountry(simCountry);
 		    
 			  // Get the operator code of the active SIM (MCC + MNC)
 			  String simOperatorCode = telephonyManager.getSimOperator(); 
+			  dev.setSimOperatorCode(simOperatorCode);
 		    
 			  // Get ther name of the SIM operator
 			  String simOperatorName = telephonyManager.getSimOperatorName();
+			  dev.setSimOperatorName(simOperatorName);
 		    
 			  // Get the SIM's serial number
 			  String simSerial = telephonyManager.getSimSerialNumber();
-
-			  dev.setSimNetworkCountry(simCountry);
-			  dev.setSimOperatorCode(simOperatorCode);
-			  dev.setSimOperatorName(simOperatorName);
 			  dev.setSimSerialNumber(simSerial);
+
 			  break;
 		  }
 		}
@@ -170,14 +170,17 @@ public class DeviceUtil {
 			// Get the mobile network information.
 			int network = ConnectivityManager.TYPE_MOBILE;
 			NetworkInfo mobileNetwork = connectivity.getNetworkInfo(network);
-			NetworkInfo.State state = mobileNetwork.getState();
-			NetworkInfo.DetailedState detailedState = mobileNetwork.getDetailedState();
+			String networkInfo = mobileNetwork.toString();
+			dev.setMobileNetworkInfo(networkInfo);
 			
-			dev.setMobileNetworkState(state.toString());
-			dev.setMobileNetworkDetailedState(detailedState.toString());
+			//NetworkInfo.State state = mobileNetwork.getState();
+			//dev.setMobileNetworkState(state.toString());
+			//NetworkInfo.DetailedState detailedState = mobileNetwork.getDetailedState();
+			//dev.setMobileNetworkDetailedState(detailedState.toString());
+			
 		}
 		else {
-			String srvc = context.WIFI_SERVICE;
+			String srvc = Context.WIFI_SERVICE;
 			WifiManager wifi = (WifiManager)context.getSystemService(srvc);
 			WifiInfo info = wifi.getConnectionInfo();
 			if (info.getBSSID() != null) {
@@ -191,29 +194,36 @@ public class DeviceUtil {
 			} 
 		}
 
+		// Getting current time
 	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	    String utcTime = sdf.format(new Date());
 	    dev.setTime(utcTime);
 		
-/*		
-		telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
-		GsmCellLocation loc = (GsmCellLocation) telephonyManager.getCellLocation();
-		int cellId = loc.getCid();
-		int lac = loc.getLac();
-		
-		dev.setCellId("" + cellId);
-		dev.setCellLac("" + lac);
-		
+	    // Cell Id and Cell lac
+	    try {
+	    	TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+			GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
+			int cellId = loc.getCid();
+			int lac = loc.getLac();
+			
+			dev.setCellId("" + cellId);
+			dev.setCellLac("" + lac);
+	    } catch (Exception e) {
+	    	System.out.print(e.getMessage());
+	    	System.out.print(e.getCause());
+	    }
+	    
 		/*
 		List<NeighboringCellInfo> cellinfo = telephonyManager.getNeighboringCellInfo();
-        
+        String deviceinfo = "";
         if(null != cellinfo){
                 for(NeighboringCellInfo info: cellinfo){
                         deviceinfo += ("\tCellID: " + info.getCid() + ", RSSI: " + info.getRssi() + "\n");
                 }
         }
-		 */
+        */
+		 
 		
 		
 		return dev;
@@ -241,7 +251,6 @@ public class DeviceUtil {
 			phoneDetail += "NONE";
 			break;
 		default:
-			//phoneDetail += "UNKNOWN";
 			break;
 		}
 
@@ -256,7 +265,7 @@ public class DeviceUtil {
 		
 		phoneDetail += "\nDevice ID: " + deviceId;
 		phoneDetail += "\nSoftware Version: " + softwareVersion;
-		//phoneDetail += "\Phone Number: " + phoneNumber;
+		phoneDetail += "\nPhone Number: " + phoneNumber;
 		
 		return phoneDetail;
 	}
@@ -321,7 +330,6 @@ public class DeviceUtil {
 			  networkDetail += "UNKNOWN";  
 			  break;
 		  default: 
-			  //networkDetail += "";  
 			  break;
 		}
 		return networkDetail;

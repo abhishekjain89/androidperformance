@@ -34,8 +34,10 @@ public class Measurement {
 	String simOperatorCode;
 	String simSerialNumber;
 	String connectionType;
-	String mobileNetworkState;
-	String mobileNetworkDetailedState;
+	//String mobileNetworkState;
+	//String mobileNetworkDetailedState;
+	String mobileNetworkInfo;
+
 	String wifiState;
 	String longitude;
 	String latitude;
@@ -44,6 +46,14 @@ public class Measurement {
 	String cellLac;
 	
 
+	public String getMobileNetworkInfo() {
+		return mobileNetworkInfo;
+	}
+
+	public void setMobileNetworkInfo(String mobileNetworkInfo) {
+		this.mobileNetworkInfo = mobileNetworkInfo;
+	}
+	
 	public String getTime() {
 		return time;
 	}
@@ -206,7 +216,7 @@ public class Measurement {
 		this.connectionType = connectionType;
 	}
 
-	public String getMobileNetworkState() {
+	/*public String getMobileNetworkState() {
 		return mobileNetworkState;
 	}
 
@@ -220,7 +230,7 @@ public class Measurement {
 
 	public void setMobileNetworkDetailedState(String mobileNetworkDetailedState) {
 		this.mobileNetworkDetailedState = mobileNetworkDetailedState;
-	}
+	}*/
 
 	public String getWifiState() {
 		return wifiState;
@@ -299,8 +309,9 @@ public class Measurement {
 			obj.putOpt("simOperatorCode", simOperatorCode);
 			obj.putOpt("simSerialNumber", simSerialNumber);
 			obj.putOpt("connectionType", connectionType);
-			obj.putOpt("mobileNetworkState", mobileNetworkState);
-			obj.putOpt("mobileNetworkDetailedState", mobileNetworkDetailedState);
+//			obj.putOpt("mobileNetworkState", mobileNetworkState);
+//			obj.putOpt("mobileNetworkDetailedState", mobileNetworkDetailedState);
+			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
 			obj.putOpt("wifiState", wifiState);
 			obj.putOpt("longitude", longitude);
 			obj.putOpt("latitude", latitude);
