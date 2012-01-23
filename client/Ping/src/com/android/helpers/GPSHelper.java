@@ -2,12 +2,12 @@ package com.android.helpers;
 
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.models.GPS;
 import com.android.utils.GPSUtil;
+import com.android.utils.GPSUtil.LocationResult;
 
 public class GPSHelper {
 
@@ -59,6 +59,21 @@ public class GPSHelper {
 		return gps;
 	}
 
+    private void searchLocation(GPSUtil loc, Context context) {
+        loc.getLocation(context, locationResult);
+    }
+
+
+    public LocationResult locationResult = new LocationResult(){
+        @Override
+        public void gotLocation(final Location location){
+            if (location != null)
+            {
+            	// Save to GPS location
+            }
+            
+        }
+    };
 	
 	public String getGpsOutput() {
 		return gpsOutput;
