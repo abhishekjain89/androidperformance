@@ -200,6 +200,44 @@ public class DeviceUtil {
 	    String utcTime = sdf.format(new Date());
 	    dev.setTime(utcTime);
 		
+		// Finds the current data connection state and transfer activity
+		int dataActivity = telephonyManager.getDataActivity();
+		int dataState = telephonyManager.getDataState();
+		
+		switch (dataActivity) {
+			case TelephonyManager.DATA_ACTIVITY_IN :
+				dev.setDataActivity("DATA_ACTIVITY_IN");
+				break;
+			case TelephonyManager.DATA_ACTIVITY_OUT :
+				dev.setDataActivity("DATA_ACTIVITY_OUT");
+				break;
+			case TelephonyManager.DATA_ACTIVITY_INOUT :
+				dev.setDataActivity("DATA_ACTIVITY_INOUT");
+				break;
+			case TelephonyManager.DATA_ACTIVITY_NONE :
+				dev.setDataActivity("DATA_ACTIVITY_NONE");
+				break;
+			case TelephonyManager.DATA_ACTIVITY_DORMANT :
+				dev.setDataActivity("DATA_ACTIVITY_DORMANT");
+				break;
+		}
+
+		switch (dataState) {
+			case TelephonyManager.DATA_CONNECTED :
+				dev.setDataState("DATA_CONNECTED");
+				break;
+			case TelephonyManager.DATA_CONNECTING :
+				dev.setDataState("DATA_CONNECTING");
+				break;
+			case TelephonyManager.DATA_DISCONNECTED :
+				dev.setDataState("DATA_DISCONNECTED");
+				break;
+			case TelephonyManager.DATA_SUSPENDED :
+				dev.setDataState("DATA_SUSPENDED");
+				break;
+		}
+	    
+	    
 	    // Cell Id and Cell lac
 	    try {
 	    	TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);

@@ -34,8 +34,6 @@ public class Measurement {
 	String simOperatorCode;
 	String simSerialNumber;
 	String connectionType;
-	//String mobileNetworkState;
-	//String mobileNetworkDetailedState;
 	String mobileNetworkInfo;
 
 	String wifiState;
@@ -45,6 +43,25 @@ public class Measurement {
 	String cellId;
 	String cellLac;
 	
+	String dataState;
+	String dataActivity;
+	
+
+	public String getDataState() {
+		return dataState;
+	}
+
+	public void setDataState(String dataState) {
+		this.dataState = dataState;
+	}
+
+	public String getDataActivity() {
+		return dataActivity;
+	}
+
+	public void setDataActivity(String dataActivity) {
+		this.dataActivity = dataActivity;
+	}
 
 	public String getMobileNetworkInfo() {
 		return mobileNetworkInfo;
@@ -216,22 +233,6 @@ public class Measurement {
 		this.connectionType = connectionType;
 	}
 
-	/*public String getMobileNetworkState() {
-		return mobileNetworkState;
-	}
-
-	public void setMobileNetworkState(String mobileNetworkState) {
-		this.mobileNetworkState = mobileNetworkState;
-	}
-
-	public String getMobileNetworkDetailedState() {
-		return mobileNetworkDetailedState;
-	}
-
-	public void setMobileNetworkDetailedState(String mobileNetworkDetailedState) {
-		this.mobileNetworkDetailedState = mobileNetworkDetailedState;
-	}*/
-
 	public String getWifiState() {
 		return wifiState;
 	}
@@ -309,8 +310,6 @@ public class Measurement {
 			obj.putOpt("simOperatorCode", simOperatorCode);
 			obj.putOpt("simSerialNumber", simSerialNumber);
 			obj.putOpt("connectionType", connectionType);
-//			obj.putOpt("mobileNetworkState", mobileNetworkState);
-//			obj.putOpt("mobileNetworkDetailedState", mobileNetworkDetailedState);
 			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
 			obj.putOpt("wifiState", wifiState);
 			obj.putOpt("longitude", longitude);
@@ -319,6 +318,9 @@ public class Measurement {
 			obj.putOpt("cellId", cellId);
 			obj.putOpt("cellLac", cellLac);		
 			obj.putOpt("time", time);			
+			obj.putOpt("dataState", dataState);
+			obj.putOpt("dataActivity", dataActivity);
+			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
