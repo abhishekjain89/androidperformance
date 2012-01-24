@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,10 +27,12 @@ import com.android.Session;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.helpers.ServiceHelper;
 import com.android.listeners.BaseResponseListener;
+import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.services.PerformanceService;
+import com.android.tasks.InstallBinariesTask;
 import com.android.tasks.MeasurementTask;
 
 
@@ -54,7 +57,27 @@ public class AnalysisActivity extends Activity
 		
 		super.onCreate(savedInstanceState);
 		
-        
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
+
+		serverhelper.execute(new InstallBinariesTask(this,new HashMap<String,String>(), new String[0], new com.android.listeners.FakeListener()));
+		try {
+			Thread.sleep(250);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+
+			Log.v(this.toString(),"Installing Binaries...");
+		}
+		Log.v(this.toString(),"Binaries Installed");
+		
 		setContentView(R.layout.main_screen);
 		
 		activity = this;
@@ -63,6 +86,8 @@ public class AnalysisActivity extends Activity
 		testButton=(Button)findViewById(R.id.test);
 		configButton=(Button)findViewById(R.id.config);
 		table = (LinearLayout)findViewById(R.id.measurementslayout);
+		
+		
 		
 		ServiceHelper.processStopService(this,"com.android.services.PerformanceService");
 		ServiceHelper.processStartService(this,"com.android.services.PerformanceService");

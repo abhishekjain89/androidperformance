@@ -55,6 +55,8 @@ public class ConfigActivity extends Activity
 		freq[3]="60 min";
 		
 		ArrayAdapter<String> adapterfreq = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, freq);
+		adapterfreq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		freqSpinner.setAdapter(adapterfreq);
 		
 		loadSettings();

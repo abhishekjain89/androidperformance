@@ -17,6 +17,7 @@ import com.android.helpers.DeviceHelper;
 import com.android.helpers.PingHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
+import com.android.listeners.FakeListener;
 import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
@@ -47,6 +48,25 @@ public class MeasurementTask extends ServerTask{
 		// TODO Run ping task with list of things such as ip address and number of pings	
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
+		
+		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
+		try {
+			Thread.sleep(250);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+
+			Log.v(this.toString(),"Installing Binaries...");
+		}
+		Log.v(this.toString(),"Binaries Installed");
 		
 		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
 			
