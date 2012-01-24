@@ -15,6 +15,7 @@ import android.util.Log;
 import com.android.Session;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
+import com.android.listeners.FakeListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
@@ -99,37 +100,13 @@ public class PerformanceService extends Service{
 	
 	private void runTask() {
 		//MeasurementTask mt = new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener());
-		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), new FakeListener()));
 		
 	}
 	
 	
 	public void onDestroyed(){
 	    super.onDestroy();
-	}
-	
-	public class MeasurementListener extends BaseResponseListener{
-
-		public void onCompletePing(Ping response) {
-			
-		}
-		
-		public void onCompleteDevice(Device response) {
-			
-		}
-		
-		public void onCompleteMeasurement(Measurement response) {
-			
-		}
-
-		public void onComplete(String response) {
-		
-		}
-
-		public void onUpdateProgress(int val) {
-			// TODO Auto-generated method stub
-			
-		}
 	}
 	
 
