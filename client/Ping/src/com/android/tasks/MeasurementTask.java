@@ -91,7 +91,7 @@ public class MeasurementTask extends ServerTask{
 			getResponseListener().onUpdateProgress(100-(serverhelper.getThreadPoolExecutor().getActiveCount()*100)/total_threads);
 			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
 		}
-		
+		getResponseListener().onUpdateProgress(100);
 		
 		
 		measurement.setPings(pings);
