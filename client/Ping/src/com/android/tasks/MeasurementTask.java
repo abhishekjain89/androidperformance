@@ -53,7 +53,7 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		int total_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
+		int total_threads = 5;
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
