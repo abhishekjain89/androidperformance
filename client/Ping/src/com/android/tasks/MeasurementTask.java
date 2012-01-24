@@ -53,7 +53,7 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		
+		int total_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -68,6 +68,7 @@ public class MeasurementTask extends ServerTask{
 				e.printStackTrace();
 				break;
 			}
+			getResponseListener().onUpdateProgress(100-(serverhelper.getThreadPoolExecutor().getActiveCount()*100)/total_threads);
 			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
 		}
 		
@@ -115,6 +116,11 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteDevice(Device response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateProgress(int val) {
 			// TODO Auto-generated method stub
 			
 		}

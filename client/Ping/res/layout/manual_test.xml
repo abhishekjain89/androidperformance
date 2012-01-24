@@ -9,28 +9,40 @@
     	android:layout_height="fill_parent"
     	android:layout_below="@+id/sublinear1" 
     	android:layout_above="@+id/back">  
-    	<RelativeLayout 
-    		android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:orientation="vertical" 
-		    android:weightSum="2">
-		    <LinearLayout 
-		   		android:id="@+id/measurementslayout" 
-		   		android:layout_height="wrap_content" 
-		   		android:layout_width="fill_parent" 
-		   		android:scrollbars="vertical" 
-		   		android:orientation="vertical" 
-		   		android:layout_alignParentLeft="true">
-		    </LinearLayout>
-		    <ProgressBar 
-		    style="?android:attr/progressBarStyleLarge" 
-		    android:layout_height="wrap_content" 
-		    android:layout_width="wrap_content" 
-		    android:id="@+id/progressBar" 
-		    android:layout_below="@+id/measurementslayout" 
-    		android:layout_above="@+id/back"
-		    android:layout_centerHorizontal="true"/>
-		</RelativeLayout>
+
+    	<RelativeLayout
+    	    android:layout_width="match_parent"
+    	    android:layout_height="242dp"
+    	    android:orientation="vertical"
+    	    android:weightSum="2" >
+
+    	    <LinearLayout
+    	        android:id="@+id/measurementslayout"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:layout_alignParentLeft="true"
+    	        android:orientation="vertical"
+    	        android:scrollbars="vertical" >
+    	    </LinearLayout>
+
+    	    <ProgressBar
+    	        android:id="@+id/spinningBar"
+    	        style="?android:attr/progressBarStyleLarge"
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:layout_centerHorizontal="true"
+    	        android:layout_centerVertical="true" />
+
+    	    <ProgressBar
+    	        android:id="@+id/progressBar"
+    	        style="@android:style/Widget.ProgressBar.Horizontal"
+    	        android:layout_width="300px"
+    	        android:layout_height="wrap_content"
+    	        android:layout_alignParentBottom="true"
+    	        android:layout_centerHorizontal="true" />
+
+    	</RelativeLayout>
+
    	</ScrollView>
    	<Button 
    	android:id="@+id/back" 

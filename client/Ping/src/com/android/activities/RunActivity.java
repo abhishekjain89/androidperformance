@@ -46,6 +46,7 @@ public class RunActivity extends Activity
 	public String serviceTag = "PerformanceService";
 	private Button backButton;
 	private ProgressBar progress;
+	private ProgressBar progressBar;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class RunActivity extends Activity
 			
 		serverhelper = new ThreadPoolHelper(5,10);
 		backButton=(Button)findViewById(R.id.back);
-		progress=(ProgressBar)findViewById(R.id.progressBar);
+		progress=(ProgressBar)findViewById(R.id.spinningBar);
+		progressBar=(ProgressBar)findViewById(R.id.progressBar);
 		
 		table = (LinearLayout)findViewById(R.id.measurementslayout);
 		
@@ -322,6 +324,11 @@ public class RunActivity extends Activity
 		public void onComplete(String response) {
 		
 		}
+		
+		public void onUpdateProgress(int val){
+			Message msg=Message.obtain(progressBarHandler, 0, val);
+			progressBarHandler.sendMessage(msg);
+		}
 	}
 	
 	private Handler pingHandler = new Handler() {
@@ -358,7 +365,20 @@ public class RunActivity extends Activity
 				Measurement m=(Measurement)msg.obj;
 				newMeasurementTable(m);
 				progress.setVisibility(View.GONE);
+				progressBar.setVisibility(View.GONE);
 			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	private Handler progressBarHandler = new Handler() {
+		
+		public void  handleMessage(Message msg) {
+			try {
+				int value=(Integer)msg.obj;
+				progressBar.setProgress(value);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -25,6 +25,8 @@ public interface ResponseListener {
 
     
     public void onException(Exception e);
+    
+    public void onUpdateProgress(int val);
 
 
 }

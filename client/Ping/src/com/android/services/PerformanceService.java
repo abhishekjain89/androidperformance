@@ -125,6 +125,11 @@ public class PerformanceService extends Service{
 		public void onComplete(String response) {
 		
 		}
+
+		public void onUpdateProgress(int val) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 
