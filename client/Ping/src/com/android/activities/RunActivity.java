@@ -50,7 +50,7 @@ public class RunActivity extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main3);
+		setContentView(R.layout.manual_test);
 		
 		activity = this;
 			
