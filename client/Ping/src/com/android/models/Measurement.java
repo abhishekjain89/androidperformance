@@ -10,18 +10,22 @@ import org.json.JSONObject;
 
 public class Measurement {
 	
-	//Info info;
-	
+/*     DESIRED STRUCTURE
+  -----------------------*/	
 	ArrayList<Ping> pings;
+	Device device;
+	Network network;
+	Sim sim;
+	Throughput throughput;
+	GPS gps;
+	String time;
+	String deviceId;
+/*-----------------------*/	
 	
-
-	// Not used at the moment
+/*		MOVE THIS !	
+  -----------------------*/	
 	String phoneDetail;
 	String networkDetail;	
-	String deviceId;
-	
-	String time;
-
 	String phoneNumber;
 	String softwareVersion;
 	String networkCountry;
@@ -45,7 +49,7 @@ public class Measurement {
 	
 	String dataState;
 	String dataActivity;
-	
+/*-------------------------*/	
 
 	public String getDataState() {
 		return dataState;

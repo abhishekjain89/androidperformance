@@ -40,8 +40,4 @@ public class Link {
 		return speedInBytes()*8;
 	}
 	
-	
-
-	
-
 }

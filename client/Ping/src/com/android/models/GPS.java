@@ -6,7 +6,6 @@ public class GPS {
 	String longitude;
 	String altitude;
 	static String oldLatitude;
-
 	static String oldLongitude;
 	static String oldAltitude;
 
