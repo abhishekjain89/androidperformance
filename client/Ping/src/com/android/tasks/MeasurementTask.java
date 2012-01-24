@@ -49,12 +49,11 @@ public class MeasurementTask extends ServerTask{
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 		
 		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
-		
-		
-		
+			
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -71,6 +70,8 @@ public class MeasurementTask extends ServerTask{
 			}
 			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
 		}
+		
+		
 		
 		measurement.setPings(pings);
 		getResponseListener().onCompleteMeasurement(measurement);
