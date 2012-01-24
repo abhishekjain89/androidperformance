@@ -17,7 +17,6 @@ public class CommandLineUtil {
 	public String runCommand(String cmd, String input, String options) {
 		
 		String runtimeInput = "/system/bin/" + cmd + " " + options + " " + input;
-		
 		return runCommand(runtimeInput);
 	}
 	

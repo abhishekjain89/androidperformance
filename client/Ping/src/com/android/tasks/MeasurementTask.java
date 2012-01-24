@@ -37,7 +37,7 @@ public class MeasurementTask extends ServerTask{
 			ResponseListener listener) {
 		super(context, reqParams, listener);
 	}
-	
+	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	
 	@Override
@@ -51,9 +51,10 @@ public class MeasurementTask extends ServerTask{
 		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
 		
 		
+		
 		for(int i=0;i<dstIps.length;i++)
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new PingListener()));
-
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
+		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -71,7 +72,6 @@ public class MeasurementTask extends ServerTask{
 			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
 		}
 		
-		Measurement measurement = DeviceHelper.deviceHelp(getContext());
 		measurement.setPings(pings);
 		getResponseListener().onCompleteMeasurement(measurement);
 		
@@ -96,7 +96,7 @@ public class MeasurementTask extends ServerTask{
 	}
 	
 	
-	private class PingListener extends BaseResponseListener{
+	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);
@@ -108,7 +108,8 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
-			// TODO Auto-generated method stub
+			Message msg=Message.obtain(measurementHandler, 0, response);
+			measurementHandler.sendMessage(msg);
 			
 		}
 
@@ -130,6 +131,17 @@ public class MeasurementTask extends ServerTask{
 				}
 				
 				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	private Handler measurementHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				measurement=(Measurement)msg.obj;
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

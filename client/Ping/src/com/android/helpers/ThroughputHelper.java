@@ -20,7 +20,7 @@ public class ThroughputHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Throughput pingHelp(String ip_address, String srcPort, String dstPort) {
+	public static Throughput netperfHelp(String ip_address, String srcPort, String dstPort) {
 		
 		String ipDst 	= ip_address;
 		String cmd 		= "netperf ";
