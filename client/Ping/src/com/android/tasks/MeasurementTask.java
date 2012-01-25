@@ -47,7 +47,8 @@ public class MeasurementTask extends ServerTask{
 		
 		
 		// TODO Run ping task with list of things such as ip address and number of pings	
-
+		android.os.Debug.startMethodTracing("lsd");
+        
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 		
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
@@ -114,6 +115,8 @@ public class MeasurementTask extends ServerTask{
 			e.printStackTrace();
 		}
 		
+		android.os.Debug.stopMethodTracing();
+		
 	}
 
 	@Override
@@ -150,7 +153,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteGPS(GPS gps) {
-			measurement.setGps(gps);
+			//measurement.setGps(gps);
 			
 		}
 	}
