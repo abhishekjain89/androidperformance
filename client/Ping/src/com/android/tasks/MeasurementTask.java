@@ -153,7 +153,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteGPS(GPS gps) {
-			//measurement.setGps(gps);
+			measurement.setGps(gps);
 			
 		}
 	}
