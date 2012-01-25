@@ -2,7 +2,6 @@ package com.android.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 import android.content.Context;
@@ -10,7 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.telephony.NeighboringCellInfo;
+import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
@@ -172,12 +171,6 @@ public class DeviceUtil {
 			NetworkInfo mobileNetwork = connectivity.getNetworkInfo(network);
 			String networkInfo = mobileNetwork.toString();
 			dev.setMobileNetworkInfo(networkInfo);
-			
-			//NetworkInfo.State state = mobileNetwork.getState();
-			//dev.setMobileNetworkState(state.toString());
-			//NetworkInfo.DetailedState detailedState = mobileNetwork.getDetailedState();
-			//dev.setMobileNetworkDetailedState(detailedState.toString());
-			
 		}
 		else {
 			String srvc = Context.WIFI_SERVICE;
@@ -241,12 +234,23 @@ public class DeviceUtil {
 	    // Cell Id and Cell lac
 	    try {
 	    	TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-			GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
-			int cellId = loc.getCid();
-			int lac = loc.getLac();
+			CellLocation cellLocation = tm.getCellLocation();
+	    	//GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
 			
-			dev.setCellId("" + cellId);
-			dev.setCellLac("" + lac);
+			if(cellLocation instanceof GsmCellLocation){
+				GsmCellLocation gsmCellLocation = (GsmCellLocation)cellLocation;
+				int cid = gsmCellLocation.getCid();
+				int lac = gsmCellLocation.getLac();
+				cid = cid & 0xffff;
+				lac = lac & 0xffff;
+				dev.setCellId("" + cid);
+				dev.setCellLac("" + lac);
+			}
+			else {
+				dev.setCellId("65535");
+				dev.setCellLac("65535");
+			}
+			
 	    } catch (Exception e) {
 	    	System.out.print(e.getMessage());
 	    	System.out.print(e.getCause());
