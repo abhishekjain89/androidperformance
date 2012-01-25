@@ -64,13 +64,13 @@ public class GPSUtil {
 		return gps;
 	}
 	
-    Timer timer;
-    LocationManager locationManager;
-    LocationResult locationResult;
-    boolean gps_enabled = false;
-    boolean network_enabled = false; 
+    static Timer timer;
+    static LocationManager locationManager;
+    static LocationResult locationResult;
+    static boolean gps_enabled = false;
+    static boolean network_enabled = false; 
 
-    public boolean getLocation(Context context, LocationResult result)
+    public static boolean getLocation(Context context, LocationResult result)
     {
         // Use LocationResult callback class to pass location value from GPSUtil to user code.
         locationResult = result;
@@ -97,7 +97,7 @@ public class GPSUtil {
         return true;
     }
 
-    LocationListener locationListenerGps = new LocationListener() {
+    static LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer.cancel();
             locationResult.gotLocation(location);
@@ -112,7 +112,7 @@ public class GPSUtil {
         }
     };
 
-    LocationListener locationListenerNetwork = new LocationListener() {
+    static LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer.cancel();
             locationResult.gotLocation(location);
@@ -127,7 +127,7 @@ public class GPSUtil {
         }
     };
 
-    class GetLastLocation extends TimerTask {
+    static class GetLastLocation extends TimerTask {
         @Override
         public void run() {
              locationManager.removeUpdates(locationListenerGps);
