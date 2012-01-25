@@ -5,10 +5,7 @@ public class GPS {
 	String latitude; 
 	String longitude;
 	String altitude;
-	static String oldLatitude;
-	static String oldLongitude;
-	static String oldAltitude;
-
+	
 	public GPS() {
 		
 	}
@@ -43,27 +40,4 @@ public class GPS {
 		this.altitude = altitude;
 	}
 
-	public static String getOldLatitude() {
-		return oldLatitude;
-	}
-
-	public static void setOldLatitude(String oldLatitude) {
-		GPS.oldLatitude = oldLatitude;
-	}
-
-	public static String getOldLongitude() {
-		return oldLongitude;
-	}
-
-	public static void setOldLongitude(String oldLongitude) {
-		GPS.oldLongitude = oldLongitude;
-	}
-
-	public static String getOldAltitude() {
-		return oldAltitude;
-	}
-
-	public static void setOldAltitude(String oldAltitude) {
-		GPS.oldAltitude = oldAltitude;
-	}
 }

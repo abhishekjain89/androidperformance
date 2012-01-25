@@ -280,15 +280,14 @@ public class Measurement {
 		
 	}
 	
-	/*
-	public Measurement(Info device, Device user, ArrayList<Ping> pings) {
-		super();
-		this.info = device;
-		this.device = user;
-		this.pings = pings;
+	public GPS getGps() {
+		return gps;
 	}
-	*/
 
+	public void setGps(GPS gps) {
+		this.gps = gps;
+	}
+	
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		
