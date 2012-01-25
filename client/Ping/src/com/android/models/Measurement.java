@@ -12,10 +12,10 @@ public class Measurement {
 	
 /*     DESIRED STRUCTURE
   -----------------------*/	
-	ArrayList<Ping> pings;
-	Device device;
-	Network network;
-	Sim sim;
+	ArrayList<Ping> pings; 
+	Device device; // Need
+	Network network; // Need
+	Sim sim; // Need
 	Throughput throughput;
 	GPS gps;
 	String time;
@@ -26,31 +26,71 @@ public class Measurement {
   -----------------------*/	
 	String phoneDetail;
 	String networkDetail;	
+	
+	// Device 
+	String phoneType;
 	String phoneNumber;
 	String softwareVersion;
-	String networkCountry;
-	String networkOperatorId;
-	String networkName;
-	String networkType;
+	
+	// Sim 
 	String simNetworkCountry;
 	String simState;
 	String simOperatorName;
 	String simOperatorCode;
 	String simSerialNumber;
+
+	// Network
+	String networkCountry;
+	String networkOperatorId;
+	String networkName;
+	String networkType;
 	String connectionType;
 	String mobileNetworkInfo;
-
 	String wifiState;
+	String cellId;
+	String cellLac;	
+	String dataState;
+	String dataActivity;
+
+	// GPS
 	String longitude;
 	String latitude;
 	String altitude;
-	String cellId;
-	String cellLac;
-	
-	String dataState;
-	String dataActivity;
+
 /*-------------------------*/	
 
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
+	}
+
+	public Network getNetwork() {
+		return network;
+	}
+
+	public void setNetwork(Network network) {
+		this.network = network;
+	}
+
+	public Sim getSim() {
+		return sim;
+	}
+
+	public void setSim(Sim sim) {
+		this.sim = sim;
+	}
+
+	public Throughput getThroughput() {
+		return throughput;
+	}
+
+	public void setThroughput(Throughput throughput) {
+		this.throughput = throughput;
+	}
+	
 	public String getDataState() {
 		return dataState;
 	}
@@ -102,11 +142,11 @@ public class Measurement {
 	
 	
 	public String getPhoneType() {
-		return phoneNumber;
+		return phoneType;
 	}
 
 	public void setPhoneType(String phoneType) {
-		this.phoneNumber = phoneType;
+		this.phoneType = phoneType;
 	}
 
 	public String getPhoneDetail() {

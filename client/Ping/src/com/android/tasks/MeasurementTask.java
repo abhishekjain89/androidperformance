@@ -75,7 +75,7 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		
 		int total_threads = 2 + dstIps.length;
 		

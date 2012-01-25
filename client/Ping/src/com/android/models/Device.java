@@ -5,45 +5,19 @@ import org.json.JSONObject;
 
 public class Device {
 	
-	String name;
-	String planType ;
-	String deviceId;
+	String phoneType;
 	String phoneNumber;
-	
-	
-	public Device(String name, String planType, String deviceId,
-			String phoneNumber) {
-		super();
-		this.name = name;
-		this.planType = planType;
-		this.deviceId = deviceId;
-		this.phoneNumber = phoneNumber;
+	String softwareVersion;
+
+
+	public String getPhoneType() {
+		return phoneType;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setPhoneType(String phoneType) {
+		this.phoneType = phoneType;
 	}
 	
-	public String getPlanType() {
-		return planType;
-	}
-
-	public void setPlanType(String planType) {
-		this.planType = planType;
-	}
-
-	public String getDeviceId() {
-		return deviceId;
-	}
-
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -51,23 +25,26 @@ public class Device {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
+	public String getSoftwareVersion() {
+		return softwareVersion;
+	}
+
+	public void setSoftwareVersion(String softwareVersion) {
+		this.softwareVersion = softwareVersion;
+	}
+
 	public JSONObject toJSON(){
 		
 		JSONObject obj = new JSONObject();
 		try {
-			
-			obj.putOpt("name", name);
-			obj.putOpt("plantype",  planType );
-			obj.putOpt("deviceId", deviceId);
+			obj.putOpt("phoneType", phoneType);
 			obj.putOpt("phoneNumber", phoneNumber);
-			
+			obj.putOpt("softwareVersion", softwareVersion);
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return obj;
-		
 	}
 
 }
