@@ -69,9 +69,10 @@ public class GPSUtil {
     static LocationResult locationResult;
     static boolean gps_enabled = false;
     static boolean network_enabled = false; 
-
+    
     public static boolean getLocation(Context context, LocationResult result)
     {
+    	
         // Use LocationResult callback class to pass location value from GPSUtil to user code.
         locationResult = result;
         if(locationManager == null)
@@ -89,11 +90,12 @@ public class GPSUtil {
         if(gps_enabled) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
         }
-        if(network_enabled) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
-        }
+        //if(network_enabled) {
+        //    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
+        //}
         timer = new Timer();
         timer.schedule(new GetLastLocation(), 20000);
+        
         return true;
     }
 
@@ -130,6 +132,7 @@ public class GPSUtil {
     static class GetLastLocation extends TimerTask {
         @Override
         public void run() {
+        	
              locationManager.removeUpdates(locationListenerGps);
              locationManager.removeUpdates(locationListenerNetwork);
 
@@ -139,7 +142,7 @@ public class GPSUtil {
              if(gps_enabled) {
                  gps_loc=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
              }
-             if(network_enabled) {
+             /*if(network_enabled) {
                  net_loc=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
              }
              
@@ -152,16 +155,16 @@ public class GPSUtil {
                      locationResult.gotLocation(net_loc);
                  }
                  return;
-             }
+             }*/
 
              if(gps_loc != null) {
                  locationResult.gotLocation(gps_loc);
                  return;
              }
-             if(net_loc != null) { 
+             /*if(net_loc != null) { 
                  locationResult.gotLocation(net_loc);
                  return;
-             }
+             }*/
              locationResult.gotLocation(null);
         }
     }
