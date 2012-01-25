@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.android.models.Device;
+import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 
@@ -27,6 +28,8 @@ public interface ResponseListener {
     public void onException(Exception e);
     
     public void onUpdateProgress(int val);
+
+	public void onCompleteGPS(GPS gps);
 
 
 }

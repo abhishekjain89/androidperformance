@@ -20,6 +20,7 @@ import com.android.listeners.BaseResponseListener;
 import com.android.listeners.FakeListener;
 import com.android.listeners.ResponseListener;
 import com.android.models.Device;
+import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.utils.HTTPUtil;
@@ -73,7 +74,10 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		int total_threads = 5;
+		serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		
+		int total_threads = 2 + dstIps.length;
+		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -142,6 +146,11 @@ public class MeasurementTask extends ServerTask{
 
 		public void onUpdateProgress(int val) {
 			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteGPS(GPS gps) {
+			measurement.setGps(gps);
 			
 		}
 	}

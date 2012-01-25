@@ -1,6 +1,7 @@
 package com.android.listeners;
 
 import com.android.models.Device;
+import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 
@@ -27,6 +28,11 @@ public class FakeListener extends BaseResponseListener{
 	public void onUpdateProgress(int val) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void onCompleteGPS(GPS gps) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

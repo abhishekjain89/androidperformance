@@ -14,7 +14,7 @@ import com.android.models.GPS;
 public class GPSUtil {
 	
 	/**
-	 * Gets gps location 
+	 * Gets ngps location 
 	 * @param location
 	 * @return 
 	 */

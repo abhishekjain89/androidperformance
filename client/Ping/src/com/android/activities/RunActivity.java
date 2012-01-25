@@ -13,6 +13,7 @@ import com.android.helpers.ServiceHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
+import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.services.PerformanceService;
@@ -328,6 +329,11 @@ public class RunActivity extends Activity
 		public void onUpdateProgress(int val){
 			Message msg=Message.obtain(progressBarHandler, 0, val);
 			progressBarHandler.sendMessage(msg);
+		}
+
+		public void onCompleteGPS(GPS gps) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	
