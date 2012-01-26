@@ -8,8 +8,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
 import com.android.models.GPS;
+import com.android.models.Measurement;
 
 public class GPSUtil {
 	
@@ -70,6 +73,7 @@ public class GPSUtil {
     static boolean gps_enabled = false;
     static boolean network_enabled = false; 
     
+    
     public static boolean getLocation(Context context, LocationResult result)
     {
     	
@@ -88,7 +92,7 @@ public class GPSUtil {
         }
 
         if(gps_enabled) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
+        	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
         }
         //if(network_enabled) {
         //    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
@@ -98,6 +102,7 @@ public class GPSUtil {
         
         return true;
     }
+    
 
     static LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {

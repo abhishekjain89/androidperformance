@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -23,7 +24,9 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.utils.GPSUtil;
 import com.android.utils.HTTPUtil;
+import com.android.utils.GPSUtil.LocationResult;
 
 /*
  * Measurement Task 
@@ -41,7 +44,7 @@ public class MeasurementTask extends ServerTask{
 	}
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
-	
+	public boolean gpsRunning  = false;
 	@Override
 	public void runTask() {
 		
@@ -76,6 +79,9 @@ public class MeasurementTask extends ServerTask{
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		gpsRunning = true;
+		GPSHandler.sendEmptyMessage(0);
+		
 		
 		int total_threads = 2 + dstIps.length;
 		
@@ -98,6 +104,14 @@ public class MeasurementTask extends ServerTask{
 		}
 		getResponseListener().onUpdateProgress(100);
 		
+		while(gpsRunning){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
 		
 		measurement.setPings(pings);
 		getResponseListener().onCompleteMeasurement(measurement);
@@ -175,6 +189,36 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 	};
+	
+	private Handler GPSHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				boolean gps = GPSUtil.getLocation(getContext(), locationResult);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	public LocationResult locationResult = new LocationResult(){
+        @Override
+        public void gotLocation(final Location location){
+        	GPS gps = new GPS();
+            if (location != null)
+            {
+            	gps.setAltitude("" + location.getAltitude());
+            	gps.setLatitude("" + location.getLatitude());
+            	gps.setLongitude("" + location.getLongitude());
+            	gpsRunning = false;
+        		
+            }
+            else{
+            	gps = new GPS("Not Found","Not Found","Not Found");                
+            }
+            measurement.setGps(gps);
+        }
+    };
 	
 	private Handler measurementHandler = new Handler() {
 		public void  handleMessage(Message msg) {

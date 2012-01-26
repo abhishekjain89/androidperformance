@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +38,7 @@ public class GPSTask extends ServerTask{
 	@Override
 	public void runTask() {
 		isRunning = true;
-		boolean gps = GPSUtil.getLocation(getContext(), locationResult);
+		GPSHandler.sendEmptyMessage(0);
 		this.responseListener = this.getResponseListener();
 		while(isRunning){
 			try {
@@ -49,7 +51,18 @@ public class GPSTask extends ServerTask{
 	}
 
 
-    public LocationResult locationResult = new LocationResult(){
+	private Handler GPSHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				boolean gps = GPSUtil.getLocation(getContext(), locationResult);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	public LocationResult locationResult = new LocationResult(){
         @Override
         public void gotLocation(final Location location){
         	GPS gps = new GPS();
@@ -62,6 +75,8 @@ public class GPSTask extends ServerTask{
         		responseListener.onCompleteGPS(gps);
             }
             isRunning = false;
+            gps = new GPS("Not Found","Not Found","Not Found");
+            responseListener.onCompleteGPS(gps);
         }
     };
 	

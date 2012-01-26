@@ -10,6 +10,8 @@ public class GPS {
 		
 	}
 	
+	
+	
 	public GPS(String latitude, String longitude, String altitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
