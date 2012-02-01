@@ -126,6 +126,15 @@ public class Device {
 			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("softwareVersion", softwareVersion);
 			obj.putOpt("battery", battery.toJSON());
+			obj.putOpt("phoneModel", phoneModel);
+			obj.putOpt("androidVersion",androidVersion);
+			obj.putOpt("phoneBrand",phoneBrand);
+			obj.putOpt("deviceDesign",deviceDesign);
+			obj.putOpt("manufacturer",manufacturer);
+			obj.putOpt("productName",productName);
+			obj.putOpt("radioVersion",radioVersion);
+			obj.putOpt("boardName",boardName);
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}		
