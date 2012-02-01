@@ -51,8 +51,27 @@ public class DeviceUtil {
 		String phoneNumber = telephonyManager.getLine1Number();
 		dev.setPhoneNumber(phoneNumber);
 		
+
 		BatteryUtil b = new BatteryUtil();
 		b.getBattery(context,dev);
+
+		// Get device model
+		// Device model
+		String phoneModel = android.os.Build.MODEL;
+		dev.setPhoneModel(phoneModel);
+
+		// Android version
+		String androidVersion = android.os.Build.VERSION.RELEASE;
+		dev.setAndroidVersion(androidVersion);
+		
+		String phoneBrand = android.os.Build.BRAND;
+		String deviceDesign = android.os.Build.DEVICE;
+		String manufacturer = android.os.Build.MANUFACTURER;
+		String productName = android.os.Build.PRODUCT;
+		String radioVersion = android.os.Build.RADIO;
+		String boardName = android.os.Build.BOARD;
+		
+		
 		return dev;
 	}
 	
