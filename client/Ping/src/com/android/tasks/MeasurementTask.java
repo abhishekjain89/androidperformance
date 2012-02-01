@@ -136,7 +136,7 @@ public class MeasurementTask extends ServerTask{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		(new MeasurementListener()).onCompleteMeasurement(measurement);
 		android.os.Debug.stopMethodTracing();
 		
 	}
@@ -159,6 +159,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
+			getResponseListener().onCompleteMeasurement(response);
 		}
 
 		public void onCompleteDevice(Device response) {
