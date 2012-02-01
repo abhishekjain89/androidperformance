@@ -150,8 +150,8 @@ public class MeasurementTask extends ServerTask{
 	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			Message msg=Message.obtain(pingHandler, 0, response);
-			pingHandler.sendMessage(msg);		
+			pings.add(response);
+			getResponseListener().onCompletePing(response);
 		}
 		
 		public void onComplete(String response) {
@@ -182,23 +182,6 @@ public class MeasurementTask extends ServerTask{
 		}
 	}
 	
-	
-	private Handler pingHandler = new Handler() {
-		public void  handleMessage(Message msg) {
-			try {
-				Ping p=(Ping)msg.obj;
-				pings.add(p);
-				if(getResponseListener() != null)
-				{
-					getResponseListener().onCompletePing(p);
-				}
-				
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
 	
 	private Handler GPSHandler = new Handler() {
 		public void  handleMessage(Message msg) {
