@@ -159,9 +159,6 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
-			Message msg=Message.obtain(measurementHandler, 0, response);
-			measurementHandler.sendMessage(msg);
-			
 		}
 
 		public void onCompleteDevice(Device response) {
@@ -236,15 +233,5 @@ public class MeasurementTask extends ServerTask{
         }
     };
 	
-	private Handler measurementHandler = new Handler() {
-		public void  handleMessage(Message msg) {
-			try {
-				measurement=(Measurement)msg.obj;
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
 
 }
