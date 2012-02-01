@@ -48,7 +48,7 @@ public class MeasurementTask extends ServerTask{
 	@Override
 	public void runTask() {
 		
-		
+		measurement = new Measurement();
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		android.os.Debug.startMethodTracing("lsd");
         
@@ -77,7 +77,7 @@ public class MeasurementTask extends ServerTask{
 			
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
-		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		gpsRunning = true;
 		GPSHandler.sendEmptyMessage(0);
@@ -214,7 +214,8 @@ public class MeasurementTask extends ServerTask{
         		
             }
             else{
-            	gps = new GPS("Not Found","Not Found","Not Found");                
+            	gps = new GPS("Not Found","Not Found","Not Found");        
+            	gpsRunning = false;
             }
             measurement.setGps(gps);
         }

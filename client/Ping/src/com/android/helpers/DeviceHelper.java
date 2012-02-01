@@ -9,16 +9,15 @@ import com.android.utils.DeviceUtil;
 public class DeviceHelper {
 
 	
-	public static Measurement deviceHelp(Context context){
+	public static Measurement deviceHelp(Context context, Measurement info){
 		
-		return runFullDetail(context);
+		return runFullDetail(context, info);
 	}
 	
-	public static Measurement runFullDetail(Context context) {
+	public static Measurement runFullDetail(Context context, Measurement info) {
 
 		DeviceUtil deviceUtil = new DeviceUtil();
 		GPSHelper gpsH = new GPSHelper();
-		Measurement info = new Measurement();
 		info.setDevice(deviceUtil.getDeviceDetail(context));		
 		info.setNetwork(deviceUtil.getNetworkDetail(context));		
 		info.setSim(deviceUtil.getSimDetail(context));

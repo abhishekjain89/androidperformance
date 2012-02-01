@@ -25,7 +25,8 @@ public class GPSHelper {
 		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		
 		gpsUtil = new GPSUtil();
-		String gps = gpsUtil.getGpsString(location);
+
+		String gps = "";//gpsUtil.getGpsString(location);
 		this.setGpsOutput(gps);
 		return gps;
 	}
@@ -37,7 +38,7 @@ public class GPSHelper {
 		locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
 		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		gpsUtil = new GPSUtil();
-		GPS gps = gpsUtil.getGps(location);
+		GPS gps = null; //gpsUtil.getGps(location);
 		return gps;
 	}
 

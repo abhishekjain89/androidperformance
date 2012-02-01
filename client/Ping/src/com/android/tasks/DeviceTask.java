@@ -24,14 +24,17 @@ import com.android.utils.HTTPUtil;
  */
 public class DeviceTask extends ServerTask{
 	
-	public DeviceTask(Context context, Map<String, String> reqParams, ResponseListener listener) {
+	Measurement measurement;
+	
+	public DeviceTask(Context context, Map<String, String> reqParams, ResponseListener listener, Measurement measurement) {
 		super(context, reqParams, listener);
+		this.measurement = measurement;
 	}
 
 	@Override
 	public void runTask() {
 		
-		Measurement measurement = DeviceHelper.deviceHelp(getContext());
+		measurement = DeviceHelper.deviceHelp(getContext(), measurement);
 		this.getResponseListener().onCompleteMeasurement(measurement);
 	}
 

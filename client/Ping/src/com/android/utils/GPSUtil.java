@@ -16,63 +16,11 @@ import com.android.models.Measurement;
 
 public class GPSUtil {
 	
-	/**
-	 * Gets ngps location 
-	 * @param location
-	 * @return 
-	 */
-	public String getGpsString(Location location) {
-
-		double lat, lng, alt;
-		String gpsString;
-		GPS gps = new GPS();
-		if (location != null)
-		{
-			lat = location.getLatitude();
-			lng = location.getLongitude();
-			alt = location.getAltitude();
-
-			gps.setLatitude("" + lat);
-			gps.setLongitude("" + lng);
-			gps.setAltitude("" + alt);
-
-			gpsString = "Latitude: " + lat + "\nLongitude: " + lng + "\nAltitude: " + alt;
-		}
-		else
-		{
-			gpsString = "No Location Found";
-		}
-		return gpsString;
-	}
-	
-	public GPS getGps(Location location) {
-		double lat, lng, alt;
-		GPS gps = new GPS();
-		if (location != null)
-		{
-			lat = location.getLatitude();
-			lng = location.getLongitude();
-			alt = location.getAltitude();
-
-			gps.setLatitude("" + lat);
-			gps.setLongitude("" + lng);
-			gps.setAltitude("" + alt);
-		}
-		else
-		{
-			gps.setLatitude("Not Found");
-			gps.setLongitude("Not Found");
-			gps.setAltitude("Not Found");
-		}
-		return gps;
-	}
-	
     static Timer timer;
     static LocationManager locationManager;
     static LocationResult locationResult;
     static boolean gps_enabled = false;
     static boolean network_enabled = false; 
-    
     
     public static boolean getLocation(Context context, LocationResult result)
     {
@@ -88,16 +36,25 @@ public class GPSUtil {
 
         // Don't start listeners if no provider is enabled
         if(!gps_enabled && !network_enabled) {
+    		new GetLastLocation();
             return false;
         }
 
+        timer = new Timer();
         if(gps_enabled) {
+        	if (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null)	{
+        		timer.schedule(new GetLastLocation(), 10);
+        		return true;
+        	}
         	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
         }
-        //if(network_enabled) {
-        //    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
-        //}
-        timer = new Timer();
+        if(network_enabled)  {
+        	if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null){
+                timer.schedule(new GetLastLocation(), 10);
+        		return true;
+        	}
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
+        }
         timer.schedule(new GetLastLocation(), 20000);
         
         return true;
@@ -147,7 +104,7 @@ public class GPSUtil {
              if(gps_enabled) {
                  gps_loc=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
              }
-             /*if(network_enabled) {
+             if(network_enabled) {
                  net_loc=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
              }
              
@@ -160,16 +117,16 @@ public class GPSUtil {
                      locationResult.gotLocation(net_loc);
                  }
                  return;
-             }*/
+             }
 
              if(gps_loc != null) {
                  locationResult.gotLocation(gps_loc);
                  return;
              }
-             /*if(net_loc != null) { 
+             if(net_loc != null) { 
                  locationResult.gotLocation(net_loc);
                  return;
-             }*/
+             }
              locationResult.gotLocation(null);
         }
     }
