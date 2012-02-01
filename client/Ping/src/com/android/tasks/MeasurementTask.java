@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.Session;
 import com.android.activities.RunActivity.MeasurementListener;
@@ -45,6 +46,7 @@ public class MeasurementTask extends ServerTask{
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	public boolean gpsRunning  = false;
+	public long startTime = 0;
 	@Override
 	public void runTask() {
 		
@@ -79,6 +81,7 @@ public class MeasurementTask extends ServerTask{
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		startTime = System.currentTimeMillis();
 		gpsRunning = true;
 		GPSHandler.sendEmptyMessage(0);
 		
@@ -104,13 +107,18 @@ public class MeasurementTask extends ServerTask{
 		}
 		getResponseListener().onUpdateProgress(100);
 		
-		while(gpsRunning){
+		
+		while(gpsRunning && (System.currentTimeMillis() - startTime)<20*1000){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
 			}
+		}
+		
+		if(gpsRunning){
+			locationResult.gotLocation(null);
 		}
 		
 		measurement.setPings(pings);
@@ -170,6 +178,11 @@ public class MeasurementTask extends ServerTask{
 			measurement.setGps(gps);
 			
 		}
+
+		public void makeToast(String text) {
+			getResponseListener().makeToast(text);
+			
+		}
 	}
 	
 	
@@ -211,12 +224,14 @@ public class MeasurementTask extends ServerTask{
             	gps.setLatitude("" + location.getLatitude());
             	gps.setLongitude("" + location.getLongitude());
             	gpsRunning = false;
+            	
         		
             }
             else{
             	gps = new GPS("Not Found","Not Found","Not Found");        
             	gpsRunning = false;
             }
+            getResponseListener().makeToast(gps.toJSON().toString());
             measurement.setGps(gps);
         }
     };

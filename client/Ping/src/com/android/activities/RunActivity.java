@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TableLayout.LayoutParams;
 
 
@@ -335,7 +336,24 @@ public class RunActivity extends Activity
 			// TODO Auto-generated method stub
 			
 		}
+
+		public void makeToast(String text) {
+			Message msg=Message.obtain(toastHandler, 0, text);
+			toastHandler.sendMessage(msg);
+			
+		}
 	}
+	
+	private Handler toastHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				String text = (String)msg.obj;
+				Toast.makeText(activity, text, 1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
 	
 	private Handler pingHandler = new Handler() {
 		public void  handleMessage(Message msg) {

@@ -333,37 +333,18 @@ public class Measurement {
 		
 		try {
 			
-			//ADD key-value pairs
-			
 			JSONArray array = new JSONArray();
 			for(Ping p: pings){
 				array.put(p.toJSON());
 			}
 			obj.putOpt("pings", array);
-			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("deviceid", deviceId);
-			obj.putOpt("softwareVersion", softwareVersion);
-			obj.putOpt("networkCountry", networkCountry);
-			obj.putOpt("networkOperatorId", networkOperatorId);
-			obj.putOpt("networkName", networkName);
-			obj.putOpt("networkType", networkType);
-			obj.putOpt("simNetworkCountry", simNetworkCountry);
-			obj.putOpt("simState", simState);
-			obj.putOpt("simOperatorName", simOperatorName);
-			obj.putOpt("simOperatorCode", simOperatorCode);
-			obj.putOpt("simSerialNumber", simSerialNumber);
-			obj.putOpt("connectionType", connectionType);
-			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
-			obj.putOpt("wifiState", wifiState);
-			obj.putOpt("longitude", longitude);
-			obj.putOpt("latitude", latitude);
-			obj.putOpt("altitude", altitude);
-			obj.putOpt("cellId", cellId);
-			obj.putOpt("cellLac", cellLac);		
-			obj.putOpt("time", time);			
-			obj.putOpt("dataState", dataState);
-			obj.putOpt("dataActivity", dataActivity);
-			
+			obj.putOpt("time", time);	
+			obj.putOpt("device",device.toJSON());
+			//obj.putOpt("throughput",throughput.toJSON());
+			obj.putOpt("gps",gps.toJSON());
+			obj.putOpt("network",network.toJSON());
+			obj.putOpt("sim",sim.toJSON());
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

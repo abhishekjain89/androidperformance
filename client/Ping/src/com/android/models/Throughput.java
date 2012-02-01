@@ -1,5 +1,8 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Throughput {
 	
 	public Link downLink;
@@ -36,6 +39,20 @@ public class Throughput {
 		this.upLink = upLink;
 		this.dstIp = dstIp;
 		this.dstPort = dstPort;
+	}
+	
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {			
+			obj.putOpt("dstIp", dstIp);
+			obj.putOpt("dstPort", dstPort);
+			obj.put("downLink", downLink.toJSON());
+			obj.put("upLink", upLink.toJSON());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 	
 	

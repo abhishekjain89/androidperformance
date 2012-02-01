@@ -1,5 +1,8 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Network {
 
 	String networkCountry;
@@ -79,6 +82,29 @@ public class Network {
 	}
 	public void setDataActivity(String dataActivity) {
 		this.dataActivity = dataActivity;
+	}
+	
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.putOpt("networkCountry", networkCountry);
+			obj.putOpt("networkOperatorId", networkOperatorId);
+			obj.putOpt("networkName", networkName);
+			obj.putOpt("networkType", networkType);
+			obj.putOpt("connectionType", connectionType);
+			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
+			obj.putOpt("wifiState", wifiState);
+			obj.putOpt("cellId", cellId);
+			obj.putOpt("cellLac", cellLac);
+			obj.putOpt("dataState", dataState);
+			obj.putOpt("dataActivity", dataActivity);
+			
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 	
 }

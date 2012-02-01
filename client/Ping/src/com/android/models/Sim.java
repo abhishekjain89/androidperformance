@@ -1,5 +1,8 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Sim {
 
 	String simNetworkCountry;
@@ -38,6 +41,21 @@ public class Sim {
 	public void setSimSerialNumber(String simSerialNumber) {
 		this.simSerialNumber = simSerialNumber;
 	}
-	
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {		
+			
+			obj.putOpt("simNetworkCountry", simNetworkCountry);
+			obj.putOpt("simState", simState);
+			obj.put("simOperatorName", simOperatorName);
+			obj.put("simOperatorCode", simOperatorCode);
+			obj.put("simSerialNumber", simSerialNumber);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
+	}
 	
 }

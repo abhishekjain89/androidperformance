@@ -1,5 +1,8 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Link {
 	
 	public int count; 
@@ -38,6 +41,17 @@ public class Link {
 	
 	public double speedInBits(){
 		return speedInBytes()*8;
+	}
+	
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {			
+			obj.putOpt("speedInBits", speedInBits());		
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 	
 }

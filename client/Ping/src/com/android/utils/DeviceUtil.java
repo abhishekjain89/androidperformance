@@ -50,6 +50,7 @@ public class DeviceUtil {
 		// Get the phone's number
 		String phoneNumber = telephonyManager.getLine1Number();
 		dev.setPhoneNumber(phoneNumber);
+		dev.setBattery(getBattery()+"");
 		
 		return dev;
 	}

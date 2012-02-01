@@ -34,6 +34,11 @@ public class FakeListener extends BaseResponseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void makeToast(String text) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

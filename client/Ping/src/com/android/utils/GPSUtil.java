@@ -55,6 +55,7 @@ public class GPSUtil {
         	}
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
         }
+
         timer.schedule(new GetLastLocation(), 20000);
         
         return true;
