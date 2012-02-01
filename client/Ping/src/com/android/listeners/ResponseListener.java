@@ -7,6 +7,7 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.models.Usage;
 
 
 public interface ResponseListener {
@@ -30,6 +31,8 @@ public interface ResponseListener {
     public void onUpdateProgress(int val);
 
 	public void onCompleteGPS(GPS gps);
+	
+	public void onCompleteUsage(Usage usage);
 
 	public void makeToast(String text);
 

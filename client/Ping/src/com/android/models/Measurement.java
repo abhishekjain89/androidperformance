@@ -22,8 +22,17 @@ public class Measurement {
 	GPS gps;
 	String time;
 	String deviceId;
+	Usage usage;
 /*-----------------------*/	
 	
+
+	public Usage getUsage() {
+		return usage;
+	}
+
+	public void setUsage(Usage usage) {
+		this.usage = usage;
+	}
 
 	public Device getDevice() {
 		return device;
@@ -109,6 +118,7 @@ public class Measurement {
 			obj.putOpt("device",device.toJSON());
 			//obj.putOpt("throughput",throughput.toJSON());
 			obj.putOpt("gps",gps.toJSON());
+			obj.putOpt("usage",usage.toJSON());
 			obj.putOpt("network",network.toJSON());
 			obj.putOpt("sim",sim.toJSON());
 

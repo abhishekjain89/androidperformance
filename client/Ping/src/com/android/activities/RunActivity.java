@@ -16,6 +16,7 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.models.Usage;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
 
@@ -340,6 +341,11 @@ public class RunActivity extends Activity
 		public void makeToast(String text) {
 			Message msg=Message.obtain(toastHandler, 0, text);
 			toastHandler.sendMessage(msg);
+			
+		}
+
+		public void onCompleteUsage(Usage usage) {
+			// TODO Auto-generated method stub
 			
 		}
 	}

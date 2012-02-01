@@ -25,6 +25,7 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.models.Usage;
 import com.android.utils.GPSUtil;
 import com.android.utils.HTTPUtil;
 import com.android.utils.GPSUtil.LocationResult;
@@ -80,6 +81,7 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
+		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		startTime = System.currentTimeMillis();
 		gpsRunning = true;
@@ -179,6 +181,11 @@ public class MeasurementTask extends ServerTask{
 
 		public void makeToast(String text) {
 			getResponseListener().makeToast(text);
+			
+		}
+
+		public void onCompleteUsage(Usage usage) {
+			measurement.setUsage(usage);
 			
 		}
 	}
