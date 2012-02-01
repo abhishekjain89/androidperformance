@@ -55,7 +55,6 @@ public class DeviceUtil {
 		BatteryUtil b = new BatteryUtil();
 		b.getBattery(context,dev);
 
-		// Get device model
 		// Device model
 		String phoneModel = android.os.Build.MODEL;
 		dev.setPhoneModel(phoneModel);
@@ -64,13 +63,29 @@ public class DeviceUtil {
 		String androidVersion = android.os.Build.VERSION.RELEASE;
 		dev.setAndroidVersion(androidVersion);
 		
+		// Phone Brand Name
 		String phoneBrand = android.os.Build.BRAND;
-		String deviceDesign = android.os.Build.DEVICE;
-		String manufacturer = android.os.Build.MANUFACTURER;
-		String productName = android.os.Build.PRODUCT;
-		String radioVersion = android.os.Build.RADIO;
-		String boardName = android.os.Build.BOARD;
+		dev.setPhoneBrand(phoneBrand);
 		
+		// Name of the industrial design
+		String deviceDesign = android.os.Build.DEVICE;
+		dev.setDeviceDesign(deviceDesign);
+		
+		// Manufacturere of the product
+		String manufacturer = android.os.Build.MANUFACTURER;
+		dev.setManufacturer(manufacturer);
+		
+		// Name of overall product
+		String productName = android.os.Build.PRODUCT;
+		dev.setProductName(productName);
+		
+		// Name of the radio firmware version
+		String radioVersion = android.os.Build.RADIO;
+		dev.setRadioVersion(radioVersion);
+		
+		// Name of underlying board
+		String boardName = android.os.Build.BOARD;
+		dev.setBoardName(boardName);
 		
 		return dev;
 	}
