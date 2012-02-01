@@ -1,5 +1,9 @@
 package com.android.models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class GPS {
 	
 	String latitude; 
@@ -40,6 +44,19 @@ public class GPS {
 
 	public void setAltitude(String altitude) {
 		this.altitude = altitude;
+	}
+	
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {			
+			obj.putOpt("latitude", latitude);
+			obj.putOpt("longitude", longitude);
+			obj.putOpt("altitude", altitude);		
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 
 }

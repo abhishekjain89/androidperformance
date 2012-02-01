@@ -31,5 +31,6 @@ public interface ResponseListener {
 
 	public void onCompleteGPS(GPS gps);
 
+	public void makeToast(String text);
 
 }

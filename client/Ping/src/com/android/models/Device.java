@@ -8,6 +8,7 @@ public class Device {
 	String phoneType;
 	String phoneNumber;
 	String softwareVersion;
+	String battery;
 
 
 	public String getPhoneType() {
@@ -41,10 +42,21 @@ public class Device {
 			obj.putOpt("phoneType", phoneType);
 			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("softwareVersion", softwareVersion);
+			obj.putOpt("battery", battery);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}		
 		return obj;
 	}
+
+	public String getBattery() {
+		return battery;
+	}
+
+	public void setBattery(String battery) {
+		this.battery = battery;
+	}
+	
+	
 
 }

@@ -92,11 +92,11 @@ public class GPSUtil {
         }
 
         if(gps_enabled) {
-        	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
+        	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,1, locationListenerGps);
         }
-        //if(network_enabled) {
-        //    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
-        //}
+        if(network_enabled) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, locationListenerNetwork); 
+        }
         timer = new Timer();
         timer.schedule(new GetLastLocation(), 20000);
         
@@ -147,7 +147,7 @@ public class GPSUtil {
              if(gps_enabled) {
                  gps_loc=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
              }
-             /*if(network_enabled) {
+             if(network_enabled) {
                  net_loc=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
              }
              
@@ -160,16 +160,16 @@ public class GPSUtil {
                      locationResult.gotLocation(net_loc);
                  }
                  return;
-             }*/
+             }
 
              if(gps_loc != null) {
                  locationResult.gotLocation(gps_loc);
                  return;
              }
-             /*if(net_loc != null) { 
+             if(net_loc != null) { 
                  locationResult.gotLocation(net_loc);
                  return;
-             }*/
+             }
              locationResult.gotLocation(null);
         }
     }
