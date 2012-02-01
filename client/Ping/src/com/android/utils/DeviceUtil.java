@@ -50,8 +50,9 @@ public class DeviceUtil {
 		// Get the phone's number
 		String phoneNumber = telephonyManager.getLine1Number();
 		dev.setPhoneNumber(phoneNumber);
-		dev.setBattery(getBattery()+"");
 		
+		BatteryUtil b = new BatteryUtil();
+		b.getBattery(context,dev);
 		return dev;
 	}
 	
@@ -333,84 +334,7 @@ public class DeviceUtil {
 		return stateDetail;
 	}
 	
-	static public Long getBattery() {
+	
 
-        File f = null;      
-        
-        // htc desire hd / desire z / inspire?
-        if (Build.MODEL.toLowerCase().contains("desire hd") ||
-                Build.MODEL.toLowerCase().contains("desire z") ||
-                Build.MODEL.toLowerCase().contains("inspire")) {
-
-            f = new File("/sys/class/power_supply/battery/batt_current");
-            if (f.exists()) {
-                return FileReaderUtil.getValue_OneLine(f, false);
-            }
-        }
-
-        // nexus one cyangoenmod
-        f = new File("/sys/devices/platform/ds2784-battery/getcurrent");
-        if (f.exists()) {
-            return FileReaderUtil.getValue_OneLine(f, true);
-        }
-
-        // sony ericsson xperia x1
-        f = new File("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/power_supply/ds2746-battery/current_now");
-        if (f.exists()) {
-            return FileReaderUtil.getValue_OneLine(f, false);
-        }
-
-        // xdandroid
-        /*if (Build.MODEL.equalsIgnoreCase("MSM")) {*/
-            f = new File("/sys/devices/platform/i2c-adapter/i2c-0/0-0036/power_supply/battery/current_now");
-            if (f.exists()) {
-                return FileReaderUtil.getValue_OneLine(f, false);
-            }
-        /*}*/
-
-        // droid eris
-        f = new File("/sys/class/power_supply/battery/smem_text");      
-        if (f.exists()) {
-            Long value = FileReaderUtil.getValue_SMS();
-            if (value != null)
-                return value;
-        }
-
-        // htc sensation / evo 3d
-        f = new File("/sys/class/power_supply/battery/batt_attr_text");
-        if (f.exists())
-        {
-            Long value = FileReaderUtil.getValue_BattAtr(f,"");
-            if (value != null)
-                return value;
-        }
-
-        // some htc devices
-        f = new File("/sys/class/power_supply/battery/batt_current");
-        if (f.exists())
-            return FileReaderUtil.getValue_OneLine(f, false);
-
-        // nexus one
-        f = new File("/sys/class/power_supply/battery/current_now");
-        if (f.exists())
-            return FileReaderUtil.getValue_OneLine(f, true);
-
-        // samsung galaxy vibrant       
-        f = new File("/sys/class/power_supply/battery/batt_chg_current");
-        if (f.exists())
-            return FileReaderUtil.getValue_OneLine(f, false);
-
-        // sony ericsson x10
-        f = new File("/sys/class/power_supply/battery/charger_current");
-        if (f.exists())
-            return FileReaderUtil.getValue_OneLine(f, false);
-
-        // Nook Color
-        f = new File("/sys/class/power_supply/max17042-0/current_now");
-        if (f.exists())
-            return FileReaderUtil.getValue_OneLine(f, false);
-
-        return null;
-    }
-
+     
 }

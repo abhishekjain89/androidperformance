@@ -3,13 +3,22 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 public class Device {
 	
 	String phoneType;
 	String phoneNumber;
 	String softwareVersion;
-	String battery;
+	Battery battery;
+	
 
+	public Battery getBattery() {
+		return battery;
+	}
+
+	public void setBattery(Battery battery) {
+		this.battery = battery;
+	}
 
 	public String getPhoneType() {
 		return phoneType;
@@ -42,21 +51,13 @@ public class Device {
 			obj.putOpt("phoneType", phoneType);
 			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("softwareVersion", softwareVersion);
-			obj.putOpt("battery", battery);
+			obj.putOpt("battery", battery.toJSON());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}		
 		return obj;
 	}
 
-	public String getBattery() {
-		return battery;
-	}
-
-	public void setBattery(String battery) {
-		this.battery = battery;
-	}
-	
 	
 
 }

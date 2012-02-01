@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 
 
 public class Measurement {
@@ -117,8 +119,7 @@ public class Measurement {
 		
 		return obj;
 	}
-	
-	
+
 	
 
 }

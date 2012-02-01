@@ -4,6 +4,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.android.models.*;
+import com.android.utils.BatteryUtil;
 import com.android.utils.DeviceUtil;
 
 public class DeviceHelper {
