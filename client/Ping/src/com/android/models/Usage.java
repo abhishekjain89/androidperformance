@@ -12,15 +12,23 @@ public class Usage {
 	public List<Application> applications;
 	private long total_sent;
 	private long total_recv;
+	private long mobile_sent;
+	private long mobile_recv;
 
 
-	public Usage(List<Application> applications, long total_sent, long total_recv) {
-		super();
-		this.applications = applications;
-		this.total_sent = total_sent;
-		this.total_recv = total_recv;
+
+	public long getMobile_sent() {
+		return mobile_sent;
 	}
-
+	public void setMobile_sent(long mobile_sent) {
+		this.mobile_sent = mobile_sent;
+	}
+	public long getMobile_recv() {
+		return mobile_recv;
+	}
+	public void setMobile_recv(long mobile_recv) {
+		this.mobile_recv = mobile_recv;
+	}
 	public Usage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -59,6 +67,8 @@ public class Usage {
 			obj.putOpt("applications", array);			
 			obj.putOpt("total_sent", total_sent);
 			obj.putOpt("total_recv", total_recv);
+			obj.putOpt("mobile_sent", mobile_sent);
+			obj.putOpt("mobile_recv", mobile_recv);
 
 		} catch (JSONException e) {
 			e.printStackTrace();

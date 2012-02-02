@@ -30,9 +30,10 @@ public class AppUsageHelper {
 		
 		Set<Integer> uids = new TreeSet<Integer>();
 		
-		long total_recv=0;
-		long total_sent=0;
-		
+		long total_recv=TrafficStats.getTotalRxBytes();
+		long total_sent=TrafficStats.getTotalTxBytes();
+		long mobile_recv=TrafficStats.getMobileRxBytes();
+		long mobile_sent=TrafficStats.getMobileTxBytes();
 		
 		for (ApplicationInfo info : allInfo) {
 			Integer uid = info.uid;
@@ -41,7 +42,6 @@ public class AppUsageHelper {
 			uids.add((Integer) uid);
 			long recv = TrafficStats.getUidRxBytes(uid);
 			long sent = TrafficStats.getUidTxBytes(uid);
-			
 			// remove those application which do not sent and recv data
 			if (recv > 0 || sent > 0)
 			{
@@ -51,14 +51,15 @@ public class AppUsageHelper {
 				
 				app.setTotal_recv(TrafficStats.getUidRxBytes(uid));
 				app.setTotal_sent(TrafficStats.getUidTxBytes(uid));
-				total_recv+=app.getTotal_recv();
-				total_sent+=app.getTotal_sent();
+				
 				result.add(app);
 			}
 		}
 		
 		usage.setTotal_recv(total_recv);
 		usage.setTotal_sent(total_sent);
+		usage.setMobile_recv(mobile_recv);
+		usage.setMobile_sent(mobile_sent);
 		
 		return usage;
 	}
