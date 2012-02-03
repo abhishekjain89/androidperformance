@@ -7,6 +7,7 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.models.Throughput;
 import com.android.models.Usage;
 
 
@@ -33,6 +34,8 @@ public interface ResponseListener {
 	public void onCompleteGPS(GPS gps);
 	
 	public void onCompleteUsage(Usage usage);
+	
+	public void onCompleteThroughput(Throughput throughput);
 
 	public void makeToast(String text);
 

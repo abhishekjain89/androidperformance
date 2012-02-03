@@ -4,22 +4,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Link {
-	
-	public int count; 
-	public int message_size; //in bytes
+
+	public long count; 
+	public long message_size; //in bytes
 	public double time; // milliseconds
+	public String dstIp;
+	public String dstPort;
 	
-	
-	public int getCount() {
+
+	public String getDstIp() {
+		return dstIp;
+	}
+	public void setDstIp(String dstIp) {
+		this.dstIp = dstIp;
+	}
+	public String getDstPort() {
+		return dstPort;
+	}
+	public void setDstPort(String dstPort) {
+		this.dstPort = dstPort;
+	}
+
+	public long getCount() {
 		return count;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setCount(long count2) {
+		this.count = count2;
 	}
-	public int getMessage_size() {
+	public long getMessage_size() {
 		return message_size;
 	}
-	public void setMessage_size(int message_size) {
+	public void setMessage_size(long message_size) {
 		this.message_size = message_size;
 	}
 	public double getTime() {
@@ -28,30 +43,33 @@ public class Link {
 	public void setTime(double time) {
 		this.time = time;
 	}
-	public Link(int count, int message_size, double time) {
+	public Link() {
 		super();
-		this.count = count;
-		this.message_size = message_size;
-		this.time = time;
+
 	}
-	
+
 	public double speedInBytes(){
 		return ((double)count*message_size)/time;
 	}
-	
+
 	public double speedInBits(){
 		return speedInBytes()*8;
 	}
-	
+
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {			
-			obj.putOpt("speedInBits", speedInBits());		
+			obj.putOpt("count", count);
+			obj.putOpt("message_size",message_size);
+			obj.putOpt("time", time);
+			obj.putOpt("speedInBits", speedInBits());
+			obj.put("dstIp", dstIp);
+			obj.put("dstPort", dstPort);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		return obj;
 	}
-	
+
 }

@@ -116,7 +116,7 @@ public class Measurement {
 			obj.putOpt("deviceid", deviceId);
 			obj.putOpt("time", time);	
 			obj.putOpt("device",device.toJSON());
-			//obj.putOpt("throughput",throughput.toJSON());
+			obj.putOpt("throughput",throughput.toJSON());
 			obj.putOpt("gps",gps.toJSON());
 			obj.putOpt("usage",usage.toJSON());
 			obj.putOpt("network",network.toJSON());

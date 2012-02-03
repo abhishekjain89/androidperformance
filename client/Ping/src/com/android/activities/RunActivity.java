@@ -16,6 +16,7 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Ping;
+import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
@@ -348,6 +349,11 @@ public class RunActivity extends Activity
 			// TODO Auto-generated method stub
 			
 		}
+
+		public void onCompleteThroughput(Throughput throughput) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	private Handler toastHandler = new Handler() {
@@ -379,7 +385,7 @@ public class RunActivity extends Activity
 	private Handler deviceHandler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
-				firstPing=true;
+				
 				Device d=(Device)msg.obj;
 				newDeviceTable(d);
 			} catch (Exception e) {
@@ -391,11 +397,12 @@ public class RunActivity extends Activity
 	private Handler measurementHandler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
-				firstPing=true;
-				Measurement m=(Measurement)msg.obj;
-				newMeasurementTable(m);
+				
 				progress.setVisibility(View.GONE);
 				progressBar.setVisibility(View.GONE);
+				Measurement m=(Measurement)msg.obj;
+				newMeasurementTable(m);
+				
 			
 			} catch (Exception e) {
 				e.printStackTrace();
