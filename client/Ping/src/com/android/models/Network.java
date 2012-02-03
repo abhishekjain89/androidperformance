@@ -16,7 +16,15 @@ public class Network {
 	String cellLac;	
 	String dataState;
 	String dataActivity;
+	String signalStrength;
 	
+	
+	public String getSignalStrength() {
+		return signalStrength;
+	}
+	public void setSignalStrength(String signalStrength) {
+		this.signalStrength = signalStrength;
+	}
 	public String getNetworkCountry() {
 		return networkCountry;
 	}
@@ -98,7 +106,7 @@ public class Network {
 			obj.putOpt("cellLac", cellLac);
 			obj.putOpt("dataState", dataState);
 			obj.putOpt("dataActivity", dataActivity);
-			
+			obj.putOpt("signalStrength", signalStrength);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

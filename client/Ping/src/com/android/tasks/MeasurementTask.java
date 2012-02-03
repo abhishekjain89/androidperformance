@@ -11,12 +11,7 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.Session;
-import com.android.activities.RunActivity.MeasurementListener;
-import com.android.helpers.DeviceHelper;
-import com.android.helpers.PingHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.listeners.FakeListener;
@@ -24,10 +19,12 @@ import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
+import com.android.models.Network;
 import com.android.models.Ping;
 import com.android.utils.GPSUtil;
-import com.android.utils.HTTPUtil;
 import com.android.utils.GPSUtil.LocationResult;
+import com.android.utils.HTTPUtil;
+import com.android.utils.SignalUtil;
 
 /*
  * Measurement Task 
@@ -46,6 +43,7 @@ public class MeasurementTask extends ServerTask{
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	public boolean gpsRunning  = false;
+	public boolean signalRunning = false;
 	public long startTime = 0;
 	@Override
 	public void runTask() {
@@ -83,7 +81,9 @@ public class MeasurementTask extends ServerTask{
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		startTime = System.currentTimeMillis();
 		gpsRunning = true;
+		signalRunning = true;
 		GPSHandler.sendEmptyMessage(0);
+		SignalHandler.sendEmptyMessage(0);
 		
 		
 		int total_threads = 2 + dstIps.length;
@@ -109,6 +109,15 @@ public class MeasurementTask extends ServerTask{
 		
 		
 		while(gpsRunning && (System.currentTimeMillis() - startTime)<20*1000){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		while(signalRunning && (System.currentTimeMillis() - startTime)<10*1000){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -181,6 +190,13 @@ public class MeasurementTask extends ServerTask{
 			getResponseListener().makeToast(text);
 			
 		}
+
+		public void onCompleteSignal(int signalStrength) {
+			signalRunning = false;
+			Network network = measurement.getNetwork();
+			network.setSignalStrength("" + signalStrength);
+			measurement.setNetwork(network);
+		}
 	}
 	
 	
@@ -195,6 +211,18 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 	
+	private Handler SignalHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				SignalUtil.getSignal(getResponseListener(), getContext());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	
+	
 	public LocationResult locationResult = new LocationResult(){
         @Override
         public void gotLocation(final Location location){
@@ -206,7 +234,6 @@ public class MeasurementTask extends ServerTask{
             	gps.setLongitude("" + location.getLongitude());
             	gpsRunning = false;
             	
-        		
             }
             else{
             	gps = new GPS("Not Found","Not Found","Not Found");        

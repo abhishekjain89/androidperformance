@@ -1,8 +1,8 @@
 package com.android.utils;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import android.content.Context;
@@ -10,17 +10,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.telephony.CellLocation;
+import android.telephony.NeighboringCellInfo;
+import android.telephony.PhoneStateListener;
+import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
 import com.android.models.Device;
-import com.android.models.Measurement;
 import com.android.models.Network;
 import com.android.models.Sim;
 
 public class DeviceUtil {
+
 	
 	public Device getDeviceDetail(Context context) {
 		Device dev = new Device();
@@ -141,11 +143,13 @@ public class DeviceUtil {
 		Network dev = new Network();
 		String srvnName = Context.TELEPHONY_SERVICE;
 		String service = Context.CONNECTIVITY_SERVICE;
+
+
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
 		boolean isWIFI = false;		
-
+		
 		// Get connected network country ISO code
 		String networkCountry = telephonyManager.getNetworkCountryIso();
 		dev.setNetworkCountry(networkCountry);
@@ -296,7 +300,24 @@ public class DeviceUtil {
 	    	System.out.print(e.getMessage());
 	    	System.out.print(e.getCause());
 	    }
-		
+	    
+	    try {
+		    List<NeighboringCellInfo> n = telephonyManager.getNeighboringCellInfo();
+
+	        //Construct the string
+	        String s = "";
+	        int rss = 0;
+	        int cid = 0;
+	        for (NeighboringCellInfo nci : n)
+	        {
+	                cid = nci.getCid();
+	            rss = -113 + 2*nci.getRssi();
+	            s += "Cell ID: " + Integer.toString(cid) + "     Signal Power (dBm): " + Integer.toString(rss) + "\n";
+	        }
+	    } catch (Exception e) {
+	    	System.out.print(e.getMessage());
+	    }
+	    
 		return dev;
 	}
 	
@@ -367,8 +388,5 @@ public class DeviceUtil {
 		}
 		return stateDetail;
 	}
-	
-	
-
      
 }

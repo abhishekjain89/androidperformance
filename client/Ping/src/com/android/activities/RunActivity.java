@@ -342,6 +342,11 @@ public class RunActivity extends Activity
 			toastHandler.sendMessage(msg);
 			
 		}
+
+		public void onCompleteSignal(int signalStrength) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	private Handler toastHandler = new Handler() {

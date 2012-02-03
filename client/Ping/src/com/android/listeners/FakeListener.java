@@ -39,6 +39,11 @@ public class FakeListener extends BaseResponseListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void onCompleteSignal(int signalStrength) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 
