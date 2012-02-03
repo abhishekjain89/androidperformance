@@ -22,7 +22,17 @@ public class Measurement {
 	String time;
 	String deviceId;
 	Usage usage;
+	Battery battery;
 	
+
+	public Battery getBattery() {
+		return battery;
+	}
+
+	public void setBattery(Battery battery) {
+		this.battery = battery;
+	}
+
 	
 
 	public Usage getUsage() {
@@ -117,6 +127,7 @@ public class Measurement {
 			obj.putOpt("device",device.toJSON());
 			obj.putOpt("throughput",throughput.toJSON());
 			obj.putOpt("gps",gps.toJSON());
+			obj.putOpt("battery", battery.toJSON());
 			obj.putOpt("usage",usage.toJSON());
 			obj.putOpt("network",network.toJSON());
 			obj.putOpt("sim",sim.toJSON());

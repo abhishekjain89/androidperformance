@@ -2,6 +2,7 @@ package com.android.utils;
 
 import com.android.models.Battery;
 import com.android.models.Device;
+import com.android.models.Measurement;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,10 +19,10 @@ public class BatteryUtil {
 	Battery battery = null;
 	
 	boolean notDone = false;
-	public String getBattery(Context context,Device device){
+	public String getBattery(Context context,Measurement measurement){
 		this.context = context;
 		battery = new Battery();
-		device.setBattery(battery);
+		measurement.setBattery(battery);
 		
 		registerBatteryLevelReceiver(this.context);
 		

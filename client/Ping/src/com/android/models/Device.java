@@ -10,25 +10,14 @@ public class Device {
 	String phoneNumber;
 	String softwareVersion;
 
-	Battery battery;
-	
-
-	public Battery getBattery() {
-		return battery;
-	}
-
-	public void setBattery(Battery battery) {
-		this.battery = battery;
-	}
-
-	String phoneModel;
+	String phoneModel;//
 	String androidVersion;
 	String phoneBrand; 
-	String deviceDesign; 
+	String deviceDesign;// 
 	String manufacturer; 
 	String productName; 
 	String radioVersion;
-	String boardName;
+	String boardName;//
 
 	public String getPhoneBrand() {
 		return phoneBrand;
@@ -125,7 +114,6 @@ public class Device {
 			obj.putOpt("phoneType", phoneType);
 			obj.putOpt("phoneNumber", phoneNumber);
 			obj.putOpt("softwareVersion", softwareVersion);
-			obj.putOpt("battery", battery.toJSON());
 			obj.putOpt("phoneModel", phoneModel);
 			obj.putOpt("androidVersion",androidVersion);
 			obj.putOpt("phoneBrand",phoneBrand);

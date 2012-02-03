@@ -18,7 +18,7 @@ public class DeviceHelper {
 	public static Measurement runFullDetail(Context context, Measurement info) {
 
 		DeviceUtil deviceUtil = new DeviceUtil();
-		info.setDevice(deviceUtil.getDeviceDetail(context));		
+		info.setDevice(deviceUtil.getDeviceDetail(context,info));		
 		info.setNetwork(deviceUtil.getNetworkDetail(context));		
 		info.setSim(deviceUtil.getSimDetail(context));
 		info.setTime(deviceUtil.getTime());

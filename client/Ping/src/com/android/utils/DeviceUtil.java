@@ -18,13 +18,14 @@ import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
 import com.android.models.Device;
+import com.android.models.Measurement;
 import com.android.models.Network;
 import com.android.models.Sim;
 
 public class DeviceUtil {
 
 	
-	public Device getDeviceDetail(Context context) {
+	public Device getDeviceDetail(Context context,Measurement measurement) {
 		Device dev = new Device();
 		String srvnName = Context.TELEPHONY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
@@ -55,7 +56,7 @@ public class DeviceUtil {
 		
 
 		BatteryUtil b = new BatteryUtil();
-		b.getBattery(context,dev);
+		b.getBattery(context,measurement);
 
 		// Device model
 		String phoneModel = android.os.Build.MODEL;
