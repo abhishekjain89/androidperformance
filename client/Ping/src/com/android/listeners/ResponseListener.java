@@ -39,4 +39,6 @@ public interface ResponseListener {
 
 	public void makeToast(String text);
 
+	public void onCompleteSignal(int signalStrength);
+
 }

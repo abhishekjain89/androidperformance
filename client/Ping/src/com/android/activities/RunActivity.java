@@ -345,6 +345,9 @@ public class RunActivity extends Activity
 			
 		}
 
+		public void onCompleteSignal(int signalStrength) {
+			
+		}
 		public void onCompleteUsage(Usage usage) {
 			// TODO Auto-generated method stub
 			

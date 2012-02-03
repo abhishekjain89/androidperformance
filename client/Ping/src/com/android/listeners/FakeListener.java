@@ -47,7 +47,12 @@ public class FakeListener extends BaseResponseListener{
 		
 	}
 
+	public void onCompleteSignal(int signalStrength) {
+		
+	}
+	
 	public void onCompleteThroughput(Throughput throughput) {
+
 		// TODO Auto-generated method stub
 		
 	}
