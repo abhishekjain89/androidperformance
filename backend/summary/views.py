@@ -95,15 +95,19 @@ def measurement(request):
     
     except:
         return HttpResponse(error_message_helper.invalid_format())
-
+    
+    count = 0
     try:
 
         m_deviceid = request_object['deviceid']
+        count+=1
         m_time = request_object['time']
-        pings = request_object['pings']    
+        count+=1
+        pings = request_object['pings']
+        count+=1   
 
     except:
-        return HttpResponse(error_message_helper.missing_attributes())        
+        return HttpResponse(error_message_helper.missing_attributes('measurement:' +count))        
 
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]

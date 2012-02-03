@@ -15,9 +15,9 @@ def invalid_format():
 	response['status'] = 'error'
 	return str(response)
 
-def missing_attributes():
+def missing_attributes(attr):
 	response={}
-	response['message'] = 'missing attributes'
+	response['message'] = 'missing attributes: ' + attr
 	response['status'] = 'error'
 	return str(response)
 
