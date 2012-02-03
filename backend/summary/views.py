@@ -99,24 +99,7 @@ def measurement(request):
     try:
 
         m_deviceid = request_object['deviceid']
-        m_simoperatorcode = request_object['simOperatorCode']
-        m_networktype = request_object['networkType']
-        m_simserialnumber = request_object['simSerialNumber']
-        m_phonenumber = request_object['phoneNumber']
-        m_altitude = request_object['altitude']
-        m_networkcountry = request_object['networkCountry']
-        m_connectiontype = request_object['connectionType']
-        m_simnetworkcountry = request_object['simNetworkCountry']
-        m_networkoperatorid = request_object['networkOperatorId']
-        m_mobilenetworkdetailedstate = request_object['mobileNetworkDetailedState']
-        m_simstate = request_object['simState']
         m_time = request_object['time']
-        m_mobilenetworkstate = request_object['mobileNetworkState']
-        m_longitude = request_object['longitude']
-        m_latitude = request_object['latitude']
-        m_simoperatorname = request_object['simOperatorName']
-        m_networkname = request_object['networkName']
-    
         pings = request_object['pings']    
 
     except:
