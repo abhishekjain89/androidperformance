@@ -6,7 +6,6 @@ from backend.summary.models import *
 import random
 from datetime import datetime, timedelta
 from time import time,mktime,strftime
-from mx.DateTime.ISO import ParseDateTimeUTC
 import hashlib
 import ast
 
