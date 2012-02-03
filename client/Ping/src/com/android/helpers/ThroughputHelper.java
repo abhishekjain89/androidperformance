@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.android.models.Link;
 import com.android.models.Measure;
 import com.android.models.Ping;
 import com.android.models.Throughput;
 import com.android.utils.CommandLineUtil;
 import com.android.utils.ParseUtil;
+import com.android.utils.ThroughputUtil;
 
 public class ThroughputHelper {
 	
@@ -20,20 +22,29 @@ public class ThroughputHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Throughput netperfHelp(String ip_address, String srcPort, String dstPort) {
+	public static Throughput getThroughput() {
 		
-		String ipDst 	= ip_address;
-		String cmd 		= "netperf ";
-		cmd += "-H " + ip_address;
-		cmd += "-p " + dstPort + "  -- -P" + srcPort;
-		String output 	= "";
-
-		cmdUtil = new CommandLineUtil();
-		output = cmdUtil.runCommand(cmd);
+		Throughput t = new Throughput();
 		
-		Throughput throughput =  ParseUtil.ThroughputParser(output);
-		throughput.setDstIp(ip_address);
-		return throughput;
+		try {
+			Link up=ThroughputUtil.uplinkmeasurement();
+			t.setUpLink(up);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Link down=ThroughputUtil.downlinkmeasurement();
+			t.setDownLink(down);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return t;
 		
 	}
 

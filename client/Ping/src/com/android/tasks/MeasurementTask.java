@@ -21,6 +21,8 @@ import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Network;
 import com.android.models.Ping;
+import com.android.models.Throughput;
+import com.android.models.Usage;
 import com.android.utils.GPSUtil;
 import com.android.utils.GPSUtil.LocationResult;
 import com.android.utils.HTTPUtil;
@@ -78,6 +80,7 @@ public class MeasurementTask extends ServerTask{
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
+		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		startTime = System.currentTimeMillis();
 		gpsRunning = true;
@@ -86,7 +89,8 @@ public class MeasurementTask extends ServerTask{
 		SignalHandler.sendEmptyMessage(0);
 		
 		
-		int total_threads = 2 + dstIps.length;
+		int total_threads = 3 + dstIps.length;
+		int done_threads = 0;
 		
 		try {
 			Thread.sleep(1000);
@@ -94,7 +98,7 @@ public class MeasurementTask extends ServerTask{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		int loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(1000);
@@ -102,10 +106,12 @@ public class MeasurementTask extends ServerTask{
 				e.printStackTrace();
 				break;
 			}
-			getResponseListener().onUpdateProgress(100-(serverhelper.getThreadPoolExecutor().getActiveCount()*100)/total_threads);
-			Log.v(this.toString(), "left: " + serverhelper.getThreadPoolExecutor().getActiveCount() + " pings: " + pings.size());
+			
+			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
+			getResponseListener().onUpdateProgress((100*(left))/total_threads);
+			Log.v(this.toString(), "left: " + left + " done: " + (total_threads - left));
 		}
-		getResponseListener().onUpdateProgress(100);
+		done_threads+=loop_threads;
 		
 		
 		while(gpsRunning && (System.currentTimeMillis() - startTime)<20*1000){
@@ -126,11 +132,41 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 		
+		done_threads+=1;
+		getResponseListener().onUpdateProgress((100*(done_threads))/total_threads);
 		if(gpsRunning){
 			locationResult.gotLocation(null);
 		}
 		
 		measurement.setPings(pings);
+		
+		serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
+		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+			
+			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
+			getResponseListener().onUpdateProgress((100*(left))/total_threads);
+			Log.v(this.toString(), "left: " + left + " done: " + (total_threads - left));
+		}
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			
+		}
+		done_threads+=loop_threads;
+		
 		getResponseListener().onCompleteMeasurement(measurement);
 		
 		JSONObject object = measurement.toJSON();
@@ -196,6 +232,15 @@ public class MeasurementTask extends ServerTask{
 			Network network = measurement.getNetwork();
 			network.setSignalStrength("" + signalStrength);
 			measurement.setNetwork(network);
+		}
+		public void onCompleteUsage(Usage usage) {
+			measurement.setUsage(usage);
+			
+		}
+
+		public void onCompleteThroughput(Throughput throughput) {
+			measurement.setThroughput(throughput);
+			
 		}
 	}
 	
