@@ -18,22 +18,7 @@ class Device(models.Model):
 class Measurement(models.Model):
     measurementid = models.AutoField(primary_key=True)
     deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
-    simoperatorcode = models.CharField(max_length=20)
-    networktype = models.CharField(max_length=20)
-    simserialnumber = models.CharField(max_length=20)
-    altitude = models.CharField(max_length=20)
-    networkcountry = models.CharField(max_length=20)
-    connectiontype = models.CharField(max_length=20)
-    simnetworkcountry = models.CharField(max_length=20)
-    networkoperatorid = models.CharField(max_length=20)
-    mobilenetworkdetailedstate = models.CharField(max_length=20)
-    simstate = models.CharField(max_length=20)
     time = models.DateTimeField()
-    mobilenetworkstate = models.CharField(max_length=20)
-    longitude = models.CharField(max_length=20)
-    latitude = models.CharField(max_length=20)
-    simoperatorname = models.CharField(max_length=20)
-    networkname = models.CharField(max_length=20)
     class Meta:
         db_table = u'measurement'
 

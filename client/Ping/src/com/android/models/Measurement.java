@@ -12,18 +12,17 @@ import android.content.Context;
 
 public class Measurement {
 	
-/*     DESIRED STRUCTURE
-  -----------------------*/	
+	
 	ArrayList<Ping> pings; 
-	Device device; // Need
-	Network network; // Need
-	Sim sim; // Need
+	Device device; 
+	Network network; 
+	Sim sim; 
 	Throughput throughput;
 	GPS gps;
 	String time;
 	String deviceId;
 	Usage usage;
-/*-----------------------*/	
+	
 	
 
 	public Usage getUsage() {

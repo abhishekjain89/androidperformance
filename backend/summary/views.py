@@ -13,6 +13,9 @@ import error_message_helper
 def index(request):
     return render_to_response('index.html')
 
+def test_request(request):
+    return render_to_response('test_request.html')
+
 def showdata(request,deviceid):
     did = deviceid
     print(did);
@@ -33,33 +36,6 @@ def measurementdetails(request,measurementid):
         return render_to_response('measurement.html',{'pings':pings,'details':details})
     except:
         return render_to_response('error.html')
-        
-def register(request):
-    
-    response = {}
-    try:
-        request_object = ast.literal_eval(request.read())
-    except:
-        return HttpResponse(error_message_helper.invalid_format())
-    
-    try:
-        d_deviceid = request_object['deviceid']
-        d_username = request_object['username']
-        d_carrier = request_object['carrier']
-        d_plantype = request_object['plantype']
-    except:
-        return HttpResponse(error_message_helper.missing_attributes())    
-
-    try:
-
-        details = Devices(deviceid = d_deviceid, username=d_username, carrier = d_carrier, plantype = d_plantype, register = datetime.now(), last_update = datetime.now())
-        details.save()
-    except:    
-        return HttpResponse(error_message_helper.insert_entry_fail())    
-        
-    response['message'] = 'device registered'
-    response['status'] = 'OK'
-    return HttpResponse(str(response))
 
 def devicesummary(request):
     phone_number = str(request.POST.get("code")) + str(request.POST.get("num"))
@@ -89,8 +65,10 @@ def measurement(request):
 
     print "start"
     try:
+        
+        print ast.literal_eval(request.raw_post_data)
         request_object = ast.literal_eval(request.raw_post_data)
-
+        print "tried"
         print request_object
     
     except:
@@ -107,7 +85,7 @@ def measurement(request):
         count+=1   
 
     except:
-        return HttpResponse(error_message_helper.missing_attributes('measurement:' +count))        
+        return HttpResponse(error_message_helper.missing_attributes('measurement(' +count+ ')'))        
 
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
