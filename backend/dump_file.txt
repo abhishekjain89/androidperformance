@@ -1,0 +1,236 @@
+--
+-- PostgreSQL database dump
+--
+
+drop database androidperformance;
+create database androidperformance;
+\c androidperformance;
+
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+CREATE DOMAIN eventstamp_t AS timestamp without time zone;
+
+CREATE DOMAIN inetn_t AS inet NOT NULL;
+SET default_tablespace = '';
+SET default_with_oids = false;
+
+CREATE SEQUENCE measurement_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('measurement_seq', 1, false);
+
+CREATE SEQUENCE ping_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('ping_seq', 1, false);
+
+CREATE SEQUENCE network_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('network_seq', 1, false);
+
+CREATE SEQUENCE link_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('link_seq', 1, false);
+
+CREATE SEQUENCE throughput_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('throughput_seq', 1, false);
+
+CREATE SEQUENCE gps_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('gps_seq', 1, false);
+
+CREATE SEQUENCE battery_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('battery_seq', 1, false);
+
+CREATE TABLE gps(
+	gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
+	latitude float NOT NULL,
+	longitude float NOT NULL,
+	altitude float NOT NULL
+);
+
+CREATE TABLE battery(
+	batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL,
+	technology varchar(20),
+	ispresent integer,
+	plugged integer,
+	scale integer,
+	health integer,
+	voltage integer,
+	level integer,
+	temperature integer,
+	status integer
+	
+);
+
+CREATE TABLE link(
+	linkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL,
+	count int,
+	message_size bigint,
+	duration integer,
+	speed float NOT NULL,
+	port integer NOT NULL,
+	ip_address varchar(20) NOT NULL
+);
+
+CREATE TABLE throughput(
+	throughputid integer DEFAULT nextval('throughput_seq'::regclass) NOT NULL,
+	uplinkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL,
+	downlinkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL
+);
+
+CREATE TABLE device (
+    deviceid varchar(20) NOT NULL,
+    phonetype varchar(20),
+    phonenumber varchar(15) NOT NULL,
+    softwareversion varchar(10),
+    phonemodel varchar(20),
+    androidversion varchar(10),
+    phonebrand varchar(20),
+    devicedesign varchar(20),
+    manufacturer varchar(20),
+    productname varchar(20),
+    radioversion varchar(20),
+    boardname varchar(20)
+);
+
+CREATE TABLE network (
+    networkid integer DEFAULT nextval('network_seq'::regclass) NOT NULL,
+    networkcountry varchar(2),
+    networkname varchar(15),
+    networktype varchar(10),
+    connectiontype varchar(10),
+    mobilenetworkinfo text,
+    wifistate varchar(20),
+    cellid varchar(20),
+    celllac varchar(20),
+    datastate varchar(30),
+    dataactivity varchar(30),
+    signalstrength varchar(3)
+);
+
+CREATE TABLE sim (
+    serialnumber varchar(20) NOT NULL,
+    state varchar(20),
+    operatorCode varchar(8),
+    operatorName varchar(20),
+    networkcountry varchar(5)
+);
+
+CREATE TABLE measurement (
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    deviceid varchar(20) NOT NULL,
+    networkid integer DEFAULT nextval('network_seq'::regclass) NOT NULL,
+    serialnumber varchar(20) NOT NULL,
+    throughputid integer DEFAULT nextval('throughput_seq'::regclass) NOT NULL,
+    gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
+    batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL
+);
+
+
+CREATE TABLE ping (
+    avg double precision NOT NULL,
+    stdev double precision NOT NULL,
+    min double precision NOT NULL,
+    max double precision NOT NULL,
+    scrip varchar(20) NOT NULL,
+    dstip varchar(20) NOT NULL,
+    "time" timestamp without time zone,
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) NOT NULL,
+    pingid integer DEFAULT nextval('ping_seq'::regclass) NOT NULL
+);
+
+
+
+ALTER TABLE ONLY device
+    ADD CONSTRAINT device_pkey  PRIMARY KEY (deviceid);
+ALTER TABLE ONLY sim
+    ADD CONSTRAINT sim_pkey  PRIMARY KEY (serialnumber);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_pkey PRIMARY KEY (measurementid);
+ALTER TABLE ONLY ping
+    ADD CONSTRAINT ping_pkey PRIMARY KEY (pingid);
+ALTER TABLE ONLY network
+    ADD CONSTRAINT network_pkey PRIMARY KEY (networkid);
+ALTER TABLE ONLY throughput
+    ADD CONSTRAINT throughput_pkey PRIMARY KEY (throughputid);
+ALTER TABLE ONLY link
+    ADD CONSTRAINT link_pkey PRIMARY KEY (linkid);
+ALTER TABLE ONLY gps
+    ADD CONSTRAINT gps_pkey PRIMARY KEY (gpsid);
+ALTER TABLE ONLY battery
+    ADD CONSTRAINT battery_pkey PRIMARY KEY (batteryid);
+    
+
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_deviceid_fkey FOREIGN KEY (deviceid) REFERENCES device(deviceid);
+ALTER TABLE ONLY ping
+    ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_networkid_fkey FOREIGN KEY (networkid) REFERENCES network(networkid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_serialnumber_fkey FOREIGN KEY (serialnumber) REFERENCES sim(serialnumber);
+ALTER TABLE ONLY throughput
+    ADD CONSTRAINT throughput_uplinkid_fkey FOREIGN KEY (uplinkid) REFERENCES link(linkid);
+ALTER TABLE ONLY throughput
+    ADD CONSTRAINT throughput_downlinkid_fkey FOREIGN KEY (downlinkid) REFERENCES link(linkid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_throughputid_fkey FOREIGN KEY (throughputid) REFERENCES throughput(throughputid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_gpsid_fkey FOREIGN KEY (gpsid) REFERENCES gps(gpsid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_batteryid_fkey FOREIGN KEY (batteryid) REFERENCES battery(batteryid);
+
