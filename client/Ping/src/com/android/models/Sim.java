@@ -45,11 +45,11 @@ public class Sim {
 		JSONObject obj = new JSONObject();
 		try {		
 			
-			obj.putOpt("simNetworkCountry", simNetworkCountry);
-			obj.putOpt("simState", simState);
-			obj.put("simOperatorName", simOperatorName);
-			obj.put("simOperatorCode", simOperatorCode);
-			obj.put("simSerialNumber", simSerialNumber);
+			obj.putOpt("networkCountry", simNetworkCountry);
+			obj.putOpt("state", simState);
+			obj.put("operatorName", simOperatorName);
+			obj.put("soperatorCode", simOperatorCode);
+			obj.put("serialNumber", simSerialNumber);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

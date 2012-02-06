@@ -125,7 +125,7 @@ public class ThroughputUtil {
 			end=System.currentTimeMillis();
 		}while(true);
 		link.setCount(1);
-		link.setMessage_size(totalbytes);
+		link.setMessage_size(totalbytes*((1380+54)/(1380)));
 		link.setTime(end-start);
 		link.setDstIp(Values.SERVERADDRESS);
 		link.setDstPort(Values.DOWNLINKPORT+"");

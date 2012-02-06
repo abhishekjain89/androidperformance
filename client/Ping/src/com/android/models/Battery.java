@@ -92,7 +92,8 @@ public class Battery {
 	public Object toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.putOpt("isPresent", isPresent);
+			if(isPresent) obj.putOpt("isPresent", 1);
+			else obj.putOpt("isPresent", 0);
 			obj.putOpt("technology", technology);
 			obj.putOpt("plugged", plugged);
 			obj.putOpt("scale", scale);

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from time import time,mktime,strftime
 import hashlib
 import ast
-import error_message_helper
+import error_message_helper,insertJSON
 
 def index(request):
     return render_to_response('index.html')
@@ -65,12 +65,7 @@ def measurement(request):
 
     print "start"
     try:
-        
-        print ast.literal_eval(request.raw_post_data)
-        request_object = ast.literal_eval(request.raw_post_data)
-        print "tried"
-        print request_object
-    
+        request_object = ast.literal_eval(request.read())
     except:
         return HttpResponse(error_message_helper.invalid_format())
     
@@ -83,49 +78,69 @@ def measurement(request):
         count+=1
         pings = request_object['pings']
         count+=1   
+        m_device = request_object['device']
+        count+=1
+        m_network = request_object['network']
+        count+=1
+        m_sim = request_object['sim']
+        count+=1
+        m_throughput = request_object['throughput']
+        count+=1
+        m_gps = request_object['gps']
+        count+=1
+        m_usage = request_object['usage']
+        count+=1
+        m_battery = request_object['battery']
+        count+=1
 
     except:
         return HttpResponse(error_message_helper.missing_attributes('measurement(' +count+ ')'))        
-
+    print "measurement insertion started..."
+    
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
-
-        if len(details)<1:
-            details = Device(deviceid = m_deviceid,phonenumber=m_phonenumber)
-            details.save()
-    except:    
-        details = Device(deviceid = m_deviceid,phonenumber=m_phonenumber)
-        details.save()
-
+    except Exception as inst:
+        details=insertJSON.device(m_device,m_deviceid)
+        
+    try:
+        network=insertJSON.network(m_network)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("network",inst))
+    
+    try:
+        sim=insertJSON.sim(m_sim)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("sim",inst))
+    
+    try:
+        throughput=insertJSON.throughput(m_throughput)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("throughput",inst))
+    
+    try:
+        gps=insertJSON.gps(m_gps)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("gps",inst))
+    
+    try:
+        battery=insertJSON.battery(m_battery)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("battery",inst))
   
-    try:
-    
-        measurement = Measurement(deviceid = details,simoperatorcode = m_simoperatorcode,networktype = m_networktype,simserialnumber = m_simserialnumber,altitude = m_altitude,networkcountry = m_networkcountry,connectiontype = m_connectiontype,simnetworkcountry = m_simnetworkcountry,networkoperatorid = m_networkoperatorid,mobilenetworkdetailedstate = m_mobilenetworkdetailedstate,simstate = m_simstate,time = m_time,mobilenetworkstate = m_mobilenetworkstate,longitude = m_longitude,latitude = m_latitude,simoperatorname = m_simoperatorname,networkname = m_networkname)
+    try:  
+        measurement = Measurement(deviceid = details,time=m_time,networkid=network,serialnumber=sim,throughputid=throughput,gpsid=gps,batteryid=battery)
         measurement.save()
-
         m_id = measurement.measurementid
-    
-
-    except:
-        return HttpResponse(error_message_helper.insert_entry_fail("measurement"))    
+        
+    except Exception as inst:
+        
+        return HttpResponse(error_message_helper.insert_entry_fail("measurement",inst))
+    count = 0    
     try:
-        for p in pings:
-            d_srcip = p['src_ip']
-            d_dstip = p['dst_ip']
-            d_time = p['time']
-            measure = p['measure']
-            d_average = measure['average']
-            d_std = measure['stddev']
-            d_min = measure['min']
-            d_max = measure['max']
-        
-            ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
-            
-            ping.save()
-
-    except:
-        return HttpResponse(error_message_helper.insert_entry_fail("ping"))            
-        
+        insertJSON.pings(pings,measurement)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("ping(" + count+")",inst))            
+    print "measurement insertion ended"
     response['message'] = 'measurement inserted'
     response['status'] = 'OK'
 
