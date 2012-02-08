@@ -37,16 +37,8 @@ public class NeighborWifiUtil {
     class WifiReceiver extends BroadcastReceiver {
         public void onReceive(Context c, Intent intent) {
         	wifiList = mainWifi.getScanResults();
-        	ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
-        	for (int i = 0; i < wifiList.size(); i++) {
-        		WifiNeighbor n = new WifiNeighbor();
-        		String bssid = wifiList.get(i).BSSID;
-        		String capability = wifiList.get(i).capabilities;
-        		int frequency = wifiList.get(i).frequency;
-        		int level = wifiList.get(i).level;
-        		String ssid = wifiList.get(i).SSID;
-        	}
-        	responseListener.onCompleteWifi(neighbors);
+
+        	responseListener.onCompleteWifi(wifiList);
         }
     }
 }

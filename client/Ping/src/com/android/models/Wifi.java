@@ -20,6 +20,18 @@ public class Wifi {
 	public ArrayList<WifiNeighbor> neighbors;
 	public ArrayList<WifiPreference> preference;
 
+	public boolean isPreferred() {
+		return isPreferred;
+	}
+	public void setPreferred(boolean isPreferred) {
+		this.isPreferred = isPreferred;
+	}
+	public ArrayList<WifiPreference> getPreference() {
+		return preference;
+	}
+	public void setPreference(ArrayList<WifiPreference> preference) {
+		this.preference = preference;
+	}
 	public int getStrength() {
 		return strength;
 	}

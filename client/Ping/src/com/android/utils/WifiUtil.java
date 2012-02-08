@@ -71,6 +71,7 @@ public class WifiUtil {
 				wifiDetail.setSsid(ssid);
 				wifiDetail.setStrength(strength);
 				wifiDetail.setUnits(units);
+				wifiDetail.setPreferred(false);
 			} 
 		    // List available networks
 		    ArrayList<WifiPreference> preference = new ArrayList<WifiPreference>();
@@ -78,18 +79,39 @@ public class WifiUtil {
 		    
 		    for (int i = 0; i < configs.size(); i++) {
 		    	WifiPreference wifiPref = new WifiPreference();
+		    	
+		    	String ssid = configs.get(i).SSID;
+		    	if (ssid.equalsIgnoreCase(wifiDetail.getSsid())) {
+		    		wifiPref.setConnected(true);
+		    		wifiDetail.setPreferred(true);
+		    	}
+		    	else {
+		    		wifiPref.setConnected(false);
+		    	}
+		    	
 		    	String authAlgorithm = configs.get(i).allowedAuthAlgorithms.toString();
 		    	String groupCiphers = configs.get(i).allowedGroupCiphers.toString();
 		    	String pairwiseCiphers = configs.get(i).allowedPairwiseCiphers.toString();
 		    	String protocols = configs.get(i).allowedProtocols.toString();		    	
-		    	String ssid = configs.get(i).SSID;
 		    	String bssid = configs.get(i).BSSID;
 		    	int networkid = configs.get(i).networkId;
 		    	int priority = configs.get(i).priority;
 		    	int status = configs.get(i).status;
 		    	
-		    }
+		    	wifiPref.setAuthAlgorithms(authAlgorithm);
+		    	wifiPref.setBssid(bssid);
+		    	wifiPref.setGroupCiphers(groupCiphers);
+		    	wifiPref.setPairwiseCiphers(pairwiseCiphers);
+		    	wifiPref.setPriority(priority);
+		    	wifiPref.setSsid(ssid);
+		    	wifiPref.setProtocols(protocols);
+		    	wifiPref.setNetworkid(networkid);
+		    	wifiPref.setStatus(status);
 
+		    	preference.add(wifiPref);
+		    }
+		    wifiDetail.setPreference(preference);
+		    
 		}
 		return wifiDetail;
 	}

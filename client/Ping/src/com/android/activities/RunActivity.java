@@ -362,7 +362,7 @@ public class RunActivity extends Activity
 			
 		}
 
-		public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors) {
+		public void onCompleteWifi(List<ScanResult> wifiList) {
 			// TODO Auto-generated method stub
 			
 		}

@@ -46,6 +46,6 @@ public interface ResponseListener {
 
 	public void onCompleteSignal(int signalStrength);
 
-	public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors);
+	public void onCompleteWifi(List<ScanResult> wifiList);
 
 }

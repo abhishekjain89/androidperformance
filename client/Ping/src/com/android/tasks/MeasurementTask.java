@@ -27,6 +27,7 @@ import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.models.Wifi;
 import com.android.models.WifiNeighbor;
+import com.android.models.WifiPreference;
 import com.android.utils.GPSUtil;
 import com.android.utils.GPSUtil.LocationResult;
 import com.android.utils.HTTPUtil;
@@ -262,9 +263,41 @@ public class MeasurementTask extends ServerTask{
 			
 		}
 
-		public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors) {
+		public void onCompleteWifi(List<ScanResult> wifiList) {
 			wifiRunning = false;
-			
+			Wifi wifi = measurement.getWifi();
+        	ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
+        	ArrayList<WifiPreference> prefers = wifi.getPreference();
+        	for (int i = 0; i < wifiList.size(); i++) {
+        		WifiNeighbor n = new WifiNeighbor();
+        		String bssid = wifiList.get(i).BSSID;
+        		String capability = wifiList.get(i).capabilities;
+        		int frequency = wifiList.get(i).frequency;
+        		int signalLevel = wifiList.get(i).level;
+        		String ssid = wifiList.get(i).SSID;
+        		
+        		n.setCapability(capability);
+        		n.setMacAddress(bssid);
+        		n.setFrequency(frequency);
+        		n.setSignalLevel(signalLevel);
+        		n.setSSID(ssid);
+        		n.setPreferred(false);
+        		if (ssid.equalsIgnoreCase(wifi.getSsid())) {
+        			n.setConnected(true);
+        		}
+        		else {
+        			n.setConnected(false);
+        		}
+        		for (int j = 0; j < prefers.size(); j++) {
+        			if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
+        				n.setPreferred(true);
+        				break;
+        			}
+        		}
+        		neighbors.add(n);
+        	}
+        	wifi.setNeighbors(neighbors);			
+        	measurement.setWifi(wifi);
 		}
 	}
 	

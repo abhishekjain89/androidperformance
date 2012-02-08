@@ -63,7 +63,7 @@ public class FakeListener extends BaseResponseListener{
 		
 	}
 
-	public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors) {
+	public void onCompleteWifi(List<ScanResult> wifiList) {
 		// TODO Auto-generated method stub
 		
 	}

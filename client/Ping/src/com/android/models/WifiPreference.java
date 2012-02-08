@@ -5,25 +5,56 @@ public class WifiPreference {
 	public String id;
 	public String protocols;
 	public String ssid;
-	public String priority;
+	public int priority;
+	public int networkid;
+	public int status;
 	public String pairwiseCiphers;
 	public String groupCiphers;
 	public String authAlgorithms;
 	public String bssid;
 	public String keyMgmt;
-	
 	public boolean isConnected;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getProtocols() {
+		return protocols;
+	}
+	public void setProtocols(String protocols) {
+		this.protocols = protocols;
+	}
+	public int getNetworkid() {
+		return networkid;
+	}
+	public void setNetworkid(int networkid) {
+		this.networkid = networkid;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public boolean isConnected() {
+		return isConnected;
+	}
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
 	public String getSsid() {
 		return ssid;
 	}
 	public void setSsid(String ssid) {
 		this.ssid = ssid;
 	}
-	public String getPriority() {
+	public int getPriority() {
 		return priority;
 	}
-	public void setPriority(String priority) {
+	public void setPriority(int priority) {
 		this.priority = priority;
 	}
 	public String getPairwiseCiphers() {
