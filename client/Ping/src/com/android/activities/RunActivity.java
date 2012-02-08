@@ -1,8 +1,10 @@
 package com.android.activities;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,12 +20,14 @@ import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.models.Throughput;
 import com.android.models.Usage;
+import com.android.models.WifiNeighbor;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.wifi.ScanResult;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -354,6 +358,11 @@ public class RunActivity extends Activity
 		}
 
 		public void onCompleteThroughput(Throughput throughput) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors) {
 			// TODO Auto-generated method stub
 			
 		}

@@ -23,7 +23,15 @@ public class Measurement {
 	String deviceId;
 	Usage usage;
 	Battery battery;
-	
+	Wifi wifi;
+
+	public Wifi getWifi() {
+		return wifi;
+	}
+
+	public void setWifi(Wifi wifi) {
+		this.wifi = wifi;
+	}
 
 	public Battery getBattery() {
 		return battery;

@@ -2,6 +2,10 @@ package com.android.listeners;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.net.wifi.ScanResult;
 
 import com.android.models.Device;
 import com.android.models.GPS;
@@ -9,6 +13,7 @@ import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.models.Throughput;
 import com.android.models.Usage;
+import com.android.models.WifiNeighbor;
 
 
 public interface ResponseListener {
@@ -40,5 +45,7 @@ public interface ResponseListener {
 	public void makeToast(String text);
 
 	public void onCompleteSignal(int signalStrength);
+
+	public void onCompleteWifi(ArrayList<WifiNeighbor> neighbors);
 
 }

@@ -1,5 +1,7 @@
 package com.android.models;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,13 +13,11 @@ public class Network {
 	String networkType;
 	String connectionType;
 	String mobileNetworkInfo;
-	String wifiState;
 	String cellId;
 	String cellLac;	
 	String dataState;
 	String dataActivity;
 	String signalStrength;
-	
 	
 	public String getSignalStrength() {
 		return signalStrength;
@@ -61,12 +61,6 @@ public class Network {
 	public void setMobileNetworkInfo(String mobileNetworkInfo) {
 		this.mobileNetworkInfo = mobileNetworkInfo;
 	}
-	public String getWifiState() {
-		return wifiState;
-	}
-	public void setWifiState(String wifiState) {
-		this.wifiState = wifiState;
-	}
 	public String getCellId() {
 		return cellId;
 	}
@@ -101,7 +95,6 @@ public class Network {
 			obj.putOpt("networkType", networkType);
 			obj.putOpt("connectionType", connectionType);
 			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
-			obj.putOpt("wifiState", wifiState);
 			obj.putOpt("cellId", cellId);
 			obj.putOpt("cellLac", cellLac);
 			obj.putOpt("dataState", dataState);
