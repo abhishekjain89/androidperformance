@@ -126,14 +126,18 @@ def measurement(request):
         battery=insertJSON.battery(m_battery)
     except Exception as inst:
         return HttpResponse(error_message_helper.insert_entry_fail("battery",inst))
-  
+    
+    try:
+        usage=insertJSON.usage(m_usage)
+    except Exception as inst:
+        return HttpResponse(error_message_helper.insert_entry_fail("usage",inst))
+    
     try:  
-        measurement = Measurement(deviceid = details,time=m_time,networkid=network,serialnumber=sim,throughputid=throughput,gpsid=gps,batteryid=battery)
+        measurement = Measurement(deviceid = details,time=m_time,networkid=network,serialnumber=sim,throughputid=throughput,gpsid=gps,batteryid=battery,usageid=usage)
         measurement.save()
         m_id = measurement.measurementid
         
-    except Exception as inst:
-        
+    except Exception as inst:     
         return HttpResponse(error_message_helper.insert_entry_fail("measurement",inst))
     count = 0    
     try:

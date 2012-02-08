@@ -9,6 +9,30 @@
 
 from django.db import models
 
+class Usage(models.Model):
+    usageid = models.AutoField(primary_key=True)
+    total_sent = models.BigIntegerField()
+    total_recv = models.BigIntegerField()
+    mobile_sent = models.BigIntegerField()
+    mobile_recv = models.BigIntegerField()
+    class Meta:
+        db_table = u'usage'
+
+class Application(models.Model):
+    name = models.CharField(max_length=20)
+    package = models.CharField(max_length=50, primary_key=True)
+    class Meta:
+        db_table = u'application'
+
+class ApplicationUse(models.Model):
+    application_useid = models.AutoField(primary_key=True)
+    package = models.ForeignKey(Application, to_field='package', db_column='package')
+    total_sent = models.BigIntegerField()
+    total_recv = models.BigIntegerField()
+    usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
+    class Meta:
+        db_table = u'application_use'
+
 class Battery(models.Model):
     batteryid = models.AutoField(primary_key=True)
     technology = models.CharField(max_length=20)
@@ -103,6 +127,7 @@ class Measurement(models.Model):
     throughputid = models.ForeignKey(Throughput, to_field='throughputid', db_column='throughputid')
     gpsid = models.ForeignKey(Gps, to_field='gpsid', db_column='gpsid')
     batteryid = models.ForeignKey(Battery, to_field='batteryid', db_column='batteryid')
+    usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
     class Meta:
         db_table = u'measurement'
 
