@@ -1,9 +1,10 @@
 package com.android.models;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.net.wifi.WifiConfiguration;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Wifi {
 
@@ -93,4 +94,36 @@ public class Wifi {
 		this.neighbors = neighbors;
 	}
 
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.putOpt("strength", strength);
+			obj.putOpt("ipAddress", ipAddress);
+			obj.putOpt("speed", speed);
+			obj.putOpt("networkId", networkId);
+			obj.putOpt("rssi", rssi);
+			obj.putOpt("macAddress", macAddress);
+			obj.putOpt("ssid", ssid);
+			obj.putOpt("detailedInfo", detailedInfo);
+			obj.putOpt("units", units);
+			obj.putOpt("isPreferred", isPreferred);
+			JSONArray neighbor = new JSONArray();
+			JSONArray prefer = new JSONArray();
+			for (WifiNeighbor wn: neighbors) {
+				neighbor.put(wn.toJSON());
+			}
+			for (WifiPreference wp: preference) {
+				prefer.put(wp.toJSON());
+			}
+			obj.putOpt("wifiNeighbors", neighbor);
+			obj.putOpt("wifiPreference", prefer);
+			
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
+	}
+	
 }

@@ -1,9 +1,12 @@
 package com.android.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WifiNeighbor {
 	
 
-	String SSID;
+	String ssid;
 	String macAddress;
 	int signalLevel;
 	int frequency;
@@ -12,10 +15,10 @@ public class WifiNeighbor {
 	boolean isPreferred;
 	
 	public String getSSID() {
-		return SSID;
+		return ssid;
 	}
 	public void setSSID(String sSID) {
-		SSID = sSID;
+		ssid = sSID;
 	}
 	public String getMacAddress() {
 		return macAddress;
@@ -52,5 +55,23 @@ public class WifiNeighbor {
 	}
 	public void setPreferred(boolean isPreferred) {
 		this.isPreferred = isPreferred;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.putOpt("ssid", ssid);
+			obj.putOpt("macAddress", macAddress);
+			obj.putOpt("signalLevel", signalLevel);
+			obj.putOpt("frequency", frequency);
+			obj.putOpt("capability", capability);
+			obj.putOpt("isConnected", isConnected);
+			obj.putOpt("isPreferred", isPreferred);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}
 }

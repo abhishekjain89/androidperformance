@@ -139,7 +139,7 @@ public class Measurement {
 			obj.putOpt("usage",usage.toJSON());
 			obj.putOpt("network",network.toJSON());
 			obj.putOpt("sim",sim.toJSON());
-
+			obj.putOpt("wifi", wifi);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

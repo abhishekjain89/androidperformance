@@ -133,7 +133,7 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 		
-		while(signalRunning && (System.currentTimeMillis() - startTime)<20*1000){
+		while(signalRunning && (System.currentTimeMillis() - startTime)<10*1000){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -143,7 +143,7 @@ public class MeasurementTask extends ServerTask{
 		}
 		
 
-		while(wifiRunning && (System.currentTimeMillis() - startTime)<20*1000){
+		while(wifiRunning && (System.currentTimeMillis() - startTime)<10*1000){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
