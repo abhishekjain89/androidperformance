@@ -94,6 +94,24 @@ CREATE SEQUENCE battery_seq
 
 SELECT pg_catalog.setval('battery_seq', 1, false);
 
+CREATE SEQUENCE usage_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('usage_seq', 1, false);
+
+CREATE SEQUENCE application_use_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('application_use_seq', 1, false);
+
 CREATE TABLE gps(
 	gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
 	latitude float NOT NULL,
@@ -177,7 +195,29 @@ CREATE TABLE measurement (
     serialnumber varchar(20) NOT NULL,
     throughputid integer DEFAULT nextval('throughput_seq'::regclass) NOT NULL,
     gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
-    batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL
+    batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL,
+    usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL
+);
+
+CREATE TABLE usage (
+	usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL,
+	total_sent bigint NOT NULL,
+	total_recv bigint NOT NULL,
+	mobile_sent bigint NOT NULL,
+	mobile_recv bigint NOT NULL
+);
+
+CREATE TABLE application (
+	name varchar(20) NOT NULL,
+	package varchar(50) NOT NULL
+);
+
+CREATE TABLE application_use (
+	application_useid integer DEFAULT nextval('application_use_seq'::regclass) NOT NULL,
+	package varchar(50) NOT NULL,
+	total_sent bigint NOT NULL,
+	total_recv bigint NOT NULL,
+	usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL
 );
 
 
@@ -199,6 +239,8 @@ ALTER TABLE ONLY device
     ADD CONSTRAINT device_pkey  PRIMARY KEY (deviceid);
 ALTER TABLE ONLY sim
     ADD CONSTRAINT sim_pkey  PRIMARY KEY (serialnumber);
+ALTER TABLE ONLY application
+    ADD CONSTRAINT application_pkey PRIMARY KEY (package);
 ALTER TABLE ONLY measurement
     ADD CONSTRAINT measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY ping
@@ -213,7 +255,10 @@ ALTER TABLE ONLY gps
     ADD CONSTRAINT gps_pkey PRIMARY KEY (gpsid);
 ALTER TABLE ONLY battery
     ADD CONSTRAINT battery_pkey PRIMARY KEY (batteryid);
-    
+ALTER TABLE ONLY usage
+    ADD CONSTRAINT usage_pkey PRIMARY KEY (usageid);
+ALTER TABLE ONLY application_use
+    ADD CONSTRAINT application_use_pkey PRIMARY KEY (application_useid);   
 
 ALTER TABLE ONLY measurement
     ADD CONSTRAINT measurement_deviceid_fkey FOREIGN KEY (deviceid) REFERENCES device(deviceid);
@@ -233,4 +278,9 @@ ALTER TABLE ONLY measurement
     ADD CONSTRAINT measurement_gpsid_fkey FOREIGN KEY (gpsid) REFERENCES gps(gpsid);
 ALTER TABLE ONLY measurement
     ADD CONSTRAINT measurement_batteryid_fkey FOREIGN KEY (batteryid) REFERENCES battery(batteryid);
+ALTER TABLE ONLY measurement
+    ADD CONSTRAINT measurement_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid);
+ALTER TABLE ONLY application_use
+    ADD CONSTRAINT application_use_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid),
+    ADD CONSTRAINT application_use_package_fkey FOREIGN KEY (package) REFERENCES application(package);
 

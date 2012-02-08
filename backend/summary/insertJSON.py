@@ -148,6 +148,36 @@ def throughput(dev):
     t.save()
     print "Throughput inserted"
     return t
+
+
+def usage(dev):
+    
+    u = Usage()
+    u.total_sent=dev['total_sent']
+    u.total_recv=dev['total_recv']
+    u.mobile_sent=dev['mobile_sent']
+    u.mobile_recv=dev['mobile_recv']
+    u.save()
+    
+    for app in dev['applications']:
+        
+        try:
+            result = Application.objects.filter(package=app['packageName'][:50])[0]
+        except:
+            result = Application(package=app['packageName'][:50],name=app['name'][:20])
+            result.save()
+        
+        appUse = ApplicationUse()
+        appUse.package = result
+        appUse.total_sent=app['total_sent']
+        appUse.total_recv=app['total_recv']
+        appUse.usageid= u
+        appUse.save()
+    
+    print "Usage inserted"
+        
+    
+    return u
     
 
 def pings(pings,measurement):
