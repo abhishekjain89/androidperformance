@@ -38,6 +38,7 @@ def device(dev,m_deviceid):
         d.boardname = dev['boardName']
         count+=1
         d.save()
+	print d.deviceid
         print "Device inserted"
     except Exception as inst:
         print type(inst)     # the exception instance
@@ -76,6 +77,7 @@ def network(dev):
     #count+=1
     
     n.save()
+    print n.networkid
     print "Network inserted"
        
     return n
@@ -128,7 +130,8 @@ def battery(dev):
 
 def link(dev):
     
-    l = Link()    
+    l = Link()
+    print dev    
     l.count = dev['count']
     l.message_size = dev['message_size']
     l.duration = dev['time']
@@ -137,14 +140,17 @@ def link(dev):
     l.ip_address = dev['dstIp']
     l.save()
     print "Link inserted"
-       
+    print l.linkid
+    print l.speed  
     return l
 
 def throughput(dev):
     
     t = Throughput()
     t.uplinkid=link(dev['upLink'])
+    print t.uplinkid
     t.downlinkid=link(dev['downLink'])
+    print t	    
     t.save()
     print "Throughput inserted"
     return t

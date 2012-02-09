@@ -70,8 +70,8 @@ class Link(models.Model):
 
 class Throughput(models.Model):
     throughputid = models.AutoField(primary_key=True)
-    uplinkid = models.ForeignKey(Link, to_field='linkid', related_name="uplink", db_column='uplinkid')
-    downlinkid = models.ForeignKey(Link, to_field='linkid', related_name="downlink", db_column='downlinkid')
+    uplinkid = models.ForeignKey(Link,related_name='throughput_linkid',db_column='uplinkid')
+    downlinkid = models.ForeignKey(Link,related_name='throughput_downlinkid',db_column='downlinkid')
     class Meta:
         db_table = u'throughput'
 
