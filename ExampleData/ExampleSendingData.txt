@@ -1,0 +1,42 @@
+02-06 13:53:00.648: I/System.out(29417): 
+{"time":"2012-02-06 18:52:04",
+"pings":
+	{"measure":{"min":0.123,"average":0.145,"stddev":0.028,"max":0.195},"src_ip":"\/128.61.126.77","time":"2012-02-06 18:51:56","dst_ip":"localhost"},{"measure":{"min":71.867,"average":72.832,"stddev":0.963,"max":74.373},"src_ip":"\/128.61.126.77","time":"2012-02-06 18:51:56","dst_ip":"128.48.110.150"},{"measure":{"min":152.31,"average":162.565,"stddev":11.107,"max":183.853},"src_ip":"\/128.61.126.77","time":"2012-02-06 18:51:56","dst_ip":"143.225.229.254"},{"measure":{"min":8.093,"average":12.91,"stddev":3.063,"max":16.932},"src_ip":"\/128.61.126.77","time":"2012-02-06 18:51:56","dst_ip":"143.215.131.173"}]
+
+,"battery":
+	{"scale":100,"level":77,"technology":"Li-ion","status":2,"voltage":4016,"plugged":2,"health":2,"isPresent":true,"temperature":280}
+,"device":
+	{"phoneBrand":"verizon","androidVersion":"2.3.5","radioVersion":"unknown","phoneNumber":"4046930737","phoneType":"CDMA","manufacturer":"Samsung","softwareVersion":"0","boardName":"SCH-I500","productName":"SCH-I500","phoneModel":"SCH-I500","deviceDesign":"SCH-I500"}
+,"sim":
+	{"simOperatorCode":"310012","simState":"READT","simNetworkCountry":"us","simOperatorName":"VzW"}
+,"usage":
+	{"mobile_recv":0,"total_recv":60219,
+	"applications":
+		[
+		{"total_sent":93258,"packageName":"com.pv.wmdrmproxy","total_recv":2259349,"name":"PVWmdrmProxy"},
+		{"total_sent":1088688,"packageName":"com.android","total_recv":1243622,"name":"Ping"},
+		{"total_sent":94706,"packageName":"com.android.browser","total_recv":1031038,"name":"Browser"},
+		{"total_sent":3220,"packageName":"com.android.contacts","total_recv":33952,"name":"Contacts"},
+		{"total_sent":3315120,"packageName":"com.android.phone","total_recv":95068,"name":"Dialer"},
+		{"total_sent":2400,"packageName":"com.android.vending","total_recv":73417,"name":"Market"},
+		{"total_sent":1543,"packageName":"com.cooliris.media","total_recv":6240,"name":"Gallery"},
+		{"total_sent":1348060,"packageName":"com.facebook.katana","total_recv":3855030,"name":"Facebook"},
+		{"total_sent":179335,"packageName":"com.google.android.apps.maps","total_recv":873786,"name":"Maps"},
+		{"total_sent":32519,"packageName":"com.google.android.gm","total_recv":423226,"name":"Gmail"},
+		{"total_sent":283153,"packageName":"com.google.android.gsf","total_recv":790683,"name":"Google Services Framework"},
+		{"total_sent":15503,"packageName":"com.itbenefit.android.Minesweeper","total_recv":21159,"name":"Minesweeper Classic"},
+		{"total_sent":497471,"packageName":"com.kakao.talk","total_recv":2648593,"name":"KakaoTalk"},
+		{"total_sent":13962,"packageName":"com.taskos","total_recv":3874,"name":"Taskos"},
+		{"total_sent":378,"packageName":"com.viber.voip","total_recv":488,"name":"Viber"},
+		{"total_sent":37303,"packageName":"kr.co.tictocplus","total_recv":199899,"name":"틱톡"}]
+	,"total_sent":22578,"mobile_sent":0}
+,"gps":
+	{"altitude":"0.0","longitude":"-84.39613103750001","latitude":"33.777221325"}
+,"network":
+	{"networkType":"EVDO_A","cellId":"65535","networkCountry":"us","connectionType":"Wifi","networkOperatorId":"310012","cellLac":"65535","networkName":"","dataState":"DATA_DISCONNECTED","dataActivity":"DATA_ACTIVITY_NONE","wifiState":"Connected to GTwpa at 11Mbps. Strength 2"},
+"throughput":
+	{"downLink":
+		{"speedInBits":3944.8977856142715,"time":19283,"count":1,"message_size":9508683,"dstPort":"9710","dstIp":"ruggles.gtnoise.net"},
+	"upLink":
+		{"speedInBits":3543.2395073538205,"time":25089,"count":2586,"message_size":4297,"dstPort":"9912","dstIp":"ruggles.gtnoise.net"}},
+"deviceid":"A000002430DA8B"}

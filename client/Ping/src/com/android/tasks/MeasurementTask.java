@@ -2,12 +2,14 @@ package com.android.tasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
+import android.net.wifi.ScanResult;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -23,10 +25,15 @@ import com.android.models.Network;
 import com.android.models.Ping;
 import com.android.models.Throughput;
 import com.android.models.Usage;
+import com.android.models.Wifi;
+import com.android.models.WifiNeighbor;
+import com.android.models.WifiPreference;
 import com.android.utils.GPSUtil;
 import com.android.utils.GPSUtil.LocationResult;
 import com.android.utils.HTTPUtil;
+import com.android.utils.NeighborWifiUtil;
 import com.android.utils.SignalUtil;
+import com.android.utils.WifiUtil;
 
 /*
  * Measurement Task 
@@ -46,6 +53,7 @@ public class MeasurementTask extends ServerTask{
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	public boolean gpsRunning  = false;
 	public boolean signalRunning = false;
+	public boolean wifiRunning = false;
 	public long startTime = 0;
 	@Override
 	public void runTask() {
@@ -85,6 +93,8 @@ public class MeasurementTask extends ServerTask{
 		startTime = System.currentTimeMillis();
 		gpsRunning = true;
 		signalRunning = true;
+		wifiRunning = true;
+		WifiHandler.sendEmptyMessage(0);
 		GPSHandler.sendEmptyMessage(0);
 		SignalHandler.sendEmptyMessage(0);
 		
@@ -124,6 +134,16 @@ public class MeasurementTask extends ServerTask{
 		}
 		
 		while(signalRunning && (System.currentTimeMillis() - startTime)<10*1000){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+
+		while(wifiRunning && (System.currentTimeMillis() - startTime)<10*1000){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -242,6 +262,43 @@ public class MeasurementTask extends ServerTask{
 			measurement.setThroughput(throughput);
 			
 		}
+
+		public void onCompleteWifi(List<ScanResult> wifiList) {
+			wifiRunning = false;
+			Wifi wifi = measurement.getWifi();
+        	ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
+        	ArrayList<WifiPreference> prefers = wifi.getPreference();
+        	for (int i = 0; i < wifiList.size(); i++) {
+        		WifiNeighbor n = new WifiNeighbor();
+        		String bssid = wifiList.get(i).BSSID;
+        		String capability = wifiList.get(i).capabilities;
+        		int frequency = wifiList.get(i).frequency;
+        		int signalLevel = wifiList.get(i).level;
+        		String ssid = wifiList.get(i).SSID;
+        		
+        		n.setCapability(capability);
+        		n.setMacAddress(bssid);
+        		n.setFrequency(frequency);
+        		n.setSignalLevel(signalLevel);
+        		n.setSSID(ssid);
+        		n.setPreferred(false);
+        		if (ssid.equalsIgnoreCase(wifi.getSsid())) {
+        			n.setConnected(true);
+        		}
+        		else {
+        			n.setConnected(false);
+        		}
+        		for (int j = 0; j < prefers.size(); j++) {
+        			if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
+        				n.setPreferred(true);
+        				break;
+        			}
+        		}
+        		neighbors.add(n);
+        	}
+        	wifi.setNeighbors(neighbors);			
+        	measurement.setWifi(wifi);
+		}
 	}
 	
 	
@@ -266,6 +323,21 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 	
+	private Handler WifiHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			try {
+				WifiUtil wifiUtil = new WifiUtil();
+				Wifi wifi = wifiUtil.getWifiDetail(getContext());
+				measurement.setWifi(wifi);
+				
+				NeighborWifiUtil neighborWifiUtil = new NeighborWifiUtil();
+				neighborWifiUtil.getNeighborWifi(getResponseListener(), getContext());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
 	
 	
 	public LocationResult locationResult = new LocationResult(){

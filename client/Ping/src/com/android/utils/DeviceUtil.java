@@ -8,12 +8,11 @@ import java.util.TimeZone;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.CellLocation;
 import android.telephony.NeighboringCellInfo;
-import android.telephony.PhoneStateListener;
-import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
@@ -224,21 +223,31 @@ public class DeviceUtil {
 			String networkInfo = mobileNetwork.toString();
 			dev.setMobileNetworkInfo(networkInfo);
 		}
+		/*
 		else {
 			String srvc = Context.WIFI_SERVICE;
 			WifiManager wifi = (WifiManager)context.getSystemService(srvc);
 			WifiInfo info = wifi.getConnectionInfo();
 			if (info.getBSSID() != null) {
 				int strength = WifiManager.calculateSignalLevel(info.getRssi(), 11);
+				int ipAddress = info.getIpAddress();
+				int linkSpeed = info.getLinkSpeed();
+				int networkId = info.getNetworkId();
+				int rssi = info.getRssi();
+				String macAddress = info.getMacAddress();
+				String ssid = info.getSSID();				
+				info.getDetailedStateOf(info.getSupplicantState());
 				int speed = info.getLinkSpeed();
 				String units = WifiInfo.LINK_SPEED_UNITS;
-				String ssid = info.getSSID();
 				String cSummary = String.format("Connected to %s at %s%s. Strength %s",
 			                                   ssid, speed, units, strength);
-				dev.setWifiState(cSummary);
 			} 
+		    // List available networks
+		    List<WifiConfiguration> configs = wifi.getConfiguredNetworks();
+		    String conf = configs.get(1).toString();
+
 		}
-		
+		*/
 
 		// Finds the current data connection state and transfer activity
 		int dataActivity = telephonyManager.getDataActivity();
