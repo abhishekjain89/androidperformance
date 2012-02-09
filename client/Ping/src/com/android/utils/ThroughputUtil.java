@@ -61,7 +61,7 @@ public class ThroughputUtil {
 			}
 
 			count++;
-		}while(end-start<=25000);
+		}while(end-start<=2500);
 		throughput=count*((long)message.length+(54*3))/(end-start)*8;
 		System.out.println("Message length: "+message.length);
 		System.out.println("Intermediate: "+intermediate);

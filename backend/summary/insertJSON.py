@@ -77,7 +77,6 @@ def network(dev):
     #count+=1
     
     n.save()
-    print n.networkid
     print "Network inserted"
        
     return n
@@ -140,17 +139,13 @@ def link(dev):
     l.ip_address = dev['dstIp']
     l.save()
     print "Link inserted"
-    print l.linkid
-    print l.speed  
     return l
 
 def throughput(dev):
     
     t = Throughput()
     t.uplinkid=link(dev['upLink'])
-    print t.uplinkid
-    t.downlinkid=link(dev['downLink'])
-    print t	    
+    t.downlinkid=link(dev['downLink']) 
     t.save()
     print "Throughput inserted"
     return t

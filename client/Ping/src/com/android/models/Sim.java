@@ -48,7 +48,7 @@ public class Sim {
 			obj.putOpt("networkCountry", simNetworkCountry);
 			obj.putOpt("state", simState);
 			obj.put("operatorName", simOperatorName);
-			obj.put("soperatorCode", simOperatorCode);
+			obj.put("operatorCode", simOperatorCode);
 			obj.put("serialNumber", simSerialNumber);
 			
 		} catch (JSONException e) {
