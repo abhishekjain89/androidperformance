@@ -94,6 +94,7 @@ CREATE SEQUENCE battery_seq
 
 SELECT pg_catalog.setval('battery_seq', 1, false);
 
+
 CREATE SEQUENCE usage_seq
     START WITH 1
     INCREMENT BY 1
@@ -111,6 +112,7 @@ CREATE SEQUENCE application_use_seq
     CACHE 1;
 
 SELECT pg_catalog.setval('application_use_seq', 1, false);
+
 
 CREATE TABLE gps(
 	gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
@@ -284,3 +286,11 @@ ALTER TABLE ONLY application_use
     ADD CONSTRAINT application_use_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid),
     ADD CONSTRAINT application_use_package_fkey FOREIGN KEY (package) REFERENCES application(package);
 
+alter sequence measurement_seq owned by measurement.measurementid;
+alter sequence network_seq owned by network.networkid;
+alter sequence link_seq owned by link.linkid;
+alter sequence throughput_seq owned by throughput.throughputid;
+alter sequence gps_seq owned by gps.gpsid;
+alter sequence battery_seq owned by battery.batteryid;
+alter sequence usage_seq owned by usage.usageid;
+alter sequence application_use_seq owned by application_use.application_useid;
