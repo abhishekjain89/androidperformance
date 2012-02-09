@@ -16,6 +16,7 @@ import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
+import com.android.Values;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Network;
@@ -302,8 +303,8 @@ public class DeviceUtil {
 				dev.setCellLac("" + lac);
 			}
 			else {
-				dev.setCellId("65535");
-				dev.setCellLac("65535");
+				dev.setCellId(Values.UNAVAILABLE_CELLID);
+				dev.setCellLac(Values.UNAVAILABLE_CELLLAC);
 			}
 			
 	    } catch (Exception e) {

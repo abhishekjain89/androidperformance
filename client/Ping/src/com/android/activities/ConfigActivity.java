@@ -2,6 +2,7 @@ package com.android.activities;
 
 
 import com.android.R;
+import com.android.Values;
 import com.android.helpers.ServiceHelper;
 import com.android.services.PerformanceService;
 import com.android.utils.PreferencesUtil;
@@ -46,14 +47,13 @@ public class ConfigActivity extends Activity
 		cancelButton=(Button)findViewById(R.id.cancel);
 		saveButton=(Button)findViewById(R.id.save);
 		freqSpinner=(Spinner)findViewById(R.id.spinnerfreq);
-		freq=new String[4];
+		freq=new String[Values.SERVICE_FREQUENCY_MINS.length];
 		on=(ToggleButton)findViewById(R.id.toggleButton);
 		
-		freq[0]="10 min";
-		freq[1]="15 min";
-		freq[2]="30 min";
-		freq[3]="60 min";
-		
+		for(int i=0;i<freq.length;i++){
+			freq[i]=Values.SERVICE_FREQUENCY_MINS[i] + " minutes";
+		}
+	
 		ArrayAdapter<String> adapterfreq = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, freq);
 		adapterfreq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -91,44 +91,29 @@ public class ConfigActivity extends Activity
 		else
 			on.setChecked(false);
 		
-		switch(settingFreq){
-		case 10:
-			freqSpinner.setSelection(0);
-			break;
-		case 15:
-			freqSpinner.setSelection(1);
-			break;
-		case 30:
-			freqSpinner.setSelection(2);
-			break;
-		case 60:
-			freqSpinner.setSelection(3);
-			break;
-		default:
-			freqSpinner.setSelection(1);
-			break;
-		}	
+		
+		int[] freq_times = Values.SERVICE_FREQUENCY_MINS;
+		
+		freqSpinner.setSelection(0);
+		
+		for(int i=0;i<freq_times.length;i++)
+		{
+			if(freq_times[i]==settingFreq){
+				freqSpinner.setSelection(i);
+				break;
+			}
+		}
 		
 	}
 	
 	private void saveSettings(){
 				
-		switch(freqSpinner.getSelectedItemPosition()){
-			case 0:
-				settingFreq=10;
-				break;
-			case 1:
-				settingFreq=15;
-				break;
-			case 2:
-				settingFreq=30;
-				break;
-			case 3:
-				settingFreq=60;
-				break;
-			default:
-				settingFreq=15;
-				break;	
+		if(freqSpinner.getSelectedItemPosition()>=Values.SERVICE_FREQUENCY_MINS.length){
+			settingFreq=Values.SERVICE_DEFAULT_FREQUENCY_MINS;
+		}
+		else{
+			int pos = freqSpinner.getSelectedItemPosition();
+			settingFreq = Values.SERVICE_FREQUENCY_MINS[pos];
 		}
 		
 		PreferencesUtil.setData(this, settingFreq, settingServ);

@@ -262,25 +262,18 @@ ALTER TABLE ONLY usage
 ALTER TABLE ONLY application_use
     ADD CONSTRAINT application_use_pkey PRIMARY KEY (application_useid);   
 
-ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_deviceid_fkey FOREIGN KEY (deviceid) REFERENCES device(deviceid);
 ALTER TABLE ONLY ping
     ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
-ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_networkid_fkey FOREIGN KEY (networkid) REFERENCES network(networkid);
-ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_serialnumber_fkey FOREIGN KEY (serialnumber) REFERENCES sim(serialnumber);
 ALTER TABLE ONLY throughput
-    ADD CONSTRAINT throughput_uplinkid_fkey FOREIGN KEY (uplinkid) REFERENCES link(linkid);
-ALTER TABLE ONLY throughput
+    ADD CONSTRAINT throughput_uplinkid_fkey FOREIGN KEY (uplinkid) REFERENCES link(linkid),
     ADD CONSTRAINT throughput_downlinkid_fkey FOREIGN KEY (downlinkid) REFERENCES link(linkid);
 ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_throughputid_fkey FOREIGN KEY (throughputid) REFERENCES throughput(throughputid);
-ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_gpsid_fkey FOREIGN KEY (gpsid) REFERENCES gps(gpsid);
-ALTER TABLE ONLY measurement
-    ADD CONSTRAINT measurement_batteryid_fkey FOREIGN KEY (batteryid) REFERENCES battery(batteryid);
-ALTER TABLE ONLY measurement
+	ADD CONSTRAINT measurement_deviceid_fkey FOREIGN KEY (deviceid) REFERENCES device(deviceid),
+    ADD CONSTRAINT measurement_networkid_fkey FOREIGN KEY (networkid) REFERENCES network(networkid),
+    ADD CONSTRAINT measurement_serialnumber_fkey FOREIGN KEY (serialnumber) REFERENCES sim(serialnumber),
+    ADD CONSTRAINT measurement_throughputid_fkey FOREIGN KEY (throughputid) REFERENCES throughput(throughputid),
+    ADD CONSTRAINT measurement_gpsid_fkey FOREIGN KEY (gpsid) REFERENCES gps(gpsid),
+    ADD CONSTRAINT measurement_batteryid_fkey FOREIGN KEY (batteryid) REFERENCES battery(batteryid),
     ADD CONSTRAINT measurement_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid);
 ALTER TABLE ONLY application_use
     ADD CONSTRAINT application_use_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid),

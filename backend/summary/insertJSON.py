@@ -129,8 +129,7 @@ def battery(dev):
 
 def link(dev):
     
-    l = Link()
-    print dev    
+    l = Link()    
     l.count = dev['count']
     l.message_size = dev['message_size']
     l.duration = dev['time']

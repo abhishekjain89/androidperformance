@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.android.Values;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.listeners.FakeListener;
@@ -62,18 +63,18 @@ public class MeasurementTask extends ServerTask{
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		android.os.Debug.startMethodTracing("lsd");
         
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 		
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
 		try {
-			Thread.sleep(250);
+			Thread.sleep(Values.SHORT_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(250);
+				Thread.sleep(Values.SHORT_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
@@ -83,7 +84,7 @@ public class MeasurementTask extends ServerTask{
 		}
 		Log.v(this.toString(),"Binaries Installed");
 		
-		String[] dstIps = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
+		String[] dstIps = Values.PING_SERVERS;
 			
 		for(int i=0;i<dstIps.length;i++)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
@@ -103,7 +104,7 @@ public class MeasurementTask extends ServerTask{
 		int done_threads = 0;
 		
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -111,7 +112,7 @@ public class MeasurementTask extends ServerTask{
 		int loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
@@ -124,18 +125,18 @@ public class MeasurementTask extends ServerTask{
 		done_threads+=loop_threads;
 		
 		
-		while(gpsRunning && (System.currentTimeMillis() - startTime)<20*1000){
+		while(gpsRunning && (System.currentTimeMillis() - startTime)<Values.GPS_TIMEOUT){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
 			}
 		}
 		
-		while(signalRunning && (System.currentTimeMillis() - startTime)<10*1000){
+		while(signalRunning && (System.currentTimeMillis() - startTime)<Values.SIGNALSTRENGTH_TIMEOUT){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
@@ -143,9 +144,9 @@ public class MeasurementTask extends ServerTask{
 		}
 		
 
-		while(wifiRunning && (System.currentTimeMillis() - startTime)<10*1000){
+		while(wifiRunning && (System.currentTimeMillis() - startTime)<Values.WIFI_TIMEOUT){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
@@ -162,14 +163,14 @@ public class MeasurementTask extends ServerTask{
 		
 		serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
