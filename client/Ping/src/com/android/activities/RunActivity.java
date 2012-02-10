@@ -18,7 +18,9 @@ import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Item;
 import com.android.models.Measurement;
+import com.android.models.Network;
 import com.android.models.Ping;
+import com.android.models.Sim;
 import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.models.WifiNeighbor;
@@ -334,7 +336,9 @@ public class RunActivity extends Activity
 
 		public void onCompleteDevice(Device response) {
 			Message msg=Message.obtain(deviceHandler, 0, response);
-			deviceHandler.sendMessage(msg);		
+			deviceHandler.sendMessage(msg);
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Device",response.toJSON()));
+			UIHandler.sendMessage(msg2);
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
@@ -370,14 +374,27 @@ public class RunActivity extends Activity
 
 		}
 
-		public void onCompleteThroughput(Throughput throughput) {
-			// TODO Auto-generated method stub
+		public void onCompleteThroughput(Throughput response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Throughput",response.toJSON()));
+			UIHandler.sendMessage(msg2);
 
 		}
 
 		public void onCompleteWifi(List<ScanResult> wifiList) {
 			// TODO Auto-generated method stub
 
+		}
+
+		public void onCompleteNetwork(Network response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Network",response.toJSON()));
+			UIHandler.sendMessage(msg2);
+			
+		}
+
+		public void onCompleteSIM(Sim response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("SIM",response.toJSON()));
+			UIHandler.sendMessage(msg2);
+			
 		}
 	}
 

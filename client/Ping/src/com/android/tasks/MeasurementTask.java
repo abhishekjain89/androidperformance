@@ -24,6 +24,7 @@ import com.android.models.GPS;
 import com.android.models.Measurement;
 import com.android.models.Network;
 import com.android.models.Ping;
+import com.android.models.Sim;
 import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.models.Wifi;
@@ -230,7 +231,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteDevice(Device response) {
-			// TODO Auto-generated method stub
+			getResponseListener().onCompleteDevice(response);
 			
 		}
 
@@ -301,6 +302,16 @@ public class MeasurementTask extends ServerTask{
         	wifi.setNeighbors(neighbors);			
         	measurement.setWifi(wifi);
         	wifiRunning = false;
+		}
+
+		public void onCompleteNetwork(Network network) {
+			getResponseListener().onCompleteNetwork(network);
+			
+		}
+
+		public void onCompleteSIM(Sim sim) {
+			getResponseListener().onCompleteSIM(sim);
+			
 		}
 	}
 	

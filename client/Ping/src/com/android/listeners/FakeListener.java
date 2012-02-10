@@ -8,7 +8,9 @@ import android.net.wifi.ScanResult;
 import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
+import com.android.models.Network;
 import com.android.models.Ping;
+import com.android.models.Sim;
 import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.models.WifiNeighbor;
@@ -64,6 +66,16 @@ public class FakeListener extends BaseResponseListener{
 	}
 
 	public void onCompleteWifi(List<ScanResult> wifiList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onCompleteNetwork(Network network) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onCompleteSIM(Sim sim) {
 		// TODO Auto-generated method stub
 		
 	}
