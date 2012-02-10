@@ -1,17 +1,16 @@
 package com.android.utils;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.telephony.TelephonyManager;
 
 import com.android.models.Wifi;
 import com.android.models.WifiPreference;
@@ -20,9 +19,7 @@ public class WifiUtil {
 	
 	public Wifi getWifiDetail(Context context)
 	{
-		String srvnName = Context.TELEPHONY_SERVICE;
 		String service = Context.CONNECTIVITY_SERVICE;
-		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
 		boolean isWIFI = false;		
@@ -59,9 +56,7 @@ public class WifiUtil {
 				DetailedState wifiDetailedInfo = WifiInfo.getDetailedStateOf(info.getSupplicantState());
 				String detailedInfo = wifiDetailedInfo.toString();
 				String units = WifiInfo.LINK_SPEED_UNITS;
-				String cSummary = String.format("Connected to %s at %s%s. Strength %s",
-			                                   ssid, speed, units, strength);
-				
+				//String cSummary = String.format("Connected to %s at %s%s. Strength %s", ssid, speed, units, strength);
 				wifiDetail.setDetailedInfo(detailedInfo);
 				wifiDetail.setIpAddress(ipAddress);
 				wifiDetail.setMacAddress(macAddress);

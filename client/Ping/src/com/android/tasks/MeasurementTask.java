@@ -32,6 +32,7 @@ import com.android.utils.GPSUtil;
 import com.android.utils.GPSUtil.LocationResult;
 import com.android.utils.HTTPUtil;
 import com.android.utils.NeighborWifiUtil;
+import com.android.utils.NeighborWifiUtil.NeighborResult;
 import com.android.utils.SignalUtil;
 import com.android.utils.WifiUtil;
 
@@ -331,7 +332,7 @@ public class MeasurementTask extends ServerTask{
 				measurement.setWifi(wifi);
 				
 				NeighborWifiUtil neighborWifiUtil = new NeighborWifiUtil();
-				neighborWifiUtil.getNeighborWifi(getResponseListener(), getContext());
+				neighborWifiUtil.getNeighborWifi(getContext(),neighborResult  );
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -339,6 +340,12 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 	
+	public NeighborResult neighborResult = new NeighborResult(){
+        @Override
+        public void gotNeighbor(List<ScanResult> wifiList){
+        	getResponseListener().onCompleteWifi(wifiList);
+        }
+	};
 	
 	public LocationResult locationResult = new LocationResult(){
         @Override
