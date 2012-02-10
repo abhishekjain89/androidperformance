@@ -266,7 +266,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteWifi(List<ScanResult> wifiList) {
-			wifiRunning = false;
+			
 			Wifi wifi = measurement.getWifi();
         	ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
         	ArrayList<WifiPreference> prefers = wifi.getPreference();
@@ -300,6 +300,7 @@ public class MeasurementTask extends ServerTask{
         	}
         	wifi.setNeighbors(neighbors);			
         	measurement.setWifi(wifi);
+        	wifiRunning = false;
 		}
 	}
 	
@@ -344,7 +345,7 @@ public class MeasurementTask extends ServerTask{
 	public NeighborResult neighborResult = new NeighborResult(){
         @Override
         public void gotNeighbor(List<ScanResult> wifiList){
-        	getResponseListener().onCompleteWifi(wifiList);
+        	(new MeasurementListener()).onCompleteWifi(wifiList);
         }
 	};
 	

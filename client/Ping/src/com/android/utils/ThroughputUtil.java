@@ -53,7 +53,7 @@ public class ThroughputUtil {
 		{
 			out.write(message);
 			end = System.currentTimeMillis();
-			if(end-start>=Values.UPLINK_DURATION){
+			if(end-start>=Values.UPLINK_DURATION/2){
 				if(flag==0){intermediate= System.currentTimeMillis();
 				flag=1;
 				}
@@ -61,7 +61,7 @@ public class ThroughputUtil {
 			}
 
 			count++;
-		}while(end-start<=2500);
+		}while(end-start<=Values.UPLINK_DURATION);
 		throughput=count*((long)message.length+(54*3))/(end-start)*8;
 		System.out.println("Message length: "+message.length);
 		System.out.println("Intermediate: "+intermediate);
