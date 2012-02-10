@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Measure {
+public class Measure implements Model{
 	
 	double max;
 	double min;

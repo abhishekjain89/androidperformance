@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Sim {
+public class Sim implements Model{
 
 	String simNetworkCountry;
 	String simState;

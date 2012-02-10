@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wifi {
+public class Wifi implements Model{
 
 	public int strength;	
 	public int ipAddress;

@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GPS {
+public class GPS implements Model {
 	
 	String latitude; 
 	String longitude;

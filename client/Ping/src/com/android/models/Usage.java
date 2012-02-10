@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Usage {
+public class Usage implements Model{
 
 
 	public List<Application> applications;

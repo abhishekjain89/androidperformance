@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Battery {
+public class Battery  implements Model{
 	
 	boolean isPresent;
 	String technology;
@@ -89,7 +89,7 @@ public class Battery {
 		this.temperature = temperature;
 	}
 
-	public Object toJSON() {
+	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
 			if(isPresent) obj.putOpt("isPresent", 1);

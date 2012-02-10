@@ -8,7 +8,7 @@ import java.util.TimeZone;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Ping {
+public class Ping implements Model{
 
 	
 	String srcIp;

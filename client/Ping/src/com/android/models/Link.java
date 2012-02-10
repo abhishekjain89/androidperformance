@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Link {
+public class Link implements Model{
 
 	public long count; 
 	public long message_size; //in bytes

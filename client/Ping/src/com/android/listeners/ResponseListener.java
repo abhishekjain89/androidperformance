@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.net.wifi.ScanResult;
 
+import com.android.models.Battery;
 import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Measurement;
@@ -15,6 +16,7 @@ import com.android.models.Ping;
 import com.android.models.Sim;
 import com.android.models.Throughput;
 import com.android.models.Usage;
+import com.android.models.Wifi;
 import com.android.models.WifiNeighbor;
 
 
@@ -33,6 +35,7 @@ public interface ResponseListener {
 
     public void onFileNotFoundException(FileNotFoundException e);
 
+    public void onCompleteBattery(Battery response);
     
     public void onException(Exception e);
     
@@ -48,7 +51,7 @@ public interface ResponseListener {
 
 	public void onCompleteSignal(int signalStrength);
 
-	public void onCompleteWifi(List<ScanResult> wifiList);
+	public void onCompleteWifi(Wifi wifiList);
 
 	public void onCompleteNetwork(Network network);
 

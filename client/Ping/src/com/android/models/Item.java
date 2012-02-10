@@ -5,11 +5,11 @@ import org.json.JSONObject;
 public class Item {
 
 	public String title;
-	public JSONObject json;
+	public Model obj;
 
-	public Item(String t, JSONObject j){
+	public Item(String t, Model o){
 		title=t;
-		json=j;
+		obj=o;
 	}
 
 }

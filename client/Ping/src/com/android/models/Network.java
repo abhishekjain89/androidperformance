@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Network {
+public class Network implements Model{
 
 	String networkCountry;
 	String networkOperatorId;

@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Device {
+public class Device implements Model {
 	
 	String phoneType;
 	String phoneNumber;

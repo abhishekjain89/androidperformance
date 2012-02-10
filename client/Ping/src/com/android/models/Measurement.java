@@ -10,7 +10,7 @@ import android.content.Context;
 
 
 
-public class Measurement {
+public class Measurement implements Model{
 	
 	
 	ArrayList<Ping> pings; 

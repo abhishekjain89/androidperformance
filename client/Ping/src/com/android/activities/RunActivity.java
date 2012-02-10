@@ -14,6 +14,7 @@ import com.android.Session;
 import com.android.helpers.ServiceHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
+import com.android.models.Battery;
 import com.android.models.Device;
 import com.android.models.GPS;
 import com.android.models.Item;
@@ -23,6 +24,7 @@ import com.android.models.Ping;
 import com.android.models.Sim;
 import com.android.models.Throughput;
 import com.android.models.Usage;
+import com.android.models.Wifi;
 import com.android.models.WifiNeighbor;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
@@ -330,14 +332,14 @@ public class RunActivity extends Activity
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);
 			pingHandler.sendMessage(msg);
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Ping",response.toJSON()));
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Ping",response));
 			UIHandler.sendMessage(msg2);
 		}
 
 		public void onCompleteDevice(Device response) {
 			Message msg=Message.obtain(deviceHandler, 0, response);
 			deviceHandler.sendMessage(msg);
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Device",response.toJSON()));
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Device",response));
 			UIHandler.sendMessage(msg2);
 		}
 
@@ -355,8 +357,9 @@ public class RunActivity extends Activity
 			progressBarHandler.sendMessage(msg);
 		}
 
-		public void onCompleteGPS(GPS gps) {
-			// TODO Auto-generated method stub
+		public void onCompleteGPS(GPS response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("GPS",response));
+			UIHandler.sendMessage(msg2);
 
 		}
 
@@ -369,30 +372,38 @@ public class RunActivity extends Activity
 		public void onCompleteSignal(int signalStrength) {
 
 		}
-		public void onCompleteUsage(Usage usage) {
-			// TODO Auto-generated method stub
-
-		}
-
-		public void onCompleteThroughput(Throughput response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Throughput",response.toJSON()));
+		public void onCompleteUsage(Usage response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Usage",response));
 			UIHandler.sendMessage(msg2);
 
 		}
 
-		public void onCompleteWifi(List<ScanResult> wifiList) {
-			// TODO Auto-generated method stub
+		public void onCompleteThroughput(Throughput response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Throughput",response));
+			UIHandler.sendMessage(msg2);
+
+		}
+
+		public void onCompleteWifi(Wifi response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Wifi",response));
+			UIHandler.sendMessage(msg2);
+
+		}
+		
+		public void onCompleteBattery(Battery response) {
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Battery",response));
+			UIHandler.sendMessage(msg2);
 
 		}
 
 		public void onCompleteNetwork(Network response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Network",response.toJSON()));
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Network",response));
 			UIHandler.sendMessage(msg2);
 			
 		}
 
 		public void onCompleteSIM(Sim response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("SIM",response.toJSON()));
+			Message msg2=Message.obtain(UIHandler, 0, new Item("SIM",response));
 			UIHandler.sendMessage(msg2);
 			
 		}

@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WifiNeighbor {
+public class WifiNeighbor implements Model{
 	
 
 	String ssid;

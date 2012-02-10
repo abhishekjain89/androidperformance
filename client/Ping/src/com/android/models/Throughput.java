@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Throughput {
+public class Throughput implements Model{
 	
 	public Link downLink;
 	public Link upLink;

@@ -81,7 +81,7 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 		if (item!=null) {	
 			try{
 				holder.title.setText(item.title);
-				holder.text.setText(item.json.toString());
+				holder.text.setText(item.obj.toJSON().toString());
 
 			} catch(Exception e) {
 				e.printStackTrace();

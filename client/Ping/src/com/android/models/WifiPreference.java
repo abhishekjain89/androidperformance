@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WifiPreference {
+public class WifiPreference implements Model{
 
 	public String id;
 	public String protocols;
