@@ -1,55 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:weightSum="2">
-    <ScrollView
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_below="@+id/sublinear1" 
-    	android:layout_above="@+id/back">  
+    android:orientation="vertical"
+    android:weightSum="10" >
 
-    	<RelativeLayout
-    	    android:layout_width="match_parent"
-    	    android:layout_height="242dp"
-    	    android:orientation="vertical"
-    	    android:weightSum="2" >
+    <ListView
+        android:id="@+id/allview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:fadingEdge="none" >
+    </ListView>
 
-    	    <LinearLayout
-    	        android:id="@+id/measurementslayout"
-    	        android:layout_width="fill_parent"
-    	        android:layout_height="wrap_content"
-    	        android:layout_alignParentLeft="true"
-    	        android:orientation="vertical"
-    	        android:scrollbars="vertical" >
-    	    </LinearLayout>
+    <Button
+        android:id="@+id/back"
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+        android:text="@string/backButton" />
 
-    	    <ProgressBar
-    	        android:id="@+id/spinningBar"
-    	        style="?android:attr/progressBarStyleLarge"
-    	        android:layout_width="wrap_content"
-    	        android:layout_height="wrap_content"
-    	        android:layout_centerHorizontal="true"
-    	        android:layout_centerVertical="true" />
-
-    	    <ProgressBar
-    	        android:id="@+id/progressBar"
-    	        style="@android:style/Widget.ProgressBar.Horizontal"
-    	        android:layout_width="300px"
-    	        android:layout_height="wrap_content"
-    	        android:layout_alignParentBottom="true"
-    	        android:layout_centerHorizontal="true" />
-
-    	</RelativeLayout>
-
-   	</ScrollView>
-   	<Button 
-   	android:id="@+id/back" 
-   	android:layout_height="wrap_content" 
-   	android:text="@string/backButton" 
-   	android:layout_width="wrap_content" 
-   	android:layout_alignParentBottom="true" 
-   	android:layout_alignParentLeft="true" 
-   	android:layout_alignParentRight="true"/>
-</RelativeLayout>
+</LinearLayout>

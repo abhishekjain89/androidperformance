@@ -16,6 +16,7 @@ import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.models.Device;
 import com.android.models.GPS;
+import com.android.models.Item;
 import com.android.models.Measurement;
 import com.android.models.Ping;
 import com.android.models.Throughput;
@@ -23,6 +24,7 @@ import com.android.models.Usage;
 import com.android.models.WifiNeighbor;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
+import com.android.ui.ListAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +38,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,7 +48,7 @@ import android.widget.TableLayout.LayoutParams;
 
 public class RunActivity extends Activity 
 {
-	private LinearLayout table;
+	//private LinearLayout table;
 
 	private ThreadPoolHelper serverhelper;
 	private Session session = null;
@@ -53,8 +56,11 @@ public class RunActivity extends Activity
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";
 	private Button backButton;
-	private ProgressBar progress;
-	private ProgressBar progressBar;
+	//private ProgressBar progress;
+	//private ProgressBar progressBar;
+	public ArrayList<Item> items;
+	public ListView listview;
+	public ListAdapter listadapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +71,12 @@ public class RunActivity extends Activity
 
 		serverhelper = new ThreadPoolHelper(5,10);
 		backButton=(Button)findViewById(R.id.back);
-		progress=(ProgressBar)findViewById(R.id.spinningBar);
-		progressBar=(ProgressBar)findViewById(R.id.progressBar);
+		//progress=(ProgressBar)findViewById(R.id.spinningBar);
+		//progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
-		table = (LinearLayout)findViewById(R.id.measurementslayout);
-
+		//table = (LinearLayout)findViewById(R.id.measurementslayout);
+		listview = (ListView) findViewById(R.id.allview);
+		
 		backButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 				finish();
@@ -77,7 +84,11 @@ public class RunActivity extends Activity
 		});
 
 		ServiceHelper.processStopService(this,serviceTag);
+		
+		items = new ArrayList<Item>();
+		listadapter = new ListAdapter(activity,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
+		listview.setAdapter(listadapter);
 
 	}
 
@@ -89,9 +100,9 @@ public class RunActivity extends Activity
 				1));
 		row.setBackgroundColor(Color.WHITE);
 
-		table.addView(row,new LayoutParams(
+		/*table.addView(row,new LayoutParams(
 				LayoutParams.FILL_PARENT,
-				1));
+				1));*/
 	}
 
 	private void initPingTable(){
@@ -146,9 +157,9 @@ public class RunActivity extends Activity
 				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));        
 
-		table.addView(row,new LinearLayout.LayoutParams(
+		/*table.addView(row,new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT));
+				LayoutParams.WRAP_CONTENT));*/
 
 		newLineTable();
 	}
@@ -204,10 +215,10 @@ public class RunActivity extends Activity
 				LayoutParams.WRAP_CONTENT,
 				(float) 0.25));
 
-		table.addView(row,new LinearLayout.LayoutParams(
+		/*table.addView(row,new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
-
+		*/
 		newLineTable();
 	}
 
@@ -253,9 +264,9 @@ public class RunActivity extends Activity
 			} catch (JSONException e) {e.printStackTrace();}
 
 
-			table.addView(row,new LinearLayout.LayoutParams(
+			/*table.addView(row,new LinearLayout.LayoutParams(
 					LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
+					LayoutParams.WRAP_CONTENT));*/
 
 			newLineTable();
 		}     
@@ -304,9 +315,9 @@ public class RunActivity extends Activity
 			} catch (JSONException e) {e.printStackTrace();}
 
 
-			table.addView(row,new LinearLayout.LayoutParams(
+			/*table.addView(row,new LinearLayout.LayoutParams(
 					LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
+					LayoutParams.WRAP_CONTENT));*/
 
 			newLineTable();
 		}  
@@ -316,7 +327,9 @@ public class RunActivity extends Activity
 
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);
-			pingHandler.sendMessage(msg);		
+			pingHandler.sendMessage(msg);
+			Message msg2=Message.obtain(UIHandler, 0, new Item("Ping",response.toJSON()));
+			UIHandler.sendMessage(msg2);
 		}
 
 		public void onCompleteDevice(Device response) {
@@ -410,8 +423,8 @@ public class RunActivity extends Activity
 		public void  handleMessage(Message msg) {
 			try {
 
-				progress.setVisibility(View.GONE);
-				progressBar.setVisibility(View.GONE);
+				//progress.setVisibility(View.GONE);
+				//progressBar.setVisibility(View.GONE);
 				Measurement m=(Measurement)msg.obj;
 				newMeasurementTable(m);
 
@@ -422,25 +435,16 @@ public class RunActivity extends Activity
 		}
 	};
 
-	public class UI{
-		String title;
-		JSONObject json;
-
-		public UI(String t, JSONObject j){
-			title=t;
-			json=j;
-		}
-	}
 
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			
-			UI ui = (UI)msg.obj;
-			Iterator iterate = ui.json.keys();
-			
-			while(iterate.hasNext()){
-				//String key = iterate.next();
-			}
+			Item ui = (Item)msg.obj;
+			items.add(ui);
+			System.out.println(items.size());
+			listadapter.add(ui);
+			System.out.println(listadapter.getCount());
+			listadapter.notifyDataSetChanged();		
 			
 		}
 	};
@@ -450,7 +454,7 @@ public class RunActivity extends Activity
 		public void  handleMessage(Message msg) {
 			try {
 				int value=(Integer)msg.obj;
-				progressBar.setProgress(value);
+				//progressBar.setProgress(value);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

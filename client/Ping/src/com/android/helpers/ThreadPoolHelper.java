@@ -28,7 +28,15 @@ public class ThreadPoolHelper {
 	
 	public IDThreadPoolExecutor getThreadPoolExecutor(){
 		return tpe;
+		
 	}
+	public void shutdown(){
+		tpe.shutdownNow();
+		
+	}
+	
+	
+	
 	
 	
 	

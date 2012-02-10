@@ -47,6 +47,7 @@ public class PerformanceService extends Service{
 	@Override
 	public void onDestroy() {
 		updateTimer.cancel();
+		serverhelper.shutdown();
 		Log.v("PerformanceService","Destroying PerformanceService");
 	}
 	
