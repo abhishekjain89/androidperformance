@@ -1,6 +1,5 @@
 package com.android.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.BroadcastReceiver;
@@ -11,7 +10,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 
 import com.android.listeners.ResponseListener;
-import com.android.models.WifiNeighbor;
 
 public class NeighborWifiUtil {
 	
@@ -21,11 +19,11 @@ public class NeighborWifiUtil {
     public static WifiManager mainWifi;
     public static WifiReceiver receiverWifi;
     public static List<ScanResult> wifiList;
-
+	public static NeighborResult neighborResult;
 	
-	public void getNeighborWifi(ResponseListener rl, Context ct) {
-		responseListener = rl;
+	public void getNeighborWifi(Context ct, NeighborResult nr) {
 		context = ct;
+		neighborResult = nr;
 
 		mainWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		receiverWifi = new WifiReceiver();
@@ -37,8 +35,12 @@ public class NeighborWifiUtil {
     class WifiReceiver extends BroadcastReceiver {
         public void onReceive(Context c, Intent intent) {
         	wifiList = mainWifi.getScanResults();
-
-        	responseListener.onCompleteWifi(wifiList);
+        	neighborResult.gotNeighbor(wifiList);
         }
+    }
+    
+    public static abstract class NeighborResult {
+        public abstract void gotNeighbor(List<ScanResult> wifiList);
+          
     }
 }
