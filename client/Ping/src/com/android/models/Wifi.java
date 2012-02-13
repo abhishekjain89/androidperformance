@@ -21,6 +21,12 @@ public class Wifi implements Model{
 	public ArrayList<WifiNeighbor> neighbors;
 	public ArrayList<WifiPreference> preference;
 
+	public Wifi()
+	{
+		setNeighbors(new ArrayList<WifiNeighbor>());
+		setPreference(new ArrayList<WifiPreference>());
+	}
+	
 	public boolean isPreferred() {
 		return isPreferred;
 	}

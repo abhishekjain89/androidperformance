@@ -39,7 +39,7 @@ public class WifiUtil {
 		}
 
 		if (!isWIFI) {		
-			return null;
+			return new Wifi();
 		}
 		else {
 			String srvc = Context.WIFI_SERVICE;
