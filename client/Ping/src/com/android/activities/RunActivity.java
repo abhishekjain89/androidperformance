@@ -17,8 +17,9 @@ import com.android.listeners.BaseResponseListener;
 import com.android.models.Battery;
 import com.android.models.Device;
 import com.android.models.GPS;
-import com.android.models.Item;
+
 import com.android.models.Measurement;
+import com.android.models.Model;
 import com.android.models.Network;
 import com.android.models.Ping;
 import com.android.models.Sim;
@@ -62,7 +63,7 @@ public class RunActivity extends Activity
 	private Button backButton;
 	//private ProgressBar progress;
 	//private ProgressBar progressBar;
-	public ArrayList<Item> items;
+	public ArrayList<Model> items;
 	public ListView listview;
 	public ListAdapter listadapter;
 
@@ -89,8 +90,8 @@ public class RunActivity extends Activity
 
 		ServiceHelper.processStopService(this,serviceTag);
 		
-		items = new ArrayList<Item>();
-		//listadapter = new ListAdapter(activity,R.layout.item_view,items);
+		items = new ArrayList<Model>();
+		listadapter = new ListAdapter(activity,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 		listview.setAdapter(listadapter);
 
@@ -332,20 +333,23 @@ public class RunActivity extends Activity
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);
 			pingHandler.sendMessage(msg);
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Ping",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 		}
 
 		public void onCompleteDevice(Device response) {
 			Message msg=Message.obtain(deviceHandler, 0, response);
 			deviceHandler.sendMessage(msg);
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Device",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
 			Message msg=Message.obtain(measurementHandler, 0, response);
 			measurementHandler.sendMessage(msg);
+		}
+		
+		public void onCompleteOutput(Model model){
+			Message msg2=Message.obtain(UIHandler, 0, model);
+			UIHandler.sendMessage(msg2);
 		}
 
 		public void onComplete(String response) {
@@ -358,8 +362,7 @@ public class RunActivity extends Activity
 		}
 
 		public void onCompleteGPS(GPS response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("GPS",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 
 		}
 
@@ -373,38 +376,32 @@ public class RunActivity extends Activity
 
 		}
 		public void onCompleteUsage(Usage response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Usage",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 
 		}
 
 		public void onCompleteThroughput(Throughput response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Throughput",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 
 		}
 
 		public void onCompleteWifi(Wifi response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Wifi",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 
 		}
 		
 		public void onCompleteBattery(Battery response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Battery",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 
 		}
 
 		public void onCompleteNetwork(Network response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("Network",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 			
 		}
 
 		public void onCompleteSIM(Sim response) {
-			Message msg2=Message.obtain(UIHandler, 0, new Item("SIM",response));
-			UIHandler.sendMessage(msg2);
+			onCompleteOutput(response);
 			
 		}
 	}
@@ -467,10 +464,10 @@ public class RunActivity extends Activity
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			
-			Item ui = (Item)msg.obj;
-			items.add(ui);
+			Model item = (Model)msg.obj;
+			items.add(item);
 			System.out.println(items.size());
-			listadapter.add(ui);
+			listadapter.add(item);
 			System.out.println(listadapter.getCount());
 			listadapter.notifyDataSetChanged();		
 			

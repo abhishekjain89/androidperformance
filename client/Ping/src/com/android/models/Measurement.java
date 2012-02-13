@@ -148,6 +148,9 @@ public class Measurement implements Model{
 		return obj;
 	}
 
-	
+	public String getTitle() {
+		
+		return "Measurement";
+	}
 
 }

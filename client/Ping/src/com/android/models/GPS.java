@@ -58,5 +58,10 @@ public class GPS implements Model {
 		
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "GPS";
+	}
 
 }

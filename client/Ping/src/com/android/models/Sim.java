@@ -58,4 +58,9 @@ public class Sim implements Model{
 		return obj;
 	}
 	
+	public String getTitle() {
+		
+		return "Sim";
+	}
+	
 }

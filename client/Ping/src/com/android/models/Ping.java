@@ -73,5 +73,10 @@ public class Ping implements Model{
 		return obj;
 		
 	}
+	
+	public String getTitle() {
+		
+		return "Ping";
+	}
 
 }

@@ -115,4 +115,9 @@ public class Network implements Model{
 		return obj;
 	}
 	
+	public String getTitle() {
+		
+		return "Network";
+	}
+	
 }

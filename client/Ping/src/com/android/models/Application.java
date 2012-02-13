@@ -53,6 +53,10 @@ public class Application implements Model{
 
 		return obj;
 	}
+	public String getTitle() {
+		
+		return "Application";
+	}
 
 
 }

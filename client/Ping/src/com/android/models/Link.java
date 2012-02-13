@@ -71,5 +71,10 @@ public class Link implements Model{
 
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "Link";
+	}
 
 }

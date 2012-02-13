@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.android.R;
-import com.android.models.Item;
+
+import com.android.models.Row;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,15 +35,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ItemAdapter  extends ArrayAdapter<Item>{
+public class ItemAdapter  extends ArrayAdapter<Row>{
 
-	public ArrayList<Item> items;
+	public ArrayList<Row> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
 	private int ResourceId;
 
 	public ItemAdapter(Activity activity,
-			int ResourceId,ArrayList<Item> items) {
+			int ResourceId,ArrayList<Row> items) {
 		super(activity.getApplicationContext(), ResourceId);
 
 		this.items = items;
@@ -61,7 +62,7 @@ public class ItemAdapter  extends ArrayAdapter<Item>{
 		View v = convertView;
 		ViewHolder holder;
 
-		final Item item =items.get(position);
+		final Row item =items.get(position);
 		System.out.println("getView: " + position);
 		if (v == null) {
 
@@ -80,8 +81,8 @@ public class ItemAdapter  extends ArrayAdapter<Item>{
 
 		if (item!=null) {	
 			try{
-				holder.title.setText(item.title);
-				holder.text.setText(item.obj.toJSON().toString());
+				holder.title.setText(item.first);
+				holder.text.setText(item.second);
 
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -92,9 +93,9 @@ public class ItemAdapter  extends ArrayAdapter<Item>{
 	}
 
 	class imageViewClickListener implements OnClickListener {
-		Item item;
+		Row item;
 		
-		public imageViewClickListener( Item item)
+		public imageViewClickListener( Row item)
 		{
 			this.item = item;
 			

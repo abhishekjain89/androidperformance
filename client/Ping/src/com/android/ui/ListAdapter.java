@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import com.android.R;
-import com.android.models.Item;
-import com.android.models.Row;
+import com.android.models.Model;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,21 +34,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListAdapter  extends ArrayAdapter<Item>{
+public class ListAdapter  extends ArrayAdapter<Model>{
 
-	public ArrayList<Row> rows;
+	public ArrayList<Model> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
 	private int ResourceId;
 
 	public ListAdapter(Activity activity,
-			int ResourceId,ArrayList<Row> rows) {
+			int ResourceId,ArrayList<Model> items) {
 		super(activity.getApplicationContext(), ResourceId);
 
-		this.rows = rows;
-		
-		
-		
+		this.items = items;
 		this.activity = activity;
 		this.ResourceId = ResourceId;
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,7 +61,7 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 		View v = convertView;
 		ViewHolder holder;
 
-		Row row =rows.get(position);
+		final Model item =items.get(position);
 		System.out.println("getView: " + position);
 		if (v == null) {
 
@@ -84,23 +78,23 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 		}
 
 
-		/*if (item!=null) {	
+		if (item!=null) {	
 			try{
-				holder.title.setText(item.title);
-				holder.text.setText(item.obj.toJSON().toString());
+				holder.title.setText(item.getTitle());
+				holder.text.setText(item.toJSON().toString());
 
 			} catch(Exception e) {
 				e.printStackTrace();
 
 			}
-		}*/
+		}
 		return v;
 	}
 
 	class imageViewClickListener implements OnClickListener {
-		Item item;
+		Model item;
 		
-		public imageViewClickListener( Item item)
+		public imageViewClickListener( Model item)
 		{
 			this.item = item;
 			

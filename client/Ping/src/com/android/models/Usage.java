@@ -77,6 +77,11 @@ public class Usage implements Model{
 		return obj;
 
 	}
+	
+	public String getTitle() {
+		
+		return "Usage";
+	}
 
 
 }

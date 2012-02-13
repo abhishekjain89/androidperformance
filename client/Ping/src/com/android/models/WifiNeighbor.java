@@ -74,4 +74,11 @@ public class WifiNeighbor implements Model{
 		
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "Wifi Neighbor";
+	}
+	
+	
 }

@@ -40,7 +40,10 @@ public class Throughput implements Model{
 		return obj;
 	}
 	
-	
+	public String getTitle() {
+		
+		return "Throughput";
+	}
 	
 
 }

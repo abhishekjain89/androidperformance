@@ -108,5 +108,10 @@ public class Battery  implements Model{
 		}		
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "Battery";
+	}
 
 }

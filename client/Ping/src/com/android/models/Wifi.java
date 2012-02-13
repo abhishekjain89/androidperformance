@@ -132,4 +132,9 @@ public class Wifi implements Model{
 		return obj;
 	}
 	
+	public String getTitle() {
+		
+		return "Wifi";
+	}
+	
 }

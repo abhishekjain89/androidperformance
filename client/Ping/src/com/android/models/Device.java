@@ -128,6 +128,11 @@ public class Device implements Model {
 		}		
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "Device";
+	}
 
 	
 

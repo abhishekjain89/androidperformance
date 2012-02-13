@@ -57,5 +57,9 @@ public class Measure implements Model{
 		
 		return obj;
 	}
+	public String getTitle() {
+		
+		return "Measure";
+	}
 
 }

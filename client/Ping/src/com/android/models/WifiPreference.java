@@ -113,5 +113,10 @@ public class WifiPreference implements Model{
 		
 		return obj;
 	}
+	
+	public String getTitle() {
+		
+		return "Wifi Preference";
+	}
 
 }
