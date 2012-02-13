@@ -346,3 +346,4 @@ alter sequence battery_seq owned by battery.batteryid;
 alter sequence usage_seq owned by usage.usageid;
 alter sequence application_use_seq owned by application_use.application_useid;
 alter sequence wifi_seq owned by wifi.wifiid;
+alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
