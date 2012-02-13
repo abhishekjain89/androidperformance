@@ -90,7 +90,7 @@ public class RunActivity extends Activity
 		ServiceHelper.processStopService(this,serviceTag);
 		
 		items = new ArrayList<Item>();
-		listadapter = new ListAdapter(activity,R.layout.item_view,items);
+		//listadapter = new ListAdapter(activity,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 		listview.setAdapter(listadapter);
 

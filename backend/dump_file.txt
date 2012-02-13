@@ -76,6 +76,24 @@ CREATE SEQUENCE throughput_seq
 
 SELECT pg_catalog.setval('throughput_seq', 1, false);
 
+CREATE SEQUENCE wifi_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('wifi_seq', 1, false);
+
+CREATE SEQUENCE wifi_neighbor_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('wifi_neighbor_seq', 1, false);
+
 CREATE SEQUENCE gps_seq
     START WITH 1
     INCREMENT BY 1
@@ -119,6 +137,33 @@ CREATE TABLE gps(
 	latitude float NOT NULL,
 	longitude float NOT NULL,
 	altitude float NOT NULL
+);
+
+CREATE TABLE wifi_hotspot(
+	macaddress varchar(18) NOT NULL,
+	ssid varchar(30),
+	frequency integer,
+	capability varchar(20)	
+);
+
+CREATE TABLE wifi(
+	wifiid integer DEFAULT nextval('wifi_seq'::regclass) NOT NULL,
+	ipaddress varchar(15),
+	detailedinfo varchar(40),
+	rssi integer,
+	signalstrength integer,
+	speed integer,
+	units varchar(10),
+	connection varchar(18) NOT NULL
+);
+
+CREATE TABLE wifi_neighbor(
+	wifi_neighbor_id integer DEFAULT nextval('wifi_neighbor_seq'::regclass) NOT NULL,
+	macaddress varchar(18) NOT NULL,
+	ispreferred integer,
+	signallevel integer,
+	wifiid integer DEFAULT nextval('wifi_seq'::regclass) NOT NULL
+	
 );
 
 CREATE TABLE battery(
@@ -192,13 +237,14 @@ CREATE TABLE sim (
 CREATE TABLE measurement (
     measurementid integer DEFAULT nextval('measurement_seq'::regclass) NOT NULL,
     "time" timestamp without time zone NOT NULL,
-    deviceid varchar(20) NOT NULL,
-    networkid integer DEFAULT nextval('network_seq'::regclass) NOT NULL,
-    serialnumber varchar(20) NOT NULL,
-    throughputid integer DEFAULT nextval('throughput_seq'::regclass) NOT NULL,
-    gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
-    batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL,
-    usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL
+    deviceid varchar(20),
+    networkid integer DEFAULT nextval('network_seq'::regclass),
+    serialnumber varchar(20),
+    throughputid integer DEFAULT nextval('throughput_seq'::regclass),
+    gpsid integer DEFAULT nextval('gps_seq'::regclass),
+    batteryid integer DEFAULT nextval('battery_seq'::regclass),
+    usageid integer DEFAULT nextval('usage_seq'::regclass),
+    wifiid integer DEFAULT nextval('wifi_seq'::regclass)
 );
 
 CREATE TABLE usage (
@@ -260,7 +306,13 @@ ALTER TABLE ONLY battery
 ALTER TABLE ONLY usage
     ADD CONSTRAINT usage_pkey PRIMARY KEY (usageid);
 ALTER TABLE ONLY application_use
-    ADD CONSTRAINT application_use_pkey PRIMARY KEY (application_useid);   
+    ADD CONSTRAINT application_use_pkey PRIMARY KEY (application_useid);
+ALTER TABLE ONLY wifi
+    ADD CONSTRAINT wifi_pkey PRIMARY KEY (wifiid);
+ALTER TABLE ONLY wifi_hotspot
+    ADD CONSTRAINT wifi_hotspot_pkey PRIMARY KEY (macaddress);
+ALTER TABLE ONLY wifi_neighbor
+    ADD CONSTRAINT wifi_neighbor_pkey PRIMARY KEY (wifi_neighbor_id);      
 
 ALTER TABLE ONLY ping
     ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
@@ -274,10 +326,16 @@ ALTER TABLE ONLY measurement
     ADD CONSTRAINT measurement_throughputid_fkey FOREIGN KEY (throughputid) REFERENCES throughput(throughputid),
     ADD CONSTRAINT measurement_gpsid_fkey FOREIGN KEY (gpsid) REFERENCES gps(gpsid),
     ADD CONSTRAINT measurement_batteryid_fkey FOREIGN KEY (batteryid) REFERENCES battery(batteryid),
-    ADD CONSTRAINT measurement_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid);
+    ADD CONSTRAINT measurement_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid),
+    ADD CONSTRAINT measurement_wifiid_fkey FOREIGN KEY (wifiid) REFERENCES wifi(wifiid);
 ALTER TABLE ONLY application_use
     ADD CONSTRAINT application_use_usageid_fkey FOREIGN KEY (usageid) REFERENCES usage(usageid),
     ADD CONSTRAINT application_use_package_fkey FOREIGN KEY (package) REFERENCES application(package);
+ALTER TABLE ONLY wifi_neighbor
+    ADD CONSTRAINT wifi_neighbor_wifiid_fkey FOREIGN KEY (wifiid) REFERENCES wifi(wifiid),
+    ADD CONSTRAINT wifi_neighbor_macaddress_fkey FOREIGN KEY (macaddress) REFERENCES wifi_hotspot(macaddress);
+ALTER TABLE ONLY wifi
+    ADD CONSTRAINT wifi_macaddress_fkey FOREIGN KEY (connection) REFERENCES wifi_hotspot(macaddress);
 
 alter sequence measurement_seq owned by measurement.measurementid;
 alter sequence network_seq owned by network.networkid;
@@ -287,3 +345,4 @@ alter sequence gps_seq owned by gps.gpsid;
 alter sequence battery_seq owned by battery.batteryid;
 alter sequence usage_seq owned by usage.usageid;
 alter sequence application_use_seq owned by application_use.application_useid;
+alter sequence wifi_seq owned by wifi.wifiid;

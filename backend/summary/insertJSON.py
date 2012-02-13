@@ -17,28 +17,50 @@ def device(dev,m_deviceid):
     d = Device(deviceid = m_deviceid,phonenumber=dev['phoneNumber'])
     
     try:
-        d.phonetype = dev['phoneType']
-        count+=1            
-        d.softwareversion = dev['softwareVersion']
-        count+=1
-        d.phonemodel = dev['phoneModel']
-        count+=1
-        d.androidversion = dev['androidVersion']
-        count+=1
-        d.phonebrand = dev['phoneBrand']
-        count+=1
-        d.devicedesign = dev['deviceDesign']
-        count+=1
-        d.manufacturer = dev['manufacturer']
-        count+=1
-        d.productname = dev['productName']
-        count+=1
-        d.radioversion = dev['radioVersion']
-        count+=1
-        d.boardname = dev['boardName']
-        count+=1
+        try:
+            d.phonetype = dev['phoneType']
+        except:
+            pass
+        try:         
+                        
+            d.softwareversion = dev['softwareVersion']
+        except:
+            pass
+        try:
+            d.phonemodel = dev['phoneModel']
+        except:
+            pass
+        try:
+            d.androidversion = dev['androidVersion']
+        except:
+            pass
+        try:
+            d.phonebrand = dev['phoneBrand']
+        except:
+            pass
+        try:
+            d.devicedesign = dev['deviceDesign']
+        except:
+            pass
+        try:
+            d.manufacturer = dev['manufacturer']
+        except:
+            pass
+        try:
+            d.productname = dev['productName']
+        except:
+            pass
+        try:
+            d.radioversion = dev['radioVersion']
+        except:
+            pass
+        try:
+            d.boardname = dev['boardName']
+        except:
+            pass
+        
         d.save()
-	print d.deviceid
+	
         print "Device inserted"
     except Exception as inst:
         print type(inst)     # the exception instance
@@ -50,29 +72,48 @@ def device(dev,m_deviceid):
 
 def network(dev):
     
-    count=0
+    
     n = Network()
     
-    n.networkcountry = dev["networkCountry"]
-    count+=1
-    n.networkname = dev["networkName"]
-    count+=1            
-    n.networktype = dev["networkType"]
-    count+=1
-    n.connectiontype = dev["connectionType"]
-    count+=1
-    n.mobilenetworkinfo = dev["mobileNetworkInfo"]
-    count+=1
-    #n.wifistate = dev["wifiState"]
-    #count+=1
-    n.cellid = dev["cellId"]
-    count+=1
-    n.celllac = dev["cellLac"]
-    count+=1
-    n.datastate = dev["dataState"]
-    count+=1
-    n.dataactivity = dev["dataActivity"]
-    count+=1
+    try:
+        n.networkcountry = dev["networkCountry"]
+    except:
+        pass
+    try:
+        n.networkname = dev["networkName"]
+    except:
+        pass
+    try:                
+        n.networktype = dev["networkType"]
+    except:
+        pass
+    try:    
+        n.connectiontype = dev["connectionType"]
+    except:
+        pass
+    try:    
+        n.mobilenetworkinfo = parse(dev["mobileNetworkInfo"])
+    except:
+        pass
+    try:    
+        #n.wifistate = dev["wifiState"]
+        #count+=1
+        n.cellid = dev["cellId"]
+    except:
+        pass
+    try:    
+        n.celllac = dev["cellLac"]
+    except:
+        pass
+    try:     
+        n.datastate = dev["dataState"]
+    except:
+        pass
+    try:    
+        n.dataactivity = dev["dataActivity"]
+    except:
+        pass
+    
     #n.signalstrength = dev["signalStrength"]
     #count+=1
     
@@ -85,13 +126,27 @@ def sim(dev):
     
     count=0
     s = Sim()
+    try:
+        s.serialnumber = dev["serialNumber"]
+    except:
+        pass
+    try: 
+        s.state = dev["state"]
+    except:
+        pass
+    try: 
+        s.operatorcode = dev["operatorCode"]
+    except:
+        pass
+    try:        
+        s.operatorname = dev["operatorName"]
+    except:
+        pass
+    try:
+        s.networkcountry = dev["networkCountry"]
+    except:
+        pass
     
-    s.serialnumber = dev["serialNumber"]
-    s.state = dev["state"]
-    s.operatorcode = dev["operatorCode"]
-    s.operatorname = dev["operatorName"]
-    s.networkcountry = dev["networkCountry"]
-    count+=1
     
     s.save()
     print "Sim inserted"
@@ -100,10 +155,19 @@ def sim(dev):
 
 def gps(dev):
     
-    g = Gps()    
-    g.latitude = dev['latitude']
-    g.longitude = dev['longitude']
-    g.altitude = dev['altitude']
+    g = Gps() 
+    try:       
+        g.latitude = dev['latitude']
+    except:
+        pass
+    try:
+        g.longitude = dev['longitude']
+    except:
+        pass
+    try:
+        g.altitude = dev['altitude']
+    except:
+        pass
     g.save()
     print "GPS inserted"
        
@@ -111,16 +175,45 @@ def gps(dev):
 
 def battery(dev):
     
-    g = Battery()    
-    g.ispresent = dev['isPresent']
-    g.technology = dev['technology']
-    g.plugged = dev['plugged']
-    g.scale = dev['scale']
-    g.health = dev['health']
-    g.voltage = dev['voltage']
-    g.level = dev['level']
-    g.temperature = dev['temperature']
-    g.status = dev['status']
+    g = Battery()
+    
+    try:        
+        g.ispresent = dev['isPresent']
+    except:
+        pass
+    try:
+        g.technology = dev['technology']
+    except:
+        pass
+    try:
+        g.plugged = dev['plugged']
+    except:
+        pass
+    try:
+        g.scale = dev['scale']
+    except:
+        pass
+    try:
+        g.health = dev['health']
+    except:
+        pass
+    try:
+        g.voltage = dev['voltage']
+    except:
+        pass
+    try:
+        g.level = dev['level']
+    except:
+        pass
+    try:
+        g.temperature = dev['temperature']
+    except:
+        pass
+    try:
+        g.status = dev['status']
+    except:
+        pass
+    
     g.save()
     print "Battery inserted"
        
@@ -129,13 +222,32 @@ def battery(dev):
 
 def link(dev):
     
-    l = Link()    
-    l.count = dev['count']
-    l.message_size = dev['message_size']
-    l.duration = dev['time']
-    l.speed = dev['speedInBits']
-    l.port = dev['dstPort']
-    l.ip_address = dev['dstIp']
+    l = Link()
+    try:
+        l.count = dev['count']
+    except:
+        pass
+    try:        
+        l.message_size = dev['message_size']
+    except:
+        pass
+    try:
+        l.duration = dev['time']
+    except:
+        pass
+    try:
+        l.speed = dev['speedInBits']
+    except:
+        pass
+    try:
+        l.port = dev['dstPort']
+    except:
+        pass
+    try:
+        l.ip_address = dev['dstIp']
+    except:
+        pass
+    
     l.save()
     print "Link inserted"
     return l
@@ -143,8 +255,16 @@ def link(dev):
 def throughput(dev):
     
     t = Throughput()
-    t.uplinkid=link(dev['upLink'])
-    t.downlinkid=link(dev['downLink']) 
+    
+    try:
+        t.uplinkid=link(dev['upLink'])
+    except:
+        pass
+    try:
+        t.downlinkid=link(dev['downLink'])
+    except:
+        pass
+     
     t.save()
     print "Throughput inserted"
     return t
@@ -153,10 +273,24 @@ def throughput(dev):
 def usage(dev):
     
     u = Usage()
-    u.total_sent=dev['total_sent']
-    u.total_recv=dev['total_recv']
-    u.mobile_sent=dev['mobile_sent']
-    u.mobile_recv=dev['mobile_recv']
+
+    try:
+        u.total_sent=dev['total_sent']
+    except:
+        pass
+    try:
+        u.total_recv=dev['total_recv']
+    except:
+        pass
+    try:
+        u.mobile_sent=dev['mobile_sent']
+    except:
+        pass
+    try:
+        u.mobile_recv=dev['mobile_recv']
+    except:
+        pass
+
     u.save()
     
     for app in dev['applications']:
@@ -168,10 +302,24 @@ def usage(dev):
             result.save()
         
         appUse = ApplicationUse()
-        appUse.package = result
-        appUse.total_sent=app['total_sent']
-        appUse.total_recv=app['total_recv']
-        appUse.usageid= u
+        
+        try:
+            appUse.package = result
+        except:
+            pass
+        try:
+            appUse.total_sent=app['total_sent']
+        except:
+            pass
+        try:
+            appUse.total_recv=app['total_recv']
+        except:
+            pass
+        try:
+            appUse.usageid= u
+        except:
+            pass
+
         appUse.save()
     
     print "Usage inserted"
@@ -181,24 +329,95 @@ def usage(dev):
     
 
 def pings(pings,measurement):
+    
     for p in pings:
-        count = 0
-        d_srcip = p['src_ip']
-        count+=1
-        d_dstip = p['dst_ip']
-        count+=1
-        d_time = p['time']
-        count+=1
-        measure = p['measure']           
-        d_average = measure['average']
-        count+=1
-        d_std = measure['stddev']
-        count+=1
-        d_min = measure['min']
-        count+=1
-        d_max = measure['max']
-        count+=1
-            
-        ping = Ping(measurementid = measurement,scrip=d_srcip,dstip=d_dstip,time=d_time,avg=d_average,stdev=d_std,min=d_min,max=d_max)
+        ping = Ping()
+        ping.measurementid = measurement
+        try:
+            ping.scrip = p['src_ip']
+        except:
+            pass
+        try:        
+            ping.dstip = p['dst_ip']
+        except:
+            pass
+        try:
+            ping.time = p['time']
+        except:
+            pass
+        
+        measure = p['measure']
+        
+        
+        try:           
+            ping.avg = measure['average']
+        except:
+            pass
+        try:
+            ping.stdev = measure['stddev']
+        except:
+            pass
+        try:
+            ping.min = measure['min']
+        except:
+            pass
+        try:
+            ping.max = measure['max']
+        except:
+            pass
             
         ping.save()
+
+def wifi(dev):
+    
+    w = Wifi()
+    
+    w.ipaddress = dev['ipAddress']
+    w.detailedinfo = dev['detailedInfo']
+    w.rssi = dev['rssi']
+    w.signalstrength = dev['strength']
+    w.speed = dev['speed']
+    w.units = dev['units']
+  
+    for spot in dev['wifiNeighbors']:
+       
+        try:
+            result = WifiHotspot.objects.filter(macaddress=spot['macAddress'])[0]
+        except:
+            result = WifiHotspot()
+            result.macaddress = spot['macAddress']
+            result.ssid = spot['ssid']
+            result.frequency = spot['frequency']
+            result.capability = spot['capability'][:20]
+            result.save()
+        
+        if spot['isConnected'] == 'true':            
+            w.connection = result            
+            w.save()
+            
+    
+    for spot in dev['wifiNeighbors']:
+        result = WifiHotspot.objects.filter(macaddress=spot['macAddress'])[0]
+        
+        wn = WifiNeighbor()     
+        wn.macaddress = result
+        wn.wifiid = w
+        if spot['isPreferred'] == 'true':
+            wn.ispreferred = 1
+        else:
+            wn.ispreferred = 0
+        wn.signallevel = spot['signalLevel']
+        wn.save()
+        
+    print "Wifi inserted"
+        
+    w.save()
+    return w
+
+def parse(object):
+    print "ff"
+    print object
+    if object==None:
+        return ''
+    else:
+        return object

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="150px"
+	android:padding="2px" android:orientation="horizontal">	
+		<TextView android:layout_height="wrap_content" android:textSize="20dp"
+			android:layout_width="wrap_content" android:maxHeight="120px"
+			android:ellipsize="end"  android:gravity="center_horizontal"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:minWidth="100dp"
+			android:text="Key" android:textColor="#FFF" android:id="@+id/key"></TextView>
+		<TextView android:layout_height="wrap_content" android:textSize="20dp"
+		    android:layout_marginLeft="20dp"
+			android:layout_width="wrap_content"
+			android:ellipsize="end"
+			android:scrollHorizontally="false"
+			android:inputType="textMultiLine"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Value" android:textColor="#FFF" android:id="@+id/value"></TextView>				 
+</LinearLayout>

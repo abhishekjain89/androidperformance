@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import com.android.R;
 import com.android.models.Item;
-import com.android.models.Row;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,21 +34,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListAdapter  extends ArrayAdapter<Item>{
+public class ItemAdapter  extends ArrayAdapter<Item>{
 
-	public ArrayList<Row> rows;
+	public ArrayList<Item> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
 	private int ResourceId;
 
-	public ListAdapter(Activity activity,
-			int ResourceId,ArrayList<Row> rows) {
+	public ItemAdapter(Activity activity,
+			int ResourceId,ArrayList<Item> items) {
 		super(activity.getApplicationContext(), ResourceId);
 
-		this.rows = rows;
-		
-		
-		
+		this.items = items;
 		this.activity = activity;
 		this.ResourceId = ResourceId;
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,7 +61,7 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 		View v = convertView;
 		ViewHolder holder;
 
-		Row row =rows.get(position);
+		final Item item =items.get(position);
 		System.out.println("getView: " + position);
 		if (v == null) {
 
@@ -84,7 +78,7 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 		}
 
 
-		/*if (item!=null) {	
+		if (item!=null) {	
 			try{
 				holder.title.setText(item.title);
 				holder.text.setText(item.obj.toJSON().toString());
@@ -93,7 +87,7 @@ public class ListAdapter  extends ArrayAdapter<Item>{
 				e.printStackTrace();
 
 			}
-		}*/
+		}
 		return v;
 	}
 
