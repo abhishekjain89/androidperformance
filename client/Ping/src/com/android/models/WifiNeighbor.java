@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WifiNeighbor {
+public class WifiNeighbor implements Model{
 	
 
 	String ssid;
@@ -60,13 +60,13 @@ public class WifiNeighbor {
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.putOpt("ssid", ssid);
-			obj.putOpt("macAddress", macAddress);
-			obj.putOpt("signalLevel", signalLevel);
-			obj.putOpt("frequency", frequency);
-			obj.putOpt("capability", capability);
-			obj.putOpt("isConnected", isConnected);
-			obj.putOpt("isPreferred", isPreferred);
+			obj.putOpt("ssid", "" + ssid);
+			obj.putOpt("macAddress", "" + macAddress);
+			obj.putOpt("signalLevel", "" + signalLevel);
+			obj.putOpt("frequency", "" + frequency);
+			obj.putOpt("capability", "" + capability);
+			obj.putOpt("isConnected", "" + isConnected);
+			obj.putOpt("isPreferred", "" + isPreferred);
 
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.android.Values;
 import com.android.models.GPS;
 import com.android.models.Measurement;
 
@@ -56,7 +57,7 @@ public class GPSUtil {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
         }
 
-        timer.schedule(new GetLastLocation(), 20000);
+        timer.schedule(new GetLastLocation(), Values.GPS_TIMEOUT);
         
         return true;
     }

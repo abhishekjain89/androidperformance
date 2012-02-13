@@ -3,7 +3,7 @@ package com.android.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WifiPreference {
+public class WifiPreference implements Model{
 
 	public String id;
 	public String protocols;
@@ -94,18 +94,18 @@ public class WifiPreference {
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.putOpt("id", id);
-			obj.putOpt("protocols", protocols);
-			obj.putOpt("ssid", ssid);
-			obj.putOpt("priority", priority);
-			obj.putOpt("networkid", networkid);
-			obj.putOpt("status", status);
-			obj.putOpt("pairwiseCiphers", pairwiseCiphers);
-			obj.putOpt("groupCiphers", groupCiphers);
-			obj.putOpt("authAlgorithms", authAlgorithms);
-			obj.putOpt("bssid", bssid);
-			obj.putOpt("keyMgmt", keyMgmt);
-			obj.putOpt("isConnected", isConnected);
+			obj.putOpt("id", "" + id);
+			obj.putOpt("protocols", "" + protocols);
+			obj.putOpt("ssid", "" + ssid);
+			obj.putOpt("priority", "" + priority);
+			obj.putOpt("networkid", "" + networkid);
+			obj.putOpt("status", "" + status);
+			obj.putOpt("pairwiseCiphers", "" + pairwiseCiphers);
+			obj.putOpt("groupCiphers", "" + groupCiphers);
+			obj.putOpt("authAlgorithms", "" + authAlgorithms);
+			obj.putOpt("bssid", "" + bssid);
+			obj.putOpt("keyMgmt", "" + keyMgmt);
+			obj.putOpt("isConnected", "" + isConnected);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

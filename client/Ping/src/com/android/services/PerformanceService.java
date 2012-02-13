@@ -13,6 +13,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.android.Session;
+import com.android.Values;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.listeners.FakeListener;
@@ -40,12 +41,13 @@ public class PerformanceService extends Service{
 		updateTimer = new Timer("measurementTask");
 		context = this.getApplicationContext();
 		
-		serverhelper = new ThreadPoolHelper(5,10);
+		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 
 	@Override
 	public void onDestroy() {
 		updateTimer.cancel();
+		serverhelper.shutdown();
 		Log.v("PerformanceService","Destroying PerformanceService");
 	}
 	
@@ -55,7 +57,7 @@ public class PerformanceService extends Service{
 		freqValue = PreferencesUtil.getFrequency(this.context);
 		}
 		catch (Exception e){
-			freqValue = 15;
+			freqValue = Values.SERVICE_DEFAULT_FREQUENCY_MINS;
 		}
 		System.out.println("starting service, freq set to " + freqValue);
 		 if (doRefresh != null) {
@@ -66,7 +68,7 @@ public class PerformanceService extends Service{
 		updateTimer.cancel();
 		if (autoUpdate) {
 			updateTimer = new Timer("measurementTask");
-			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * 60 * 1000);
+			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * Values.ONE_MINUTE_TIME);
 			
 		}
 		else {

@@ -85,7 +85,7 @@ public class AnalysisActivity extends Activity
 		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
 		configButton=(Button)findViewById(R.id.config);
-		table = (LinearLayout)findViewById(R.id.measurementslayout);
+		//table = (LinearLayout)findViewById(R.id.measurementslayout);
 		
 		
 		

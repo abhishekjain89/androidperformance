@@ -92,48 +92,66 @@ def measurement(request):
         count+=1
         m_battery = request_object['battery']
         count+=1
+        m_wifi = request_object['wifi']
+        count+=1
 
     except:
         return HttpResponse(error_message_helper.missing_attributes('measurement(' +count+ ')'))        
     print "measurement insertion started..."
     
+    measurement = Measurement()
+    measurement.time = m_time
+    message = []
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
+        measurement.deviceid = details
     except Exception as inst:
         details=insertJSON.device(m_device,m_deviceid)
         
     try:
         network=insertJSON.network(m_network)
+        measurement.networkid = network
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("network",inst))
+       message.append(error_message_helper.insert_entry_fail("network",inst))
     
     try:
         sim=insertJSON.sim(m_sim)
+        measurement.serialnumber = sim
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("sim",inst))
+        message.append(error_message_helper.insert_entry_fail("sim",inst))
     
     try:
         throughput=insertJSON.throughput(m_throughput)
+        measurement.throughputid = throughput
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("throughput",inst))
+        message.append(error_message_helper.insert_entry_fail("throughput",inst))
     
     try:
         gps=insertJSON.gps(m_gps)
+        measurement.gpsid = gps
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("gps",inst))
+       message.append(error_message_helper.insert_entry_fail("gps",inst))
+       
+    try:
+        wifi=insertJSON.wifi(m_wifi)
+        measurement.wifiid = wifi
+    except Exception as inst:
+       message.append(error_message_helper.insert_entry_fail("wifi",inst))
     
     try:
         battery=insertJSON.battery(m_battery)
+        measurement.batteryid=battery
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("battery",inst))
+        message.append(error_message_helper.insert_entry_fail("battery",inst))
     
     try:
         usage=insertJSON.usage(m_usage)
+        measurement.usageid=usage
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("usage",inst))
+        message.append(error_message_helper.insert_entry_fail("usage",inst))
     
     try:  
-        measurement = Measurement(deviceid = details,time=m_time,networkid=network,serialnumber=sim,throughputid=throughput,gpsid=gps,batteryid=battery,usageid=usage)
+        
         measurement.save()
         m_id = measurement.measurementid
         
@@ -143,9 +161,9 @@ def measurement(request):
     try:
         insertJSON.pings(pings,measurement)
     except Exception as inst:
-        return HttpResponse(error_message_helper.insert_entry_fail("ping(" + count+")",inst))            
+        message.append(error_message_helper.insert_entry_fail("ping(" + count+")",inst))            
     print "measurement insertion ended"
-    response['message'] = 'measurement inserted'
+    response['message'] = 'measurement inserted: ' + str(message)
     response['status'] = 'OK'
 
     return HttpResponse(str(response))

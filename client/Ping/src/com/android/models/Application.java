@@ -4,9 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.listeners.ResponseListener;
+
 import android.graphics.drawable.Drawable;
 
-public class Application {
+public class Application implements Model{
 	private String name;
 	private String packageName;
 	private long total_sent;
@@ -36,7 +38,7 @@ public class Application {
 	public void setTotal_recv(long total_recv) {
 		this.total_recv = total_recv;
 	}
-	public Object toJSON() {
+	public JSONObject toJSON() {
 
 		JSONObject obj = new JSONObject();
 		try {

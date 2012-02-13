@@ -36,6 +36,10 @@ public class DeviceTask extends ServerTask{
 	public void runTask() {
 		
 		measurement = DeviceHelper.deviceHelp(getContext(), measurement);
+		this.getResponseListener().onCompleteDevice(measurement.getDevice());
+		this.getResponseListener().onCompleteNetwork(measurement.getNetwork());
+		this.getResponseListener().onCompleteSIM(measurement.getSim());
+		this.getResponseListener().onCompleteBattery(measurement.getBattery());
 		this.getResponseListener().onCompleteMeasurement(measurement);
 	}
 

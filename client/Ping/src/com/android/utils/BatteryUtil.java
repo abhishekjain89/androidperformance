@@ -1,5 +1,6 @@
 package com.android.utils;
 
+import com.android.Values;
 import com.android.models.Battery;
 import com.android.models.Device;
 import com.android.models.Measurement;
@@ -30,7 +31,7 @@ public class BatteryUtil {
 		
 		while(notDone){
 			try {
-				Thread.sleep(100);
+				Thread.sleep(Values.SHORT_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -9,6 +9,37 @@
 
 from django.db import models
 
+class WifiHotspot(models.Model):
+    macaddress = models.CharField(max_length=18, primary_key=True)
+    ssid = models.CharField(max_length=30)
+    frequency = models.IntegerField()
+    capability = models.CharField(max_length=20)
+    class Meta:
+        db_table = u'wifi_hotspot'
+
+
+class Wifi(models.Model):
+    wifiid = models.AutoField(primary_key=True)
+    ipaddress = models.CharField(max_length=15)
+    detailedinfo = models.CharField(max_length=40)
+    rssi = models.IntegerField()
+    signalstrength = models.IntegerField()
+    speed = models.IntegerField()
+    units = models.CharField(max_length=10)
+    connection = models.ForeignKey(WifiHotspot,  to_field='macaddress', db_column='connection')
+    class Meta:
+        db_table = u'wifi'
+
+
+class WifiNeighbor(models.Model):
+    wifi_neighbor_id = models.AutoField(primary_key=True)
+    macaddress = models.ForeignKey(WifiHotspot,  to_field='macaddress', db_column='macaddress')
+    ispreferred = models.IntegerField()
+    signallevel = models.IntegerField()
+    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid')
+    class Meta:
+        db_table = u'wifi_neighbor'
+
 class Usage(models.Model):
     usageid = models.AutoField(primary_key=True)
     total_sent = models.BigIntegerField()
@@ -128,6 +159,7 @@ class Measurement(models.Model):
     gpsid = models.ForeignKey(Gps, to_field='gpsid', db_column='gpsid')
     batteryid = models.ForeignKey(Battery, to_field='batteryid', db_column='batteryid')
     usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
+    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid')
     class Meta:
         db_table = u'measurement'
 
