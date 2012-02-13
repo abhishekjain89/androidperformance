@@ -134,7 +134,7 @@ def measurement(request):
        
     try:
         wifi=insertJSON.wifi(m_wifi)
-        measurement.wifiid = wifi
+        #measurement.wifiid = wifi
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("wifi",inst))
     
