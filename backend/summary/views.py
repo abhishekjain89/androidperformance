@@ -148,15 +148,16 @@ def measurement(request):
         usage=insertJSON.usage(m_usage)
         measurement.usageid=usage
     except Exception as inst:
+        
         message.append(error_message_helper.insert_entry_fail("usage",inst))
     
-    try:  
+    #try:  
+    
+    measurement.save()
+    m_id = measurement.measurementid
         
-        measurement.save()
-        m_id = measurement.measurementid
-        
-    except Exception as inst:     
-        return HttpResponse(error_message_helper.insert_entry_fail("measurement",inst))
+    #except Exception as inst:     
+    #    return HttpResponse(error_message_helper.insert_entry_fail("measurement",inst))
     count = 0    
     try:
         insertJSON.pings(pings,measurement)

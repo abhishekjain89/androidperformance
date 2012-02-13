@@ -22,8 +22,11 @@ def missing_attributes(attr):
 	return str(response)
 
 def insert_entry_fail(tablename):
-	response={}
+	print "ffs"
+	response = {}
 	response['message'] = 'unable to insert entry in table:' + tablename
+	
+	response['traceback'] = traceback.print_exc()
 	response['status'] = 'error'
 	return str(response)
 
