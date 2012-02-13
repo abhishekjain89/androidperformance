@@ -47,6 +47,7 @@ public class NeighborWifiUtil {
         	catch(Exception e){
         		
         	}
+        	receiverWifi.abortBroadcast();
         }
     }
     
