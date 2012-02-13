@@ -279,9 +279,12 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteWifi(Wifi wifi) {		
-			measurement.setWifi(wifi);
-			wifiRunning = false;
-			getResponseListener().onCompleteWifi(wifi);
+			if (wifiRunning)
+			{
+				measurement.setWifi(wifi);
+				wifiRunning = false;
+				getResponseListener().onCompleteWifi(wifi);
+			}
 		}
 
 		public void onCompleteNetwork(Network network) {
