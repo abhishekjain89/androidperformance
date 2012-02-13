@@ -152,5 +152,12 @@ public class Measurement implements Model{
 		
 		return "Measurement";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 }

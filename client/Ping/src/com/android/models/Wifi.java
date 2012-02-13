@@ -137,4 +137,11 @@ public class Wifi implements Model{
 		return "Wifi";
 	}
 	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
+	
 }

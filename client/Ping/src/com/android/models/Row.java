@@ -8,5 +8,10 @@ public class Row {
 	public Row(){
 		
 	}
+	
+	public Row(String first,String second){
+		this.first = first;
+		this.second = second;
+	}
 
 }

@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.android.R;
+import com.android.activities.RunActivity.MeasurementListener;
 import com.android.models.Model;
+import com.android.models.Row;
+import com.android.tasks.MeasurementTask;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -30,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -55,6 +59,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 	private class ViewHolder{
 		public TextView title;
 		public TextView text;
+		public ListView listview;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -69,6 +74,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 			holder = new ViewHolder();
 			holder.title =  (TextView) v.findViewById(R.id.title);
 			holder.text =  (TextView) v.findViewById(R.id.text);
+			holder.listview = (ListView) v.findViewById(R.id.listview);
 			
 			v.setTag(holder);
 		}
@@ -81,7 +87,16 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		if (item!=null) {	
 			try{
 				holder.title.setText(item.getTitle());
-				holder.text.setText(item.toJSON().toString());
+				holder.text.setText("");
+				ArrayList<Row> cells = item.getDisplayData(); 
+				ItemAdapter itemadapter = new ItemAdapter(activity,R.layout.cell_view,cells);
+				holder.listview.setAdapter(itemadapter);
+				
+				for(Row cell: cells)
+					itemadapter.add(cell);
+				
+				itemadapter.notifyDataSetChanged();
+				
 
 			} catch(Exception e) {
 				e.printStackTrace();

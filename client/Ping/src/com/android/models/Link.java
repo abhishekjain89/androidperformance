@@ -1,5 +1,7 @@
 package com.android.models;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,5 +78,12 @@ public class Link implements Model{
 		
 		return "Link";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 }

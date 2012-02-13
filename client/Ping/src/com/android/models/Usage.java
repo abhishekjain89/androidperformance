@@ -1,5 +1,6 @@
 package com.android.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -82,6 +83,13 @@ public class Usage implements Model{
 		
 		return "Usage";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 
 }

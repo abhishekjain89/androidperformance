@@ -10,6 +10,6 @@ public interface Model{
 	
 	public JSONObject toJSON();
 	public String getTitle();
-	//public ArrayList<Row> getDisplayData();
+	public ArrayList<Row> getDisplayData();
 
 }

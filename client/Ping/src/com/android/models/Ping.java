@@ -2,6 +2,7 @@ package com.android.models;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -78,5 +79,12 @@ public class Ping implements Model{
 		
 		return "Ping";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 }

@@ -1,5 +1,7 @@
 package com.android.models;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,5 +65,12 @@ public class GPS implements Model {
 		
 		return "GPS";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 }

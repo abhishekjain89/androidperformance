@@ -1,5 +1,7 @@
 package com.android.models;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -133,6 +135,13 @@ public class Device implements Model {
 		
 		return "Device";
 	}
+	
+	public ArrayList<Row> getDisplayData(){
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("First","Second"));
+		return data;
+	}
+
 
 	
 

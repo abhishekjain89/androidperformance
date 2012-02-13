@@ -34,7 +34,7 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:fadingEdge="none" >
     </ListView>
 

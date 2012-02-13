@@ -54,8 +54,8 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 	}
 
 	private class ViewHolder{
-		public TextView title;
-		public TextView text;
+		public TextView first;
+		public TextView second;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -68,8 +68,8 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 
 			v = inflater.inflate(ResourceId, null);
 			holder = new ViewHolder();
-			holder.title =  (TextView) v.findViewById(R.id.title);
-			holder.text =  (TextView) v.findViewById(R.id.text);
+			holder.first =  (TextView) v.findViewById(R.id.key);
+			holder.second =  (TextView) v.findViewById(R.id.value);
 			
 			v.setTag(holder);
 		}
@@ -81,8 +81,8 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 
 		if (item!=null) {	
 			try{
-				holder.title.setText(item.first);
-				holder.text.setText(item.second);
+				holder.first.setText(item.first);
+				holder.second.setText(item.second);
 
 			} catch(Exception e) {
 				e.printStackTrace();
