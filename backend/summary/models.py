@@ -159,7 +159,7 @@ class Measurement(models.Model):
     gpsid = models.ForeignKey(Gps, to_field='gpsid', db_column='gpsid')
     batteryid = models.ForeignKey(Battery, to_field='batteryid', db_column='batteryid')
     usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
-    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid')
+    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid',blank=True,null=True)
     class Meta:
         db_table = u'measurement'
 

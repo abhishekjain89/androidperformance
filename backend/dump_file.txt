@@ -27,7 +27,7 @@ SET search_path = public, pg_catalog;
 
 CREATE DOMAIN eventstamp_t AS timestamp without time zone;
 
-CREATE DOMAIN inetn_t AS inet NOT NULL;
+CREATE DOMAIN inetn_t AS inet ;
 SET default_tablespace = '';
 SET default_with_oids = false;
 
@@ -133,41 +133,41 @@ SELECT pg_catalog.setval('application_use_seq', 1, false);
 
 
 CREATE TABLE gps(
-	gpsid integer DEFAULT nextval('gps_seq'::regclass) NOT NULL,
-	latitude float NOT NULL,
-	longitude float NOT NULL,
-	altitude float NOT NULL
+	gpsid integer DEFAULT nextval('gps_seq'::regclass) ,
+	latitude float ,
+	longitude float ,
+	altitude float 
 );
 
 CREATE TABLE wifi_hotspot(
-	macaddress varchar(18) NOT NULL,
+	macaddress varchar(18) ,
 	ssid varchar(30),
 	frequency integer,
 	capability varchar(20)	
 );
 
 CREATE TABLE wifi(
-	wifiid integer DEFAULT nextval('wifi_seq'::regclass) NOT NULL,
+	wifiid integer DEFAULT nextval('wifi_seq'::regclass),
 	ipaddress varchar(15),
 	detailedinfo varchar(40),
 	rssi integer,
 	signalstrength integer,
 	speed integer,
 	units varchar(10),
-	connection varchar(18) NOT NULL
+	connection varchar(18)
 );
 
 CREATE TABLE wifi_neighbor(
-	wifi_neighbor_id integer DEFAULT nextval('wifi_neighbor_seq'::regclass) NOT NULL,
-	macaddress varchar(18) NOT NULL,
+	wifi_neighbor_id integer DEFAULT nextval('wifi_neighbor_seq'::regclass),
+	macaddress varchar(18),
 	ispreferred integer,
 	signallevel integer,
-	wifiid integer DEFAULT nextval('wifi_seq'::regclass) NOT NULL
+	wifiid integer DEFAULT nextval('wifi_seq'::regclass)
 	
 );
 
 CREATE TABLE battery(
-	batteryid integer DEFAULT nextval('battery_seq'::regclass) NOT NULL,
+	batteryid integer DEFAULT nextval('battery_seq'::regclass) ,
 	technology varchar(20),
 	ispresent integer,
 	plugged integer,
@@ -181,25 +181,25 @@ CREATE TABLE battery(
 );
 
 CREATE TABLE link(
-	linkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL,
+	linkid integer DEFAULT nextval('link_seq'::regclass) ,
 	count int,
 	message_size bigint,
 	duration integer,
-	speed float NOT NULL,
-	port integer NOT NULL,
-	ip_address varchar(20) NOT NULL
+	speed float ,
+	port integer ,
+	ip_address varchar(20) 
 );
 
 CREATE TABLE throughput(
-	throughputid integer DEFAULT nextval('throughput_seq'::regclass) NOT NULL,
-	uplinkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL,
-	downlinkid integer DEFAULT nextval('link_seq'::regclass) NOT NULL
+	throughputid integer DEFAULT nextval('throughput_seq'::regclass) ,
+	uplinkid integer DEFAULT nextval('link_seq'::regclass) ,
+	downlinkid integer DEFAULT nextval('link_seq'::regclass) 
 );
 
 CREATE TABLE device (
-    deviceid varchar(20) NOT NULL,
+    deviceid varchar(20) ,
     phonetype varchar(20),
-    phonenumber varchar(15) NOT NULL,
+    phonenumber varchar(15) ,
     softwareversion varchar(10),
     phonemodel varchar(20),
     androidversion varchar(10),
@@ -212,7 +212,7 @@ CREATE TABLE device (
 );
 
 CREATE TABLE network (
-    networkid integer DEFAULT nextval('network_seq'::regclass) NOT NULL,
+    networkid integer DEFAULT nextval('network_seq'::regclass) ,
     networkcountry varchar(2),
     networkname varchar(15),
     networktype varchar(10),
@@ -227,7 +227,7 @@ CREATE TABLE network (
 );
 
 CREATE TABLE sim (
-    serialnumber varchar(20) NOT NULL,
+    serialnumber varchar(20) ,
     state varchar(20),
     operatorCode varchar(8),
     operatorName varchar(20),
@@ -235,8 +235,8 @@ CREATE TABLE sim (
 );
 
 CREATE TABLE measurement (
-    measurementid integer DEFAULT nextval('measurement_seq'::regclass) NOT NULL,
-    "time" timestamp without time zone NOT NULL,
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+    "time" timestamp without time zone ,
     deviceid varchar(20),
     networkid integer DEFAULT nextval('network_seq'::regclass),
     serialnumber varchar(20),
@@ -244,41 +244,41 @@ CREATE TABLE measurement (
     gpsid integer DEFAULT nextval('gps_seq'::regclass),
     batteryid integer DEFAULT nextval('battery_seq'::regclass),
     usageid integer DEFAULT nextval('usage_seq'::regclass),
-    wifiid integer DEFAULT nextval('wifi_seq'::regclass)
+    wifiid integer DEFAULT nextval('wifi_seq'::regclass) NULL
 );
 
 CREATE TABLE usage (
-	usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL,
-	total_sent bigint NOT NULL,
-	total_recv bigint NOT NULL,
-	mobile_sent bigint NOT NULL,
-	mobile_recv bigint NOT NULL
+	usageid integer DEFAULT nextval('usage_seq'::regclass) ,
+	total_sent bigint ,
+	total_recv bigint ,
+	mobile_sent bigint ,
+	mobile_recv bigint 
 );
 
 CREATE TABLE application (
-	name varchar(20) NOT NULL,
-	package varchar(50) NOT NULL
+	name varchar(20) ,
+	package varchar(50) 
 );
 
 CREATE TABLE application_use (
-	application_useid integer DEFAULT nextval('application_use_seq'::regclass) NOT NULL,
-	package varchar(50) NOT NULL,
-	total_sent bigint NOT NULL,
-	total_recv bigint NOT NULL,
-	usageid integer DEFAULT nextval('usage_seq'::regclass) NOT NULL
+	application_useid integer DEFAULT nextval('application_use_seq'::regclass) ,
+	package varchar(50) ,
+	total_sent bigint ,
+	total_recv bigint ,
+	usageid integer DEFAULT nextval('usage_seq'::regclass) 
 );
 
 
 CREATE TABLE ping (
-    avg double precision NOT NULL,
-    stdev double precision NOT NULL,
-    min double precision NOT NULL,
-    max double precision NOT NULL,
-    scrip varchar(20) NOT NULL,
-    dstip varchar(20) NOT NULL,
+    avg double precision ,
+    stdev double precision ,
+    min double precision ,
+    max double precision ,
+    scrip varchar(20) ,
+    dstip varchar(20) ,
     "time" timestamp without time zone,
-    measurementid integer DEFAULT nextval('measurement_seq'::regclass) NOT NULL,
-    pingid integer DEFAULT nextval('ping_seq'::regclass) NOT NULL
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+    pingid integer DEFAULT nextval('ping_seq'::regclass) 
 );
 
 
@@ -346,3 +346,4 @@ alter sequence battery_seq owned by battery.batteryid;
 alter sequence usage_seq owned by usage.usageid;
 alter sequence application_use_seq owned by application_use.application_useid;
 alter sequence wifi_seq owned by wifi.wifiid;
+alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
