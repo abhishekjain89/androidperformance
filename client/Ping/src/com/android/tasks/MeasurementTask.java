@@ -193,7 +193,14 @@ public class MeasurementTask extends ServerTask{
 
 		getResponseListener().onCompleteMeasurement(measurement);
 
-		JSONObject object = measurement.toJSON();
+		JSONObject object = new JSONObject();
+
+		try {
+			object = measurement.toJSON();
+		} catch (Exception e) {
+			System.out.print(e.getLocalizedMessage());
+			return;
+		}
 
 		HTTPUtil http = new HTTPUtil();
 

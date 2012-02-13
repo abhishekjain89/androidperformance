@@ -290,7 +290,9 @@ public class DeviceUtil {
 	    // Cell Id and Cell lac
 	    try {
 	    	TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-			CellLocation cellLocation = tm.getCellLocation();
+			List<NeighboringCellInfo> nci = tm.getNeighboringCellInfo();
+			
+	    	CellLocation cellLocation = tm.getCellLocation();
 	    	//GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
 			
 			if(cellLocation instanceof GsmCellLocation){
