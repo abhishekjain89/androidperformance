@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class Sim implements Model{
 
 	String simNetworkCountry;
@@ -72,6 +74,11 @@ public class Sim implements Model{
 		data.add(new Row("Operator",simOperatorName));
 		data.add(new Row("Serial",simSerialNumber));
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.sim;
 	}
 
 	

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import com.android.R;
+import android.graphics.drawable.Drawable;
+
+import com.android.utils.BatteryUtil;
+
 public class Battery  implements Model{
 	
 	boolean isPresent;
@@ -117,11 +123,19 @@ public class Battery  implements Model{
 	}
 	
 	public ArrayList<Row> getDisplayData(){
+		BatteryUtil util = new BatteryUtil();
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Charge",(level*100)/scale));
 		data.add(new Row("Type",technology));
-		
+		data.add(new Row("Health",util.batteryHealth(health)));
+		data.add(new Row("Status",util.batteryStatus(status)));
+		data.add(new Row("Plugged",util.batteryPlugged(plugged)));
 		return data;
+	}
+
+	public int getIcon() {
+
+		return R.drawable.battery;
 	}
 
 

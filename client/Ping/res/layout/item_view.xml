@@ -6,11 +6,25 @@
     android:padding="2px"
     
     android:layout_marginBottom="50dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    
+    >
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="60dp"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:background="#0431C2"
+        android:src="@drawable/battery" />
+    
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:ellipsize="end"
         android:gravity="center_horizontal"
         android:background="#0431C2"
@@ -19,7 +33,7 @@
         android:textColor="#FFF"
         android:textSize="30dp" >
     </TextView>
-
+</LinearLayout>
 
     <ListView
         android:id="@+id/listview"

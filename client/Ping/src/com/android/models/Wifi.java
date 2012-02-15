@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class Wifi implements Model{
 
 	public int strength;	
@@ -153,6 +155,11 @@ public class Wifi implements Model{
 		}
 		
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.wifi;
 	}
 
 	

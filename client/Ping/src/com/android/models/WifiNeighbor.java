@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	
 
@@ -96,6 +98,11 @@ public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	public int compareTo(WifiNeighbor another) {
 		if(another.getSignalPercentage()>this.getSignalPercentage()) return 1;
 		return -1;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.battery;
 	}
 
 	

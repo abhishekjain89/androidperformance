@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class Link implements Model{
 
 	public long count; 
@@ -83,6 +85,11 @@ public class Link implements Model{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.battery;
 	}
 
 

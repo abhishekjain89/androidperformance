@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class Usage implements Model{
 
 
@@ -99,10 +101,15 @@ public class Usage implements Model{
 		int count = 0;
 		for(Application app: applications){
 			if(app.totalDataInMB()>10)
-				data.add(new Row(app.getIcon(),app.getName(),app.totalDataInMB() + " MB",(int)((app.totalDataInMB()*100)/this.getTotalInMB())));
+				data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",(int)((app.totalDataInMB()*100)/this.getTotalInMB())));
 		}
 		
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.usage;
 	}
 
 

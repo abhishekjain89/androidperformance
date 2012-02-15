@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
 import com.android.listeners.ResponseListener;
 
 import android.graphics.drawable.Drawable;
@@ -17,7 +18,7 @@ public class Application implements Model,Comparable<Application>{
 	private long total_recv;
 	private Drawable icon;
 
-	public Drawable getIcon() {
+	public Drawable getAppIcon() {
 		return icon;
 	}
 	public void setIcon(Drawable icon) {
@@ -81,6 +82,11 @@ public class Application implements Model,Comparable<Application>{
 		if(this.totalDataInMB() > other.totalDataInMB()) return -1;
 		
 		return 1;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.battery;
 	}
 
 

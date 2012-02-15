@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class Network implements Model{
 
 	String networkCountry;
@@ -126,6 +128,11 @@ public class Network implements Model{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.network;
 	}
 
 	

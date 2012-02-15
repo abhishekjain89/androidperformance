@@ -48,7 +48,7 @@ public class BatteryUtil {
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{	
-		
+			
 			boolean isPresent = intent.getBooleanExtra("present", false);
 			String technology = intent.getStringExtra("technology");
 			int plugged = intent.getIntExtra("plugged", -1);
@@ -94,6 +94,37 @@ public class BatteryUtil {
 		IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 
 		context.registerReceiver(battery_receiver, filter);
+	}
+	
+	public String batteryStatus(int v){
+		switch (v){
+		case BatteryManager.BATTERY_STATUS_CHARGING: return "Charging";
+		case BatteryManager.BATTERY_STATUS_DISCHARGING: return "OK";
+		case BatteryManager.BATTERY_STATUS_FULL: return "Full";
+		case BatteryManager.BATTERY_STATUS_NOT_CHARGING: return "OK";		
+		}
+		return "Unknown";
+	}
+	
+	public String batteryHealth(int v){
+		switch (v){
+		case BatteryManager.BATTERY_HEALTH_DEAD: return "Dead";
+		case BatteryManager.BATTERY_HEALTH_GOOD: return "Good";
+		case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE: return "Over Voltage";
+		case BatteryManager.BATTERY_HEALTH_OVERHEAT: return "Over Heat";
+		case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE: return "Failure";
+				
+		}
+		return "Unknown";
+	}
+	
+	public String batteryPlugged(int v){
+		switch (v){
+		case BatteryManager.BATTERY_PLUGGED_AC: return "Plugged AC";
+		case BatteryManager.BATTERY_PLUGGED_USB: return "Plugged USB";
+				
+		}
+		return "Not Plugged";
 	}
 
 }

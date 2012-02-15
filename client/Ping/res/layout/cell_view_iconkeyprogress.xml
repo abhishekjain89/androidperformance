@@ -11,14 +11,14 @@
         android:layout_width="31dp"
         android:layout_height="31dp"
         android:background="#708CE6"
-         android:padding="0px"
+        android:padding="0px"
+        android:scaleType="fitXY"
         android:src="@drawable/icon" />
 
     <TextView
         android:id="@+id/key"
         android:layout_width="105dp"
         android:layout_height="fill_parent"
-        
         android:background="#708CE6"
         android:ellipsize="end"
         android:gravity="center_vertical"
@@ -33,16 +33,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="180dp"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        
-        >
+        android:orientation="horizontal" >
 
         <ProgressBar
             android:id="@+id/value"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            
             android:background="#AAA"
             android:ellipsize="end"
             android:textSize="18dp" >
@@ -53,12 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"            
+            android:layout_centerVertical="true"
             android:text="Percent%"
-            
-             android:textSize="18dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18dp" />
     </RelativeLayout>
 
 </LinearLayout>

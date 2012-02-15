@@ -36,6 +36,7 @@ public class IconKeyProgressViewGenerator extends ViewGenerator{
 		holder.progress.setProgress(item.value);
 		holder.second.setText(item.second);
 		holder.imageview.setImageDrawable(item.image);
+		
 	}
 	
 

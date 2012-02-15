@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 public class GPS implements Model {
 	
 	String latitude; 
@@ -72,6 +74,11 @@ public class GPS implements Model {
 		data.add(new Row("Longitude",longitude));
 		//data.add(new Row("Latitude",altitude));
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.gps;
 	}
 
 

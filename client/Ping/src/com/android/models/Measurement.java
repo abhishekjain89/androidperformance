@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.R;
+
 import android.content.Context;
 
 
@@ -157,6 +159,11 @@ public class Measurement implements Model{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;
+	}
+	
+	public int getIcon() {
+
+		return R.drawable.battery;
 	}
 
 
