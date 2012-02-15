@@ -68,7 +68,9 @@ public class GPS implements Model {
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Latitude",latitude));
+		data.add(new Row("Longitude",longitude));
+		//data.add(new Row("Latitude",altitude));
 		return data;
 	}
 

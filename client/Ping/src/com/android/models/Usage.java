@@ -1,6 +1,7 @@
 package com.android.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -39,6 +40,10 @@ public class Usage implements Model{
 
 	public void setApplications(List<Application> applications) {
 		this.applications = applications;
+	}
+	
+	public long getTotalInMB() {
+		return (total_sent + total_recv)/(1000*1000);
 	}
 
 	public long getTotal_sent() {
@@ -79,14 +84,24 @@ public class Usage implements Model{
 
 	}
 	
+	
+	
 	public String getTitle() {
 		
 		return "Usage";
 	}
 	
 	public ArrayList<Row> getDisplayData(){
+		Collections.sort(applications);
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Total Apps",""+applications.size()));
+		data.add(new Row("Internet Consumers"));
+		int count = 0;
+		for(Application app: applications){
+			if(app.totalDataInMB()>10)
+				data.add(new Row(app.getIcon(),app.getName(),app.totalDataInMB() + " MB",(int)((app.totalDataInMB()*100)/this.getTotalInMB())));
+		}
+		
 		return data;
 	}
 

@@ -40,55 +40,46 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 	public ArrayList<Row> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
-	private int ResourceId;
+	
 
 	public ItemAdapter(Activity activity,
-			int ResourceId,ArrayList<Row> items) {
-		super(activity.getApplicationContext(), ResourceId);
+			ArrayList<Row> items) {
+		super(activity.getApplicationContext(), 0);
 
 		this.items = items;
 		this.activity = activity;
-		this.ResourceId = ResourceId;
+		
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
-
-	private class ViewHolder{
-		public TextView first;
-		public TextView second;
-	}
-
+	
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		ViewHolder holder;
+		
 
 		final Row item =items.get(position);
-		System.out.println("getView: " + position);
+		
 		if (v == null) {
-
-			v = inflater.inflate(ResourceId, null);
-			holder = new ViewHolder();
-			holder.first =  (TextView) v.findViewById(R.id.key);
-			holder.second =  (TextView) v.findViewById(R.id.value);
 			
-			v.setTag(holder);
+			v=item.getViewGenerator().generateViewHolder(inflater);
+			
 		}
 		else
 		{			
-			holder = (ViewHolder)v.getTag();
+			//
 		}
 
 
 		if (item!=null) {	
 			try{
-				holder.first.setText(item.first);
-				holder.second.setText(item.second);
-
+				item.getViewGenerator().populateView(item);
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 
 			}
 		}
+		
 		return v;
 	}
 

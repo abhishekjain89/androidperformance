@@ -67,9 +67,10 @@ public class Sim implements Model{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Network Country",simNetworkCountry));
+		data.add(new Row("Country",simNetworkCountry));
 		data.add(new Row("Status",simState));
 		data.add(new Row("Operator",simOperatorName));
+		data.add(new Row("Serial",simSerialNumber));
 		return data;
 	}
 

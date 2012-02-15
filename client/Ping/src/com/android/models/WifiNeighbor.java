@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WifiNeighbor implements Model{
+public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	
 
 	String ssid;
@@ -34,6 +34,11 @@ public class WifiNeighbor implements Model{
 	public void setSignalLevel(int signalLevel) {
 		this.signalLevel = signalLevel;
 	}
+	
+	public int getSignalPercentage(){
+		return Math.max(Math.min((int) (signalLevel*2.5 + 250),100),0);
+	}
+	
 	public int getFrequency() {
 		return frequency;
 	}
@@ -86,6 +91,11 @@ public class WifiNeighbor implements Model{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;
+	}
+	
+	public int compareTo(WifiNeighbor another) {
+		if(another.getSignalPercentage()>this.getSignalPercentage()) return 1;
+		return -1;
 	}
 
 	

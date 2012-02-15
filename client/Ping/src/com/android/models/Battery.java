@@ -118,7 +118,9 @@ public class Battery  implements Model{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Charge",(level*100)/scale));
+		data.add(new Row("Type",technology));
+		
 		return data;
 	}
 

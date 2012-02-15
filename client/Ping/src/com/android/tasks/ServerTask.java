@@ -29,7 +29,8 @@ public abstract class ServerTask implements Runnable{
 		this.runTask();
 		
 		long endTime = System.currentTimeMillis();
-		Log.v(toString(), "Total execution time: " + (endTime-startTime) + " ms");
+		Log.i(toString(), "Total execution time: " + (endTime-startTime) + " ms");
+		
 
 	}
 

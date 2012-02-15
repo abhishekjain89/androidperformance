@@ -10,12 +10,19 @@ import com.android.listeners.ResponseListener;
 
 import android.graphics.drawable.Drawable;
 
-public class Application implements Model{
+public class Application implements Model,Comparable<Application>{
 	private String name;
 	private String packageName;
 	private long total_sent;
 	private long total_recv;
+	private Drawable icon;
 
+	public Drawable getIcon() {
+		return icon;
+	}
+	public void setIcon(Drawable icon) {
+		this.icon = icon;
+	}
 	public String getName() {
 		return name;
 	}
@@ -55,6 +62,11 @@ public class Application implements Model{
 
 		return obj;
 	}
+	
+	public int totalDataInMB(){
+		return (int) ((this.total_recv + this.total_sent)/(1000*1000));
+	}
+	
 	public String getTitle() {
 		
 		return "Application";
@@ -64,6 +76,11 @@ public class Application implements Model{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;
+	}
+	public int compareTo(Application other) {
+		if(this.totalDataInMB() > other.totalDataInMB()) return -1;
+		
+		return 1;
 	}
 
 

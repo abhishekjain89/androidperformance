@@ -48,7 +48,7 @@ public class AppUsageHelper {
 				Application app = new Application();
 				app.setName(AppUsageUtil.getAppLabel(context, uid));
 				app.setPackageName(AppUsageUtil.getAppPkg(context,uid));
-				
+				app.setIcon(AppUsageUtil.getAppIcon(context, uid));
 				app.setTotal_recv(TrafficStats.getUidRxBytes(uid));
 				app.setTotal_sent(TrafficStats.getUidTxBytes(uid));
 				

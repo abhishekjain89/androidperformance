@@ -333,7 +333,7 @@ public class RunActivity extends Activity
 		public void onCompletePing(Ping response) {
 			Message msg=Message.obtain(pingHandler, 0, response);
 			pingHandler.sendMessage(msg);
-			onCompleteOutput(response);
+			//onCompleteOutput(response);
 		}
 
 		public void onCompleteDevice(Device response) {
@@ -466,9 +466,9 @@ public class RunActivity extends Activity
 			
 			Model item = (Model)msg.obj;
 			items.add(item);
-			System.out.println(items.size());
+			
 			listadapter.add(item);
-			System.out.println(listadapter.getCount());
+			
 			listadapter.notifyDataSetChanged();		
 			
 		}

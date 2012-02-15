@@ -1,6 +1,7 @@
 package com.android.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -139,7 +140,18 @@ public class Wifi implements Model{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Your Info"));
+		data.add(new Row("Hotspot",this.getSsid()));
+		data.add(new Row("Status",this.getDetailedInfo()));
+		data.add(new Row("Speed",this.getSpeed() + " " + this.getUnits()));
+		data.add(new Row("Strength",""+this.getStrength()));
+		data.add(new Row("Neighbors",""+this.getNeighbors().size()));
+		data.add(new Row("Neighboring Wifis"));
+		Collections.sort(this.getNeighbors());
+		for(WifiNeighbor wifi: this.getNeighbors()){
+			data.add(new Row(wifi.getSSID(),wifi.getSignalPercentage()));
+		}
+		
 		return data;
 	}
 

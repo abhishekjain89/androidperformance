@@ -67,13 +67,12 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		ViewHolder holder;
 
 		final Model item =items.get(position);
-		System.out.println("getView: " + position);
+		
 		if (v == null) {
 
 			v = inflater.inflate(ResourceId, null);
 			holder = new ViewHolder();
 			holder.title =  (TextView) v.findViewById(R.id.title);
-			holder.text =  (TextView) v.findViewById(R.id.text);
 			holder.listview = (ListView) v.findViewById(R.id.listview);
 			
 			v.setTag(holder);
@@ -87,16 +86,16 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		if (item!=null) {	
 			try{
 				holder.title.setText(item.getTitle());
-				holder.text.setText("");
-				ArrayList<Row> cells = item.getDisplayData(); 
-				ItemAdapter itemadapter = new ItemAdapter(activity,R.layout.cell_view,cells);
-				holder.listview.setAdapter(itemadapter);
 				
+				ArrayList<Row> cells = item.getDisplayData(); 
+				ItemAdapter itemadapter = new ItemAdapter(activity,cells);
 				for(Row cell: cells)
 					itemadapter.add(cell);
+				holder.listview.setAdapter(itemadapter);
+				
 				
 				itemadapter.notifyDataSetChanged();
-				
+				UIUtil.setListViewHeightBasedOnChildren(holder.listview,itemadapter);
 
 			} catch(Exception e) {
 				e.printStackTrace();
