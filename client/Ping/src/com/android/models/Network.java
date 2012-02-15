@@ -126,7 +126,9 @@ public class Network implements Model{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Type",getNetworkType()));
+		data.add(new Row("CellID",getCellId()));
+		data.add(new Row("CellLac",getCellLac()));
 		return data;
 	}
 	

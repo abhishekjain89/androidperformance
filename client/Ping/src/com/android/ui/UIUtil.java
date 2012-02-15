@@ -1,5 +1,7 @@
 package com.android.ui;
 
+import com.android.ui.adapter.ItemAdapter;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;

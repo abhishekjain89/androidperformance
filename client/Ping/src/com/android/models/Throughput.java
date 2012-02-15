@@ -51,8 +51,8 @@ public class Throughput implements Model{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Downlink",(int)(downLink.speedInBytes()/1000) + " KBps"));
-		data.add(new Row("Uplink",(int)(upLink.speedInBytes()/1000) + " KBps"));
+		data.add(new Row("Downlink",(int)(downLink.speedInBytes()) + " KBps"));
+		data.add(new Row("Uplink",(int)(upLink.speedInBytes()) + " KBps"));
 		return data;
 	}
 	

@@ -29,7 +29,7 @@ import com.android.models.Wifi;
 import com.android.models.WifiNeighbor;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
-import com.android.ui.ListAdapter;
+import com.android.ui.adapter.ListAdapter;
 
 import android.app.Activity;
 import android.content.Intent;

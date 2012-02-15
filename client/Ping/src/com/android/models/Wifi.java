@@ -150,8 +150,19 @@ public class Wifi implements Model{
 		data.add(new Row("Neighbors",""+this.getNeighbors().size()));
 		data.add(new Row("Neighboring Wifis"));
 		Collections.sort(this.getNeighbors());
+		
+		ArrayList<String> used = new ArrayList<String>();
+		
 		for(WifiNeighbor wifi: this.getNeighbors()){
-			data.add(new Row(wifi.getSSID(),wifi.getSignalPercentage()));
+			if(!used.contains(wifi.getSSID())){
+				if(wifi.capability.length()<=1)
+					data.add(new Row(wifi.getSSID(),wifi.getSignalPercentage()));
+				else
+					
+					data.add(new Row(wifi.getSSID(),R.drawable.lock,wifi.getSignalPercentage()));
+			}
+				
+			used.add(wifi.getSSID());
 		}
 		
 		return data;

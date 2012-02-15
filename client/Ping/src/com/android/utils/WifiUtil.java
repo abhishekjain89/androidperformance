@@ -47,6 +47,7 @@ public class WifiUtil {
 			WifiInfo info = wifi.getConnectionInfo();
 			if (info.getBSSID() != null) {
 				int strength = WifiManager.calculateSignalLevel(info.getRssi(), 11);
+				
 				int ipAddress = info.getIpAddress();
 				int speed = info.getLinkSpeed();
 				int networkId = info.getNetworkId();

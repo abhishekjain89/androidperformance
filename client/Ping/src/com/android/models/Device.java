@@ -140,7 +140,11 @@ public class Device implements Model {
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Brand",getPhoneBrand()));
+		data.add(new Row("Model",getPhoneModel()));
+		data.add(new Row("Manufacturer",getManufacturer()));
+		data.add(new Row("Phone Number",getPhoneNumber()));
+		data.add(new Row("Phone Type",getPhoneType()));
 		return data;
 	}
 	
