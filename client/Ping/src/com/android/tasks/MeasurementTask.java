@@ -48,10 +48,12 @@ import com.android.utils.WifiUtil;
  * 
  */
 public class MeasurementTask extends ServerTask{
-
+	
+	ThreadPoolHelper serverhelper;
 	public MeasurementTask(Context context, Map<String, String> reqParams,
 			ResponseListener listener) {
 		super(context, reqParams, listener);
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
@@ -59,7 +61,11 @@ public class MeasurementTask extends ServerTask{
 	public boolean signalRunning = false;
 	public boolean wifiRunning = false;
 	public long startTime = 0;
-	@Override
+	
+	public void killAll(){
+		serverhelper.shutdown();
+	}
+	
 	public void runTask() {
 
 		measurement = new Measurement();
@@ -79,8 +85,8 @@ public class MeasurementTask extends ServerTask{
 			try {
 				Thread.sleep(Values.SHORT_SLEEP_TIME);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
+				this.killAll();
+				return;
 			}
 
 			Log.v(this.toString(),"Installing Binaries...");
@@ -109,7 +115,7 @@ public class MeasurementTask extends ServerTask{
 		try {
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
+			this.killAll();
 			return;
 		}
 		int loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
@@ -117,6 +123,7 @@ public class MeasurementTask extends ServerTask{
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
+				this.killAll();
 				return;
 				
 			}
@@ -149,6 +156,7 @@ public class MeasurementTask extends ServerTask{
 		try {
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
+			this.killAll();
 			return;
 		}
 		loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
@@ -156,6 +164,7 @@ public class MeasurementTask extends ServerTask{
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
+				this.killAll();
 				return;
 			}
 
