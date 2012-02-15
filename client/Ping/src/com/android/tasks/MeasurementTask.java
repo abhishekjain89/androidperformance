@@ -110,15 +110,15 @@ public class MeasurementTask extends ServerTask{
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			return;
 		}
 		int loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
+				return;
+				
 			}
 
 			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
@@ -128,33 +128,14 @@ public class MeasurementTask extends ServerTask{
 		done_threads+=loop_threads;
 
 
-		while(gpsRunning && (System.currentTimeMillis() - startTime)<Values.GPS_TIMEOUT){
+		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<Values.GPS_TIMEOUT){
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
+				return;
 			}
 		}
 
-		while(signalRunning && (System.currentTimeMillis() - startTime)<Values.SIGNALSTRENGTH_TIMEOUT){
-			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
-			}
-		}
-
-
-		while(wifiRunning && (System.currentTimeMillis() - startTime)<Values.WIFI_TIMEOUT){
-			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
-			}
-		}
 
 		done_threads+=1;
 		getResponseListener().onUpdateProgress((100*(done_threads))/total_threads);
@@ -168,15 +149,14 @@ public class MeasurementTask extends ServerTask{
 		try {
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 		}
 		loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
+				return;
 			}
 
 			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
@@ -186,7 +166,7 @@ public class MeasurementTask extends ServerTask{
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 
 		}
 		done_threads+=loop_threads;
@@ -397,7 +377,7 @@ public class MeasurementTask extends ServerTask{
 				gpsRunning = false;
 			}
 
-			measurement.setGps(gps);
+			
 			(new MeasurementListener()).onCompleteGPS(gps);
 		}
 	};

@@ -31,8 +31,18 @@ public class NeighborWifiUtil {
 		receiverWifi = new WifiReceiver();
 		context.registerReceiver(receiverWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		mainWifi.startScan();
-		
-		
+		/*
+		while(isRunning){
+			try {
+				Thread.sleep(Values.SHORT_SLEEP_TIME);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		//receiverWifi.abortBroadcast();*/
+		//context.unregisterReceiver(receiverWifi);
 	}
 	
 
@@ -47,7 +57,7 @@ public class NeighborWifiUtil {
         	catch(Exception e){
         		
         	}
-        	receiverWifi.abortBroadcast();
+        	
         }
     }
     

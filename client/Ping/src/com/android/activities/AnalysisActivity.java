@@ -95,7 +95,7 @@ public class AnalysisActivity extends Activity
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 
-				//processStopService(serviceTag);
+				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
 				//startService(new Intent(v.getContext(), PerformanceService.class));
 				//serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
 				//processStartService(serviceTag);

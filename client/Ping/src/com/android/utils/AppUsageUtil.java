@@ -1,5 +1,9 @@
 package com.android.utils;
 
+import java.util.List;
+
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -41,11 +45,15 @@ public class AppUsageUtil {
 	public static Drawable getAppIcon(Context c, int uid)
 	{
 		PackageManager pm = c.getPackageManager();
+		
+
 		Drawable icon = null;
 		try {
 
 			String name = pm.getPackagesForUid(uid)[0];
+			
 			icon = (Drawable) getAppInfo(c,name).loadIcon(pm);
+			
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
