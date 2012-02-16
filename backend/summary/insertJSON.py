@@ -95,16 +95,17 @@ def network(dev):
         n.mobilenetworkinfo = parse(dev["mobileNetworkInfo"])
     except:
         pass
-    try:    
-        #n.wifistate = dev["wifiState"]
-        #count+=1
-        n.cellid = dev["cellId"]
+     
+    try:
+        result = Cell.objects.filter(cellid=dev['cellId'])[0]
+    except:
+        result = Cell(cellid=dev['cellId'],celllac = dev["cellLac"])
+        result.save()
+    try:        
+        n.cellid = result
     except:
         pass
-    try:    
-        n.celllac = dev["cellLac"]
-    except:
-        pass
+    
     try:     
         n.datastate = dev["dataState"]
     except:

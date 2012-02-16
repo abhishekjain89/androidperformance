@@ -63,7 +63,12 @@ public class MeasurementTask extends ServerTask{
 	public long startTime = 0;
 	
 	public void killAll(){
+		try{
 		serverhelper.shutdown();
+		}
+		catch(Exception e){
+			
+		}
 	}
 	
 	public void runTask() {
@@ -201,7 +206,7 @@ public class MeasurementTask extends ServerTask{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		(new MeasurementListener()).onCompleteMeasurement(measurement);
+		//(new MeasurementListener()).onCompleteMeasurement(measurement);
 		//android.os.Debug.stopMethodTracing();
 
 	}

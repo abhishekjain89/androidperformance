@@ -1,10 +1,15 @@
 package com.android.utils;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import com.android.Values;
 import com.android.models.Battery;
 import com.android.models.Device;
 import com.android.models.Measurement;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.MemoryInfo;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -83,12 +88,12 @@ public class BatteryUtil {
 			battery.setStatus(status);
 			
 			notDone = false;
-			
+		
 		}
 
 
 	};
-
+	
 
 	private void registerBatteryLevelReceiver(Context context){
 		IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

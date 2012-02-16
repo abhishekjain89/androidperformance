@@ -30,6 +30,7 @@ import com.android.models.WifiNeighbor;
 import com.android.services.PerformanceService;
 import com.android.tasks.MeasurementTask;
 import com.android.ui.adapter.ListAdapter;
+import com.google.android.maps.MapActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -51,7 +52,7 @@ import android.widget.Toast;
 import android.widget.TableLayout.LayoutParams;
 
 
-public class RunActivity extends Activity 
+public class RunActivity extends MapActivity 
 {
 	//private LinearLayout table;
 
@@ -109,7 +110,7 @@ public class RunActivity extends Activity
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
-			
+			onCompleteOutput(response);
 		}
 		
 		public void onCompleteOutput(Model model){
@@ -206,4 +207,10 @@ public class RunActivity extends Activity
 			}
 		}
 	};
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

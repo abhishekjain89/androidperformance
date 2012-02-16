@@ -220,10 +220,14 @@ CREATE TABLE network (
     mobilenetworkinfo text,
     wifistate varchar(20),
     cellid varchar(20),
-    celllac varchar(20),
     datastate varchar(30),
     dataactivity varchar(30),
     signalstrength varchar(3)
+);
+
+CREATE TABLE cell(
+	cellid varchar(20),
+    celllac varchar(20)
 );
 
 CREATE TABLE sim (
@@ -312,7 +316,9 @@ ALTER TABLE ONLY wifi
 ALTER TABLE ONLY wifi_hotspot
     ADD CONSTRAINT wifi_hotspot_pkey PRIMARY KEY (macaddress);
 ALTER TABLE ONLY wifi_neighbor
-    ADD CONSTRAINT wifi_neighbor_pkey PRIMARY KEY (wifi_neighbor_id);      
+    ADD CONSTRAINT wifi_neighbor_pkey PRIMARY KEY (wifi_neighbor_id);
+ALTER TABLE ONLY cell
+    ADD CONSTRAINT cell_pkey PRIMARY KEY (cellid);      
 
 ALTER TABLE ONLY ping
     ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
@@ -336,6 +342,8 @@ ALTER TABLE ONLY wifi_neighbor
     ADD CONSTRAINT wifi_neighbor_macaddress_fkey FOREIGN KEY (macaddress) REFERENCES wifi_hotspot(macaddress);
 ALTER TABLE ONLY wifi
     ADD CONSTRAINT wifi_macaddress_fkey FOREIGN KEY (connection) REFERENCES wifi_hotspot(macaddress);
+ALTER TABLE ONLY network
+    ADD CONSTRAINT network_cellid_fkey FOREIGN KEY (cellid) REFERENCES cell(cellid);
 
 alter sequence measurement_seq owned by measurement.measurementid;
 alter sequence network_seq owned by network.networkid;

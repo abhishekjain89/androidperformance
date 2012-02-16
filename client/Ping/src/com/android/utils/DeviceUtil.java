@@ -294,15 +294,32 @@ public class DeviceUtil {
 			
 	    	CellLocation cellLocation = tm.getCellLocation();
 	    	//GsmCellLocation loc = (GsmCellLocation) tm.getCellLocation();
+	    	
+	    	List<NeighboringCellInfo> neighCell = tm.getNeighboringCellInfo();  
+	    	 for (int i = 0; i < neighCell.size(); i++) {  
+	    	 try {  
+	    	   NeighboringCellInfo thisCell = neighCell.get(i);  
+	    	   int thisNeighCID = thisCell.getCid();  
+	    	   int thisNeighRSSI = thisCell.getRssi();  
+	    	     
+	    	 } catch (NumberFormatException e) {  
+	    	   e.printStackTrace();
+	    	   NeighboringCellInfo thisCell = neighCell.get(i);  
+	    	     
+	    	 }  
+	    	}  
 			
 			if(cellLocation instanceof GsmCellLocation){
 				GsmCellLocation gsmCellLocation = (GsmCellLocation)cellLocation;
 				int cid = gsmCellLocation.getCid();
 				int lac = gsmCellLocation.getLac();
+				
 				cid = cid & 0xffff;
 				lac = lac & 0xffff;
 				dev.setCellId("" + cid);
 				dev.setCellLac("" + lac);
+				
+				
 			}
 			else {
 				dev.setCellId(Values.UNAVAILABLE_CELLID);

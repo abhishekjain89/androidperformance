@@ -131,6 +131,14 @@ class Device(models.Model):
     boardname = models.CharField(max_length=20)
     class Meta:
         db_table = u'device'
+        
+class Cell(models.Model):
+    cellid = models.CharField(max_length=20, primary_key=True)
+    celllac = models.CharField(max_length=20)
+    class Meta:
+        db_table = u'cell'
+
+
 
 class Network(models.Model):
     networkid = models.AutoField(primary_key=True)
@@ -140,8 +148,7 @@ class Network(models.Model):
     connectiontype = models.CharField(max_length=10)
     mobilenetworkinfo = models.TextField()
     wifistate = models.CharField(max_length=20)
-    cellid = models.CharField(max_length=20)
-    celllac = models.CharField(max_length=20)
+    cellid = models.ForeignKey(Cell, to_field='cellid', db_column='cellid')
     datastate = models.CharField(max_length=30)
     dataactivity = models.CharField(max_length=30)
     signalstrength = models.CharField(max_length=3)

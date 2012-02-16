@@ -152,12 +152,21 @@ public class Measurement implements Model{
 
 	public String getTitle() {
 		
-		return "Measurement";
+		return "Pings";
 	}
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("First","Second"));
+		data.add(new Row("Latency (Avg,Max,Min,Std)"));
+		for(Ping p: pings){
+			ArrayList<String> str = new ArrayList<String>();
+			str.add(""+(int)p.measure.getAverage());
+			str.add(""+(int)p.measure.getMax());
+			str.add(""+(int)p.measure.getMin());
+			str.add(""+(int)p.measure.getStddev());
+			data.add(new Row(p.getDstIp(),str));
+		}
+		
 		return data;
 	}
 	
