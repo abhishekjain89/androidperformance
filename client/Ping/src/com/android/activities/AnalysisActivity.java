@@ -31,7 +31,7 @@ import com.android.listeners.ResponseListener;
 import com.android.models.Device;
 import com.android.models.Measurement;
 import com.android.models.Ping;
-import com.android.services.PerformanceService;
+import com.android.services.PerformanceServiceAll;
 import com.android.tasks.InstallBinariesTask;
 import com.android.tasks.MeasurementTask;
 
@@ -84,7 +84,7 @@ public class AnalysisActivity extends Activity
 				
 		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
-		configButton=(Button)findViewById(R.id.config);
+		//configButton=(Button)findViewById(R.id.config);
 		//table = (LinearLayout)findViewById(R.id.measurementslayout);
 		
 		
@@ -105,12 +105,12 @@ public class AnalysisActivity extends Activity
 			}
 		});
 		
-		configButton.setOnClickListener(new OnClickListener()  {
+		/*configButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {		
 				Intent myIntent = new Intent(v.getContext(), ConfigActivity.class);
                 startActivityForResult(myIntent, 0);
 			}
-		});
+		});*/
 
 	}	
 	

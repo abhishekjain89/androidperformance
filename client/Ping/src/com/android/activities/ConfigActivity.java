@@ -4,7 +4,7 @@ package com.android.activities;
 import com.android.R;
 import com.android.Values;
 import com.android.helpers.ServiceHelper;
-import com.android.services.PerformanceService;
+import com.android.services.PerformanceServiceAll;
 import com.android.utils.PreferencesUtil;
 
 

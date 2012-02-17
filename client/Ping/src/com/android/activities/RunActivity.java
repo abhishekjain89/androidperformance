@@ -27,7 +27,7 @@ import com.android.models.Throughput;
 import com.android.models.Usage;
 import com.android.models.Wifi;
 import com.android.models.WifiNeighbor;
-import com.android.services.PerformanceService;
+import com.android.services.PerformanceServiceAll;
 import com.android.tasks.MeasurementTask;
 import com.android.ui.adapter.ListAdapter;
 import com.google.android.maps.MapActivity;

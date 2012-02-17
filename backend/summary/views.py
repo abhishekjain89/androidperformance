@@ -168,3 +168,12 @@ def measurement(request):
     response['status'] = 'OK'
 
     return HttpResponse(str(response))
+
+def summary(request):
+	
+	data={}
+	
+	data['total-apps'] = len(Application.objects.all());
+	data['total-device'] = len(Device.objects.all());
+	
+	return HttpResponse(str(data))

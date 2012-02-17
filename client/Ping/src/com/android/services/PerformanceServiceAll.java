@@ -24,14 +24,15 @@ import com.android.models.Ping;
 import com.android.tasks.MeasurementTask;
 import com.android.utils.PreferencesUtil;
 
-public class PerformanceService extends Service{
+public class PerformanceServiceAll extends Service{
 
 	private Context context;
 	private ThreadPoolHelper serverhelper;
-	private boolean doGPS;
-	private boolean doThroughput;
+	
 	private Timer updateTimer;
-	public static String TAG = "PerformanceService";
+	private int gps_count;
+	private int throughput_count;
+	public static String TAG = "PerformanceService-All";
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -40,17 +41,20 @@ public class PerformanceService extends Service{
 	
 	@Override
 	public void onCreate() {
-		updateTimer = new Timer("measurementTask");
-		context = this.getApplicationContext();
 		
+		updateTimer = new Timer("measurementTaskAll");
+		context = this.getApplicationContext();
+		gps_count = 0;
+		throughput_count=0;
 		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 
 	@Override
 	public void onDestroy() {
 		updateTimer.cancel();
+		
 		serverhelper.shutdown();
-		Log.v("PerformanceService","Destroying PerformanceService");
+		Log.v(TAG,"Destroying " + TAG);
 	}
 	
 	
@@ -60,21 +64,20 @@ public class PerformanceService extends Service{
 		Bundle b = intent.getExtras();
 		
 		freqValue = (Integer)b.get("freq");
-		this.doGPS = b.getBoolean("gps");
-		this.doThroughput = b.getBoolean("throughput");
-		
-		freqValue = Values.SERVICE_DEFAULT_FREQUENCY_MINS;
 		
 		System.out.println("starting service, freq set to " + freqValue);
 		 if (doRefresh != null) {
 				doRefresh.cancel();
 			}
 		doRefresh = new myTimerTask();
+		
 		boolean autoUpdate = true;
 		updateTimer.cancel();
 		if (autoUpdate) {
-			updateTimer = new Timer("measurementTask");
-			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * Values.ONE_MINUTE_TIME);
+			updateTimer = new Timer("measurementTaskAll");
+			updateTimer.scheduleAtFixedRate(doRefresh, 0, 720 * Values.ONE_MINUTE_TIME);
+		
+			
 			
 		}
 		else {
@@ -107,7 +110,21 @@ public class PerformanceService extends Service{
 		}
 	
 	private void runTask() {
-		//MeasurementTask mt = new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener());
+		
+		boolean doGPS = false;
+		boolean doThroughput = false;
+		
+		if(gps_count==0)
+			doGPS = true;
+		if(throughput_count==0)
+			doThroughput= true;
+		
+		gps_count+=1;
+		gps_count%=4;
+		throughput_count+=1;
+		throughput_count%=48;
+		Log.i(TAG,"GPS:"+gps_count + " Throughput:" + throughput_count);
+		
 		serverhelper.execute(new MeasurementTask(context,doGPS,doThroughput, new FakeListener()));
 		
 	}

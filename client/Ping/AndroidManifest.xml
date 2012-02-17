@@ -61,7 +61,7 @@
 		<uses-library android:name="com.google.android.maps" />
         <service
             android:enabled="true"
-            android:name=".services.PerformanceService"
+            android:name=".services.PerformanceServiceAll"
             android:permission="android.permission.INTERNET" >
         </service>
 

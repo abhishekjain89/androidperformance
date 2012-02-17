@@ -56,6 +56,8 @@ public class MeasurementTask extends ServerTask{
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
+		this.doGPS = doGPS;
+		this.doThroughput = doThroughput;
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 	Measurement measurement; 
@@ -109,11 +111,17 @@ public class MeasurementTask extends ServerTask{
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		startTime = System.currentTimeMillis();
-		gpsRunning = true;
+		
 		signalRunning = true;
 		wifiRunning = true;
 		WifiHandler.sendEmptyMessage(0);
-		GPSHandler.sendEmptyMessage(0);
+		if(doGPS){
+			GPSHandler.sendEmptyMessage(0);
+			gpsRunning = true;
+		}
+		else{
+			gpsRunning = false;
+		}
 		SignalHandler.sendEmptyMessage(0);
 
 
@@ -159,8 +167,10 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		measurement.setPings(pings);
-
-		serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		
+		if(doThroughput){
+			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		}
 		try {
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
@@ -209,8 +219,7 @@ public class MeasurementTask extends ServerTask{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//(new MeasurementListener()).onCompleteMeasurement(measurement);
-		//android.os.Debug.stopMethodTracing();
+		
 
 	}
 
