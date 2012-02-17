@@ -60,11 +60,10 @@ public class SignalUtil {
 			}
 		}
 		
-		/*@Override
 		public void onSignalStrengthChanged(int asu) { 
 			signalStrength = asu;
 			getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-			responseListener.onCompleteSignal(signalStrength);
-		}*/
+			responseListener.onCompleteSignal("" + signalStrength);
+		}
 	};
 }
