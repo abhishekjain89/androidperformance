@@ -43,17 +43,17 @@ public class GPSUtil {
 
         timer = new Timer();
         if(gps_enabled) {
-        	if (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null)	{
+        	/*if (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null)	{
         		timer.schedule(new GetLastLocation(), 10);
         		return true;
-        	}
+        	}*/
         	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
         }
         if(network_enabled)  {
-        	if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null){
+        	/*if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null){
                 timer.schedule(new GetLastLocation(), 10);
         		return true;
-        	}
+        	}*/
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
         }
 

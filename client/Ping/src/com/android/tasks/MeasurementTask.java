@@ -253,7 +253,7 @@ public class MeasurementTask extends ServerTask{
 
 		}
 
-		public void onCompleteSignal(int signalStrength) {
+		public void onCompleteSignal(String signalStrength) {
 			signalRunning = false;
 			Network network = measurement.getNetwork();
 			network.setSignalStrength("" + signalStrength);
