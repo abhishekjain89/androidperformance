@@ -89,7 +89,7 @@ public class RunActivity extends MapActivity
 		
 		items = new ArrayList<Model>();
 		listadapter = new ListAdapter(activity,R.layout.item_view,items);
-		serverhelper.execute(new MeasurementTask(activity,new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new MeasurementTask(activity,true,true, new MeasurementListener()));
 		listview.setAdapter(listadapter);
 
 	}

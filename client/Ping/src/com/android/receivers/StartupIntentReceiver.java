@@ -2,6 +2,7 @@ package com.android.receivers;
 
 import java.util.HashMap;
 
+import com.android.helpers.ServiceHelper;
 import com.android.helpers.ThreadPoolHelper;
 import com.android.listeners.BaseResponseListener;
 import com.android.listeners.FakeListener;
@@ -14,6 +15,7 @@ import com.android.tasks.InstallBinariesTask;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
@@ -47,9 +49,8 @@ public class StartupIntentReceiver extends BroadcastReceiver {
 		}
 		Log.v(this.toString(),"Binaries Installed");
 		/*   START PERFORMANCE SERVICE */
-		Intent serviceIntent = new Intent();
-		serviceIntent.setAction("com.android.services.PerformanceService");
-		context.startService(serviceIntent); 
+		ServiceHelper.processStartService(context,"on startup");
+		 
 	}
 
 

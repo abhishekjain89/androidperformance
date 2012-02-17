@@ -50,9 +50,12 @@ import com.android.utils.WifiUtil;
 public class MeasurementTask extends ServerTask{
 	
 	ThreadPoolHelper serverhelper;
-	public MeasurementTask(Context context, Map<String, String> reqParams,
+	boolean doGPS;
+	boolean doThroughput;
+	
+	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
 			ResponseListener listener) {
-		super(context, reqParams, listener);
+		super(context, new HashMap<String,String>(), listener);
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 	Measurement measurement; 

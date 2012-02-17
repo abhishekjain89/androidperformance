@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -27,7 +28,8 @@ public class PerformanceService extends Service{
 
 	private Context context;
 	private ThreadPoolHelper serverhelper;
-
+	private boolean doGPS;
+	private boolean doThroughput;
 	private Timer updateTimer;
 	public static String TAG = "PerformanceService";
 	
@@ -51,14 +53,18 @@ public class PerformanceService extends Service{
 		Log.v("PerformanceService","Destroying PerformanceService");
 	}
 	
+	
+	
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int freqValue;
-		try{
-		freqValue = PreferencesUtil.getFrequency(this.context);
-		}
-		catch (Exception e){
-			freqValue = Values.SERVICE_DEFAULT_FREQUENCY_MINS;
-		}
+		Bundle b = intent.getExtras();
+		
+		freqValue = (Integer)b.get("freq");
+		this.doGPS = b.getBoolean("gps");
+		this.doThroughput = b.getBoolean("throughput");
+		
+		freqValue = Values.SERVICE_DEFAULT_FREQUENCY_MINS;
+		
 		System.out.println("starting service, freq set to " + freqValue);
 		 if (doRefresh != null) {
 				doRefresh.cancel();
@@ -102,7 +108,7 @@ public class PerformanceService extends Service{
 	
 	private void runTask() {
 		//MeasurementTask mt = new MeasurementTask(context,new HashMap<String,String>(), new MeasurementListener());
-		serverhelper.execute(new MeasurementTask(context,new HashMap<String,String>(), new FakeListener()));
+		serverhelper.execute(new MeasurementTask(context,doGPS,doThroughput, new FakeListener()));
 		
 	}
 	
