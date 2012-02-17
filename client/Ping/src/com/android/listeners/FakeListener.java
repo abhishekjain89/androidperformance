@@ -57,7 +57,7 @@ public class FakeListener extends BaseResponseListener{
 		
 	}
 
-	public void onCompleteSignal(int signalStrength) {
+	public void onCompleteSignal(String signalStrength) {
 		
 	}
 	

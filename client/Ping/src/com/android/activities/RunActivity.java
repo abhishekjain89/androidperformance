@@ -138,7 +138,7 @@ public class RunActivity extends MapActivity
 
 		}
 
-		public void onCompleteSignal(int signalStrength) {
+		public void onCompleteSignal(String signalStrength) {
 
 		}
 		public void onCompleteUsage(Usage response) {

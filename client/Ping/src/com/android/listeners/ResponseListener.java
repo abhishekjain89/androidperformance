@@ -49,7 +49,7 @@ public interface ResponseListener {
 
 	public void makeToast(String text);
 
-	public void onCompleteSignal(int signalStrength);
+	public void onCompleteSignal(String signalStrength);
 
 	public void onCompleteWifi(Wifi wifiList);
 

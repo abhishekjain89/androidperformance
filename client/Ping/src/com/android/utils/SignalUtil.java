@@ -2,10 +2,10 @@ package com.android.utils;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
+import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 
 import com.android.listeners.ResponseListener;
-import com.android.tasks.MeasurementTask;
 
 
 public class SignalUtil {
@@ -35,11 +35,36 @@ public class SignalUtil {
 	}
 	
 	private static class MyPhoneStateListener extends PhoneStateListener{
-		@Override
+		
+		public void onSignalStrengthsChanged (SignalStrength signalStrength)
+		{
+			String strength = "-1";
+			if (signalStrength != null) {
+				if (signalStrength.isGsm()) {
+					strength = "" + signalStrength.getGsmSignalStrength();
+				}
+				if (signalStrength.getCdmaDbm() > 0) {
+					strength = signalStrength.getCdmaDbm() + "dBm ";
+					strength += signalStrength.getCdmaEcio() + "Ec/lo";
+				}
+				else if (signalStrength.getEvdoDbm() > 0) {
+					strength = signalStrength.getEvdoDbm() + "dBm ";
+					strength += signalStrength.getEvdoEcio() + "Ec/lo ";
+					strength += signalStrength.getEvdoSnr() + "snr";	
+				}
+				getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+				responseListener.onCompleteSignal(strength);
+			}
+			else {
+				responseListener.onCompleteSignal(strength);
+			}
+		}
+		
+		/*@Override
 		public void onSignalStrengthChanged(int asu) { 
 			signalStrength = asu;
 			getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
 			responseListener.onCompleteSignal(signalStrength);
-		}
+		}*/
 	};
 }
