@@ -69,7 +69,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		ViewHolder holder;
 
 		final Model item =items.get(position);
-		
+
 		if (v == null) {
 
 			v = inflater.inflate(ResourceId, null);
@@ -77,7 +77,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 			holder.title =  (TextView) v.findViewById(R.id.title);
 			holder.listview = (ListView) v.findViewById(R.id.listview);
 			holder.imageview = (ImageView) v.findViewById(R.id.image);
-			
+
 			v.setTag(holder);
 		}
 		else
@@ -89,17 +89,20 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		if (item!=null) {	
 			try{
 				holder.title.setText(item.getTitle());
-				holder.imageview.setImageResource(item.getIcon());
-				ArrayList<Row> cells = item.getDisplayData(); 
-				ItemAdapter itemadapter = new ItemAdapter(activity,cells);
-				for(Row cell: cells)
-					itemadapter.add(cell);
-				holder.listview.setAdapter(itemadapter);
-				
-				
-				itemadapter.notifyDataSetChanged();
-				UIUtil.setListViewHeightBasedOnChildren(holder.listview,itemadapter);
 
+				holder.imageview.setImageResource(item.getIcon());
+				ArrayList<Row> cells = item.getDisplayData();
+
+				if(cells.size()!=0){
+					ItemAdapter itemadapter = new ItemAdapter(activity,cells);
+					for(Row cell: cells)
+						itemadapter.add(cell);
+					holder.listview.setAdapter(itemadapter);
+
+
+					itemadapter.notifyDataSetChanged();
+					UIUtil.setListViewHeightBasedOnChildren(holder.listview,itemadapter);
+				}
 			} catch(Exception e) {
 				e.printStackTrace();
 
@@ -110,11 +113,11 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 
 	class imageViewClickListener implements OnClickListener {
 		Model item;
-		
+
 		public imageViewClickListener( Model item)
 		{
 			this.item = item;
-			
+
 		}
 
 		public void onClick(View v)

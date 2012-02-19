@@ -109,7 +109,7 @@ public class MeasurementTask extends ServerTask{
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		//serverhelper.execute(new GPSTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		
 		startTime = System.currentTimeMillis();
 		
 		signalRunning = true;
@@ -233,7 +233,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompletePing(Ping response) {
 			pings.add(response);
-			getResponseListener().onCompletePing(response);
+			
 		}
 
 		public void onComplete(String response) {
