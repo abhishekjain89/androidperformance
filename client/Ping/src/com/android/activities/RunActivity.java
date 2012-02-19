@@ -52,7 +52,7 @@ import android.widget.Toast;
 import android.widget.TableLayout.LayoutParams;
 
 
-public class RunActivity extends MapActivity 
+public class RunActivity extends Activity 
 {
 	//private LinearLayout table;
 
@@ -215,9 +215,4 @@ public class RunActivity extends MapActivity
 		}
 	};
 
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

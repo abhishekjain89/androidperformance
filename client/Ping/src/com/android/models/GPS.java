@@ -72,7 +72,7 @@ public class GPS implements Model {
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Latitude",latitude));
 		data.add(new Row("Longitude",longitude));
-		//data.add(new Row(Double.parseDouble(longitude),Double.parseDouble(latitude)));
+		data.add(new Row(Double.parseDouble(longitude),Double.parseDouble(latitude)));
 		//data.add(new Row("Latitude",altitude));
 		return data;
 	}

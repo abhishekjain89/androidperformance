@@ -24,6 +24,7 @@ public class MapViewGenerator extends ViewGenerator{
 	public ViewHolder fillViewHolder(View view,LayoutInflater inflater) {
 		
 		holder.map =  (MapView) view.findViewById(R.id.map);
+		
 		return holder;
 	}
 	@Override
