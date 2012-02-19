@@ -56,8 +56,8 @@ public class GPS implements Model {
 			obj.putOpt("latitude", latitude);
 			obj.putOpt("longitude", longitude);
 			obj.putOpt("altitude", altitude);		
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			obj = new JSONObject();
 		}
 		
 		return obj;

@@ -75,7 +75,7 @@ public class PerformanceServiceAll extends Service{
 		updateTimer.cancel();
 		if (autoUpdate) {
 			updateTimer = new Timer("measurementTaskAll");
-			updateTimer.scheduleAtFixedRate(doRefresh, 0, 720 * Values.ONE_MINUTE_TIME);
+			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * Values.ONE_MINUTE_TIME);
 		
 			
 			

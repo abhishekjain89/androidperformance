@@ -1,49 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1"
     android:background="#FFF"
-    android:id="@+id/linear">
+    android:weightSum="1" >
+
     <LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    android:id="@+id/sublinear1">
+        android:id="@+id/sublinear1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ping"
-            android:textColor="#449def"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="Ping"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#449def"
             android:textSize="50dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:textStyle="bold" />
     </LinearLayout>
-   	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    android:layout_alignParentBottom="true"
-	    android:id="@+id/sublinear2">  
-	</LinearLayout>
 
-   		<Button
-   	    android:id="@+id/test"
-   	    android:layout_width="fill_parent"
-   	    android:layout_height="80dp"
-   	    
-   	    android:layout_above="@+id/sublinear2"
-   	    android:textColor="#FFF"
-   	    android:textSize="35dp"
-   	    android:layout_marginBottom="68dp"
-   	    android:background="@drawable/btn_blue"
-   	    android:textStyle="bold"
-   	    
-   	    android:text="@string/testButton" />
+    <LinearLayout
+        android:id="@+id/sublinear2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_blue"
+        android:text="@string/testButton"
+        android:textColor="#FFF"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/app"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="26dp"
+        
+        android:src="@drawable/application" />
+
+    <ImageView
+        android:id="@+id/device"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/app"
+        
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/device" />
+
+    <TextView
+        android:id="@+id/apptext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:layout_toRightOf="@+id/app"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#449def" />
+
+    <TextView
+        android:id="@+id/devicetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/device"
+        android:layout_alignLeft="@+id/apptext"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#449def" />
 
 </RelativeLayout>

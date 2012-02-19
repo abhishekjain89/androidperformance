@@ -80,7 +80,9 @@ public class RunActivity extends MapActivity
 		listview = (ListView) findViewById(R.id.allview);
 		
 		backButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+			public void onClick(View v) {
+				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
+				ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
 				finish();
 			}
 		});
@@ -168,6 +170,11 @@ public class RunActivity extends MapActivity
 
 		public void onCompleteSIM(Sim response) {
 			onCompleteOutput(response);
+			
+		}
+
+		public void onCompleteSummary(JSONObject Object) {
+			// TODO Auto-generated method stub
 			
 		}
 	}

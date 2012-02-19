@@ -111,7 +111,9 @@ public class Measurement implements Model{
 	}
 
 	public Measurement() {
-		
+		throughput = new Throughput();
+		device = new Device();
+		gps = new GPS();
 	}
 	
 	public GPS getGps() {
@@ -131,23 +133,33 @@ public class Measurement implements Model{
 			for(Ping p: pings){
 				array.put(p.toJSON());
 			}
-			obj.putOpt("pings", array);
-			obj.putOpt("deviceid", deviceId);
-			obj.putOpt("time", time);	
-			obj.putOpt("device",device.toJSON());
-			obj.putOpt("throughput",throughput.toJSON());
-			obj.putOpt("gps",gps.toJSON());
-			obj.putOpt("battery", battery.toJSON());
-			obj.putOpt("usage",usage.toJSON());
-			obj.putOpt("network",network.toJSON());
-			obj.putOpt("sim",sim.toJSON());
-			obj.putOpt("wifi", wifi.toJSON());
 			
-		} catch (JSONException e) {
+			putSafe(obj,"pings", array);
+			putSafe(obj,"deviceid", deviceId);
+			putSafe(obj,"time", time);	
+			putSafe(obj,"device",device.toJSON());
+			putSafe(obj,"throughput",throughput.toJSON());
+			putSafe(obj,"gps",gps.toJSON());
+			putSafe(obj,"battery", battery.toJSON());
+			putSafe(obj,"usage",usage.toJSON());
+			putSafe(obj,"network",network.toJSON());
+			putSafe(obj,"sim",sim.toJSON());
+			putSafe(obj,"wifi", wifi.toJSON());
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return obj;
+	}
+	
+	public void putSafe(JSONObject obj,String key,Object text){
+		System.out.println("Trying " + key);
+		try {
+			obj.put(key,text);
+		} catch (JSONException e) {
+			
+		}
 	}
 
 	public String getTitle() {

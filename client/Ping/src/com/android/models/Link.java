@@ -69,8 +69,8 @@ public class Link implements Model{
 			obj.putOpt("speedInBits", speedInBits());
 			obj.put("dstIp", dstIp);
 			obj.put("dstPort", dstPort);
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			obj = new JSONObject();
 		}
 
 		return obj;

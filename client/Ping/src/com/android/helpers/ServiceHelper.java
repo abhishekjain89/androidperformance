@@ -15,7 +15,7 @@ public class ServiceHelper {
 		Intent serviceIntent = new Intent(context, PerformanceServiceAll.class);
 	
 	
-		serviceIntent.putExtras(makeBundle(15));
+		serviceIntent.putExtras(makeBundle(2));
 		context.startService(serviceIntent);
 		
 		

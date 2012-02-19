@@ -159,18 +159,12 @@ def gps(dev):
     g = Gps() 
     try:       
         g.latitude = dev['latitude']
-    except:
-        pass
-    try:
-        g.longitude = dev['longitude']
-    except:
-        pass
-    try:
+        g.longitude = dev['longitude']    
         g.altitude = dev['altitude']
+        g.save()
+        print "GPS inserted"
     except:
         pass
-    g.save()
-    print "GPS inserted"
        
     return g
 

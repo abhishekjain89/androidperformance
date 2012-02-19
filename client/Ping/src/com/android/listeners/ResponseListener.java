@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.net.wifi.ScanResult;
 
 import com.android.models.Battery;
@@ -56,6 +58,8 @@ public interface ResponseListener {
 	public void onCompleteNetwork(Network network);
 
 	public void onCompleteSIM(Sim sim);
+	
+	public void onCompleteSummary(JSONObject Object);
 
 	
 

@@ -140,13 +140,8 @@ public class MeasurementTask extends ServerTask{
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				this.killAll();
-				return;
-				
+				return;	
 			}
-
-			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
-			getResponseListener().onUpdateProgress((100*(left))/total_threads);
-			Log.v(this.toString(), "left: " + left + " done: " + (total_threads - left));
 		}
 		done_threads+=loop_threads;
 
@@ -171,6 +166,10 @@ public class MeasurementTask extends ServerTask{
 		if(doThroughput){
 			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		}
+		else{
+			new MeasurementListener().onCompleteThroughput(new Throughput());
+		}
+		
 		try {
 			Thread.sleep(Values.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
@@ -205,13 +204,14 @@ public class MeasurementTask extends ServerTask{
 		try {
 			object = measurement.toJSON();
 		} catch (Exception e) {
-			System.out.print(e.getLocalizedMessage());
+			e.printStackTrace();
 			return;
 		}
 
 		HTTPUtil http = new HTTPUtil();
 
 		try {
+			
 			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
 			System.out.println(object.toString());
 			System.out.println(output);
@@ -306,6 +306,11 @@ public class MeasurementTask extends ServerTask{
 		public void onCompleteBattery(Battery response) {
 			getResponseListener().onCompleteBattery(response);
 
+		}
+
+		public void onCompleteSummary(JSONObject Object) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 

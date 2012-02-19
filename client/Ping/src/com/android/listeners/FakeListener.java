@@ -3,6 +3,8 @@ package com.android.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.net.wifi.ScanResult;
 
 import com.android.models.Battery;
@@ -83,6 +85,11 @@ public class FakeListener extends BaseResponseListener{
 	}
 
 	public void onCompleteBattery(Battery response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onCompleteSummary(JSONObject Object) {
 		// TODO Auto-generated method stub
 		
 	}

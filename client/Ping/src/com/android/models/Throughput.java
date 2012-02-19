@@ -27,6 +27,8 @@ public class Throughput implements Model{
 
 	public Throughput() {
 		super();
+		Link downLink = new Link();
+		Link upLink = new Link();
 		
 	}
 	
@@ -37,8 +39,8 @@ public class Throughput implements Model{
 			obj.put("downLink", downLink.toJSON());
 			obj.put("upLink", upLink.toJSON());
 			
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			obj = new JSONObject();
 		}
 		
 		return obj;
