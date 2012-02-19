@@ -172,8 +172,8 @@ def measurement(request):
 def summary(request):
 	
 	data={}
-	
-	data['total-apps'] = len(Application.objects.all());
-	data['total-device'] = len(Device.objects.all());
+	data['status']='Working Fine'
+	data['total-apps'] = len(Application.objects.all())
+	data['total-device'] = len(Device.objects.all())
 	
 	return HttpResponse(str(data))
