@@ -219,32 +219,17 @@ def link(dev):
     
     l = Link()
     try:
-        l.count = dev['count']
-    except:
-        pass
-    try:        
-        l.message_size = dev['message_size']
-    except:
-        pass
-    try:
-        l.duration = dev['time']
-    except:
-        pass
-    try:
-        l.speed = dev['speedInBits']
-    except:
-        pass
-    try:
+        l.count = dev['count']          
+        l.message_size = dev['message_size']    
+        l.duration = dev['time']    
+        l.speed = dev['speedInBits']    
         l.port = dev['dstPort']
-    except:
-        pass
-    try:
         l.ip_address = dev['dstIp']
+        l.save()
+        print "Link inserted"
     except:
         pass
     
-    l.save()
-    print "Link inserted"
     return l
 
 def throughput(dev):
@@ -253,15 +238,13 @@ def throughput(dev):
     
     try:
         t.uplinkid=link(dev['upLink'])
-    except:
-        pass
-    try:
         t.downlinkid=link(dev['downLink'])
+        t.save()
+        print "Throughput inserted"
     except:
         pass
      
-    t.save()
-    print "Throughput inserted"
+    
     return t
 
 
