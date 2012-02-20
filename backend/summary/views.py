@@ -202,7 +202,7 @@ def getTraffic(request):
         oldest = current_time - measurements[0].time
         result['range'] = str(oldest.days+1) + " days"
     
-    print last_usage.usageid.usageid
+    print last_measurement.usageid.usageid
     print len(last_usage)
     
     for app_row in last_usage: 
