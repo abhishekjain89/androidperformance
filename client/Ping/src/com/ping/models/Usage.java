@@ -100,7 +100,7 @@ public class Usage implements Model{
 		data.add(new Row("Internet Consumers"));
 		int count = 0;
 		for(Application app: applications){
-			if(app.totalDataInMB()>10)
+			if(app.totalDataInMB()>1)
 				data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",(int)((app.totalDataInMB()*100)/this.getTotalInMB())));
 		}
 		

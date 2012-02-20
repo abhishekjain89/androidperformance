@@ -54,6 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="Percent%"
+            android:textColor="#000"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="18dp" />
     </RelativeLayout>
