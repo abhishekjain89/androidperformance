@@ -146,7 +146,7 @@ public class Wifi implements Model{
 		data.add(new Row("Hotspot",this.getSsid()));
 		data.add(new Row("Status",this.getDetailedInfo()));
 		data.add(new Row("Speed",this.getSpeed() + " " + this.getUnits()));
-		data.add(new Row("Strength",""+this.getStrength()));
+		data.add(new Row("Strength",this.getStrength()*10));
 		data.add(new Row("Neighbors",""+this.getNeighbors().size()));
 		data.add(new Row("Neighboring Wifis"));
 		Collections.sort(this.getNeighbors());

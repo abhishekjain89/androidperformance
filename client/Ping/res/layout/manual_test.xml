@@ -1,27 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:layout_height="fill_parent" >
 
-    <ListView
-        android:id="@+id/allview"
-        android:layout_width="fill_parent"
-        android:layout_height="400dp"
         
-        android:fadingEdge="none" >
-    </ListView>
+        <ListView
+            android:id="@+id/allview"
+            android:layout_width="fill_parent"
+            android:layout_height="404dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:fadingEdge="none" >
+        </ListView>
+
+   
+            <Button
+            android:id="@+id/note"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_x="0dp"
+        	android:layout_y="365dp"
+            android:background="@drawable/btn_yellow"
+            android:text="Scroll down for more data"
+            android:textSize="13dp"
+            android:textColor="#FFF"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        
+        <Button
+            android:id="@+id/load"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_x="0dp"
+        	android:layout_y="385dp"
+            android:background="@drawable/btn_red"
+            android:text="Loading ..."
+            android:textSize="13dp"
+            android:textColor="#FFF"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+            
 
     <Button
         android:id="@+id/back"
-        android:textColor="#FFF"
-   	    android:textSize="35dp"
-   	    android:layout_marginBottom="68dp"
-   	    android:background="@drawable/btn_blue"
-   	    android:textStyle="bold"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"        
-        android:text="@string/backButton" />
+        android:layout_height="80dp"
+        android:layout_x="0dp"
+        android:layout_y="405dp"
+        android:background="@drawable/btn_blue"
+        android:text="@string/backButton"
+        android:textColor="#FFF"
+        android:textSize="35dp"
+        android:textStyle="bold" />
 
-</LinearLayout>
+</AbsoluteLayout>

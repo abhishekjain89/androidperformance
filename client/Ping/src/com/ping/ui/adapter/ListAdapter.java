@@ -30,14 +30,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class ListAdapter  extends ArrayAdapter<Model>{
 
@@ -45,17 +49,21 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 	private Activity activity;
 	private LayoutInflater inflater=null;
 	private int ResourceId;
+	private Button note;
 
-	public ListAdapter(Activity activity,
+	public ListAdapter(Activity activity, Button note,
 			int ResourceId,ArrayList<Model> items) {
 		super(activity.getApplicationContext(), ResourceId);
 
 		this.items = items;
+		this.note = note;
 		this.activity = activity;
 		this.ResourceId = ResourceId;
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
+	
+	
 
 	private class ViewHolder{
 		public TextView title;
@@ -67,7 +75,10 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ViewHolder holder;
-
+		
+		if(position == getCount()-1){
+			note.setVisibility(View.GONE);
+		}
 		final Model item =items.get(position);
 
 		if (v == null) {
@@ -126,6 +137,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		}
 
 	}
+
 
 
 }

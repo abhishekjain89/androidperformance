@@ -10,8 +10,6 @@ import com.ping.R;
 
 import android.content.Context;
 
-
-
 public class Measurement implements Model{
 	
 	
@@ -42,8 +40,6 @@ public class Measurement implements Model{
 	public void setBattery(Battery battery) {
 		this.battery = battery;
 	}
-
-	
 
 	public Usage getUsage() {
 		return usage;

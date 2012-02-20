@@ -62,6 +62,8 @@ public class RunActivity extends Activity
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";
 	private Button backButton;
+	private Button noteButton;
+	private Button loadButton;
 	//private ProgressBar progress;
 	//private ProgressBar progressBar;
 	public ArrayList<Model> items;
@@ -77,8 +79,10 @@ public class RunActivity extends Activity
 
 		serverhelper = new ThreadPoolHelper(5,10);
 		backButton=(Button)findViewById(R.id.back);
+		noteButton = (Button)findViewById(R.id.note);
+		loadButton = (Button)findViewById(R.id.load);
 		listview = (ListView) findViewById(R.id.allview);
-		
+				
 		backButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {
 				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
@@ -90,7 +94,7 @@ public class RunActivity extends Activity
 		ServiceHelper.processStopService(this,serviceTag);
 		
 		items = new ArrayList<Model>();
-		listadapter = new ListAdapter(activity,R.layout.item_view,items);
+		listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,true,true, new MeasurementListener()));
 		listview.setAdapter(listadapter);
 
@@ -112,10 +116,12 @@ public class RunActivity extends Activity
 		}
 
 		public void onCompleteMeasurement(Measurement response) {
+			LoadBarHandler.sendEmptyMessage(0);
 			onCompleteOutput(response);
 		}
 		
 		public void onCompleteOutput(Model model){
+			
 			Message msg2=Message.obtain(UIHandler, 0, model);
 			UIHandler.sendMessage(msg2);
 		}
@@ -194,12 +200,18 @@ public class RunActivity extends Activity
 
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-			
+			noteButton.setVisibility(View.VISIBLE);
 			Model item = (Model)msg.obj;
 			items.add(item);
 			listadapter.add(item);			
 			listadapter.notifyDataSetChanged();		
 			
+		}
+	};
+	
+	private Handler LoadBarHandler = new Handler(){
+		public void  handleMessage(Message msg) {
+			loadButton.setVisibility(View.GONE);				
 		}
 	};
 
