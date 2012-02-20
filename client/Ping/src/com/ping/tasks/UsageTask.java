@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 
 import com.ping.helpers.AppUsageHelper;
 import com.ping.helpers.DeviceHelper;
@@ -14,6 +15,7 @@ import com.ping.listeners.ResponseListener;
 import com.ping.models.Measurement;
 import com.ping.models.Ping;
 import com.ping.models.Usage;
+import com.ping.utils.DeviceUtil;
 import com.ping.utils.HTTPUtil;
 
 /*
@@ -27,17 +29,42 @@ import com.ping.utils.HTTPUtil;
 public class UsageTask extends ServerTask{
 	String dstIp;
 	int count;
+	boolean getAll;
 	
-	public UsageTask(Context context, Map<String, String> reqParams,
+	public UsageTask(Context context, Map<String, String> reqParams, boolean getAll,
 			ResponseListener listener) {
 		super(context, reqParams, listener);
+		this.getAll = getAll;
 	}
 
 	@Override
 	public void runTask() {
 		
 		Usage usage = AppUsageHelper.getUsageData(getContext());
+		
+		
+		if(getAll){
+			HTTPUtil http = new HTTPUtil();
+			
+			DeviceUtil util = new DeviceUtil();
+			String deviceId = util.getDeviceId(getContext());
+			
+			
+			try {
+				String output = http.request(this.getReqParams(), "GET", "traffic/?device=" + deviceId + "&hours=720", "", "".toString());
+				
+				
+				usage.setBackendData(new JSONObject(output));
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		getResponseListener().onCompleteUsage(usage);
+		
 	}
 
 	@Override

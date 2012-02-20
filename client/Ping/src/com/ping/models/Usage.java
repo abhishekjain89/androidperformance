@@ -2,6 +2,7 @@ package com.ping.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -43,7 +44,7 @@ public class Usage implements Model{
 	public void setApplications(List<Application> applications) {
 		this.applications = applications;
 	}
-	
+
 	public long getTotalInMB() {
 		return (total_sent + total_recv)/(1000*1000);
 	}
@@ -85,28 +86,98 @@ public class Usage implements Model{
 		return obj;
 
 	}
-	
-	
-	
+
+
+
 	public String getTitle() {
-		
+
 		return "Usage";
 	}
-	
+
+
+	JSONObject backendData;
+
+	public JSONObject getBackendData(){
+		return backendData;
+	}
+
+	public void setBackendData(JSONObject res){
+		backendData = res;
+	}
+
 	public ArrayList<Row> getDisplayData(){
-		Collections.sort(applications);
-		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Total Apps",""+applications.size()));
-		data.add(new Row("Internet Consumers"));
-		int count = 0;
-		for(Application app: applications){
-			if(app.totalDataInMB()>1)
-				data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",(int)((app.totalDataInMB()*100)/this.getTotalInMB())));
+		
+		ArrayList<Application> applications = new ArrayList<Application>();
+		
+		for(Application app: this.applications){
+			Application app2 = new Application();
+			app2.setIcon(app.getAppIcon());
+			app2.setName(app.getName());
+			app2.setPackageName(app.getPackageName());
+			
+			applications.add(app2);
+			
 		}
 		
+		
+		System.out.println(backendData.toString());
+		JSONArray appArray = new JSONArray();
+		String range = "";
+		try {
+			range = ",Last " + backendData.getString("range");
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			appArray = backendData.getJSONArray("app-data");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		long total_use = 0;
+		HashMap<String,Integer> app_hash = new HashMap<String,Integer>();
+
+		for(int i=0;i<appArray.length();i++){
+			try {
+				JSONObject obj = appArray.getJSONObject(i);
+				
+				System.out.println(obj.toString());
+				for(Application app: applications){
+					if(app.getPackageName().equals(obj.getString("app").split("'")[1])){
+						app.setTotal_recv(Long.parseLong(obj.getString("total").split("L")[0])*1000*1000);
+						app.setTotal_sent(0);
+						break;
+					}
+				}
+				
+				
+				total_use+=Long.parseLong(obj.getString("total").split("L")[0]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		ArrayList<Row> data = new ArrayList<Row>();
+		data.add(new Row("Total Apps",""+applications.size()));
+		data.add(new Row("Application Usage " + range));
+
+		Collections.sort(applications);
+		for(Application app: applications){
+
+				if(app.totalDataInMB()>=1)
+					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/total_use),5)));
+			
+		}
+
+
+
 		return data;
 	}
-	
+
 	public int getIcon() {
 
 		return R.drawable.usage;
