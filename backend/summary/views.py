@@ -228,7 +228,10 @@ def getTraffic(request):
                 continue
             
             
-        total+=last-first
+        if(total>0):
+            total+=last-first
+        else:
+            total=last
         res={}
         res['app']=app_row.package.package
         res['total']=(total/1000000)
