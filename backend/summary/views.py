@@ -171,11 +171,11 @@ def measurement(request):
 
 def summary(request):
 	
-	data={}
-	data['status']='Working Fine'
-	data['total-apps'] = len(Application.objects.all())
-	data['total-devices'] = len(Device.objects.all())
+    data={}
+    data['status']='Working Fine'
+    data['total-apps'] = len(Application.objects.all())
+    data['total-devices'] = len(Device.objects.all())
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
-	
-	return HttpResponse(str(data))
+    return HttpResponse(str(data))
+    
