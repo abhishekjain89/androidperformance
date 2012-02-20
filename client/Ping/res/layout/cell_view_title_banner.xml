@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="4"
-        android:background="@drawable/btn_blue_mid"
+        android:background="@drawable/btn_green"
         android:gravity="center_horizontal"
         android:ellipsize="end"
         

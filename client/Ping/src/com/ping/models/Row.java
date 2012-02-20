@@ -47,6 +47,12 @@ public class Row {
 		viewgen = new KeyValueViewGenerator(R.layout.cell_view_keyvalue);
 	}
 	
+	public Row(int resourceid,String first){
+		this(first);
+		
+		viewgen = new KeyValueViewGenerator(resourceid);
+	}
+	
 	public Row(String first,ArrayList<String> seconds){
 		this(first);
 		

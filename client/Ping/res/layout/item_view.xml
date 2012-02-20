@@ -18,7 +18,7 @@
         android:layout_width="60dp"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
-        android:background="#0431C2"
+        android:background="@drawable/btn_blue_dark"
         android:src="@drawable/battery" />
     
     <TextView
@@ -27,7 +27,7 @@
         android:layout_height="fill_parent"
         android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:background="#0431C2"
+        android:background="@drawable/btn_blue_dark"
         android:text="Title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#FFF"
@@ -40,7 +40,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fadingEdge="none"
-        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="50dp"
         >
     </ListView>
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
+    android:background="#FFF"
     android:orientation="horizontal"
     android:padding="2px"
     android:weightSum="10" >
@@ -11,7 +12,7 @@
         android:layout_width="140dp"
         android:layout_height="fill_parent"
         android:layout_weight="4"
-        android:background="#708CE6"
+        android:background="@drawable/btn_blue"
         android:ellipsize="end"
         android:gravity="left"
         android:padding="0px"
@@ -25,19 +26,16 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="180dp"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        
-        >
-		
-		
+        android:orientation="horizontal" >
+
         <ProgressBar
             android:id="@+id/value"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            
-            android:background="#AAA"
+            android:background="#FFF"
             android:ellipsize="end"
+            android:progressDrawable="@drawable/progress"
             android:textSize="18dp" >
         </ProgressBar>
 
@@ -46,21 +44,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"            
+            android:layout_centerVertical="true"
             android:text="Percent%"
-            
-             android:textSize="18dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:scaleType="fitXY"
-            android:layout_centerInParent="true"
             android:layout_alignLeft="@+id/value"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
             android:src="@drawable/lock" />
-
     </RelativeLayout>
 
 </LinearLayout>

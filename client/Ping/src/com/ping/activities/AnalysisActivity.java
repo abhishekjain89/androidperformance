@@ -1,6 +1,7 @@
 package com.ping.activities;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ import com.ping.models.Measurement;
 import com.ping.models.Model;
 import com.ping.models.Network;
 import com.ping.models.Ping;
+import com.ping.models.Row;
 import com.ping.models.Sim;
 import com.ping.models.Throughput;
 import com.ping.models.Usage;
@@ -43,6 +46,8 @@ import com.ping.services.PerformanceServiceAll;
 import com.ping.tasks.InstallBinariesTask;
 import com.ping.tasks.MeasurementTask;
 import com.ping.tasks.SummaryTask;
+import com.ping.ui.UIUtil;
+import com.ping.ui.adapter.ItemAdapter;
 
 
 public class AnalysisActivity extends Activity 
@@ -52,6 +57,7 @@ public class AnalysisActivity extends Activity
 	private LinearLayout table;
 	private Button testButton;
 	private Button configButton;
+	private ListView listview;
 	private TextView apptext;
 	private TextView devicetext;
 	//private TextView tv;
@@ -96,8 +102,8 @@ public class AnalysisActivity extends Activity
 				
 		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
-		apptext = (TextView) findViewById(R.id.apptext);
-		devicetext = (TextView) findViewById(R.id.devicetext);
+		
+		listview = (ListView) findViewById(R.id.allview);
 		//configButton=(Button)findViewById(R.id.config);
 		
 		
@@ -209,11 +215,28 @@ public class AnalysisActivity extends Activity
 		public void  handleMessage(Message msg) {
 			JSONObject obj = (JSONObject)msg.obj;
 			
-			try {
-				String appCount = "" + obj.get("total-apps");
-				apptext.setText(appCount + " Apps Logged");
-				String deviceCount = "" + obj.get("total-device");
-				devicetext.setText(deviceCount + " Devices Logged");
+	 		ArrayList<Row> cells = new ArrayList<Row>();
+			
+	 		try {
+	 			cells.add(new Row("Project Statistics"));
+				cells.add(new Row("Total Apps",""+obj.get("total-apps")));
+				cells.add(new Row("Total Devices",""+obj.get("total-devices")));
+				cells.add(new Row("Total CellTowers",""+obj.get("total-cells")));
+				cells.add(new Row("Total Wifi-spots",""+obj.get("total-wifis")));
+				cells.add(new Row(R.layout.cell_view_title_banner,"Status: " + obj.get("status")));
+				
+				if(cells.size()!=0){
+					ItemAdapter itemadapter = new ItemAdapter(activity,cells);
+					for(Row cell: cells)
+						itemadapter.add(cell);
+					listview.setAdapter(itemadapter);
+
+
+					itemadapter.notifyDataSetChanged();
+					UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
+				}
+				
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

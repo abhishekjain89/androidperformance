@@ -1,59 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="35dp"
-	android:padding="2px" android:orientation="horizontal">	
-		<TextView android:layout_height="wrap_content" android:textSize="18dp"
-			android:layout_width="140dp"
-			android:padding="0px"
-			android:ellipsize="end"  android:gravity="left"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			
-			android:background="#708CE6"
-			android:textColor="#FFF"
-			android:text="Key" android:id="@+id/key"></TextView>
-		<TextView android:layout_height="wrap_content" android:textSize="15dp"
-		    android:paddingLeft="5dp"
-			android:layout_width="45dp"
-			android:ellipsize="end"
-			
-			android:background="#333"
-			android:textColor="#FFF"
-			android:scrollHorizontally="false"
-			
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Value" android:id="@+id/value1"></TextView>
-		<TextView android:layout_height="wrap_content" android:textSize="15dp"
-		    android:paddingLeft="5dp"
-			android:layout_width="45dp"
-			android:ellipsize="end"
-			
-			android:background="#333"
-			android:textColor="#FFF"
-			android:scrollHorizontally="false"
-			
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Value" android:id="@+id/value2"></TextView>
-		<TextView android:layout_height="wrap_content" android:textSize="15dp"
-		    android:paddingLeft="5dp"
-			android:layout_width="45dp"
-			android:ellipsize="end"
-			
-			android:background="#333"
-			android:textColor="#FFF"
-			android:scrollHorizontally="false"
-			
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Value" android:id="@+id/value3"></TextView>
-		<TextView android:layout_height="wrap_content" android:textSize="15dp"
-		    android:paddingLeft="5dp"
-			android:layout_width="45dp"
-			android:ellipsize="end"
-			
-			android:background="#333"
-			android:textColor="#FFF"
-			android:scrollHorizontally="false"
-			
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Value" android:id="@+id/value4"></TextView>				 
+    android:layout_width="fill_parent"
+    android:layout_height="35dp"
+    android:orientation="horizontal"
+    android:background="#FFF"
+	
+    android:padding="2px" >
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_blue"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:padding="0px"
+        android:text="Key"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFF"
+        android:textSize="18dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/value1"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:ellipsize="end"
+        android:paddingLeft="5dp"
+        android:scrollHorizontally="false"
+        android:text="Value"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:textSize="15dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/value2"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:ellipsize="end"
+        android:paddingLeft="5dp"
+        android:scrollHorizontally="false"
+        android:text="Value"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:textSize="15dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/value3"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:ellipsize="end"
+        android:paddingLeft="5dp"
+        android:scrollHorizontally="false"
+        android:text="Value"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:textSize="15dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/value4"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:ellipsize="end"
+        android:paddingLeft="5dp"
+        android:scrollHorizontally="false"
+        android:text="Value"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:textSize="15dp" >
+    </TextView>
+
 </LinearLayout>

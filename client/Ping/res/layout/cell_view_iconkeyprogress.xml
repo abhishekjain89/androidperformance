@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
+    android:background="#FFF"
     android:orientation="horizontal"
     android:padding="2px"
     android:weightSum="10" >
@@ -9,8 +10,8 @@
     <ImageView
         android:id="@+id/icon"
         android:layout_width="31dp"
-        android:layout_height="31dp"
-        android:background="#708CE6"
+        android:layout_height="32dp"
+        android:background="@drawable/btn_blue"
         android:padding="0px"
         android:scaleType="fitXY"
         android:src="@drawable/icon" />
@@ -19,7 +20,7 @@
         android:id="@+id/key"
         android:layout_width="105dp"
         android:layout_height="fill_parent"
-        android:background="#708CE6"
+        android:background="@drawable/btn_blue"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:padding="0px"
@@ -40,8 +41,9 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#AAA"
+            android:background="#FFF"
             android:ellipsize="end"
+            android:progressDrawable="@drawable/progress"
             android:textSize="18dp" >
         </ProgressBar>
 
