@@ -207,14 +207,15 @@ def getTraffic(request):
         app_related = ApplicationUse.objects.filter(package = app_row.package)
         print app_row.package.package
         total = 0
+        first = app_related[0].total_sent + app_relate[0].total_recv
         last = 0
         
         for row in app_related:
-            
+            print row.app_related
             try:
                 
                 now = row.total_sent + row.total_recv
-                print now
+                
                 if last>now:
                     total+=last
                 
@@ -224,7 +225,7 @@ def getTraffic(request):
                 continue
             
             
-        total+=last
+        total+=last-first
         res={}
         res['app']=app_row.package.package
         res['total']=(total/1000000)
