@@ -203,9 +203,9 @@ def getTraffic(request):
         result['range'] = str(oldest.days+1) + " days"
     
     for app_row in last_usage: 
-        
-        app_related = ApplicationUse.objects.filter(package = app_row.package)
         print app_row.package.package
+        app_related = ApplicationUse.objects.filter(package = app_row.package)
+        
         total = 0
         first = app_related[0].total_sent + app_related[0].total_recv
         last = 0
