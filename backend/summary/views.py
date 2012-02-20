@@ -211,7 +211,7 @@ def getTraffic(request):
         last = 0
         
         for row in app_related:
-            print row.app_related
+            
             try:
                 
                 now = row.total_sent + row.total_recv
