@@ -189,7 +189,7 @@ def getTraffic(request):
     ranged = timedelta(hours=float(range))
     range_time = current_time - ranged
     
-    measurements = Measurement.objects.filter(deviceid = device,time__gte=str(range_time)).order_by('-time')
+    measurements = Measurement.objects.filter(deviceid = device,time__gte=str(range_time)).order_by('time')
     last_measurement = measurements[len(measurements)-1]
     
     last_usage =  ApplicationUse.objects.filter(usageid=last_measurement.usageid)
