@@ -27,6 +27,7 @@ urlpatterns = patterns('',
      (r'^check_register', 'backend.summary.views.check_register'),
      (r'^measurement', 'backend.summary.views.measurement'),
      (r'^summary', 'backend.summary.views.summary'),
+     (r'^traffic/', 'backend.summary.views.getTraffic'),
      (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.MEDIA_ROOT})
 
 )

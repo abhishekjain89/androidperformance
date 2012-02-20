@@ -5,7 +5,7 @@ from backend.summary.models import *
 
 import random
 from datetime import datetime, timedelta
-from time import time,mktime,strftime
+from time import time,mktime,strftime,gmtime
 import hashlib
 import ast
 import error_message_helper,insertJSON
@@ -178,4 +178,59 @@ def summary(request):
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
     return HttpResponse(str(data))
+
+def getTraffic(request):
     
+    device =  request.GET.get("device")
+    range = request.GET.get('hours')
+    
+    
+    current_time= datetime.now()
+    ranged = timedelta(hours=float(range))
+    range_time = current_time - ranged
+    
+    measurements = Measurement.objects.filter(deviceid = device,time__gte=str(range_time)).order_by('-time')
+    last_measurement = measurements[len(measurements)-1]
+    
+    last_usage =  ApplicationUse.objects.filter(usageid=last_measurement.usageid)
+    
+    result = {}
+    result['app-data']=[]
+    result['range']="1 day"
+        
+    if len(measurements) > 0:
+        oldest = current_time - measurements[0].time
+        result['range'] = str(oldest.days+1) + " days"
+    
+    for app_row in last_usage: 
+        
+        app_related = ApplicationUse.objects.filter(package = app_row.package)
+        print app_row.package.package
+        total = 0
+        last = 0
+        
+        for row in app_related:
+            
+            try:
+                
+                now = row.total_sent + row.total_recv
+                print now
+                if last>now:
+                    total+=last
+                
+                last=now
+                
+            except:
+                continue
+            
+            
+        total+=last
+        res={}
+        res['app']=app_row.package.package
+        res['total']=(total/1000000)
+        result['app-data'].append(res)
+    
+    
+    return HttpResponse(str(result))
+
+
