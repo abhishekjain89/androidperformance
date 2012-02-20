@@ -211,7 +211,9 @@ public class RunActivity extends Activity
 	
 	private Handler LoadBarHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-			loadButton.setVisibility(View.GONE);				
+			loadButton.setVisibility(View.GONE);
+			ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
+			ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
 		}
 	};
 
