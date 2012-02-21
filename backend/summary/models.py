@@ -159,6 +159,7 @@ class Network(models.Model):
 class Measurement(models.Model):
     measurementid = models.AutoField(primary_key=True)
     time = models.DateTimeField()
+    localtime = models.DateTimeField()
     deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
     networkid = models.ForeignKey(Network, to_field='networkid', db_column='networkid')
     serialnumber = models.ForeignKey(Sim, to_field='serialnumber', db_column='serialnumber')
@@ -167,9 +168,18 @@ class Measurement(models.Model):
     batteryid = models.ForeignKey(Battery, to_field='batteryid', db_column='batteryid')
     usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
     wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid',blank=True,null=True)
+    
     class Meta:
         db_table = u'measurement'
 
+class State(models.Model):
+    measurementid = models.ForeignKey(Measurement, to_field = 'measurementid', db_column='measurementid')
+    stateid = models.AutoField(primary_key=True)
+    cellid = models.CharField(max_length=20)
+    deviceid = models.CharField(max_length=20)
+    timeslice = models.IntegerField()
+    class Meta:
+        db_table = u'state'
 
 class Ping(models.Model):
     avg = models.FloatField()

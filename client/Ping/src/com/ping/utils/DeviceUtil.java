@@ -361,13 +361,21 @@ public class DeviceUtil {
 		return deviceId;
 	}
 	
-	public String getTime() {
+	public String getUTCTime() {
 		// Getting current time
 	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	    String utcTime = sdf.format(new Date());
 	    
 	    return utcTime;
+	}
+	
+	public String getLocalTime() {
+		// Getting current time
+	    final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String localTime = df.format(new Date());
+	    
+	    return localTime;
 	}
 	
 	/**

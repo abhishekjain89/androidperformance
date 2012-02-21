@@ -312,6 +312,11 @@ public class MeasurementTask extends ServerTask{
 			// TODO Auto-generated method stub
 			
 		}
+
+		public void onFail(String response) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 

@@ -183,6 +183,11 @@ public class RunActivity extends Activity
 			// TODO Auto-generated method stub
 			
 		}
+
+		public void onFail(String response) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	private Handler toastHandler = new Handler() {

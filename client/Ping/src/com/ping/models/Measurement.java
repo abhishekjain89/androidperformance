@@ -20,6 +20,15 @@ public class Measurement implements Model{
 	Throughput throughput;
 	GPS gps;
 	String time;
+	String localTime;
+	public String getLocalTime() {
+		return localTime;
+	}
+
+	public void setLocalTime(String localTime) {
+		this.localTime = localTime;
+	}
+
 	String deviceId;
 	Usage usage;
 	Battery battery;
@@ -133,6 +142,7 @@ public class Measurement implements Model{
 			putSafe(obj,"pings", array);
 			putSafe(obj,"deviceid", deviceId);
 			putSafe(obj,"time", time);	
+			putSafe(obj,"localtime",localTime);
 			putSafe(obj,"device",device.toJSON());
 			putSafe(obj,"throughput",throughput.toJSON());
 			putSafe(obj,"gps",gps.toJSON());

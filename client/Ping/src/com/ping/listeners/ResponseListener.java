@@ -59,6 +59,8 @@ public interface ResponseListener {
 
 	public void onCompleteSIM(Sim sim);
 	
+	public void onFail(String response);
+	
 	public void onCompleteSummary(JSONObject Object);
 
 	

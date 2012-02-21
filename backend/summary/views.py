@@ -76,6 +76,8 @@ def measurement(request):
         count+=1
         m_time = request_object['time']
         count+=1
+        m_localtime = request_object['localtime']
+        count+=1
         pings = request_object['pings']
         count+=1   
         m_device = request_object['device']
@@ -101,6 +103,7 @@ def measurement(request):
     
     measurement = Measurement()
     measurement.time = m_time
+    measurement.localtime = m_localtime;
     message = []
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
@@ -178,6 +181,35 @@ def summary(request):
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
     return HttpResponse(str(data))
+
+def parameterCheck(request):
+    response = {}
+
+    print "start"
+    try:
+        request_object = ast.literal_eval(request.read())
+    except:
+        return HttpResponse(error_message_helper.invalid_format())
+    
+    s_cellid = request_object['cellId']
+    s_localtime = request_object['localtime']
+    s_time = request_object['time']
+    s_deviceid = request_object['time']
+    
+    localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
+    s_time_slice = (int(localtime_object.hour)/6)*6
+    
+    try:
+        states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice)[0]
+        response['go_ahead']=0
+    except:
+        response['go_ahead']=1
+        pass
+    
+    
+    
+    return HttpResponse(str(response))
+    
 
 def getTraffic(request):
     

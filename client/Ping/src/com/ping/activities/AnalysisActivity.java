@@ -208,6 +208,11 @@ public class AnalysisActivity extends Activity
 			UIHandler.sendMessage(msg);
 			
 		}
+
+		public void onFail(String response) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	}
 	
