@@ -158,9 +158,9 @@ def measurement(request):
         
         
     measurement.save()
-    print measurement.throughputid
+    print measurement.throughputid.throughputid
     try:
-       if not measurement.throughputid == None:
+       if not measurement.throughputid.throughputid == None:
            s_cellid = m_state['cellId']
            s_localtime = m_state['localtime']
            s_time = m_state['time']
