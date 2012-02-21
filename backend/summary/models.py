@@ -178,6 +178,7 @@ class State(models.Model):
     cellid = models.CharField(max_length=20)
     deviceid = models.CharField(max_length=20)
     timeslice = models.IntegerField()
+    weekday = models.IntegerField()
     class Meta:
         db_table = u'state'
 

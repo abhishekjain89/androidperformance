@@ -167,8 +167,14 @@ def measurement(request):
            s_deviceid = m_state['deviceid']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
            s_timeslice = (int(localtime_object.hour)/6)*6
+           day_of_week = localtime_object.strftime('%w')
            
-           states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,measurementid=measurement)
+           if day_of_week>1 and day_of_week<6:
+               s_weekday = 1
+           else:
+               s_weekday = 0
+           
+           states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,measurementid=measurement)
            states.save()
        
     except Exception as inst:
@@ -217,9 +223,17 @@ def parameterCheck(request):
     s_deviceid = request_object['deviceid']
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
     s_timeslice = (int(localtime_object.hour)/6)*6
+    day_of_week = localtime_object.strftime('%w')
+    
+    if day_of_week>1 and day_of_week<6:
+        s_weekday = 1
+    else:
+        s_weekday = 0
+    
+    
     
     try:
-        states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice)[0]
+        states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday)[0]
         response['go_ahead']=0
     except:
         response['go_ahead']=1
