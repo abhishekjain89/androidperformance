@@ -168,7 +168,7 @@ def measurement(request):
            s_deviceid = m_state['deviceid']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
            s_timeslice = (int(localtime_object.hour)/6)*6
-           day_of_week = localtime_object.strftime('%w')
+           day_of_week = int(localtime_object.strftime('%w'))
            
            if day_of_week>0 and day_of_week<6:
                s_weekday = 1
