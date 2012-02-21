@@ -161,12 +161,12 @@ def measurement(request):
     print measurement.throughputid
     try:
        if not measurement.throughputid == None:
-           s_cellid = request_object['cellId']
-           s_localtime = request_object['localtime']
-           s_time = request_object['time']
-           s_deviceid = request_object['time']
+           s_cellid = m_state['cellId']
+           s_localtime = m_state['localtime']
+           s_time = m_state['time']
+           s_deviceid = m_state['time']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
-           s_time_slice = (int(localtime_object.hour)/6)*6 
+           s_time_slice = (int(localtime_object.hour)/6)*6
            
            states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,measurementid=measurement)
            states.save()
@@ -209,11 +209,12 @@ def parameterCheck(request):
     except:
         return HttpResponse(error_message_helper.invalid_format())
     
-    s_cellid = m_state['cellId']
-    s_localtime = m_state['localtime']
-    s_time = m_state['time']
-    s_deviceid = m_state['time']
     
+    
+    s_cellid = request_object['cellId']
+    s_localtime = request_object['localtime']
+    s_time = request_object['time']
+    s_deviceid = request_object['time']
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
     s_time_slice = (int(localtime_object.hour)/6)*6
     
