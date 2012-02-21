@@ -224,12 +224,11 @@ def parameterCheck(request):
     s_deviceid = request_object['deviceid']
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
     s_timeslice = (int(localtime_object.hour)/6)*6
-    day_of_week = localtime_object.strftime('%w')
-    
+    day_of_week = int(localtime_object.strftime('%w'))
+    s_weekday=0
     if day_of_week>0 and day_of_week<6:
         s_weekday = 1
-    else:
-        s_weekday = 0
+    
     
     print day_of_week
     print s_weekday
