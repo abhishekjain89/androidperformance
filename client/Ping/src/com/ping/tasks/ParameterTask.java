@@ -81,14 +81,18 @@ public class ParameterTask extends ServerTask{
 			State state = util.createState();
 			
 			Log.v(toString(),state.toJSON().toString());
-			String output = http.request(this.getReqParams(), "POST", "paramter_check", "", state.toJSON().toString());
+			String output = http.request(this.getReqParams(), "POST", "parameter_check", "", state.toJSON().toString());
 			
-			int goAhead = (new JSONObject(output)).getInt("go_ahead");
+			if(output.contains("1"))
+				getResponseListener().onComplete("true");
+			else
+				getResponseListener().onFail("true");
 			
 
 		} catch (Exception e) {
 			
 			getResponseListener().onComplete("true");
+			e.printStackTrace();
 		}
 		
 

@@ -76,7 +76,7 @@ public class AnalysisActivity extends Activity
 		
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
-		serverhelper.execute(new InstallBinariesTask(this,new HashMap<String,String>(), new String[0], new com.ping.listeners.FakeListener()));
+		//serverhelper.execute(new InstallBinariesTask(this,new HashMap<String,String>(), new String[0], new com.ping.listeners.FakeListener()));
 		serverhelper.execute(new SummaryTask(this,new Listener()));
 		try {
 			Thread.sleep(250);

@@ -171,6 +171,7 @@ public class PerformanceServiceAll extends Service{
 	public class Listener extends BaseResponseListener{
 
 		public void onComplete(String response) {
+			System.out.println("throughput succeed");
 			ThroughputHandler.sendEmptyMessage(0);
 
 		}

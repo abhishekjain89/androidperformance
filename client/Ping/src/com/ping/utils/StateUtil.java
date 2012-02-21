@@ -37,7 +37,7 @@ public class StateUtil {
 		
 		
 		//if(!network.getConnectionType().equals("Mobile")) return false;
-		if(!network.getDataActivity().equals("DATA_ACTIVITY_NONE")) return false;
+		//if(!network.getDataActivity().equals("DATA_ACTIVITY_NONE")) return false;
 		
 		return true;
 		

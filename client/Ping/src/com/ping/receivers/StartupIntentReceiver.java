@@ -30,14 +30,14 @@ public class StartupIntentReceiver extends BroadcastReceiver {
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
-		serverhelper.execute(new InstallBinariesTask(context,new HashMap<String,String>(), new String[0], new FakeListener()));
+		//serverhelper.execute(new InstallBinariesTask(context,new HashMap<String,String>(), new String[0], new FakeListener()));
 		try {
 			Thread.sleep(250);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+		/*while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -46,7 +46,7 @@ public class StartupIntentReceiver extends BroadcastReceiver {
 			}
 
 			Log.v(this.toString(),"Installing Binaries...");
-		}
+		}*/
 		Log.v(this.toString(),"Binaries Installed");
 		/*   START PERFORMANCE SERVICE */
 		ServiceHelper.processStartService(context,"on startup");

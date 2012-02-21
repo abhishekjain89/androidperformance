@@ -19,6 +19,15 @@ public class Measurement implements Model{
 	Sim sim; 
 	Throughput throughput;
 	GPS gps;
+	State state;
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
 	String time;
 	String localTime;
 	public String getLocalTime() {
@@ -151,6 +160,7 @@ public class Measurement implements Model{
 			putSafe(obj,"network",network.toJSON());
 			putSafe(obj,"sim",sim.toJSON());
 			putSafe(obj,"wifi", wifi.toJSON());
+			putSafe(obj,"state",state.toJSON());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
