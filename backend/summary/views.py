@@ -166,7 +166,7 @@ def measurement(request):
            s_time = m_state['time']
            s_deviceid = m_state['time']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
-           s_time_slice = (int(localtime_object.hour)/6)*6
+           s_timeslice = (int(localtime_object.hour)/6)*6
            
            states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,measurementid=measurement)
            states.save()
@@ -216,7 +216,7 @@ def parameterCheck(request):
     s_time = request_object['time']
     s_deviceid = request_object['time']
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
-    s_time_slice = (int(localtime_object.hour)/6)*6
+    s_timeslice = (int(localtime_object.hour)/6)*6
     
     try:
         states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice)[0]
