@@ -226,7 +226,7 @@ def parameterCheck(request):
     s_timeslice = (int(localtime_object.hour)/6)*6
     day_of_week = localtime_object.strftime('%w')
     
-    if day_of_week>1 and day_of_week<6:
+    if day_of_week>0 and day_of_week<6:
         s_weekday = 1
     else:
         s_weekday = 0
