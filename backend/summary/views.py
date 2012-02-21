@@ -231,7 +231,7 @@ def parameterCheck(request):
     else:
         s_weekday = 0
     
-    
+    print day_of_week
     
     try:
         states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday)[0]
