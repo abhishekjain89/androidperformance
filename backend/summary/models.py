@@ -177,6 +177,7 @@ class State(models.Model):
     stateid = models.AutoField(primary_key=True)
     cellid = models.CharField(max_length=20)
     deviceid = models.CharField(max_length=20)
+    networktype = models.CharField(max_length=20)
     timeslice = models.IntegerField()
     weekday = models.IntegerField()
     class Meta:
