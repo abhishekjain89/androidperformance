@@ -166,6 +166,7 @@ def measurement(request):
            s_localtime = m_state['localtime']
            s_time = m_state['time']
            s_deviceid = m_state['deviceid']
+           s_type = m_state['networkType']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
            s_timeslice = (int(localtime_object.hour)/6)*6
            day_of_week = int(localtime_object.strftime('%w'))
@@ -175,7 +176,7 @@ def measurement(request):
            else:
                s_weekday = 0
            
-           states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,measurementid=measurement)
+           states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type,measurementid=measurement)
            states.save()
        
     except Exception as inst:
@@ -217,11 +218,12 @@ def parameterCheck(request):
         return HttpResponse(error_message_helper.invalid_format())
     
     
-    
+    s_type = request_object['networkType']
     s_cellid = request_object['cellId']
     s_localtime = request_object['localtime']
     s_time = request_object['time']
     s_deviceid = request_object['deviceid']
+    
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
     s_timeslice = (int(localtime_object.hour)/6)*6
     day_of_week = int(localtime_object.strftime('%w'))
@@ -230,11 +232,8 @@ def parameterCheck(request):
         s_weekday = 1
     
     
-    print day_of_week
-    print s_weekday
-    
     try:
-        states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday)[0]
+        states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type)[0]
         response['go_ahead']=0
     except:
         response['go_ahead']=1

@@ -11,6 +11,7 @@ public class State implements Model{
 	public String time;
 	public String local_time;
 	public String deviceid;
+	public String networkType;
 	
 	public String getDeviceid() {
 		return deviceid;
@@ -44,6 +45,7 @@ public class State implements Model{
 			obj.putOpt("time", time);
 			obj.putOpt("localtime", local_time);
 			obj.putOpt("deviceid", deviceid);
+			obj.putOpt("networkType", networkType);
 			
 			
 		} catch (JSONException e) {
@@ -51,6 +53,12 @@ public class State implements Model{
 		}
 		
 		return obj;
+	}
+	public String getNetworkType() {
+		return networkType;
+	}
+	public void setNetworkType(String networkType) {
+		this.networkType = networkType;
 	}
 	public int getIcon() {
 		

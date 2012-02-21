@@ -24,7 +24,13 @@ public class StateUtil {
 	public State createState(){
 		State s  = new State();
 		
-		s.setCellId(network.getCellId());
+		s.setNetworkType(network.getNetworkType());
+		
+		if(s.getNetworkType().equals("Mobile"))
+			s.setCellId(network.getCellId());
+		else
+			s.setCellId("");
+		
 		s.setLocal_time(util.getLocalTime());
 		s.setTime(util.getUTCTime());
 		s.setDeviceid(util.getDeviceId(context));

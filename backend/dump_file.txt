@@ -286,6 +286,7 @@ CREATE TABLE state (
 	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
 	stateid integer DEFAULT nextval('parameter_seq'::regclass) ,
 	cellid varchar(20),
+	networktype varchar(20),
 	deviceid varchar(20),
 	weekday integer,
 	timeslice integer
