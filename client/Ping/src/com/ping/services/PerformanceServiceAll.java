@@ -177,6 +177,7 @@ public class PerformanceServiceAll extends Service{
 		}
 		
 		public void onFail(String response){
+			System.out.println("throughput failed");
 			throughput_count-=1;
 			doThroughput=false;
 			NoThroughputHandler.sendEmptyMessage(0);

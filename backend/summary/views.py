@@ -164,7 +164,7 @@ def measurement(request):
            s_cellid = m_state['cellId']
            s_localtime = m_state['localtime']
            s_time = m_state['time']
-           s_deviceid = m_state['time']
+           s_deviceid = m_state['deviceid']
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
            s_timeslice = (int(localtime_object.hour)/6)*6
            
@@ -214,7 +214,7 @@ def parameterCheck(request):
     s_cellid = request_object['cellId']
     s_localtime = request_object['localtime']
     s_time = request_object['time']
-    s_deviceid = request_object['time']
+    s_deviceid = request_object['deviceid']
     localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
     s_timeslice = (int(localtime_object.hour)/6)*6
     
