@@ -120,7 +120,7 @@ public class Usage implements Model{
 		}
 		
 		
-		System.out.println(backendData.toString());
+		
 		JSONArray appArray = new JSONArray();
 		String range = "";
 		try {

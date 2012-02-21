@@ -112,6 +112,7 @@ def measurement(request):
         measurement.deviceid = details
     except Exception as inst:
         details=insertJSON.device(m_device,m_deviceid)
+        measurement.deviceid = details
         
     try:
         network=insertJSON.network(m_network)
