@@ -131,6 +131,15 @@ class Device(models.Model):
     boardname = models.CharField(max_length=20)
     class Meta:
         db_table = u'device'
+
+class Screen(models.Model):
+    screenid = models.AutoField(primary_key=True)
+    deviceid = models.CharField(max_length=40)
+    time = models.DateTimeField()
+    localtime = models.DateTimeField()
+    turnedon = models.BooleanField()
+    class Meta:
+        db_table = u'screen'
         
 class Cell(models.Model):
     cellid = models.CharField(max_length=20, primary_key=True)

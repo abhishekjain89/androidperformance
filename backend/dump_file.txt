@@ -234,7 +234,7 @@ CREATE TABLE screen (
 	deviceid varchar(40) ,
     "time" timestamp without time zone ,
     "localtime" timestamp without time zone ,
-    turnedOn boolean
+    turnedon boolean
 );
 
 CREATE TABLE network (
