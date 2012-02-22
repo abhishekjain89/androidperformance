@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.wifi.ScanResult;
+import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -54,8 +55,8 @@ public class WifiUtil {
 				int rssi = info.getRssi();
 				String macAddress = info.getMacAddress();
 				String ssid = info.getSSID();				
-				DetailedState wifiDetailedInfo = WifiInfo.getDetailedStateOf(info.getSupplicantState());
-				String detailedInfo = wifiDetailedInfo.toString();
+				SupplicantState supState = info.getSupplicantState();
+				String detailedInfo = supState.toString();
 				String units = WifiInfo.LINK_SPEED_UNITS;
 				//String cSummary = String.format("Connected to %s at %s%s. Strength %s", ssid, speed, units, strength);
 				wifiDetail.setDetailedInfo(detailedInfo);

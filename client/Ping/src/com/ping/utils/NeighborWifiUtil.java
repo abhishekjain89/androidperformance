@@ -55,9 +55,8 @@ public class NeighborWifiUtil {
         		context.unregisterReceiver(receiverWifi);
         	}
         	catch(Exception e){
-        		
+        		e.printStackTrace();
         	}
-        	
         }
     }
     
