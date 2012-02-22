@@ -101,8 +101,8 @@ def measurement(request):
         m_state = request_object['state']
         count+=1
 
-    except:
-        return HttpResponse(error_message_helper.missing_attributes('measurement(' +count+ ')'))        
+    except Exception as inst:
+       message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))           
     print "measurement insertion started..."
     
     measurement = Measurement()
