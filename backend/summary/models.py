@@ -10,8 +10,8 @@
 from django.db import models
 
 class WifiHotspot(models.Model):
-    macaddress = models.CharField(max_length=18, primary_key=True)
-    ssid = models.CharField(max_length=30)
+    macaddress = models.CharField(max_length=40, primary_key=True)
+    ssid = models.CharField(max_length=40)
     frequency = models.IntegerField()
     capability = models.CharField(max_length=20)
     class Meta:
@@ -108,7 +108,7 @@ class Throughput(models.Model):
 
 
 class Sim(models.Model):
-    serialnumber = models.CharField(max_length=20, primary_key=True)
+    serialnumber = models.CharField(max_length=40, primary_key=True)
     state = models.CharField(max_length=20)
     operatorcode = models.CharField(max_length=8)
     operatorname = models.CharField(max_length=20)
@@ -117,7 +117,7 @@ class Sim(models.Model):
         db_table = u'sim'
 
 class Device(models.Model):
-    deviceid = models.CharField(max_length=20, primary_key=True)
+    deviceid = models.CharField(max_length=40, primary_key=True)
     phonetype = models.CharField(max_length=20)
     phonenumber = models.CharField(max_length=15)
     softwareversion = models.CharField(max_length=10)
@@ -176,7 +176,7 @@ class State(models.Model):
     measurementid = models.ForeignKey(Measurement, to_field = 'measurementid', db_column='measurementid')
     stateid = models.AutoField(primary_key=True)
     cellid = models.CharField(max_length=20)
-    deviceid = models.CharField(max_length=20)
+    deviceid = models.CharField(max_length=40)
     networktype = models.CharField(max_length=20)
     timeslice = models.IntegerField()
     weekday = models.IntegerField()

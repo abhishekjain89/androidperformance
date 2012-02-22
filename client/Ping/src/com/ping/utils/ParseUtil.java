@@ -8,6 +8,9 @@ import com.ping.models.Throughput;
 public class ParseUtil {
 	
 	public static Measure PingParser(String s){
+		try{
+			
+		
 		String lastLine=null;
 		Scanner scanLines=new Scanner(s);
 		Scanner scanLastLine;
@@ -36,6 +39,10 @@ public class ParseUtil {
 		}
 		else
 			return null;
+		}
+		catch (Exception e){
+			return null;
+		}
 	}
 
 	public static com.ping.models.Throughput ThroughputParser(String output) {
