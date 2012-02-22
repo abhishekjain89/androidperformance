@@ -268,12 +268,11 @@ def getTraffic(request):
     if len(measurements) > 0:
         oldest = current_time - measurements[0].time
         result['range'] = str(oldest.days+1) + " days"
-    
-    print last_measurement.usageid.usageid
-    print len(last_usage)
+        result['range-abs'] = str(oldest)
+  
     
     for app_row in last_usage: 
-        print app_row.package.package
+       
         app_related = ApplicationUse.objects.filter(package = app_row.package)
         
         total = 0

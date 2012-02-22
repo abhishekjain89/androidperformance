@@ -144,7 +144,6 @@ public class Usage implements Model{
 			try {
 				JSONObject obj = appArray.getJSONObject(i);
 				
-				System.out.println(obj.toString());
 				for(Application app: applications){
 					if(app.getPackageName().equals(obj.getString("app").split("'")[1])){
 						app.setTotal_recv(Long.parseLong(obj.getString("total").split("L")[0])*1000*1000);

@@ -30,7 +30,7 @@ public class KeyValueViewGenerator extends ViewGenerator{
 	@Override
 	public void populateView(Row item) {
 		holder.first.setText(item.first);
-		System.out.println("ITEMS: " + item.first);
+		
 		holder.second.setText(item.second);
 		
 	}
