@@ -3,7 +3,6 @@ package com.ping.tasks;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -34,12 +33,13 @@ import com.ping.models.Wifi;
 import com.ping.models.WifiNeighbor;
 import com.ping.models.WifiPreference;
 import com.ping.utils.GPSUtil;
+import com.ping.utils.GPSUtil.LocationResult;
 import com.ping.utils.HTTPUtil;
 import com.ping.utils.NeighborWifiUtil;
-import com.ping.utils.SignalUtil;
-import com.ping.utils.WifiUtil;
-import com.ping.utils.GPSUtil.LocationResult;
 import com.ping.utils.NeighborWifiUtil.NeighborResult;
+import com.ping.utils.SignalUtil;
+import com.ping.utils.SignalUtil.SignalResult;
+import com.ping.utils.WifiUtil;
 
 /*
  * Measurement Task 
@@ -342,15 +342,6 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 
-	private Handler SignalHandler = new Handler() {
-		public void  handleMessage(Message msg) {
-			try {
-				SignalUtil.getSignal(getResponseListener(), getContext());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
 
 	private Handler WifiHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -368,6 +359,23 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 
+
+	private Handler SignalHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				SignalUtil.getSignal(signalResult, getContext());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	public SignalResult signalResult = new SignalResult() { 
+		public void gotSignal(String signal) {
+			(new MeasurementListener()).onCompleteSignal(signal);
+		}
+	};
+	
 	public NeighborResult neighborResult = new NeighborResult(){
 		@Override
 		public void gotNeighbor(List<ScanResult> wifiList){

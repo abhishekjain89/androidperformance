@@ -202,19 +202,25 @@ public class DeviceUtil {
 		  default: 
 			  break;
 		}
-		
-		int connectionType = activeNetwork.getType();
-		switch (connectionType) {
-			case (ConnectivityManager.TYPE_MOBILE) : 
-				dev.setConnectionType("Mobile");
-				isWIFI = false;
-				break;
-		  	case (ConnectivityManager.TYPE_WIFI) : 
-		  		dev.setConnectionType("Wifi");
-		  		isWIFI = true;
-		  		break;
-		  	default: 
-		  		break;
+		if (activeNetwork == null) {
+			activeNetwork = connectivity.getActiveNetworkInfo();
+		}
+		try {
+			int connectionType = activeNetwork.getType();
+			switch (connectionType) {
+				case (ConnectivityManager.TYPE_MOBILE) : 
+					dev.setConnectionType("Mobile");
+					isWIFI = false;
+					break;
+			  	case (ConnectivityManager.TYPE_WIFI) : 
+			  		dev.setConnectionType("Wifi");
+			  		isWIFI = true;
+			  		break;
+			  	default: 
+			  		break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		if (!isWIFI) {		

@@ -129,6 +129,7 @@ public class Network implements Model{
 		data.add(new Row("Type",getNetworkType()));
 		data.add(new Row("CellID",getCellId()));
 		data.add(new Row("CellLac",getCellLac()));
+		data.add(new Row("Signal Strength", signalStrength + ""));
 		return data;
 	}
 	

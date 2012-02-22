@@ -114,9 +114,10 @@ def network(dev):
         n.dataactivity = dev["dataActivity"]
     except:
         pass
-    
-    #n.signalstrength = dev["signalStrength"]
-    #count+=1
+    try:    
+        n.signalstrength = dev["signalStrength"]
+    except:
+        pass
     
     n.save()
     print "Network inserted"

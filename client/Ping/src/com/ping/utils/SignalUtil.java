@@ -1,6 +1,9 @@
 package com.ping.utils;
 
+import java.util.List;
+
 import android.content.Context;
+import android.net.wifi.ScanResult;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
@@ -14,10 +17,10 @@ public class SignalUtil {
 	private static MyPhoneStateListener phoneStateListener;
 	private static int signalStrength;
 	private static Context context;
-	public static ResponseListener responseListener;
+	public static SignalResult signalResult;
 	
-	public static void getSignal(ResponseListener responseListen, Context ct) {	
-		responseListener = responseListen;
+	public static void getSignal(SignalResult signalR, Context ct) {	
+		signalResult = signalR;
 		context = ct;
 		phoneStateListener = new MyPhoneStateListener();
 		signalStrength = -1;
@@ -53,17 +56,28 @@ public class SignalUtil {
 					strength += signalStrength.getEvdoSnr() + "snr";	
 				}
 				getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-				responseListener.onCompleteSignal(strength);
+				//responseListener.onCompleteSignal(strength);
+				signalResult.gotSignal(strength);
 			}
 			else {
-				responseListener.onCompleteSignal(strength);
+				//responseListener.onCompleteSignal(strength);
+				signalResult.gotSignal(strength);
+
 			}
+			telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
 		}
 		
-		/*public void onSignalStrengthChanged(int asu) { 
+		public void onSignalStrengthChanged(int asu) { 
 			signalStrength = asu;
 			getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-			responseListener.onCompleteSignal("" + signalStrength);
-		}*/
+			//responseListener.onCompleteSignal("" + signalStrength);
+			signalResult.gotSignal("" + signalStrength);
+			telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		}
 	};
+
+    public static abstract class SignalResult {
+        public abstract void gotSignal(String signal);
+          
+    }
 }
