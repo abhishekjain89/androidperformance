@@ -119,7 +119,7 @@ class Sim(models.Model):
 class Device(models.Model):
     deviceid = models.CharField(max_length=40, primary_key=True)
     phonetype = models.CharField(max_length=20)
-    phonenumber = models.CharField(max_length=15)
+    phonenumber = models.CharField(max_length=40)
     softwareversion = models.CharField(max_length=10)
     phonemodel = models.CharField(max_length=20)
     androidversion = models.CharField(max_length=10)

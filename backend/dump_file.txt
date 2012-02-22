@@ -208,7 +208,7 @@ CREATE TABLE throughput(
 CREATE TABLE device (
     deviceid varchar(40) ,
     phonetype varchar(20),
-    phonenumber varchar(15) ,
+    phonenumber varchar(40) ,
     softwareversion varchar(10),
     phonemodel varchar(20),
     androidversion varchar(10),
