@@ -29,6 +29,7 @@ public class NeighborWifiUtil {
 		isRunning = true;
 		mainWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		receiverWifi = new WifiReceiver();
+		
 		context.registerReceiver(receiverWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		mainWifi.startScan();
 		/*
@@ -57,6 +58,8 @@ public class NeighborWifiUtil {
         	catch(Exception e){
         		e.printStackTrace();
         	}
+        	
+
         }
     }
     

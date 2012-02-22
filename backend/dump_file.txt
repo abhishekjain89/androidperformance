@@ -240,7 +240,7 @@ CREATE TABLE screen (
 CREATE TABLE network (
     networkid integer DEFAULT nextval('network_seq'::regclass) ,
     networkcountry varchar(2),
-    networkname varchar(15),
+    networkname varchar(25),
     networktype varchar(10),
     connectiontype varchar(10),
     mobilenetworkinfo text,

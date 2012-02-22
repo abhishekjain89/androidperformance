@@ -28,7 +28,7 @@ public class ServiceHelper {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 60*2);
+        calendar.add(Calendar.SECOND, 60*15);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
 		

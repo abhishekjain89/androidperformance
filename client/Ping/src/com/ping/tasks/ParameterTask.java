@@ -51,50 +51,50 @@ import com.ping.utils.NeighborWifiUtil.NeighborResult;
  * 
  */
 public class ParameterTask extends ServerTask{
-	
+
 	ThreadPoolHelper serverhelper;
-	
-	
+
+
 	public ParameterTask(Context context,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
-		
+
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
-	
+
 	public void killAll(){
 		try{
-		serverhelper.shutdown();
+			serverhelper.shutdown();
 		}
 		catch(Exception e){
-			
+
 		}
 	}
-	
+
 	public void runTask() {
 
 		HTTPUtil http = new HTTPUtil();
-		
+
 		try {
-			
+
 			StateUtil util = new StateUtil(getContext());
 			State state = util.createState();
-			
+
 			Log.v(toString(),state.toJSON().toString());
 			String output = http.request(this.getReqParams(), "POST", "parameter_check", "", state.toJSON().toString());
-			
+
 			if(output.contains("1"))
 				getResponseListener().onComplete("true");
 			else
 				getResponseListener().onFail("true");
-			
+
 
 		} catch (Exception e) {
-			
+
 			getResponseListener().onComplete("true");
 			e.printStackTrace();
 		}
-		
+
 
 	}
 
