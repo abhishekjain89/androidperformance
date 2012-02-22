@@ -153,7 +153,7 @@ class Cell(models.Model):
 class Network(models.Model):
     networkid = models.AutoField(primary_key=True)
     networkcountry = models.CharField(max_length=2)
-    networkname = models.CharField(max_length=15)
+    networkname = models.CharField(max_length=25)
     networktype = models.CharField(max_length=10)
     connectiontype = models.CharField(max_length=10)
     mobilenetworkinfo = models.TextField()
