@@ -115,7 +115,7 @@ public class MeasurementTask extends ServerTask{
 		signalRunning = true;
 		wifiRunning = true;
 		WifiHandler.sendEmptyMessage(0);
-		if(doGPS){
+		if(false){
 			GPSHandler.sendEmptyMessage(0);
 			gpsRunning = true;
 		}
