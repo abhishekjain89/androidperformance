@@ -48,7 +48,7 @@ public class PerformanceServiceAll extends Service{
 	private int gps_count;
 	private int throughput_count;
 	public static String TAG = "PerformanceService-All";
-
+	BroadcastReceiver mReceiver;
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -65,7 +65,7 @@ public class PerformanceServiceAll extends Service{
 		
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		BroadcastReceiver mReceiver = new ScreenReceiver();
+		mReceiver = new ScreenReceiver();
 		registerReceiver(mReceiver, filter);
 
 	}
@@ -73,7 +73,7 @@ public class PerformanceServiceAll extends Service{
 	@Override
 	public void onDestroy() {
 		updateTimer.cancel();
-
+		unregisterReceiver(mReceiver);
 		serverhelper.shutdown();
 		Log.v(TAG,"Destroying " + TAG);
 	}

@@ -70,7 +70,8 @@
                 android:id="@+id/policyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo."
+                android:gravity="center"
+                android:text="Project Ping aims to provide thorough device and network information to Android users. Some performance measurements taken are anonumously sent to back to us for analysis and understanding performance/usage patterns."
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#FFF" />
         </LinearLayout>

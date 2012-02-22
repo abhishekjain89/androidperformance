@@ -84,7 +84,7 @@
         android:textSize="10dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:text="Project Ping aims to provide thorough device and network information to Android users. Some performance measurements taken are anonumously sent to back to us for analysis and understanding performance/usage patterns."
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
