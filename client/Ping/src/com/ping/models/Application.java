@@ -16,6 +16,7 @@ public class Application implements Model,Comparable<Application>{
 	private String packageName;
 	private long total_sent;
 	private long total_recv;
+	private boolean isRunning;
 	private Drawable icon;
 
 	public Drawable getAppIcon() {
@@ -56,6 +57,10 @@ public class Application implements Model,Comparable<Application>{
 			obj.putOpt("packageName",packageName);
 			obj.putOpt("total_sent", total_sent);
 			obj.putOpt("total_recv", total_recv);
+			if(isRunning)
+				obj.putOpt("isRunning", 1);
+			else
+				obj.putOpt("isRunning", 0);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -64,6 +69,12 @@ public class Application implements Model,Comparable<Application>{
 		return obj;
 	}
 	
+	public boolean getIsRunning() {
+		return isRunning;
+	}
+	public void setIsRunning(boolean b) {
+		this.isRunning = b;
+	}
 	public int totalDataInMB(){
 		return (int) ((this.total_recv + this.total_sent)/(1000*1000));
 	}

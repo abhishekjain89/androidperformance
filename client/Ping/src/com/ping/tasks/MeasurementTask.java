@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.ping.Session;
 import com.ping.Values;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
@@ -25,6 +26,7 @@ import com.ping.models.GPS;
 import com.ping.models.Measurement;
 import com.ping.models.Network;
 import com.ping.models.Ping;
+import com.ping.models.Screen;
 import com.ping.models.Sim;
 import com.ping.models.Throughput;
 import com.ping.models.Usage;
@@ -196,7 +198,14 @@ public class MeasurementTask extends ServerTask{
 
 		}
 		done_threads+=loop_threads;
-
+		
+		ArrayList<Screen> scrs = new ArrayList<Screen>();
+		Session session = (Session) getContext().getApplicationContext();
+		ArrayList<Screen> buffer = session.screenBuffer;
+		for(Screen s: buffer)
+			scrs.add(s);
+		
+		measurement.setScreens(scrs);
 		getResponseListener().onCompleteMeasurement(measurement);
 
 		JSONObject object = new JSONObject();
@@ -215,10 +224,12 @@ public class MeasurementTask extends ServerTask{
 			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
 			System.out.println(object.toString());
 			System.out.println(output);
+			session.screenBuffer = new ArrayList<Screen>();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 
 	}

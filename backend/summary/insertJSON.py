@@ -232,6 +232,27 @@ def link(dev):
     
     return l
 
+
+def screen(arrdev,device):
+    
+    for dev in arrdev:
+        s = Screen()
+        try:
+            s.time = dev['time']          
+            s.localtime = dev['localtime']
+            s.deviceid = device
+            if dev['isOn'] == 1:
+                s.turnedon = True
+            else:
+                s.turnedon = False
+                
+            s.save()
+        except:
+            pass
+        
+    print "Screen inserted"
+    
+
 def throughput(dev):
     
     t = Throughput()

@@ -7,8 +7,10 @@ import java.util.TimerTask;
 import org.json.JSONObject;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -30,6 +32,7 @@ import com.ping.models.Sim;
 import com.ping.models.Throughput;
 import com.ping.models.Usage;
 import com.ping.models.Wifi;
+import com.ping.receivers.ScreenReceiver;
 import com.ping.tasks.MeasurementTask;
 import com.ping.tasks.ParameterTask;
 import com.ping.utils.GPSUtil;
@@ -59,6 +62,12 @@ public class PerformanceServiceAll extends Service{
 		gps_count = 0;
 		throughput_count=0;
 		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		
+		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		BroadcastReceiver mReceiver = new ScreenReceiver();
+		registerReceiver(mReceiver, filter);
+
 	}
 
 	@Override
@@ -122,10 +131,10 @@ public class PerformanceServiceAll extends Service{
 	}
 	boolean doGPS = false;
 	boolean doThroughput = false;
-	
+
 	private void runTask() {
 
-		
+
 
 		if(gps_count==0)
 			doGPS = true;
@@ -175,7 +184,7 @@ public class PerformanceServiceAll extends Service{
 			ThroughputHandler.sendEmptyMessage(0);
 
 		}
-		
+
 		public void onFail(String response){
 			System.out.println("throughput failed");
 			throughput_count-=1;
@@ -249,10 +258,10 @@ public class PerformanceServiceAll extends Service{
 		}
 
 		public void onCompleteSummary(JSONObject Object) {
-			
+
 
 		}
-		
+
 		private Handler ThroughputHandler = new Handler() {
 			public void  handleMessage(Message msg) {
 				try {
@@ -263,7 +272,7 @@ public class PerformanceServiceAll extends Service{
 				}
 			}
 		};
-		
+
 		private Handler NoThroughputHandler = new Handler() {
 			public void  handleMessage(Message msg) {
 				try {

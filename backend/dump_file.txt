@@ -140,6 +140,15 @@ CREATE SEQUENCE application_use_seq
 
 SELECT pg_catalog.setval('application_use_seq', 1, false);
 
+CREATE SEQUENCE screen_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('screen_seq', 1, false);
+
 
 CREATE TABLE gps(
 	gpsid integer DEFAULT nextval('gps_seq'::regclass) ,
@@ -218,6 +227,14 @@ CREATE TABLE device (
     productname varchar(20),
     radioversion varchar(20),
     boardname varchar(20)
+);
+
+CREATE TABLE screen (
+	screenid integer DEFAULT nextval('screen_seq'::regclass) ,
+	deviceid varchar(40) ,
+    "time" timestamp without time zone ,
+    "localtime" timestamp without time zone ,
+    turnedOn boolean
 );
 
 CREATE TABLE network (
@@ -340,7 +357,9 @@ ALTER TABLE ONLY wifi_neighbor
 ALTER TABLE ONLY cell
     ADD CONSTRAINT cell_pkey PRIMARY KEY (cellid);
 ALTER TABLE ONLY state
-    ADD CONSTRAINT state_pkey PRIMARY KEY (stateid);      
+    ADD CONSTRAINT state_pkey PRIMARY KEY (stateid);
+ALTER TABLE ONLY screen
+    ADD CONSTRAINT screen_pkey PRIMARY KEY (screenid);      
 
 ALTER TABLE ONLY ping
     ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
@@ -380,3 +399,4 @@ alter sequence application_use_seq owned by application_use.application_useid;
 alter sequence wifi_seq owned by wifi.wifiid;
 alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
 alter sequence parameter_seq owned by state.stateid;
+alter sequence screen_seq owned by screen.screenid;

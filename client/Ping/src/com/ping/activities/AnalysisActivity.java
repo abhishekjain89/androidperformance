@@ -77,23 +77,6 @@ public class AnalysisActivity extends Activity
 
 		//serverhelper.execute(new InstallBinariesTask(this,new HashMap<String,String>(), new String[0], new com.ping.listeners.FakeListener()));
 		serverhelper.execute(new SummaryTask(this,new Listener()));
-		try {
-			Thread.sleep(250);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
-			}
-
-			Log.v(this.toString(),"Installing Binaries...");
-		}
-		Log.v(this.toString(),"Binaries Installed");
 		
 		setContentView(R.layout.main_screen);
 		

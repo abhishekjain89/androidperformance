@@ -19,6 +19,15 @@ public class Measurement implements Model{
 	Network network; 
 	Sim sim; 
 	Throughput throughput;
+	ArrayList<Screen> screens = new ArrayList<Screen>();
+	public ArrayList<Screen> getScreens() {
+		return screens;
+	}
+
+	public void setScreens(ArrayList<Screen> screens) {
+		this.screens = screens;
+	}
+
 	GPS gps;
 	State state;
 	public State getState() {
@@ -150,6 +159,13 @@ public class Measurement implements Model{
 			}
 			
 			putSafe(obj,"pings", array);
+			
+			JSONArray array2 = new JSONArray();
+			for(Screen s: screens){
+				array2.put(s.toJSON());
+			}
+			
+			putSafe(obj,"screens", array2);
 			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
 			putSafe(obj,"time", time);	
 			putSafe(obj,"localtime",localTime);
@@ -201,7 +217,7 @@ public class Measurement implements Model{
 	
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.png;
 	}
 
 

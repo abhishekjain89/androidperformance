@@ -94,6 +94,8 @@ def measurement(request):
         count+=1
         m_battery = request_object['battery']
         count+=1
+        m_screens = request_object['screens']
+        count+=1
         m_wifi = request_object['wifi']
         count+=1
         m_state = request_object['state']
@@ -118,7 +120,12 @@ def measurement(request):
         network=insertJSON.network(m_network)
         measurement.networkid = network
     except Exception as inst:
-       message.append(error_message_helper.insert_entry_fail("network",inst))
+       message.append(error_message_helper.insert_entry_fail("network",inst))    
+    
+    try:
+        insertJSON.screen(m_screens,m_deviceid)
+    except Exception as inst:
+       message.append(error_message_helper.insert_entry_fail("screens",inst))
     
     try:
         sim=insertJSON.sim(m_sim)
@@ -299,6 +306,8 @@ def getTraffic(request):
             
         total+=last-first
         
+        if total == 0:
+            total = last
         res={}
         res['app']=app_row.package.package
         res['total']=(total/1000000)

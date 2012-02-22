@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linear"
+        android:layout_width="fill_parent"
+        android:layout_height="110dp"
+        android:background="@drawable/btn_blue"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="Ping"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFF"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tagline"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/title"
+            android:gravity="center"
+            android:text="Periodic Measurement Tool"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/btn_blue_trans"
+        android:orientation="vertical"
+        android:padding="5dp" >
+        
+         <TextView
+                android:id="@+id/heading"
+                android:layout_width="fill_parent"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Terms and Conditions"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFF" />
+
+        <LinearLayout
+            android:id="@+id/privacyLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/policyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo. Eeny meeny minny mo."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="Accept"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/reject"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

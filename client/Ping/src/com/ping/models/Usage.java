@@ -19,7 +19,7 @@ public class Usage implements Model{
 	private long total_recv;
 	private long mobile_sent;
 	private long mobile_recv;
-
+	
 
 
 	public long getMobile_sent() {
@@ -78,6 +78,7 @@ public class Usage implements Model{
 			obj.putOpt("total_recv", total_recv);
 			obj.putOpt("mobile_sent", mobile_sent);
 			obj.putOpt("mobile_recv", mobile_recv);
+			
 
 		} catch (JSONException e) {
 			e.printStackTrace();
