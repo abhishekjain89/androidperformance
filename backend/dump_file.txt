@@ -149,8 +149,8 @@ CREATE TABLE gps(
 );
 
 CREATE TABLE wifi_hotspot(
-	macaddress varchar(18) ,
-	ssid varchar(30),
+	macaddress varchar(40) ,
+	ssid varchar(40),
 	frequency integer,
 	capability varchar(20)	
 );
@@ -163,12 +163,12 @@ CREATE TABLE wifi(
 	signalstrength integer,
 	speed integer,
 	units varchar(10),
-	connection varchar(18)
+	connection varchar(40)
 );
 
 CREATE TABLE wifi_neighbor(
 	wifi_neighbor_id integer DEFAULT nextval('wifi_neighbor_seq'::regclass),
-	macaddress varchar(18),
+	macaddress varchar(40),
 	ispreferred integer,
 	signallevel integer,
 	wifiid integer DEFAULT nextval('wifi_seq'::regclass)
@@ -206,7 +206,7 @@ CREATE TABLE throughput(
 );
 
 CREATE TABLE device (
-    deviceid varchar(20) ,
+    deviceid varchar(40) ,
     phonetype varchar(20),
     phonenumber varchar(15) ,
     softwareversion varchar(10),
@@ -240,7 +240,7 @@ CREATE TABLE cell(
 );
 
 CREATE TABLE sim (
-    serialnumber varchar(20) ,
+    serialnumber varchar(40) ,
     state varchar(20),
     operatorCode varchar(8),
     operatorName varchar(20),
@@ -251,9 +251,9 @@ CREATE TABLE measurement (
     measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
     "time" timestamp without time zone ,
     "localtime" timestamp without time zone ,
-    deviceid varchar(20),
+    deviceid varchar(40),
     networkid integer DEFAULT nextval('network_seq'::regclass),
-    serialnumber varchar(20),
+    serialnumber varchar(40),
     throughputid integer DEFAULT nextval('throughput_seq'::regclass),
     gpsid integer DEFAULT nextval('gps_seq'::regclass),
     batteryid integer DEFAULT nextval('battery_seq'::regclass),
@@ -287,7 +287,7 @@ CREATE TABLE state (
 	stateid integer DEFAULT nextval('parameter_seq'::regclass) ,
 	cellid varchar(20),
 	networktype varchar(20),
-	deviceid varchar(20),
+	deviceid varchar(40),
 	weekday integer,
 	timeslice integer
 );

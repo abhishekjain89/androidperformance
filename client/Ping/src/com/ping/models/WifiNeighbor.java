@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ping.R;
+import com.ping.utils.SHA1Util;
 
 public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	
@@ -69,15 +70,15 @@ public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.putOpt("ssid", "" + ssid);
-			obj.putOpt("macAddress", "" + macAddress);
+			obj.putOpt("ssid", "" + SHA1Util.SHA1(ssid));
+			obj.putOpt("macAddress", SHA1Util.SHA1(macAddress));
 			obj.putOpt("signalLevel", "" + signalLevel);
 			obj.putOpt("frequency", "" + frequency);
 			obj.putOpt("capability", "" + capability);
 			obj.putOpt("isConnected", "" + isConnected);
 			obj.putOpt("isPreferred", "" + isPreferred);
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

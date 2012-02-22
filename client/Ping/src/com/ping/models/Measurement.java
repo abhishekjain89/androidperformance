@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ping.R;
+import com.ping.utils.SHA1Util;
 
 import android.content.Context;
 
@@ -149,7 +150,7 @@ public class Measurement implements Model{
 			}
 			
 			putSafe(obj,"pings", array);
-			putSafe(obj,"deviceid", deviceId);
+			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
 			putSafe(obj,"time", time);	
 			putSafe(obj,"localtime",localTime);
 			putSafe(obj,"device",device.toJSON());

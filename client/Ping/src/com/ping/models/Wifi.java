@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ping.R;
+import com.ping.utils.SHA1Util;
 
 public class Wifi implements Model{
 
@@ -111,8 +112,8 @@ public class Wifi implements Model{
 			obj.putOpt("speed", "" + speed);
 			obj.putOpt("networkId", "" + networkId);
 			obj.putOpt("rssi", "" + rssi);
-			obj.putOpt("macAddress", "" + macAddress);
-			obj.putOpt("ssid", "" + ssid);
+			obj.putOpt("macAddress", SHA1Util.SHA1(macAddress));
+			obj.putOpt("ssid", "" + SHA1Util.SHA1(ssid));
 			obj.putOpt("detailedInfo", "" + detailedInfo);
 			obj.putOpt("units", "" + units);
 			obj.putOpt("isPreferred", "" + isPreferred);
@@ -125,10 +126,10 @@ public class Wifi implements Model{
 				prefer.put(wp.toJSON());
 			}
 			obj.putOpt("wifiNeighbors", neighbor);
-			obj.putOpt("wifiPreference", prefer);
+			//obj.putOpt("wifiPreference", prefer);
 			
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

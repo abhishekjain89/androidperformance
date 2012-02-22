@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ping.utils.SHA1Util;
+
 public class State implements Model{
 	
 	public String cellId;
@@ -44,11 +46,11 @@ public class State implements Model{
 			obj.putOpt("cellId", cellId);
 			obj.putOpt("time", time);
 			obj.putOpt("localtime", local_time);
-			obj.putOpt("deviceid", deviceid);
+			obj.putOpt("deviceid", SHA1Util.SHA1(deviceid));
 			obj.putOpt("networkType", networkType);
 			
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ping.R;
+import com.ping.utils.SHA1Util;
 
 public class Sim implements Model{
 
@@ -53,9 +54,9 @@ public class Sim implements Model{
 			obj.putOpt("state", simState);
 			obj.put("operatorName", simOperatorName);
 			obj.put("operatorCode", simOperatorCode);
-			obj.put("serialNumber", simSerialNumber);
+			obj.put("serialNumber", SHA1Util.SHA1(simSerialNumber));
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

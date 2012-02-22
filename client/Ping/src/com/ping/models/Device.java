@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ping.R;
+import com.ping.utils.SHA1Util;
 
 
 public class Device implements Model {
@@ -116,7 +117,7 @@ public class Device implements Model {
 		JSONObject obj = new JSONObject();
 		try {
 			obj.putOpt("phoneType", phoneType);
-			obj.putOpt("phoneNumber", phoneNumber);
+			obj.putOpt("phoneNumber", SHA1Util.SHA1(phoneNumber));
 			obj.putOpt("softwareVersion", softwareVersion);
 			obj.putOpt("phoneModel", phoneModel);
 			obj.putOpt("androidVersion",androidVersion);
@@ -127,7 +128,7 @@ public class Device implements Model {
 			obj.putOpt("radioVersion",radioVersion);
 			obj.putOpt("boardName",boardName);
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		return obj;
