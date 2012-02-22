@@ -268,7 +268,7 @@ def getTraffic(request):
     if len(measurements) > 0:
         oldest = current_time - measurements[0].time
         if oldest.days == 0:
-            result['range'] = str(oldest.seconds/3600) + " hrs"
+            result['range'] = str(oldest.seconds/3600 + 1) + " hrs"
         else:
             result['range'] = str(oldest.days) + " days"
         
