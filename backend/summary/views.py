@@ -252,7 +252,7 @@ def getTraffic(request):
     range = request.GET.get('hours')
     
     
-    current_time= datetime.now()
+    current_time= datetime.utcnow()
     ranged = timedelta(hours=float(range))
     range_time = current_time - ranged
     
@@ -267,7 +267,11 @@ def getTraffic(request):
         
     if len(measurements) > 0:
         oldest = current_time - measurements[0].time
-        result['range'] = str(oldest.days+1) + " days"
+        if oldest.days == 0:
+            result['range'] = str(oldest.hours) + " hrs"
+        else:
+            result['range'] = str(oldest.days) + " days"
+        
         result['range-abs'] = str(oldest)
   
     

@@ -17,6 +17,7 @@ import com.ping.models.Ping;
 import com.ping.models.Usage;
 import com.ping.utils.DeviceUtil;
 import com.ping.utils.HTTPUtil;
+import com.ping.utils.SHA1Util;
 
 /*
  * Measurement Task 
@@ -51,7 +52,7 @@ public class UsageTask extends ServerTask{
 			
 			
 			try {
-				String output = http.request(this.getReqParams(), "GET", "traffic/?device=" + deviceId + "&hours=720", "", "".toString());
+				String output = http.request(this.getReqParams(), "GET", "traffic/?device=" + SHA1Util.SHA1(deviceId) + "&hours=720", "", "".toString());
 				
 				
 				usage.setBackendData(new JSONObject(output));
