@@ -311,6 +311,13 @@ def usage(dev):
         except:
             pass
         try:
+            if app['isRunning'] == 1:
+                appUse.isrunning=True
+            else:
+                appUse.isrunning=False
+        except:
+            pass
+        try:
             appUse.total_recv=app['total_recv']
         except:
             pass

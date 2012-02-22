@@ -296,6 +296,7 @@ CREATE TABLE application_use (
 	package varchar(50) ,
 	total_sent bigint ,
 	total_recv bigint ,
+	isrunning boolean,
 	usageid integer DEFAULT nextval('usage_seq'::regclass) 
 );
 

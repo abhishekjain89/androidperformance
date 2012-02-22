@@ -61,6 +61,7 @@ class ApplicationUse(models.Model):
     total_sent = models.BigIntegerField()
     total_recv = models.BigIntegerField()
     usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
+    isrunning = models.BooleanField()
     class Meta:
         db_table = u'application_use'
 
