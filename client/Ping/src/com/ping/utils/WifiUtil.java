@@ -54,7 +54,8 @@ public class WifiUtil {
 				int networkId = info.getNetworkId();
 				int rssi = info.getRssi();
 				String macAddress = info.getMacAddress();
-				String ssid = info.getSSID();				
+				String ssid = info.getSSID();		
+		    	ssid = ssid.substring(1, ssid.length() - 1);
 				SupplicantState supState = info.getSupplicantState();
 				String detailedInfo = supState.toString();
 				String units = WifiInfo.LINK_SPEED_UNITS;
@@ -78,6 +79,7 @@ public class WifiUtil {
 		    	WifiPreference wifiPref = new WifiPreference();
 		    	
 		    	String ssid = configs.get(i).SSID;
+		    	ssid = ssid.substring(1, ssid.length() - 1);
 		    	if (ssid.equalsIgnoreCase(wifiDetail.getSsid())) {
 		    		wifiPref.setConnected(true);
 		    		wifiDetail.setPreferred(true);
