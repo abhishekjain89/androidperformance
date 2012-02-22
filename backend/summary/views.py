@@ -175,9 +175,11 @@ def measurement(request):
                s_weekday = 1
            else:
                s_weekday = 0
-           
-           states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type,measurementid=measurement)
-           states.save()
+           try:    
+               current_states =State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type)[0]
+           except:
+               states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type,measurementid=measurement)
+               states.save()
        
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("state",inst))   

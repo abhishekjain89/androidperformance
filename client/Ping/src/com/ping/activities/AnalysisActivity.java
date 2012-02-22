@@ -64,10 +64,9 @@ public class AnalysisActivity extends Activity
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Session session = null;
-	private boolean firstPing=true;
-	public String serviceTag = "PerformanceService";
 	
-	public static final String SETTINGS_FILE_NAME = "PingSettings";
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,13 +120,7 @@ public class AnalysisActivity extends Activity
                 startActivity(myIntent);
 			}
 		});
-		
-		/*configButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {		
-				Intent myIntent = new Intent(v.getContext(), ConfigActivity.class);
-                startActivityForResult(myIntent, 0);
-			}
-		});*/
+	
 
 	}	
 	
@@ -250,15 +243,6 @@ public class AnalysisActivity extends Activity
 			
 		}
 	};
-	
-	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (intent!=null){
-	        Bundle extras = intent.getExtras();
-	        //tv.setText(extras!=null ? extras.getString("returnKey") : "empty");
-        }
-    }
 	
 	
 }

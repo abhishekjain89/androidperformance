@@ -2,48 +2,49 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFF">
+    android:background="#FFF" >
 
-        
-        <ListView
-            android:id="@+id/allview"
-            android:layout_width="fill_parent"
-            android:layout_height="404dp"
-            android:background="#FFF"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:cacheColorHint="#00000000"
-            
-            android:fadingEdge="none" >
-        </ListView>
+    <ListView
+        android:id="@+id/allview"
+        android:layout_width="fill_parent"
+        android:layout_height="404dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#FFF"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none" >
+    </ListView>
 
-   
-            <Button
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_x="0dp"
+        android:layout_y="365dp"
+        android:orientation="vertical">
+
+        <Button
             android:id="@+id/note"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:layout_x="0dp"
-        	android:layout_y="365dp"
+          
             android:background="@drawable/btn_yellow"
             android:text="Scroll down for more data"
-            android:textSize="13dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
-            android:visibility="gone"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textSize="13dp"
+            android:visibility="gone" />
 
-        
         <Button
             android:id="@+id/load"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:layout_x="0dp"
-        	android:layout_y="385dp"
+          
             android:background="@drawable/btn_red"
             android:text="Loading ..."
-            android:textSize="13dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-            
+            android:textSize="13dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/back"

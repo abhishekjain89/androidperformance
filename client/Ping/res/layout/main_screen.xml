@@ -9,6 +9,7 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear"
+        
         android:layout_width="fill_parent"
         android:layout_height="110dp"
          android:orientation="vertical"
@@ -66,11 +67,24 @@
         android:layout_height="404dp"
         android:layout_above="@+id/test"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linear"
+        android:layout_below="@+id/textView1"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="0dp"
         android:cacheColorHint="#00000000"
         android:fadingEdge="none" >
     </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linear"
+        android:textColor="#000"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Project Ping aims to provide thorough device and network information to Android users. Some performance measurements taken are anonumously sent to back to us for analysis and understanding performance/usage patterns."
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

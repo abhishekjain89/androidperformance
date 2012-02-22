@@ -24,7 +24,7 @@ public class StateUtil {
 	public State createState(){
 		State s  = new State();
 		
-		s.setNetworkType(network.getNetworkType());
+		s.setNetworkType(network.getConnectionType());
 		
 		if(s.getNetworkType().equals("Mobile"))
 			s.setCellId(network.getCellId());
