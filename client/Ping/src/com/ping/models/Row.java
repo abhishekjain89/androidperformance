@@ -50,7 +50,7 @@ public class Row {
 	public Row(int resourceid,String first){
 		this(first);
 		
-		viewgen = new KeyValueViewGenerator(resourceid);
+		viewgen = new TitleViewGenerator(resourceid);
 	}
 	
 	public Row(String first,ArrayList<String> seconds){

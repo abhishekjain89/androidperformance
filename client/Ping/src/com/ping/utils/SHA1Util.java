@@ -23,7 +23,8 @@ public class SHA1Util {
     } 
  
     public static String SHA1(String text) 
-    throws NoSuchAlgorithmException, UnsupportedEncodingException  { 
+    throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+    if(text == null) return "";
     MessageDigest md;
     md = MessageDigest.getInstance("SHA-1");
     byte[] sha1hash = new byte[40];
