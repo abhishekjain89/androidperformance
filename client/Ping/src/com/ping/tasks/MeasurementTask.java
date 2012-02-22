@@ -114,6 +114,22 @@ public class MeasurementTask extends ServerTask{
 		
 		startTime = System.currentTimeMillis();
 		
+		try {
+			Thread.sleep(Values.NORMAL_SLEEP_TIME);
+		} catch (InterruptedException e1) {
+			this.killAll();
+			return;
+		}
+		
+		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);
+			} catch (InterruptedException e) {
+				this.killAll();
+				return;	
+			}
+		}
+		
 		signalRunning = true;
 		wifiRunning = true;
 		WifiHandler.sendEmptyMessage(0);
@@ -127,27 +143,6 @@ public class MeasurementTask extends ServerTask{
 		SignalHandler.sendEmptyMessage(0);
 
 
-		int total_threads = 3 + dstIps.length;
-		int done_threads = 0;
-
-		try {
-			Thread.sleep(Values.NORMAL_SLEEP_TIME);
-		} catch (InterruptedException e1) {
-			this.killAll();
-			return;
-		}
-		int loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				this.killAll();
-				return;	
-			}
-		}
-		done_threads+=loop_threads;
-
-
 		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<Values.GPS_TIMEOUT){
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
@@ -157,8 +152,8 @@ public class MeasurementTask extends ServerTask{
 		}
 
 
-		done_threads+=1;
-		getResponseListener().onUpdateProgress((100*(done_threads))/total_threads);
+		
+		
 		if(gpsRunning){
 			locationResult.gotLocation(null);
 		}
@@ -178,7 +173,7 @@ public class MeasurementTask extends ServerTask{
 			this.killAll();
 			return;
 		}
-		loop_threads = serverhelper.getThreadPoolExecutor().getActiveCount();
+		
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);
@@ -187,9 +182,6 @@ public class MeasurementTask extends ServerTask{
 				return;
 			}
 
-			int left = total_threads - done_threads - (loop_threads - serverhelper.getThreadPoolExecutor().getActiveCount());
-			getResponseListener().onUpdateProgress((100*(left))/total_threads);
-			Log.v(this.toString(), "left: " + left + " done: " + (total_threads - left));
 		}
 		try {
 			Thread.sleep(100);
@@ -197,7 +189,6 @@ public class MeasurementTask extends ServerTask{
 			return;
 
 		}
-		done_threads+=loop_threads;
 		
 		ArrayList<Screen> scrs = new ArrayList<Screen>();
 		Session session = (Session) getContext().getApplicationContext();
