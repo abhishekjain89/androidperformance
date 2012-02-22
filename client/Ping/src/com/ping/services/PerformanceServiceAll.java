@@ -19,6 +19,7 @@ import android.util.Log;
 
 import com.ping.Session;
 import com.ping.Values;
+import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
 import com.ping.listeners.FakeListener;
@@ -45,8 +46,7 @@ public class PerformanceServiceAll extends Service{
 	private ThreadPoolHelper serverhelper;
 
 	private Timer updateTimer;
-	private int gps_count;
-	private int throughput_count;
+	
 	public static String TAG = "PerformanceService-All";
 	BroadcastReceiver mReceiver;
 	@Override
@@ -59,10 +59,9 @@ public class PerformanceServiceAll extends Service{
 
 		updateTimer = new Timer("measurementTaskAll");
 		context = this.getApplicationContext();
-		gps_count = 0;
-		throughput_count=0;
-		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 		
+		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
 		mReceiver = new ScreenReceiver();
@@ -78,73 +77,35 @@ public class PerformanceServiceAll extends Service{
 		Log.v(TAG,"Destroying " + TAG);
 	}
 
+	@Override
+	public void onStart(Intent intent, int startId) {
 
+	super.onStart(intent, startId);
+	runTask();
+	
+	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		int freqValue;
-		Bundle b = intent.getExtras();
-
-		freqValue = (Integer)b.get("freq");
-
-		System.out.println("starting service, freq set to " + freqValue);
-		if (doRefresh != null) {
-			doRefresh.cancel();
-		}
-		doRefresh = new myTimerTask();
-
-		boolean autoUpdate = true;
-		updateTimer.cancel();
-		if (autoUpdate) {
-			updateTimer = new Timer("measurementTaskAll");
-			updateTimer.scheduleAtFixedRate(doRefresh, 0, freqValue * Values.ONE_MINUTE_TIME);
-
-
-
-		}
-		else {
-			runTask();
-		}
-
-
-		return Service.START_STICKY;	
+		
+		runTask();   
+		ServiceHelper.processStartService(context, "TAG");
+		return Service.START_STICKY;
 	}
 
-
-	private Handler handler = new Handler();
-	myTimerTask doRefresh = null;
-
-	public class myTimerTask extends TimerTask {
-		private Runnable runnable = new Runnable() {
-			public void run() {
-				try {
-					runTask();
-				} catch(Exception e) {
-					Log.e(">>>> Error executing runTaask ( PerformanceService ): " , 
-							e.getMessage());
-				}
-			}
-		};
-
-		public void run() {
-			handler.post(runnable);
-		}
-	}
+	
 	boolean doGPS = false;
 	boolean doThroughput = false;
+	
 
 	private void runTask() {
 
+		Session session = (Session) context.getApplicationContext();
 
+		doGPS=session.doGPS();
+		doThroughput=session.doThroughput();
 
-		if(gps_count==0)
-			doGPS = true;
-		if(throughput_count==0)
-			doThroughput= true;
-
-		gps_count+=1;
-		gps_count%=4;
-		throughput_count+=1;
-		throughput_count%=48;
+		session.incrementGPS();
+		session.incrementThroughput();
 
 
 		if(doThroughput){
@@ -153,7 +114,7 @@ public class PerformanceServiceAll extends Service{
 			boolean clear = stateutil.isNetworkClear();
 
 			if(!clear){
-				throughput_count-=1;
+				session.decrementThroughput();
 				doThroughput=false;
 			}
 		}
@@ -165,7 +126,7 @@ public class PerformanceServiceAll extends Service{
 			serverhelper.execute(new MeasurementTask(context,doGPS,false, new FakeListener()));
 		}
 
-		Log.i(TAG,"GPS:"+gps_count + " Throughput:" + throughput_count);
+		Log.i(TAG,"GPS:"+session.gps_count + " Throughput:" + session.throughput_count);
 
 
 
@@ -178,7 +139,7 @@ public class PerformanceServiceAll extends Service{
 
 
 	public class Listener extends BaseResponseListener{
-
+		Session session = (Session) context.getApplicationContext();
 		public void onComplete(String response) {
 			System.out.println("throughput succeed");
 			ThroughputHandler.sendEmptyMessage(0);
@@ -187,7 +148,7 @@ public class PerformanceServiceAll extends Service{
 
 		public void onFail(String response){
 			System.out.println("throughput failed");
-			throughput_count-=1;
+			session.decrementThroughput();
 			doThroughput=false;
 			NoThroughputHandler.sendEmptyMessage(0);
 		}

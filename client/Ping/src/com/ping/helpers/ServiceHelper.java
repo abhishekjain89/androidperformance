@@ -1,7 +1,11 @@
 package com.ping.helpers;
 
+import java.util.Calendar;
+
 import com.ping.services.PerformanceServiceAll;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +15,21 @@ public class ServiceHelper {
 	
 	final static String Bigtag = "ServiceHelper";
 	
+	private static PendingIntent pendingIntent;
+	
 	public static void processStartService(Context context, String tag) {
 		Intent serviceIntent = new Intent(context, PerformanceServiceAll.class);
-	
-	
 		serviceIntent.putExtras(makeBundle(2));
-		context.startService(serviceIntent);
+		
+		pendingIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
+		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+		
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.SECOND, 30);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
 		
 		Log.i(Bigtag, "STARTED: " + tag);
@@ -32,8 +45,9 @@ public class ServiceHelper {
 	}
 	
 	public static void processStopService(Context context, String tag) {
-		Intent serviceIntent = new Intent(context, PerformanceServiceAll.class);
-		context.stopService(serviceIntent);
+		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+
+		alarmManager.cancel(pendingIntent);
 		
 		Log.i(Bigtag, "STOPPED: " + tag);
 	}

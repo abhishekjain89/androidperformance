@@ -16,6 +16,8 @@ import com.ping.utils.IDThreadPoolExecutor;
 public class Session extends Application{
 	
 	DeviceUtil util = new DeviceUtil();
+	public int gps_count=0;
+	public int throughput_count = 0;
 	
 	public Session(){
 		
@@ -27,6 +29,35 @@ public class Session extends Application{
 		screenBuffer.add(new Screen(util.getUTCTime(),util.getLocalTime(),isOn));
 		
 	}
+	
+	public void incrementGPS(){
+		gps_count++;
+		gps_count%=4;
+	}
+	
+	public void decrementGPS(){
+		gps_count--;
+		gps_count%=4;
+	}
+	
+	public void incrementThroughput(){
+		throughput_count++;
+		throughput_count%=4;
+	}
+	
+	public void decrementThroughput(){
+		throughput_count--;
+		throughput_count%=48;
+	}
+	
+	public boolean doGPS(){
+		return gps_count==0;
+	}
+	
+	public boolean doThroughput(){
+		return throughput_count==0;
+	}
+	
 	
 
 }

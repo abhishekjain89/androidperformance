@@ -187,7 +187,7 @@ public class Measurement implements Model{
 	}
 	
 	public void putSafe(JSONObject obj,String key,Object text){
-		System.out.println("Trying " + key);
+		 
 		try {
 			obj.put(key,text);
 		} catch (JSONException e) {
