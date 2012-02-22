@@ -18,6 +18,7 @@ public class StateUtil {
 	}
 	
 	public boolean networkInUse(){
+		if(network.getConnectionType()==null) return true;
 		return false;
 	}
 	
