@@ -60,7 +60,7 @@ public class PerformanceServiceAll extends Service{
 		updateTimer = new Timer("measurementTaskAll");
 		context = this.getApplicationContext();
 		
-		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		serverhelper = new ThreadPoolHelper(1,Values.THREADPOOL_KEEPALIVE_SEC);
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
