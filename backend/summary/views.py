@@ -298,7 +298,7 @@ def getTraffic(request):
             pkg = app.package.package
             current = app.total_sent + app.total_recv
             if pkg == 'com.ping':
-                print current
+                print str(current) + " " + str(firstVal[pkg])+ " " + str(lastVal[pkg])+ " " + str(appDataMB[pkg])
             if appDataMB.has_key(pkg):
                 if firstVal.has_key(pkg):
                     if lastVal.has_key(pkg):
