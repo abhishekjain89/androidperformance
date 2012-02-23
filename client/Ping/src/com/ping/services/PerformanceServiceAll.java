@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.ping.Session;
@@ -49,6 +50,7 @@ public class PerformanceServiceAll extends Service{
 	
 	public static String TAG = "PerformanceService-All";
 	BroadcastReceiver mReceiver;
+	PowerManager.WakeLock wl;
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -66,7 +68,10 @@ public class PerformanceServiceAll extends Service{
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
 		mReceiver = new ScreenReceiver();
 		registerReceiver(mReceiver, filter);
-
+		
+		/*PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
+		wl.acquire();*/
 	}
 
 	@Override
@@ -74,6 +79,7 @@ public class PerformanceServiceAll extends Service{
 		updateTimer.cancel();
 		unregisterReceiver(mReceiver);
 		serverhelper.shutdown();
+		//wl.release();
 		Log.v(TAG,"Destroying " + TAG);
 	}
 
@@ -88,7 +94,7 @@ public class PerformanceServiceAll extends Service{
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
 		runTask();   
-		ServiceHelper.processStartService(context, "TAG");
+		ServiceHelper.recurringStartService(context, "TAG");
 		return Service.START_STICKY;
 	}
 

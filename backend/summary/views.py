@@ -266,8 +266,18 @@ def getTraffic(request):
     measurements = Measurement.objects.filter(deviceid = device,time__gte=str(range_time)).order_by('time')
     last_measurement = measurements[len(measurements)-1]
     
+    
     last_usage =  ApplicationUse.objects.filter(usageid=last_measurement.usageid)
     
+    
+    appDataMB={}
+    lastVal={}
+    firstVal={}
+    
+    for app_row in last_usage:
+         
+         appDataMB['package']=0
+   
     result = {}
     result['app-data']=[]
     result['range']="1 day"
@@ -280,39 +290,41 @@ def getTraffic(request):
             result['range'] = str(oldest.days) + " days"
         
         result['range-abs'] = str(oldest)
-  
     
-    for app_row in last_usage: 
-       
-        app_related = ApplicationUse.objects.filter(package = app_row.package)
+    for measurement in Measurement:
+        related_apps = ApplicationUse.objects.filter(usageid=measurement.usageid)
         
-        total = 0
-        first = app_related[0].total_sent + app_related[0].total_recv
-        last = 0
-        
-        for row in app_related:
-            
-            try:
-                
-                now = row.total_sent + row.total_recv
-                
-                if last>now:
-                    total+=last
-                
-                last=now
-                
-            except:
-                continue
-            
-        total+=last-first
-        
-        if total == 0:
-            total = last
+        for app in related_apps:
+            pkg = app.package
+            current = app.total_sent + app.total_recv
+            if appDataMB.has_key(pkg):
+                if firstVal.hash_key(pkg):
+                    if lastVal.has_key(pkg):
+                        
+                        if current > lastVal[pkg]:
+                            continue
+                        else:
+                            appDataMB[pkg] = appDataMB[pkg] + lastVal[pkg]
+                            
+                    lastVal[pkg]=current
+                else:
+                    firstVal[pkg]=current
+                    lastVal[pkg]=current
+                    
+                    
+    result['app-data']=[]               
+    
+    for key in appDataMB:
+        appDataMB[key]+=lastVal[pkg] -firstVal[pkg]       
+        print key
+        print appDataMB/1000000
         res={}
-        res['app']=app_row.package.package
-        res['total']=(total/1000000)
+        res['app']=key
+        res['total']=appDataMB/1000000
+        
         result['app-data'].append(res)
     
+    print result
     
     return HttpResponse(str(result))
 
