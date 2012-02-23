@@ -315,7 +315,7 @@ def getTraffic(request):
     result['app-data']=[]               
     
     for key in appDataMB:
-        appDataMB[key]+=lastVal[pkg] -firstVal[pkg]       
+        appDataMB[key]+=lastVal[key] -firstVal[key]       
         print key
         print appDataMB/1000000
         res={}
