@@ -292,28 +292,24 @@ def getTraffic(request):
         result['range-abs'] = str(oldest)
     
     for measurement in measurements:
-        related_apps = ApplicationUse.objects.filter(usageid=measurement.usageid)
+         related_apps = ApplicationUse.objects.filter(usageid=measurement.usageid)
         
-        for app in related_apps:
-            pkg = app.package.package
-            current = app.total_sent + app.total_recv
-            
-            if appDataMB.has_key(pkg):
-                if firstVal.has_key(pkg):
-                    if lastVal.has_key(pkg):
+         for app in related_apps:
+               pkg = app.package.package
+               current = app.total_sent + app.total_recv
+                
+               if appDataMB.has_key(pkg):
+                     if firstVal.has_key(pkg):
+                           if lastVal.has_key(pkg):
+                                 if current > lastVal[pkg]:
+                                       a=1
+                                 elif (100*lastVal[pkg]-100*current)/(current) > 10:
+                                       appDataMB[pkg] = appDataMB[pkg] + lastVal[pkg]
                         
-                        if current > lastVal[pkg]:
-                            continue
-                        else:
-                            appDataMB[pkg] = appDataMB[pkg] + lastVal[pkg]
-                            
-                    lastVal[pkg]=current
-                else:
-                    firstVal[pkg]=current
-                    lastVal[pkg]=current
-                    
-            if pkg == 'com.ping':
-                print str(current) + " " + str(firstVal[pkg])+ " " + str(lastVal[pkg])+ " " + str(appDataMB[pkg])
+                     else:
+                           firstVal[pkg]=current
+                        
+                     lastVal[pkg]=current  
                     
                     
     result['app-data']=[]               
