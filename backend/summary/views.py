@@ -276,7 +276,7 @@ def getTraffic(request):
     
     for app_row in last_usage:
          
-         appDataMB['package']=0
+         appDataMB[app_row.package.package]=0
    
     result = {}
     result['app-data']=[]
@@ -295,7 +295,7 @@ def getTraffic(request):
         related_apps = ApplicationUse.objects.filter(usageid=measurement.usageid)
         
         for app in related_apps:
-            pkg = app.package
+            pkg = app.package.package
             current = app.total_sent + app.total_recv
             if appDataMB.has_key(pkg):
                 if firstVal.hash_key(pkg):
