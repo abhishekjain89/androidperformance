@@ -298,7 +298,7 @@ def getTraffic(request):
             pkg = app.package.package
             current = app.total_sent + app.total_recv
             if appDataMB.has_key(pkg):
-                if firstVal.hash_key(pkg):
+                if firstVal.has_key(pkg):
                     if lastVal.has_key(pkg):
                         
                         if current > lastVal[pkg]:
