@@ -297,8 +297,7 @@ def getTraffic(request):
         for app in related_apps:
             pkg = app.package.package
             current = app.total_sent + app.total_recv
-            if pkg == 'com.ping':
-                print str(current) + " " + str(firstVal[pkg])+ " " + str(lastVal[pkg])+ " " + str(appDataMB[pkg])
+            
             if appDataMB.has_key(pkg):
                 if firstVal.has_key(pkg):
                     if lastVal.has_key(pkg):
@@ -312,6 +311,9 @@ def getTraffic(request):
                 else:
                     firstVal[pkg]=current
                     lastVal[pkg]=current
+                    
+            if pkg == 'com.ping':
+                print str(current) + " " + str(firstVal[pkg])+ " " + str(lastVal[pkg])+ " " + str(appDataMB[pkg])
                     
                     
     result['app-data']=[]               
