@@ -317,10 +317,10 @@ def getTraffic(request):
     for key in appDataMB:
         appDataMB[key]+=lastVal[key] -firstVal[key]       
         print key
-        print appDataMB/1000000
+        print appDataMB[key]/1000000
         res={}
         res['app']=key
-        res['total']=appDataMB/1000000
+        res['total']=appDataMB[key]/1000000
         
         result['app-data'].append(res)
     
