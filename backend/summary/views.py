@@ -291,7 +291,7 @@ def getTraffic(request):
         
         result['range-abs'] = str(oldest)
     
-    for measurement in Measurement:
+    for measurement in measurements:
         related_apps = ApplicationUse.objects.filter(usageid=measurement.usageid)
         
         for app in related_apps:
