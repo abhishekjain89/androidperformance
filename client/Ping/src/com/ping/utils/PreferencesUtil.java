@@ -32,7 +32,8 @@ public class PreferencesUtil {
 	
 	public static void acceptConditions(Activity activity){
 		Editor editor = getPreferences(activity).edit();
-		editor.putBoolean("acceptConditons", true);
+		
+		editor.putBoolean("acceptConditions", true);
 		editor.commit();
 	}
 	

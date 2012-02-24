@@ -22,9 +22,9 @@ public class ServiceHelper {
 	static PowerManager.WakeLock wl;
 	
 	public static void processStartService(Context context, String tag) {
-		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		/*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
-		wl.acquire();
+		wl.acquire();*/
 		recurringStartService(context, tag);
 	}
 	
@@ -59,9 +59,9 @@ public class ServiceHelper {
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
 
 		alarmManager.cancel(pendingIntent);
-		if(wl!=null)
+		/*if(wl!=null)
 			if(wl.isHeld())
-				wl.release();
+				wl.release();*/
 		Log.i(Bigtag, "STOPPED: " + tag);
 	}
 	
