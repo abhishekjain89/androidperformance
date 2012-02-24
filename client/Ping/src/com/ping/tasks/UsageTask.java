@@ -44,25 +44,6 @@ public class UsageTask extends ServerTask{
 		Usage usage = AppUsageHelper.getUsageData(getContext());
 		
 		
-		if(getAll){
-			HTTPUtil http = new HTTPUtil();
-			
-			DeviceUtil util = new DeviceUtil();
-			String deviceId = util.getDeviceId(getContext());
-			
-			
-			try {
-				String output = http.request(this.getReqParams(), "GET", "traffic/?device=" + SHA1Util.SHA1(deviceId) + "&hours=720", "", "".toString());
-				
-				
-				usage.setBackendData(new JSONObject(output));
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
 		
 		getResponseListener().onCompleteUsage(usage);
 		

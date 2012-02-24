@@ -107,63 +107,13 @@ public class Usage implements Model{
 	}
 
 	public ArrayList<Row> getDisplayData(){
-		
-		ArrayList<Application> applications = new ArrayList<Application>();
-		
-		for(Application app: this.applications){
-			Application app2 = new Application();
-			app2.setIcon(app.getAppIcon());
-			app2.setName(app.getName());
-			app2.setPackageName(app.getPackageName());
-			
-			applications.add(app2);
-			
-		}
-		
-		
-		
-		JSONArray appArray = new JSONArray();
-		String range = "";
-		try {
-			range = ",Last " + backendData.getString("range");
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		try {
-			appArray = backendData.getJSONArray("app-data");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		long total_use = 0;
-		HashMap<String,Integer> app_hash = new HashMap<String,Integer>();
-
-		for(int i=0;i<appArray.length();i++){
-			try {
-				JSONObject obj = appArray.getJSONObject(i);
-				
-				for(Application app: applications){
-					if(app.getPackageName().equals(obj.getString("app").split("'")[1])){
-						app.setTotal_recv(Long.parseLong(obj.getString("total").split("L")[0])*1000*1000);
-						app.setTotal_sent(0);
-						break;
-					}
-				}
-				
-				
-				total_use+=Long.parseLong(obj.getString("total").split("L")[0]);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
+		
 
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Total Apps",""+applications.size()));
-		data.add(new Row("Application Usage " + range));
+		data.add(new Row("Application Usage"));
 
 		Collections.sort(applications);
 		for(Application app: applications){

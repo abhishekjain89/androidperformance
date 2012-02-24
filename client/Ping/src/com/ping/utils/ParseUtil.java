@@ -38,10 +38,10 @@ public class ParseUtil {
 			}catch(Exception e){return null;}
 		}
 		else
-			return null;
+			return (new Measure(-1,-1,-1,-1));
 		}
 		catch (Exception e){
-			return null;
+			return (new Measure(-1,-1,-1,-1));
 		}
 	}
 

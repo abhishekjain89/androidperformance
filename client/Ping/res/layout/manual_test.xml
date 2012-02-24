@@ -14,12 +14,12 @@
         android:cacheColorHint="#00000000"
         android:fadingEdge="none" >
     </ListView>
-
+    
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_x="0dp"
-        android:layout_y="365dp" >
+        android:layout_y="385dp" >
 
         <Button
             android:id="@+id/note"
@@ -37,12 +37,12 @@
             android:id="@+id/load"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-          
             android:background="@drawable/btn_red"
             android:text="Loading ..."
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
             android:textSize="13dp" />
+
     </LinearLayout>
 
     <Button

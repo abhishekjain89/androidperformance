@@ -79,6 +79,12 @@ public class ParameterTask extends ServerTask{
 
 			StateUtil util = new StateUtil(getContext());
 			State state = util.createState();
+			
+			if(state.getCellId().equals("65535")){
+				getResponseListener().onComplete("true");
+				return;
+			}
+			
 
 			Log.v(toString(),state.toJSON().toString());
 			String output = http.request(this.getReqParams(), "POST", "parameter_check", "", state.toJSON().toString());
