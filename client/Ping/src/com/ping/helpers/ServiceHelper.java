@@ -2,6 +2,7 @@ package com.ping.helpers;
 
 import java.util.Calendar;
 
+import com.ping.Values;
 import com.ping.services.PerformanceServiceAll;
 
 import android.app.AlarmManager;
@@ -38,7 +39,7 @@ public class ServiceHelper {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 30);
+        calendar.add(Calendar.SECOND, Values.FREQUENCY_SECS);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
 		
@@ -59,7 +60,8 @@ public class ServiceHelper {
 
 		alarmManager.cancel(pendingIntent);
 		if(wl!=null)
-			wl.release();
+			if(wl.isHeld())
+				wl.release();
 		Log.i(Bigtag, "STOPPED: " + tag);
 	}
 	

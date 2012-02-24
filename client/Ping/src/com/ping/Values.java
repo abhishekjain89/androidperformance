@@ -3,6 +3,8 @@ package com.ping;
 
 public class Values{
 	
+	public static final int FREQUENCY_SECS = 15*60;
+	
 	public static final int UPLINKPORT=9912;
 	public static final int UPLINK_DURATION=25000;
 	public static final int DOWNLINKPORT=9710;
