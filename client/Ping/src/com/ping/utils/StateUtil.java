@@ -17,11 +17,11 @@ public class StateUtil {
 		network = util.getNetworkDetail(context);
 	}
 
-	public boolean networkInUse(){
+	public boolean networkAvailable(){
 		if(network.getConnectionType()==null) return true;
 		return false;
 	}
-
+	
 	public State createState(){
 		State s  = new State();
 

@@ -65,7 +65,7 @@ def device(dev,m_deviceid):
     except Exception as inst:
         print type(inst)     # the exception instance
         print inst    
-        print error_message_helper.insert_entry_fail("device("+str(count)+")") 
+        print error_message_helper.insert_entry_fail("device",inst) 
        
     return d
 
