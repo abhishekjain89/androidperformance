@@ -47,7 +47,7 @@ public class Session extends Application{
 	
 	public void decrementThroughput(){
 		throughput_count--;
-		throughput_count%=48;
+		throughput_count%=Values.THROUGHPUT_FREQ;
 	}
 	
 	public boolean doGPS(){

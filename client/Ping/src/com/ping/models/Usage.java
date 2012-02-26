@@ -119,7 +119,7 @@ public class Usage implements Model{
 		for(Application app: applications){
 
 				if(app.totalDataInMB()>=1)
-					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/total_use),5)));
+					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
 			
 		}
 
