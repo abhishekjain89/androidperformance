@@ -16,8 +16,8 @@ public class Network implements Model{
 	String connectionType;
 	String mobileNetworkInfo;
 	String wifiState;
-	String cellId;
-	String cellLac;	
+	String cellId="";
+	String cellLac="";	
 	String dataState;
 	String dataActivity;
 	String signalStrength;
@@ -107,7 +107,9 @@ public class Network implements Model{
 			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
 			obj.putOpt("wifiState", wifiState);
 			obj.putOpt("cellId", cellId);
+			
 			obj.putOpt("cellLac", cellLac);
+			
 			obj.putOpt("dataState", dataState);
 			obj.putOpt("dataActivity", dataActivity);
 			obj.putOpt("signalStrength", signalStrength);

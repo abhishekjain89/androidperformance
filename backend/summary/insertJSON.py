@@ -100,10 +100,14 @@ def network(dev,m):
         pass
      
     try:
-        result = Cell.objects.filter(cellid=dev['cellId'])[0]
+        result = Cell.objects.filter(cellid=parse(dev['cellId']))[0]
     except:
-        result = Cell(cellid=dev['cellId'],celllac = dev["cellLac"])
-        result.save()
+        try:
+            result = Cell(cellid=parse(dev['cellId']),celllac = parse(dev["cellLac"]))
+            result.save()
+        except:
+            pass
+        
     try:        
         n.cellid = result
     except:
