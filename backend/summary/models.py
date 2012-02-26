@@ -9,6 +9,42 @@
 
 from django.db import models
 
+class Sim(models.Model):
+    serialnumber = models.CharField(max_length=40, primary_key=True)
+    state = models.CharField(max_length=20)
+    operatorcode = models.CharField(max_length=8)
+    operatorname = models.CharField(max_length=20)
+    networkcountry = models.CharField(max_length=5)
+    class Meta:
+        db_table = u'sim'
+        
+class Device(models.Model):
+    deviceid = models.CharField(max_length=40, primary_key=True)
+    phonetype = models.CharField(max_length=20)
+    phonenumber = models.CharField(max_length=40)
+    softwareversion = models.CharField(max_length=10)
+    phonemodel = models.CharField(max_length=20)
+    androidversion = models.CharField(max_length=10)
+    phonebrand = models.CharField(max_length=20)
+    devicedesign = models.CharField(max_length=20)
+    manufacturer = models.CharField(max_length=20)
+    productname = models.CharField(max_length=20)
+    radioversion = models.CharField(max_length=20)
+    boardname = models.CharField(max_length=20)
+    class Meta:
+        db_table = u'device'
+        
+class Measurement(models.Model):
+    measurementid = models.AutoField(primary_key=True)
+    time = models.DateTimeField()
+    localtime = models.DateTimeField()
+    deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
+    serialnumber = models.ForeignKey(Sim, to_field='serialnumber', db_column='serialnumber')
+    
+    
+    class Meta:
+        db_table = u'measurement'
+
 class WifiHotspot(models.Model):
     macaddress = models.CharField(max_length=40, primary_key=True)
     ssid = models.CharField(max_length=40)
@@ -19,7 +55,7 @@ class WifiHotspot(models.Model):
 
 
 class Wifi(models.Model):
-    wifiid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     ipaddress = models.CharField(max_length=15)
     detailedinfo = models.CharField(max_length=40)
     rssi = models.IntegerField()
@@ -36,12 +72,13 @@ class WifiNeighbor(models.Model):
     macaddress = models.ForeignKey(WifiHotspot,  to_field='macaddress', db_column='macaddress')
     ispreferred = models.IntegerField()
     signallevel = models.IntegerField()
-    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid')
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
+
     class Meta:
         db_table = u'wifi_neighbor'
 
 class Usage(models.Model):
-    usageid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     total_sent = models.BigIntegerField()
     total_recv = models.BigIntegerField()
     mobile_sent = models.BigIntegerField()
@@ -60,13 +97,13 @@ class ApplicationUse(models.Model):
     package = models.ForeignKey(Application, to_field='package', db_column='package')
     total_sent = models.BigIntegerField()
     total_recv = models.BigIntegerField()
-    usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
     isrunning = models.BooleanField()
     class Meta:
         db_table = u'application_use'
 
 class Battery(models.Model):
-    batteryid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     technology = models.CharField(max_length=20)
     ispresent = models.IntegerField()
     plugged = models.IntegerField()
@@ -81,7 +118,7 @@ class Battery(models.Model):
 
 
 class Gps(models.Model):
-    gpsid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     altitude = models.FloatField()
@@ -101,37 +138,12 @@ class Link(models.Model):
         db_table = u'link'
 
 class Throughput(models.Model):
-    throughputid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     uplinkid = models.ForeignKey(Link,related_name='throughput_linkid',db_column='uplinkid')
     downlinkid = models.ForeignKey(Link,related_name='throughput_downlinkid',db_column='downlinkid')
     class Meta:
         db_table = u'throughput'
 
-
-class Sim(models.Model):
-    serialnumber = models.CharField(max_length=40, primary_key=True)
-    state = models.CharField(max_length=20)
-    operatorcode = models.CharField(max_length=8)
-    operatorname = models.CharField(max_length=20)
-    networkcountry = models.CharField(max_length=5)
-    class Meta:
-        db_table = u'sim'
-
-class Device(models.Model):
-    deviceid = models.CharField(max_length=40, primary_key=True)
-    phonetype = models.CharField(max_length=20)
-    phonenumber = models.CharField(max_length=40)
-    softwareversion = models.CharField(max_length=10)
-    phonemodel = models.CharField(max_length=20)
-    androidversion = models.CharField(max_length=10)
-    phonebrand = models.CharField(max_length=20)
-    devicedesign = models.CharField(max_length=20)
-    manufacturer = models.CharField(max_length=20)
-    productname = models.CharField(max_length=20)
-    radioversion = models.CharField(max_length=20)
-    boardname = models.CharField(max_length=20)
-    class Meta:
-        db_table = u'device'
 
 class Screen(models.Model):
     screenid = models.AutoField(primary_key=True)
@@ -151,7 +163,7 @@ class Cell(models.Model):
 
 
 class Network(models.Model):
-    networkid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     networkcountry = models.CharField(max_length=2)
     networkname = models.CharField(max_length=25)
     networktype = models.CharField(max_length=10)
@@ -166,25 +178,10 @@ class Network(models.Model):
         db_table = u'network'
 
 
-class Measurement(models.Model):
-    measurementid = models.AutoField(primary_key=True)
-    time = models.DateTimeField()
-    localtime = models.DateTimeField()
-    deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
-    networkid = models.ForeignKey(Network, to_field='networkid', db_column='networkid')
-    serialnumber = models.ForeignKey(Sim, to_field='serialnumber', db_column='serialnumber')
-    throughputid = models.ForeignKey(Throughput, to_field='throughputid', db_column='throughputid')
-    gpsid = models.ForeignKey(Gps, to_field='gpsid', db_column='gpsid')
-    batteryid = models.ForeignKey(Battery, to_field='batteryid', db_column='batteryid')
-    usageid = models.ForeignKey(Usage, to_field='usageid', db_column='usageid')
-    wifiid = models.ForeignKey(Wifi, to_field='wifiid', db_column='wifiid',blank=True,null=True)
-    
-    class Meta:
-        db_table = u'measurement'
+
 
 class State(models.Model):
-    measurementid = models.ForeignKey(Measurement, to_field = 'measurementid', db_column='measurementid')
-    stateid = models.AutoField(primary_key=True)
+    measurementid = models.AutoField(primary_key=True)
     cellid = models.CharField(max_length=20)
     deviceid = models.CharField(max_length=40)
     networktype = models.CharField(max_length=20)

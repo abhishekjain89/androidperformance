@@ -70,11 +70,14 @@ def device(dev,m_deviceid):
     return d
 
 
-def network(dev):
+def network(dev,m):
     
     
     n = Network()
-    
+    try:
+        n.measurementid = m.measurementid
+    except:
+        pass
     try:
         n.networkcountry = dev["networkCountry"]
     except:
@@ -155,10 +158,11 @@ def sim(dev):
        
     return s
 
-def gps(dev):
+def gps(dev,m):
     
     g = Gps() 
-    try:       
+    try:
+        g.measurementid = m       
         g.latitude = dev['latitude']
         g.longitude = dev['longitude']    
         g.altitude = dev['altitude']
@@ -169,9 +173,10 @@ def gps(dev):
        
     return g
 
-def battery(dev):
+def battery(dev,m):
     
     g = Battery()
+    g.measurementid = m.measurementid
     
     try:        
         g.ispresent = dev['isPresent']
@@ -254,11 +259,12 @@ def screen(arrdev,device):
     print "Screen inserted"
     
 
-def throughput(dev):
+def throughput(dev,m):
     
     t = Throughput()
     
     try:
+        t.measurementid = m.measurementid
         t.uplinkid=link(dev['upLink'])
         t.downlinkid=link(dev['downLink'])
         t.save()
@@ -270,10 +276,10 @@ def throughput(dev):
     return t
 
 
-def usage(dev):
+def usage(dev,m):
     
     u = Usage()
-
+    u.measurementid=m.measurementid
     try:
         u.total_sent=dev['total_sent']
     except:
@@ -339,7 +345,10 @@ def pings(pings,measurement):
     
     for p in pings:
         ping = Ping()
+       
+        
         ping.measurementid = measurement
+        
         try:
             ping.scrip = p['src_ip']
         except:
@@ -372,13 +381,15 @@ def pings(pings,measurement):
             ping.max = measure['max']
         except:
             pass
-            
+        
+        
         ping.save()
+        
 
-def wifi(dev):
+def wifi(dev,m):
     
     w = Wifi()
-    
+    w.measurementid = m.measurementid
     w.ipaddress = dev['ipAddress']
     w.detailedinfo = dev['detailedInfo']
     w.rssi = dev['rssi']

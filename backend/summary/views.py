@@ -108,6 +108,7 @@ def measurement(request):
     measurement = Measurement()
     measurement.time = m_time
     measurement.localtime = m_localtime;
+    
     message = []
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
@@ -115,10 +116,17 @@ def measurement(request):
     except Exception as inst:
         details=insertJSON.device(m_device,m_deviceid)
         measurement.deviceid = details
-        
+    
     try:
-        network=insertJSON.network(m_network)
-        measurement.networkid = network
+        sim=insertJSON.sim(m_sim)
+        measurement.serialnumber = sim
+    except Exception as inst:
+        message.append(error_message_helper.insert_entry_fail("sim",inst))
+    
+    measurement.save();
+    
+    try:
+        network=insertJSON.network(m_network,measurement)
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("network",inst))    
     
@@ -128,52 +136,37 @@ def measurement(request):
        message.append(error_message_helper.insert_entry_fail("screens",inst))
     
     try:
-        sim=insertJSON.sim(m_sim)
-        measurement.serialnumber = sim
-    except Exception as inst:
-        message.append(error_message_helper.insert_entry_fail("sim",inst))
-    
-    try:
-        throughput=insertJSON.throughput(m_throughput)
-        measurement.throughputid = throughput
+        throughput=insertJSON.throughput(m_throughput,measurement)
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("throughput",inst))
-    
+         
     try:
-        gps=insertJSON.gps(m_gps)
-        measurement.gpsid = gps
+        gps=insertJSON.gps(m_gps,measurement)        
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("gps",inst))
-       
     try:
-        wifi=insertJSON.wifi(m_wifi)
-        measurement.wifiid = wifi
+        wifi=insertJSON.wifi(m_wifi,measurement)
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("wifi",inst))
     
     try:
-        battery=insertJSON.battery(m_battery)
-        measurement.batteryid=battery
+        battery=insertJSON.battery(m_battery,measurement)
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("battery",inst))
     
     try:
-        usage=insertJSON.usage(m_usage)
-        measurement.usageid=usage
+        usage=insertJSON.usage(m_usage,measurement)
     except Exception as inst:
-        
         message.append(error_message_helper.insert_entry_fail("usage",inst))
-        
-        
-    measurement.save()
-    print measurement.throughputid.throughputid
+   
     try:
-       if not measurement.throughputid.throughputid == None:
+       if not throughput.measurementid == None:
            s_cellid = m_state['cellId']
            s_localtime = m_state['localtime']
            s_time = m_state['time']
            s_deviceid = m_state['deviceid']
            s_type = m_state['networkType']
+           
            localtime_object = datetime.strptime(s_localtime, '%Y-%m-%d %H:%M:%S')
            s_timeslice = (int(localtime_object.hour)/6)*6
            day_of_week = int(localtime_object.strftime('%w'))
@@ -182,25 +175,30 @@ def measurement(request):
                s_weekday = 1
            else:
                s_weekday = 0
+           
            try:    
                current_states =State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type)[0]
+               
            except:
-               states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type,measurementid=measurement)
+                   
+               states = State(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type,measurementid=measurement.measurementid)
+                   
                states.save()
-       
+                  
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("state",inst))   
     
     
     m_id = measurement.measurementid
-        
+    
     #except Exception as inst:     
     #    return HttpResponse(error_message_helper.insert_entry_fail("measurement",inst))
     count = 0    
     try:
         insertJSON.pings(pings,measurement)
+        
     except Exception as inst:
-        message.append(error_message_helper.insert_entry_fail("ping(" + count+")",inst))            
+        message.append(error_message_helper.insert_entry_fail("ping",inst))            
     print "measurement insertion ended"
     response['message'] = 'measurement inserted: ' + str(message)
     response['status'] = 'OK'
