@@ -89,7 +89,7 @@ public class BatteryUtil {
 			
 			notDone = false;
 
-			context.unregisterReceiver(battery_receiver);
+			//context.unregisterReceiver(battery_receiver);
 
 		}
 

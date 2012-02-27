@@ -164,6 +164,7 @@ public class DeviceUtil {
 		// Get the type of network you are connected to
 		int networkType = telephonyManager.getNetworkType();
 		switch (networkType) {
+
 		  case (TelephonyManager.NETWORK_TYPE_1xRTT)   :    
 			  dev.setNetworkType("1xRTT");
 			  break;
@@ -178,6 +179,12 @@ public class DeviceUtil {
 			  break;
 		  case (TelephonyManager.NETWORK_TYPE_EVDO_A)  : 
 			  dev.setNetworkType("EVDO_A");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_EVDO_B)   :    
+			  dev.setNetworkType("EVDO_B");
+			  break;
+		  case (TelephonyManager.NETWORK_TYPE_IDEN)   :    
+			  dev.setNetworkType("IDEN");
 			  break;
 		  case (TelephonyManager.NETWORK_TYPE_GPRS)    : 
 			  dev.setNetworkType("GPRS");
@@ -314,14 +321,21 @@ public class DeviceUtil {
 	    	}  
 			if(cellLocation instanceof CdmaCellLocation){
 				CdmaCellLocation cdmaCellLocation = (CdmaCellLocation)cellLocation;
-				
-				int baseStationId = cdmaCellLocation.getBaseStationId();
-				int baseStationgLat = cdmaCellLocation.getBaseStationLatitude();
-				int baseStationLon = cdmaCellLocation.getBaseStationLongitude();
+				int basestationId = cdmaCellLocation.getBaseStationId();
+				int basestationgLat = cdmaCellLocation.getBaseStationLatitude();
+				int basestationLong = cdmaCellLocation.getBaseStationLongitude();
 				int networkid = cdmaCellLocation.getNetworkId();
 				int systemid = cdmaCellLocation.getSystemId();
+				String cellType = "CDMA";
+				dev.setBasestationLat("" + basestationgLat);
+				dev.setBasestationLong("" + basestationLong);
+				dev.setCellId("" + basestationId);
+				dev.setCellType("CDMA");
+				dev.setNetworkid("" + networkid);
+				dev.setSystemid("" + systemid);
+				
 			}
-			if(cellLocation instanceof GsmCellLocation){
+			else if(cellLocation instanceof GsmCellLocation){
 				GsmCellLocation gsmCellLocation = (GsmCellLocation)cellLocation;
 				int cid = gsmCellLocation.getCid();
 				int lac = gsmCellLocation.getLac();
@@ -330,7 +344,7 @@ public class DeviceUtil {
 				lac = lac & 0xffff;
 				dev.setCellId("" + cid);
 				dev.setCellLac("" + lac);
-				
+				dev.setCellType("GSM");
 				
 			}
 			else {

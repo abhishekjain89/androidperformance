@@ -9,20 +9,55 @@ import com.ping.R;
 
 public class Network implements Model{
 
-	String networkCountry;
-	String networkOperatorId;
-	String networkName;
-	String networkType;
-	String connectionType;
-	String mobileNetworkInfo;
+	String networkCountry = "";
+	String networkOperatorId ="";
+	String networkName ="";
+	String networkType = "";
+	String connectionType = "";
+	String mobileNetworkInfo = "";
 	String wifiState;
 	String cellId="";
 	String cellLac="";	
-	String dataState;
-	String dataActivity;
-	String signalStrength;
+	String dataState ="";
+	String dataActivity = "";
+	String signalStrength = "-1";
+	String cellType = "";
+	String basestationLat = "";
+	String basestationLong = "";
+	String networkid = "";
+	String systemid = "";
 	
-	
+
+	public String getCellType() {
+		return cellType;
+	}
+	public void setCellType(String cellType) {
+		this.cellType = cellType;
+	}
+	public String getBasestationLat() {
+		return basestationLat;
+	}
+	public void setBasestationLat(String basestationLat) {
+		this.basestationLat = basestationLat;
+	}
+	public String getBasestationLong() {
+		return basestationLong;
+	}
+	public void setBasestationLong(String basestationLong) {
+		this.basestationLong = basestationLong;
+	}
+	public String getNetworkid() {
+		return networkid;
+	}
+	public void setNetworkid(String networkid) {
+		this.networkid = networkid;
+	}
+	public String getSystemid() {
+		return systemid;
+	}
+	public void setSystemid(String systemid) {
+		this.systemid = systemid;
+	}
 	public String getSignalStrength() {
 		return signalStrength;
 	}
@@ -106,10 +141,13 @@ public class Network implements Model{
 			obj.putOpt("connectionType", connectionType);
 			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
 			obj.putOpt("wifiState", wifiState);
+			obj.putOpt("cellType",cellType );
 			obj.putOpt("cellId", cellId);
-			
 			obj.putOpt("cellLac", cellLac);
-			
+			obj.putOpt("basestationLat",basestationLat );
+			obj.putOpt("basestationLong", basestationLong);
+			obj.putOpt("networkid",networkid );
+			obj.putOpt("systemid", systemid);
 			obj.putOpt("dataState", dataState);
 			obj.putOpt("dataActivity", dataActivity);
 			obj.putOpt("signalStrength", signalStrength);
