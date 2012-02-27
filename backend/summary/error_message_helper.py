@@ -15,6 +15,12 @@ def invalid_format():
 	response['status'] = 'error'
 	return str(response)
 
+def duplicate_entry():
+	response={}
+	response['message'] = 'duplicate_entry'
+	response['status'] = 'duplicate'
+	return str(response)
+
 def missing_attributes(attr):
 	response={}
 	response['message'] = 'missing attributes: ' + attr

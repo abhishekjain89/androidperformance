@@ -107,12 +107,23 @@ def measurement(request):
     
     measurement = Measurement()
     measurement.time = m_time
+    
+    
+    
     measurement.localtime = m_localtime;
     
     message = []
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
         measurement.deviceid = details
+        try:
+            exist = Measurement.objects.filter(deviceid=details,time=m_time)[0]
+            return HttpResponse(error_message_helper.duplicate_entry())
+        except Exception as inst:
+            pass
+            
+            
+        
     except Exception as inst:
         details=insertJSON.device(m_device,m_deviceid)
         measurement.deviceid = details
