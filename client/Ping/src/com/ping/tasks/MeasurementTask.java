@@ -270,6 +270,19 @@ public class MeasurementTask extends ServerTask{
 		public void onCompleteSignal(String signalStrength) {
 			signalRunning = false;
 			Network network = measurement.getNetwork();
+			int i = 100;
+			while(network == null) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				network = measurement.getNetwork();
+				if (i-- == 0) {
+					break;
+				}
+			}
 			network.setSignalStrength("" + signalStrength);
 			measurement.setNetwork(network);
 		}

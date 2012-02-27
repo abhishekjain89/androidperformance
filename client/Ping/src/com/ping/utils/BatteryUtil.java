@@ -88,7 +88,9 @@ public class BatteryUtil {
 			battery.setStatus(status);
 			
 			notDone = false;
-		
+
+			context.unregisterReceiver(battery_receiver);
+
 		}
 
 

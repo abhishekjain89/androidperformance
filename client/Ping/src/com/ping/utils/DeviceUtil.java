@@ -8,12 +8,10 @@ import java.util.TimeZone;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.telephony.CellLocation;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
+import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 
 import com.ping.Values;
@@ -314,7 +312,15 @@ public class DeviceUtil {
 	    	     
 	    	 }  
 	    	}  
-			
+			if(cellLocation instanceof CdmaCellLocation){
+				CdmaCellLocation cdmaCellLocation = (CdmaCellLocation)cellLocation;
+				
+				int baseStationId = cdmaCellLocation.getBaseStationId();
+				int baseStationgLat = cdmaCellLocation.getBaseStationLatitude();
+				int baseStationLon = cdmaCellLocation.getBaseStationLongitude();
+				int networkid = cdmaCellLocation.getNetworkId();
+				int systemid = cdmaCellLocation.getSystemId();
+			}
 			if(cellLocation instanceof GsmCellLocation){
 				GsmCellLocation gsmCellLocation = (GsmCellLocation)cellLocation;
 				int cid = gsmCellLocation.getCid();
