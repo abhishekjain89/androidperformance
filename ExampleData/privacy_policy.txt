@@ -71,26 +71,13 @@ below:
 - latency (ping time) from the cellular device to 3 different Internet locations
 - cellular device WAN interface IP address
 
-### Location-identifiable information
-
-We consider the following information to be location-identifiable information
-(LII) as they can be used for a rough triangulation of location, and we will not disclose
-it except as indicated under "Information disclosure" below:
-
-- Country
-- CellId
-- CellLac
 
 ### Personally-identifiable information
 
 We consider the following information to be personally-identifiable information
-(PII), and we will not disclose it except as indicated under "Information
-disclosure" below:
+(PII). This information will be encrypted at all times. 
 
-- name
-- email address
 - telephone number
-- street address of the Internet service termination location
 - gateway WAN interface IP address
 - gateway MAC addresses
 
@@ -99,12 +86,6 @@ network topology) could potentially be used to identify you in certain
 circumstances. You must assess and accept the risks of participating in Ping
 before you agree to participate in the Ping study.
 
-Accessing collected information
--------------------------------
-
-You can view and download the Service Information and Active Measurement
-Information (excluding PII) we have collected as part of your participation in
-Ping at networkdashboard.org.
 
 Information disclosure
 ----------------------
@@ -113,14 +94,14 @@ All of the information described above will be collected, maintained, and used
 by the Ping team. We may disclose this information outside of the Ping
 team in the following ways:
 
-- Active Measurement Information and Service Information, with the exception of
-  PII, will be accessible on networkdashboard.org to anyone who knows the LAN
-  MAC address of your Ping home gateway.
-- The Ping team will utilize the Active Measurement Information and Service
+- Active Measurement Information, Device performance Information and Service Information, with the exception of
+ aforementioned PII, will be accessible to members of the Ping team as well as authorized 
+  members at the Georgia Institute of Technology.
+- The Ping team will utilize the Active Measurement Information, Device Performance Information and Service
   Information to produce scholarly works such as articles, reports, and
   presentations that will be published and publicly accessible. These results
   will typically contain aggregated and derivative information, but may contain
-  raw Active Measurement Information or Service Information, excluding PII.
+  raw Active Measurement Information, Device Performance Information or Service Information, excluding PII.
 - Any information collected as part of Ping, including PII, may potentially
   be disclosed in response to a lawful request by law enforcement or other
   legal processes or authorities.
@@ -128,10 +109,9 @@ team in the following ways:
 Information retention
 ---------------------
 
-Participant Information and personally-identifiable information will be
-retained for the duration of the Ping study, or until you choose to
-terminate your participation in the Ping study. Service Information and
-Active Measurement Information (excluding PII) will be retained for at least
+Device identity information will be
+retained for the duration of the Ping study. Service Information, Device Performance Information
+ and Active Measurement Information (excluding PII) will be retained for at least
 the duration of the Ping study.
 
 Information security
