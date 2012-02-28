@@ -190,7 +190,12 @@ CREATE TABLE network (
 
 CREATE TABLE cell(
 	cellid varchar(20),
-    celllac varchar(20)
+	celltype varchar(10),
+    celllac varchar(20),
+    longitude float,
+    latitude float,
+    systemid int,
+    networkid int
 );
 
 CREATE TABLE sim (

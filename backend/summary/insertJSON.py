@@ -101,10 +101,42 @@ def network(dev,m):
      
     try:
         result = Cell.objects.filter(cellid=parse(dev['cellId']))[0]
+        
     except:
         try:
-            result = Cell(cellid=parse(dev['cellId']),celllac = parse(dev["cellLac"]))
+            result = Cell()
+            try:
+                result.cellid = parse(dev['cellId'])
+            except:
+                pass
+            
+            try:
+                result.celllac = parse(dev["cellLac"])
+            except:
+                pass
+            try:
+                result.celltype= parse(dev["cellType"])
+            except:
+                pass
+            try:
+                result.longitude= parse(dev["basestationLong"])
+            except:
+                pass
+            try:
+                result.latitude= parse(dev["basestationLat"])
+            except:
+                pass
+            try:
+                result.networkid= parse(dev["networkid"])
+            except:
+                pass
+            try:
+                result.systemid= parse(dev["systemid"])
+            except:
+                pass
+            
             result.save()
+            print "Cell inserted"
         except:
             pass
         

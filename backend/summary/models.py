@@ -158,7 +158,12 @@ class Screen(models.Model):
         
 class Cell(models.Model):
     cellid = models.CharField(max_length=20, primary_key=True)
+    celltype = models.CharField(max_length=10)
     celllac = models.CharField(max_length=20)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    systemid = models.IntegerField()
+    networkid = models.IntegerField()
     class Meta:
         db_table = u'cell'
 
