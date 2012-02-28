@@ -167,6 +167,11 @@ class Cell(models.Model):
     class Meta:
         db_table = u'cell'
 
+class KillList(models.Model):
+    deviceid = models.CharField(max_length=40, primary_key=True)
+    class Meta:
+        db_table = u'kill_list'
+
 
 
 class Network(models.Model):

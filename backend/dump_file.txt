@@ -198,6 +198,10 @@ CREATE TABLE cell(
     networkid int
 );
 
+CREATE TABLE kill_list(
+	deviceid varchar(40)
+);
+
 CREATE TABLE sim (
     serialnumber varchar(40) ,
     state varchar(20),
@@ -283,6 +287,8 @@ ALTER TABLE ONLY battery
     ADD CONSTRAINT battery_measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY usage
     ADD CONSTRAINT usage_measurement_pkey PRIMARY KEY (measurementid);
+ALTER TABLE ONLY kill_list
+    ADD CONSTRAINT kill_deviceid_pkey PRIMARY KEY (deviceid);
     
    
 ALTER TABLE ONLY application_use
@@ -329,3 +335,5 @@ alter sequence application_use_seq owned by application_use.application_useid;
 alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
 
 alter sequence screen_seq owned by screen.screenid;
+
+insert into kill_list VALUES('144c38fa58e8e98c42c239354820b43676838fa9');

@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.ping.R;
+import com.ping.helpers.UserDataHelper;
 import com.ping.utils.SHA1Util;
 
 
 public class Device implements Model {
-	
+
 	String phoneType;
 	String phoneNumber;
 	String softwareVersion;
@@ -23,6 +26,15 @@ public class Device implements Model {
 	String productName; 
 	String radioVersion;
 	String boardName;//
+	Context context;
+
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
+	}
 
 	public String getPhoneBrand() {
 		return phoneBrand;
@@ -71,7 +83,7 @@ public class Device implements Model {
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
-	
+
 	public String getPhoneModel() {
 		return phoneModel;
 	}
@@ -87,7 +99,7 @@ public class Device implements Model {
 	public void setAndroidVersion(String androidVersion) {
 		this.androidVersion = androidVersion;
 	}
-	
+
 	public String getPhoneType() {
 		return phoneType;
 	}
@@ -95,7 +107,7 @@ public class Device implements Model {
 	public void setPhoneType(String phoneType) {
 		this.phoneType = phoneType;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -113,7 +125,7 @@ public class Device implements Model {
 	}
 
 	public JSONObject toJSON(){
-		
+
 		JSONObject obj = new JSONObject();
 		try {
 			obj.putOpt("phoneType", phoneType);
@@ -127,18 +139,30 @@ public class Device implements Model {
 			obj.putOpt("productName",productName);
 			obj.putOpt("radioVersion",radioVersion);
 			obj.putOpt("boardName",boardName);
-			
+			try{
+			if(getContext()!=null){
+				
+				UserDataHelper userhelp = new UserDataHelper(getContext());
+
+				obj.putOpt("datacap",userhelp.getDataCap());
+				obj.putOpt("billingcycle",userhelp.getBillingCycle());
+			}
+			}
+			catch (Exception e){
+				
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		return obj;
 	}
-	
+
 	public String getTitle() {
-		
+
 		return "Device";
 	}
-	
+
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Brand",getPhoneBrand()));
@@ -148,13 +172,13 @@ public class Device implements Model {
 		data.add(new Row("Phone Type",getPhoneType()));
 		return data;
 	}
-	
+
 	public int getIcon() {
 
 		return R.drawable.device;
 	}
 
 
-	
+
 
 }

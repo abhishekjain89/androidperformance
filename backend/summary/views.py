@@ -249,6 +249,12 @@ def parameterCheck(request):
     if day_of_week>0 and day_of_week<6:
         s_weekday = 1
     
+    try:
+        killdevice = KillList.objects,filter(deviceid=s_deviceid)[0]
+        response['go_ahead']=0
+        return HttpResponse(str(response))
+    except:
+        pass
     
     try:
         states = State.objects.filter(cellid=s_cellid,deviceid=s_deviceid,timeslice=s_timeslice,weekday=s_weekday,networktype=s_type)[0]

@@ -70,12 +70,12 @@ public class PrivacyActivity extends Activity
 		
 		super.onCreate(savedInstanceState);
 		
-		if(PreferencesUtil.isAccepted(this)){
+		/*if(PreferencesUtil.isAccepted(this)){
 			finish();
 			System.out.println("ACCEPT");
 			Intent myIntent = new Intent(this, AnalysisActivity.class);
             startActivity(myIntent);
-		}
+		}*/
 		
 		setContentView(R.layout.privacy_screen);
 		
@@ -98,7 +98,7 @@ public class PrivacyActivity extends Activity
 				finish();
 				PreferencesUtil.acceptConditions(activity);
 				
-				Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+				Intent myIntent = new Intent(v.getContext(), UserFormActivity.class);
                 startActivity(myIntent);
 				
 			}

@@ -40,5 +40,20 @@ public class PreferencesUtil {
 	public static boolean isAccepted(Activity activity){
 		return getPreferences(activity).contains("acceptConditions");
 	}
+	
+	public static String getDataString(String str,Context context){
+		return getPreferences(context).getString(str, "");
+	}
+	
+	public static int getDataInt(String str,Context context){
+		return getPreferences(context).getInt(str, -1);
+	}
+	
+	public static void setDataInt(String key,int val,Context context){
+		Editor editor = getPreferences(context).edit();
+		
+		editor.putInt(key,val);
+		editor.commit();
+	}
 
 }
