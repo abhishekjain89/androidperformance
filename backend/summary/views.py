@@ -250,7 +250,7 @@ def parameterCheck(request):
         s_weekday = 1
     
     try:
-        killdevice = KillList.objects,filter(deviceid=s_deviceid)[0]
+        killdevice = KillList.objects.filter(deviceid=s_deviceid)[0]
         response['go_ahead']=0
         return HttpResponse(str(response))
     except:
