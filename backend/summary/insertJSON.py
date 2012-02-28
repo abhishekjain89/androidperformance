@@ -109,7 +109,7 @@ def network(dev,m):
                 result.cellid = parse(dev['cellId'])
             except:
                 pass
-            
+            print dev
             try:
                 result.celllac = parse(dev["cellLac"])
             except:
@@ -119,25 +119,27 @@ def network(dev,m):
             except:
                 pass
             try:
-                result.longitude= parse(dev["basestationLong"])
+                result.longitude= parseFloat(dev["basestationLong"],-99)
             except:
-                pass
+                result.longitude= -99
             try:
-                result.latitude= parse(dev["basestationLat"])
+                result.latitude= parseFloat(dev["basestationLat"],-99)
             except:
-                pass
+                result.latitude= -99
             try:
-                result.networkid= parse(dev["networkid"])
+                result.networkid= parseInt(dev["networkid"],-1)
             except:
-                pass
+                result.networkid= -1
+            
             try:
-                result.systemid= parse(dev["systemid"])
+                result.systemid= parseInt(dev["systemid"],-1)
             except:
-                pass
+                result.systemid= -1
             
             result.save()
             print "Cell inserted"
-        except:
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("cell",inst)
             pass
         
     try:        
@@ -418,8 +420,9 @@ def pings(pings,measurement):
         except:
             pass
         
-        
+        print "saved?"
         ping.save()
+        print "saved"
         
 
 def wifi(dev,m):
@@ -469,9 +472,25 @@ def wifi(dev,m):
     return w
 
 def parse(object):
-    print "ff"
-    print object
+   
     if object==None:
         return ''
     else:
         return object
+    
+def parseInt(object,backup):
+    
+    try:
+        a=int(object)
+        return object
+    except:
+        return backup
+    
+def parseFloat(object,backup):
+    object = parse(object)
+    try:
+        a=float(object)
+        return object
+    except:
+        return backup
+        
