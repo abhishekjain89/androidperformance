@@ -55,7 +55,7 @@ class WifiHotspot(models.Model):
 
 
 class Wifi(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     ipaddress = models.CharField(max_length=15)
     detailedinfo = models.CharField(max_length=40)
     rssi = models.IntegerField()
@@ -78,7 +78,7 @@ class WifiNeighbor(models.Model):
         db_table = u'wifi_neighbor'
 
 class Usage(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     total_sent = models.BigIntegerField()
     total_recv = models.BigIntegerField()
     total_till_now = models.BigIntegerField()
@@ -105,7 +105,7 @@ class ApplicationUse(models.Model):
         db_table = u'application_use'
 
 class Battery(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     technology = models.CharField(max_length=20)
     ispresent = models.IntegerField()
     plugged = models.IntegerField()
@@ -120,7 +120,7 @@ class Battery(models.Model):
 
 
 class Gps(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     altitude = models.FloatField()
@@ -140,7 +140,7 @@ class Link(models.Model):
         db_table = u'link'
 
 class Throughput(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     uplinkid = models.ForeignKey(Link,related_name='throughput_linkid',db_column='uplinkid')
     downlinkid = models.ForeignKey(Link,related_name='throughput_downlinkid',db_column='downlinkid')
     class Meta:
@@ -165,7 +165,7 @@ class Cell(models.Model):
 
 
 class Network(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     networkcountry = models.CharField(max_length=2)
     networkname = models.CharField(max_length=25)
     networktype = models.CharField(max_length=10)
@@ -183,7 +183,7 @@ class Network(models.Model):
 
 
 class State(models.Model):
-    measurementid = models.AutoField(primary_key=True)
+    measurementid = models.IntegerField(primary_key=True)
     cellid = models.CharField(max_length=20)
     deviceid = models.CharField(max_length=40)
     networktype = models.CharField(max_length=20)
