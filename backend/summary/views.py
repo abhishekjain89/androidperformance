@@ -118,7 +118,7 @@ def measurement(request):
         measurement.deviceid = details
         try:
             exist = Measurement.objects.filter(deviceid=details,time=m_time)[0]
-            #return HttpResponse(error_message_helper.duplicate_entry())
+            return HttpResponse(error_message_helper.duplicate_entry())
         except Exception as inst:
             pass
             
