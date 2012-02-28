@@ -10,6 +10,7 @@ import android.content.Context;
 import com.ping.helpers.DeviceHelper;
 import com.ping.helpers.PingHelper;
 import com.ping.listeners.ResponseListener;
+import com.ping.models.Address;
 import com.ping.models.Measurement;
 import com.ping.models.Ping;
 import com.ping.utils.HTTPUtil;
@@ -23,19 +24,19 @@ import com.ping.utils.HTTPUtil;
  * 
  */
 public class PingTask extends ServerTask{
-	String dstIp;
+	Address dst;
 	int count;
-	public PingTask(Context context, Map<String, String> reqParams, String dstIp, int count,
+	public PingTask(Context context, Map<String, String> reqParams, Address dst, int count,
 			ResponseListener listener) {
 		super(context, reqParams, listener);
-		this.dstIp = dstIp;
+		this.dst  = dst;
 		this.count = count;
 	}
 
 	@Override
 	public void runTask() {
 		
-		Ping ping = PingHelper.pingHelp(dstIp, count);
+		Ping ping = PingHelper.pingHelp(dst, count);
 		this.getResponseListener().onCompletePing(ping);
 	}
 

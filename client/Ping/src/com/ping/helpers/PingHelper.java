@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.ping.models.Address;
 import com.ping.models.Measure;
 import com.ping.models.Ping;
 import com.ping.utils.CommandLineUtil;
@@ -19,9 +20,9 @@ public class PingHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Ping pingHelp(String ip_address, int count) {
+	public static Ping pingHelp(Address address, int count) {
 		Ping p 			= null;
-		String ipDst 	= ip_address;
+		String ipDst 	= address.getIp();
 		String cmd 		= "ping";
 		String options 	= "-c " + count;
 		String output 	= "";
@@ -45,7 +46,7 @@ public class PingHelper {
 			e.printStackTrace();
 		} 
 		
-		p=new Ping(ipSrc, ipDst ,ping_measurement);
+		p=new Ping(ipSrc, address ,ping_measurement);
 		
 		
 		return p;

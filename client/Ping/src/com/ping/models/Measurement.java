@@ -209,7 +209,7 @@ public class Measurement implements Model{
 			str.add(""+(int)p.measure.getMax());
 			str.add(""+(int)p.measure.getMin());
 			str.add(""+(int)p.measure.getStddev());
-			data.add(new Row(p.getDstIp(),str));
+			data.add(new Row(p.getDst().getTagname(),str));
 		}
 		
 		return data;

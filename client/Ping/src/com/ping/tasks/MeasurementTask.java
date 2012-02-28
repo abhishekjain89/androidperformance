@@ -19,6 +19,7 @@ import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
 import com.ping.listeners.FakeListener;
 import com.ping.listeners.ResponseListener;
+import com.ping.models.Address;
 import com.ping.models.Battery;
 import com.ping.models.Device;
 import com.ping.models.GPS;
@@ -105,10 +106,10 @@ public class MeasurementTask extends ServerTask{
 		}
 		Log.v(this.toString(),"Binaries Installed");
 
-		String[] dstIps = Values.PING_SERVERS;
+		ArrayList<Address> dsts = Values.getPingServers();
 
-		for(int i=0;i<dstIps.length;i++)
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dstIps[i], 5, new MeasurementListener()));
+		for(Address dst : dsts)
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, new MeasurementListener()));
 		
