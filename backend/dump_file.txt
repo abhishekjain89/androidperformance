@@ -214,8 +214,10 @@ CREATE TABLE usage (
 	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
 	total_sent bigint ,
 	total_recv bigint ,
+	total_till_now bigint,
 	mobile_sent bigint ,
-	mobile_recv bigint 
+	mobile_recv bigint,
+	mobile_till_now bigint 
 );
 
 CREATE TABLE application (

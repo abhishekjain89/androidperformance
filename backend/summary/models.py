@@ -81,8 +81,10 @@ class Usage(models.Model):
     measurementid = models.AutoField(primary_key=True)
     total_sent = models.BigIntegerField()
     total_recv = models.BigIntegerField()
+    total_till_now = models.BigIntegerField()
     mobile_sent = models.BigIntegerField()
     mobile_recv = models.BigIntegerField()
+    mobile_till_now = models.BigIntegerField()
     class Meta:
         db_table = u'usage'
 

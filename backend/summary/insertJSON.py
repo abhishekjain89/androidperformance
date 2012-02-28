@@ -333,7 +333,7 @@ def usage(dev,m):
         except:
             pass
         try:
-            appUse.usageid= u
+            appUse.measurementid=m
         except:
             pass
 
@@ -423,7 +423,7 @@ def wifi(dev,m):
         
         wn = WifiNeighbor()     
         wn.macaddress = result
-        wn.wifiid = w
+        wn.measurementid = m
         if spot['isPreferred'] == 'true':
             wn.ispreferred = 1
         else:
