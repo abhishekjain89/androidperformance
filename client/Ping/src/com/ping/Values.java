@@ -1,12 +1,14 @@
 package com.ping;
+import java.util.ArrayList;
 
+import com.ping.models.*;
 
 public class Values{
 	
 	public static final int FREQUENCY_SECS = 15*60;
 	
 	
-	public static final int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //18 hours
+	public static final int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 	
 	public static final int UPLINKPORT=9912;
 	public static final int UPLINK_DURATION=25000;
@@ -37,8 +39,20 @@ public class Values{
 	public static final int THREADPOOL_KEEPALIVE_SEC = 30;
 	
 	public static final int[] SERVICE_FREQUENCY_MINS = {30,60,120,240};
+
 	
-	public static final String[] PING_SERVERS = {"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
+	public static ArrayList<Address> getPingServers(){
+		ArrayList<Address> PING_SERVERS = new ArrayList<Address>();
+		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA"));
+		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY"));
+		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA"));
+		PING_SERVERS.add(new Address("localhost", "localhost"));
+		PING_SERVERS.add(new Address("www.google.com", "Google"));
+		PING_SERVERS.add(new Address("www.facebook.com", "Facebook"));
+		return PING_SERVERS;
+	}
+	
+		//{"143.215.131.173", "143.225.229.254","128.48.110.150","localhost"};
 	//public static final String SERVERADDRESS="localhost";
 	
 	

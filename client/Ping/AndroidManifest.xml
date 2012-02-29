@@ -62,6 +62,12 @@
         <activity
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
+            android:name=".activities.UserFormActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
             android:name=".activities.RunActivity"
             android:screenOrientation="nosensor" >
             <uses-library android:name="com.google.android.maps" />

@@ -88,7 +88,7 @@ SELECT pg_catalog.setval('screen_seq', 1, false);
 
 
 CREATE TABLE gps(
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass),
+	measurementid integer,
 	latitude float ,
 	longitude float ,
 	altitude float 
@@ -102,7 +102,7 @@ CREATE TABLE wifi_hotspot(
 );
 
 CREATE TABLE wifi(
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass),
+	measurementid integer,
 	ipaddress varchar(15),
 	detailedinfo varchar(40),
 	rssi integer,
@@ -122,7 +122,7 @@ CREATE TABLE wifi_neighbor(
 );
 
 CREATE TABLE battery(
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+	measurementid integer,
 	technology varchar(20),
 	ispresent integer,
 	plugged integer,
@@ -146,7 +146,7 @@ CREATE TABLE link(
 );
 
 CREATE TABLE throughput(
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+	measurementid integer,
 	uplinkid integer DEFAULT nextval('link_seq'::regclass) ,
 	downlinkid integer DEFAULT nextval('link_seq'::regclass) 
 );
@@ -175,7 +175,7 @@ CREATE TABLE screen (
 );
 
 CREATE TABLE network (
-    measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+    measurementid integer,
     networkcountry varchar(2),
     networkname varchar(25),
     networktype varchar(10),
@@ -190,7 +190,16 @@ CREATE TABLE network (
 
 CREATE TABLE cell(
 	cellid varchar(20),
-    celllac varchar(20)
+	celltype varchar(10),
+    celllac varchar(20),
+    longitude float,
+    latitude float,
+    systemid int,
+    networkid int
+);
+
+CREATE TABLE kill_list(
+	deviceid varchar(40)
 );
 
 CREATE TABLE sim (
@@ -211,11 +220,13 @@ CREATE TABLE measurement (
 );
 
 CREATE TABLE usage (
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+	measurementid integer,
 	total_sent bigint ,
 	total_recv bigint ,
+	total_till_now bigint,
 	mobile_sent bigint ,
-	mobile_recv bigint 
+	mobile_recv bigint,
+	mobile_till_now bigint 
 );
 
 CREATE TABLE application (
@@ -233,7 +244,7 @@ CREATE TABLE application_use (
 );
 
 CREATE TABLE state (
-	measurementid integer DEFAULT nextval('measurement_seq'::regclass) ,
+	measurementid integer,
 	cellid varchar(20),
 	networktype varchar(20),
 	deviceid varchar(40),
@@ -276,6 +287,8 @@ ALTER TABLE ONLY battery
     ADD CONSTRAINT battery_measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY usage
     ADD CONSTRAINT usage_measurement_pkey PRIMARY KEY (measurementid);
+ALTER TABLE ONLY kill_list
+    ADD CONSTRAINT kill_deviceid_pkey PRIMARY KEY (deviceid);
     
    
 ALTER TABLE ONLY application_use
@@ -322,3 +335,5 @@ alter sequence application_use_seq owned by application_use.application_useid;
 alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
 
 alter sequence screen_seq owned by screen.screenid;
+
+insert into kill_list VALUES('144c38fa58e8e98c42c239354820b43676838fa9');

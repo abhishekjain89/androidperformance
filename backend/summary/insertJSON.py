@@ -101,11 +101,45 @@ def network(dev,m):
      
     try:
         result = Cell.objects.filter(cellid=parse(dev['cellId']))[0]
+        
     except:
         try:
-            result = Cell(cellid=parse(dev['cellId']),celllac = parse(dev["cellLac"]))
+            result = Cell()
+            try:
+                result.cellid = parse(dev['cellId'])
+            except:
+                pass
+            print dev
+            try:
+                result.celllac = parse(dev["cellLac"])
+            except:
+                pass
+            try:
+                result.celltype= parse(dev["cellType"])
+            except:
+                pass
+            try:
+                result.longitude= parseFloat(dev["basestationLong"],-99)
+            except:
+                result.longitude= -99
+            try:
+                result.latitude= parseFloat(dev["basestationLat"],-99)
+            except:
+                result.latitude= -99
+            try:
+                result.networkid= parseInt(dev["networkid"],-1)
+            except:
+                result.networkid= -1
+            
+            try:
+                result.systemid= parseInt(dev["systemid"],-1)
+            except:
+                result.systemid= -1
+            
             result.save()
-        except:
+            print "Cell inserted"
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("cell",inst)
             pass
         
     try:        
@@ -333,7 +367,7 @@ def usage(dev,m):
         except:
             pass
         try:
-            appUse.usageid= u
+            appUse.measurementid=m
         except:
             pass
 
@@ -386,8 +420,9 @@ def pings(pings,measurement):
         except:
             pass
         
-        
+        print "saved?"
         ping.save()
+        print "saved"
         
 
 def wifi(dev,m):
@@ -423,7 +458,7 @@ def wifi(dev,m):
         
         wn = WifiNeighbor()     
         wn.macaddress = result
-        wn.wifiid = w
+        wn.measurementid = m
         if spot['isPreferred'] == 'true':
             wn.ispreferred = 1
         else:
@@ -437,9 +472,25 @@ def wifi(dev,m):
     return w
 
 def parse(object):
-    print "ff"
-    print object
+   
     if object==None:
         return ''
     else:
         return object
+    
+def parseInt(object,backup):
+    
+    try:
+        a=int(object)
+        return object
+    except:
+        return backup
+    
+def parseFloat(object,backup):
+    object = parse(object)
+    try:
+        a=float(object)
+        return object
+    except:
+        return backup
+        

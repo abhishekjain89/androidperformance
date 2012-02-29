@@ -25,6 +25,7 @@ public class DeviceUtil {
 	
 	public Device getDeviceDetail(Context context,Measurement measurement) {
 		Device dev = new Device();
+		dev.setContext(context);
 		String srvnName = Context.TELEPHONY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 	

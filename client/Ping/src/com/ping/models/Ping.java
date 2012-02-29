@@ -15,17 +15,18 @@ public class Ping implements Model{
 
 	
 	String srcIp;
-	String dstIp;
+	
+	Address dst;
 	Measure measure;
 	
 	String time;
 	
-	public Ping(String scrIp, String dstIp, Measure measure) {
+	public Ping(String scrIp, Address dst, Measure measure) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		
 		this.srcIp=scrIp;
-		this.dstIp=dstIp;
+		this.dst = dst;
 		this.measure = measure;		
 		
 
@@ -35,20 +36,20 @@ public class Ping implements Model{
 	    this.time = utcTime;
 	}
 	
+	public Address getDst() {
+		return dst;
+	}
+
+	public void setDst(Address dst) {
+		this.dst = dst;
+	}
+
 	public String getSrcIp() {
 		return srcIp;
 	}
 
 	public void setSrcIp(String srcIp) {
 		this.srcIp = srcIp;
-	}
-
-	public String getDstIp() {
-		return dstIp;
-	}
-
-	public void setDstIp(String dstIp) {
-		this.dstIp = dstIp;
 	}
 
 	public Measure getMeasure() {
@@ -65,7 +66,7 @@ public class Ping implements Model{
 		try {
 			
 			obj.putOpt("src_ip", srcIp);
-			obj.putOpt("dst_ip", dstIp);
+			obj.putOpt("dst_ip", dst.getIp());
 			obj.putOpt("time", time);
 			obj.putOpt("measure", measure.toJSON());
 			

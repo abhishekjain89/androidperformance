@@ -73,7 +73,7 @@ public class PrivacyActivity extends Activity
 		if(PreferencesUtil.isAccepted(this)){
 			finish();
 			System.out.println("ACCEPT");
-			Intent myIntent = new Intent(this, AnalysisActivity.class);
+			Intent myIntent = new Intent(this, UserFormActivity.class);
             startActivity(myIntent);
 		}
 		
@@ -98,7 +98,7 @@ public class PrivacyActivity extends Activity
 				finish();
 				PreferencesUtil.acceptConditions(activity);
 				
-				Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+				Intent myIntent = new Intent(v.getContext(), UserFormActivity.class);
                 startActivity(myIntent);
 				
 			}
