@@ -42,7 +42,7 @@ public class Session extends Application{
 	
 	public void incrementThroughput(){
 		throughput_count++;
-		throughput_count%=4;
+		throughput_count%=Values.THROUGHPUT_FREQ;
 	}
 	
 	public void decrementThroughput(){
