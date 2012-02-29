@@ -9,9 +9,8 @@ import com.ping.R;
 
 public class Network implements Model{
 
-	String networkCountry = "";
+	
 	String networkOperatorId ="";
-	String networkName ="";
 	String networkType = "";
 	String connectionType = "";
 	String mobileNetworkInfo = "";
@@ -64,23 +63,11 @@ public class Network implements Model{
 	public void setSignalStrength(String signalStrength) {
 		this.signalStrength = signalStrength;
 	}
-	public String getNetworkCountry() {
-		return networkCountry;
-	}
-	public void setNetworkCountry(String networkCountry) {
-		this.networkCountry = networkCountry;
-	}
 	public String getNetworkOperatorId() {
 		return networkOperatorId;
 	}
 	public void setNetworkOperatorId(String networkOperatorId) {
 		this.networkOperatorId = networkOperatorId;
-	}
-	public String getNetworkName() {
-		return networkName;
-	}
-	public void setNetworkName(String networkName) {
-		this.networkName = networkName;
 	}
 	public String getNetworkType() {
 		return networkType;
@@ -134,9 +121,7 @@ public class Network implements Model{
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.putOpt("networkCountry", networkCountry);
 			obj.putOpt("networkOperatorId", networkOperatorId);
-			obj.putOpt("networkName", networkName);
 			obj.putOpt("networkType", networkType);
 			obj.putOpt("connectionType", connectionType);
 			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);

@@ -55,12 +55,14 @@ public class MeasurementTask extends ServerTask{
 	ThreadPoolHelper serverhelper;
 	boolean doGPS;
 	boolean doThroughput;
+	boolean isManual;
 	
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
-			ResponseListener listener) {
+			boolean isManual, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 		this.doGPS = doGPS;
 		this.doThroughput = doThroughput;
+		this.isManual = isManual;
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 	Measurement measurement; 

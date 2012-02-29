@@ -9,18 +9,18 @@ import com.ping.R;
 
 public class WifiPreference implements Model{
 
-	public String id;
-	public String protocols;
-	public String ssid;
-	public int priority;
-	public int networkid;
-	public int status;
-	public String pairwiseCiphers;
-	public String groupCiphers;
-	public String authAlgorithms;
-	public String bssid;
-	public String keyMgmt;
-	public boolean isConnected;
+	public String id = "";
+	public String protocols = "";
+	public String ssid = "";
+	public int priority = -1;
+	public int networkid = -1;
+	public int status = -1;
+	public String pairwiseCiphers = "";
+	public String groupCiphers = "";
+	public String authAlgorithms = "";
+	public String bssid = "";
+	public String keyMgmt = "";
+	public boolean isConnected = false;
 	
 	public String getId() {
 		return id;

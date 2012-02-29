@@ -14,12 +14,12 @@ import com.ping.R;
 public class Ping implements Model{
 
 	
-	String srcIp;
+	String srcIp = "";
 	
 	Address dst;
 	Measure measure;
 	
-	String time;
+	String time = "";
 	
 	public Ping(String scrIp, Address dst, Measure measure) {
 		//from an activity object, to get the device id :

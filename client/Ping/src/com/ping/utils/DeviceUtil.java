@@ -89,6 +89,13 @@ public class DeviceUtil {
 		String boardName = android.os.Build.BOARD;
 		dev.setBoardName(boardName);
 		
+		// Get connected network country ISO code
+		String networkCountry = telephonyManager.getNetworkCountryIso();
+		dev.setNetworkCountry(networkCountry);
+
+		// Get the connected network operator name // Carrier
+		String networkName = telephonyManager.getNetworkOperatorName();
+		dev.setNetworkName(networkName);
 		return dev;
 	}
 	
@@ -150,17 +157,9 @@ public class DeviceUtil {
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
 		boolean isWIFI = false;		
 		
-		// Get connected network country ISO code
-		String networkCountry = telephonyManager.getNetworkCountryIso();
-		dev.setNetworkCountry(networkCountry);
-		
 		// Get the connected network operator ID (MCC + MNC)
 		String networkOperatorId = telephonyManager.getNetworkOperator();
 		dev.setNetworkOperatorId(networkOperatorId);
-		
-		// Get the connected network operator name // Carrier
-		String networkName = telephonyManager.getNetworkOperatorName();
-		dev.setNetworkName(networkName);
 		
 		int networkType2 = connectivity.getActiveNetworkInfo().getType();
 		NetworkInfo[] allInfo = connectivity.getAllNetworkInfo();

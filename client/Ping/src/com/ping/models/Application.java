@@ -12,11 +12,11 @@ import com.ping.listeners.ResponseListener;
 import android.graphics.drawable.Drawable;
 
 public class Application implements Model,Comparable<Application>{
-	private String name;
-	private String packageName;
-	private long total_sent;
-	private long total_recv;
-	private boolean isRunning;
+	private String name = "";
+	private String packageName = "";
+	private long total_sent = -1;
+	private long total_recv = -1;
+	private boolean isRunning = false;
 	private Drawable icon;
 
 	public Drawable getAppIcon() {

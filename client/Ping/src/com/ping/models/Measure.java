@@ -8,10 +8,10 @@ import com.ping.R;
 
 public class Measure implements Model{
 	
-	double max;
-	double min;
-	double average;
-	double stddev;
+	double max = -1;
+	double min = -1;
+	double average = -1;
+	double stddev = -1;
 	
 	public Measure(double max, double min, double average, double stddev){
 		this.max = max;

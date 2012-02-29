@@ -11,13 +11,13 @@ import com.ping.utils.SHA1Util;
 public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	
 
-	String ssid;
-	String macAddress;
-	int signalLevel;
-	int frequency;
-	String capability;
-	boolean isConnected;
-	boolean isPreferred;
+	String ssid = "";
+	String macAddress = "";
+	int signalLevel = -1;
+	int frequency = -1;
+	String capability = "";
+	boolean isConnected = false;
+	boolean isPreferred = false;
 	
 	public String getSSID() {
 		return ssid;
