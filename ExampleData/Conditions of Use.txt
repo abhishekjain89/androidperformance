@@ -15,4 +15,4 @@ APPLICABLE LAW
 By using Ping, you agree that the laws of the state of Georgia, USA, without regard to principles of conflict of laws, will govern any dispute of any sort that might arise between you and the Ping team. 
 
 QUESTIONS:
-Questions regarding our source code, suggestions, reviews, Privacy Policy, or other policy related material can be directed to by emailing us at: projectping@gmail.com.
+Questions regarding our source code, suggestions, reviews, Privacy Policy, or other policy related material can be directed to us by emailing us at: projectping@gmail.com.
