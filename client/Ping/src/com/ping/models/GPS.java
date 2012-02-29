@@ -10,9 +10,9 @@ import com.ping.R;
 
 public class GPS implements Model {
 	
-	String latitude; 
-	String longitude;
-	String altitude;
+	String latitude = ""; 
+	String longitude = "";
+	String altitude = "";
 	
 	public GPS() {
 		

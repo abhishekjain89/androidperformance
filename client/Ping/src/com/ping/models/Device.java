@@ -11,19 +11,19 @@ import com.ping.utils.SHA1Util;
 
 public class Device implements Model {
 	
-	String phoneType;
-	String phoneNumber;
-	String softwareVersion;
+	String phoneType = "";
+	String phoneNumber = "";
+	String softwareVersion = "";
 
-	String phoneModel;//
-	String androidVersion;
-	String phoneBrand; 
-	String deviceDesign;// 
-	String manufacturer; 
-	String productName; 
-	String radioVersion;
-	String boardName;//
-
+	String androidVersion = "";
+	String phoneBrand = ""; 
+	String manufacturer = ""; 
+	String productName = ""; 
+	String radioVersion = "";
+	String boardName = "";//
+	String deviceDesign = "";// 
+	String phoneModel = "";//
+	
 	public String getPhoneBrand() {
 		return phoneBrand;
 	}

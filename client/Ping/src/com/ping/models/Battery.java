@@ -13,15 +13,15 @@ import com.ping.utils.BatteryUtil;
 
 public class Battery  implements Model{
 	
-	boolean isPresent;
-	String technology;
-	int plugged;
-	int scale;
-	int health;
-	int voltage;
-	int level;
-	int temperature;
-	int status;
+	boolean isPresent = false;
+	String technology = "";
+	int plugged = -1;
+	int scale = -1;
+	int health = -1;
+	int voltage = -1;
+	int level = -1;
+	int temperature = -1;
+	int status = -1;
 	
 	
 
