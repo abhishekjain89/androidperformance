@@ -1,0 +1,18 @@
+Conditions of Use
+Welcome to our application - Ping! Team Ping provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully. 
+
+
+PRIVACY
+Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses. 
+
+OWNERSHIP
+All content included on the application, such as text, button icons, images, data compilations, source code, and software, is the property of the Georgia Institute of Technology.
+
+LICENSE AND APPLICATION USAGE
+The Ping team grants you a limited license to access and make personal use of this application and not to modify it, or any portion of it. The source code may be accessed for viewing purposes or copied as long as modifications are not made directly to the source code. This license does not include any sale or commercial use of this application or its contents. This application or any portion of its code may not be sold, resold, or otherwise exploited for any commercial purpose. Any unauthorized use terminates the permission or license granted by the Ping team. You are granted a limited, revocable, and nonexclusive right to create a hyperlink to the android marketplace page of Ping so long as the link does not portray the Georgia Institute of Technology, the Ping application or members of the Ping team in a false, misleading, derogatory, or otherwise offensive matter. 
+
+APPLICABLE LAW
+By using Ping, you agree that the laws of the state of Georgia, USA, without regard to principles of conflict of laws, will govern any dispute of any sort that might arise between you and the Ping team. 
+
+QUESTIONS:
+Questions regarding our source code, suggestions, reviews, Privacy Policy, or other policy related material can be directed to by emailing us at: projectping@gmail.com.
