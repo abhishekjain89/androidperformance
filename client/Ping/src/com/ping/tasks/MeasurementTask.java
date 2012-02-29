@@ -55,8 +55,14 @@ public class MeasurementTask extends ServerTask{
 	ThreadPoolHelper serverhelper;
 	boolean doGPS;
 	boolean doThroughput;
-	boolean isManual;
-	
+	boolean isManual = false;
+	Measurement measurement; 
+	ArrayList<Ping> pings = new ArrayList<Ping>();
+	public boolean gpsRunning  = false;
+	public boolean signalRunning = false;
+	public boolean wifiRunning = false;
+	public long startTime = 0;
+
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
 			boolean isManual, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
@@ -65,12 +71,6 @@ public class MeasurementTask extends ServerTask{
 		this.isManual = isManual;
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
 	}
-	Measurement measurement; 
-	ArrayList<Ping> pings = new ArrayList<Ping>();
-	public boolean gpsRunning  = false;
-	public boolean signalRunning = false;
-	public boolean wifiRunning = false;
-	public long startTime = 0;
 	
 	public void killAll(){
 		try{
@@ -84,6 +84,7 @@ public class MeasurementTask extends ServerTask{
 	public void runTask() {
 
 		measurement = new Measurement();
+		measurement.setManual(isManual);
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		//android.os.Debug.startMethodTracing("lsd");
 
@@ -212,18 +213,22 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		HTTPUtil http = new HTTPUtil();
-
+		String isSuccess = "Failure";
 		try {
 			
 			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
 			System.out.println(object.toString());
 			System.out.println(output);
 			session.screenBuffer = new ArrayList<Screen>();
-
+			isSuccess = "Success";
 		} catch (Exception e) {
 			e.printStackTrace();
+			isSuccess = "Failure";
 		}
-		
+		if (isManual) {
+			new MeasurementListener().makeToast(isSuccess);
+
+		}
 		
 
 	}

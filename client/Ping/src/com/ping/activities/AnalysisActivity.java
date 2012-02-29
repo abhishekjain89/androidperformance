@@ -2,39 +2,32 @@ package com.ping.activities;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ping.R;
 import com.ping.Session;
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
-import com.ping.listeners.ResponseListener;
 import com.ping.models.Battery;
 import com.ping.models.Device;
 import com.ping.models.GPS;
 import com.ping.models.Measurement;
-import com.ping.models.Model;
 import com.ping.models.Network;
 import com.ping.models.Ping;
 import com.ping.models.Row;
@@ -42,9 +35,6 @@ import com.ping.models.Sim;
 import com.ping.models.Throughput;
 import com.ping.models.Usage;
 import com.ping.models.Wifi;
-import com.ping.services.PerformanceServiceAll;
-import com.ping.tasks.InstallBinariesTask;
-import com.ping.tasks.MeasurementTask;
 import com.ping.tasks.SummaryTask;
 import com.ping.ui.UIUtil;
 import com.ping.ui.adapter.ItemAdapter;
@@ -155,8 +145,7 @@ public class AnalysisActivity extends Activity
 		}
 
 		public void makeToast(String text) {
-			// TODO Auto-generated method stub
-			
+			Toast.makeText(getApplicationContext(), text, 10);
 		}
 
 		public void onCompleteSignal(String signalStrength) {
