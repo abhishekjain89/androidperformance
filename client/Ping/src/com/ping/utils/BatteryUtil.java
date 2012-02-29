@@ -99,8 +99,13 @@ public class BatteryUtil {
 
 	private void registerBatteryLevelReceiver(Context context){
 		IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-
+		try{
 		context.registerReceiver(battery_receiver, filter);
+		}
+		catch(Exception e){
+			context.unregisterReceiver(battery_receiver);
+			context.registerReceiver(battery_receiver, filter);
+		}
 	}
 	
 	public String batteryStatus(int v){
