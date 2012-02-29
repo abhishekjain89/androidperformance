@@ -25,5 +25,9 @@ public class UserDataHelper {
 	public void setBillingCycle(int billingCycle) {
 		PreferencesUtil.setDataInt("billingcycle", billingCycle, context);
 	}
+	
+	public boolean isFilled(){		
+		return PreferencesUtil.contains("datacap", context) && PreferencesUtil.contains("billingcycle", context);
+	}
 
 }

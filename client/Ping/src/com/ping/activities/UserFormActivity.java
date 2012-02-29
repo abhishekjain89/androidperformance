@@ -73,7 +73,13 @@ public class UserFormActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
+		UserDataHelper userhelp = new UserDataHelper(this);
+		
+		if(userhelp.isFilled()){
+			finish();
+			Intent myIntent = new Intent(this, AnalysisActivity.class);
+			startActivity(myIntent);
+		}
 
 		setContentView(R.layout.userform_screen);
 

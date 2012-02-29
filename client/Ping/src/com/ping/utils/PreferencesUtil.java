@@ -41,6 +41,10 @@ public class PreferencesUtil {
 		return getPreferences(activity).contains("acceptConditions");
 	}
 	
+	public static boolean contains(String key,Context context){
+		return getPreferences(context).contains(key);
+	}
+	
 	public static String getDataString(String str,Context context){
 		return getPreferences(context).getString(str, "");
 	}
