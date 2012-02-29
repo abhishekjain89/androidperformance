@@ -15,10 +15,10 @@ public class Usage implements Model{
 
 
 	public List<Application> applications;
-	private long total_sent;
-	private long total_recv;
-	private long mobile_sent;
-	private long mobile_recv;
+	private long total_sent = -1;
+	private long total_recv = -1;
+	private long mobile_sent = -1;
+	private long mobile_recv = -1;
 	
 
 

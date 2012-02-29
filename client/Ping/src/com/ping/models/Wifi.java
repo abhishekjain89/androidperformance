@@ -12,16 +12,16 @@ import com.ping.utils.SHA1Util;
 
 public class Wifi implements Model{
 
-	public int strength;	
-	public int ipAddress;
-	public int speed;
-	public int networkId;
-	public int rssi;
-	public String macAddress;
-	public String ssid;				
-	public String detailedInfo;
-	public String units;
-	public boolean isPreferred;
+	public int strength = -1;	
+	public int ipAddress = -1;
+	public int speed = -1;
+	public int networkId = -1;
+	public int rssi = -1;
+	public String macAddress = "";
+	public String ssid = "";				
+	public String detailedInfo = "";
+	public String units = "";
+	public boolean isPreferred = false;
 	public ArrayList<WifiNeighbor> neighbors;
 	public ArrayList<WifiPreference> preference;
 

@@ -8,8 +8,8 @@ import com.ping.utils.SHA1Util;
 
 public class Screen implements Model {
 	
-	public String time;
-	public String localtime;
+	public String time = "";
+	public String localtime = "";
 	
 	
 	public String getLocaltime() {

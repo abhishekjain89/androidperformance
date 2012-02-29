@@ -13,8 +13,6 @@ import com.ping.utils.SHA1Util;
 
 
 public class Device implements Model {
-<<<<<<< HEAD
-	
 	String phoneType = "";
 	String phoneNumber = "";
 	String softwareVersion = "";
@@ -28,22 +26,23 @@ public class Device implements Model {
 	String deviceDesign = "";// 
 	String phoneModel = "";//
 	
-=======
-
-	String phoneType;
-	String phoneNumber;
-	String softwareVersion;
-
-	String phoneModel;//
-	String androidVersion;
-	String phoneBrand; 
-	String deviceDesign;// 
-	String manufacturer; 
-	String productName; 
-	String radioVersion;
-	String boardName;//
 	Context context;
 
+	String networkCountry = "";
+	String networkName ="";
+
+	public String getNetworkCountry() {
+		return networkCountry;
+	}
+	public String getNetworkName() {
+		return networkName;
+	}
+	public void setNetworkCountry(String networkCountry) {
+		this.networkCountry = networkCountry;
+	}
+	public void setNetworkName(String networkName) {
+		this.networkName = networkName;
+	}
 	public Context getContext() {
 		return context;
 	}
@@ -52,7 +51,6 @@ public class Device implements Model {
 		this.context = context;
 	}
 
->>>>>>> f9ab95bbf1d8d82a0681e7420ef602df1cd84d9e
 	public String getPhoneBrand() {
 		return phoneBrand;
 	}
@@ -156,6 +154,8 @@ public class Device implements Model {
 			obj.putOpt("productName",productName);
 			obj.putOpt("radioVersion",radioVersion);
 			obj.putOpt("boardName",boardName);
+			obj.putOpt("networkCountry", networkCountry);
+			obj.putOpt("networkName", networkName);
 			try{
 			if(getContext()!=null){
 				

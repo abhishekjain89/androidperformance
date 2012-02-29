@@ -129,7 +129,7 @@ public class PerformanceServiceAll extends Service{
 			serverhelper.execute(new ParameterTask(context,(new Listener())));
 		}
 		else{
-			serverhelper.execute(new MeasurementTask(context,doGPS,false, new FakeListener()));
+			serverhelper.execute(new MeasurementTask(context,doGPS,false, false, new FakeListener()));
 		}
 
 		Log.i(TAG,"GPS:"+session.gps_count + " Throughput:" + session.throughput_count);
@@ -232,7 +232,7 @@ public class PerformanceServiceAll extends Service{
 		private Handler ThroughputHandler = new Handler() {
 			public void  handleMessage(Message msg) {
 				try {
-					serverhelper.execute(new MeasurementTask(context,doGPS,true,new FakeListener()));
+					serverhelper.execute(new MeasurementTask(context,doGPS,true, false,new FakeListener()));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -243,7 +243,7 @@ public class PerformanceServiceAll extends Service{
 		private Handler NoThroughputHandler = new Handler() {
 			public void  handleMessage(Message msg) {
 				try {
-					serverhelper.execute(new MeasurementTask(context,doGPS,false,new FakeListener()));
+					serverhelper.execute(new MeasurementTask(context,doGPS,false, false,new FakeListener()));
 
 				} catch (Exception e) {
 					e.printStackTrace();
