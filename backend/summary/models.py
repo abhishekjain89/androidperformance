@@ -31,6 +31,11 @@ class Device(models.Model):
     productname = models.CharField(max_length=20)
     radioversion = models.CharField(max_length=20)
     boardname = models.CharField(max_length=20)
+    serialnumber = models.ForeignKey(Sim, to_field='serialnumber', db_column='serialnumber')
+    datacap = models.IntegerField()
+    billingcycle = models.IntegerField()
+    networkcountry = models.CharField(max_length=2)
+    networkname = models.CharField(max_length=25)
     class Meta:
         db_table = u'device'
         
@@ -39,8 +44,6 @@ class Measurement(models.Model):
     time = models.DateTimeField()
     localtime = models.DateTimeField()
     deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
-    serialnumber = models.ForeignKey(Sim, to_field='serialnumber', db_column='serialnumber')
-    
     
     class Meta:
         db_table = u'measurement'
@@ -176,8 +179,6 @@ class KillList(models.Model):
 
 class Network(models.Model):
     measurementid = models.IntegerField(primary_key=True)
-    networkcountry = models.CharField(max_length=2)
-    networkname = models.CharField(max_length=25)
     networktype = models.CharField(max_length=10)
     connectiontype = models.CharField(max_length=10)
     mobilenetworkinfo = models.TextField()

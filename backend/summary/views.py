@@ -118,22 +118,18 @@ def measurement(request):
         measurement.deviceid = details
         try:
             exist = Measurement.objects.filter(deviceid=details,time=m_time)[0]
-            return HttpResponse(error_message_helper.duplicate_entry())
+            #return HttpResponse(error_message_helper.duplicate_entry())
         except Exception as inst:
             pass
-            
-            
+    except:
+        pass
         
-    except Exception as inst:
-        details=insertJSON.device(m_device,m_deviceid)
-        measurement.deviceid = details
-    
     try:
-        sim=insertJSON.sim(m_sim)
-        measurement.serialnumber = sim
+        details=insertJSON.device(m_device,m_deviceid,m_sim)
+        measurement.deviceid = details
     except Exception as inst:
-        message.append(error_message_helper.insert_entry_fail("sim",inst))
-    
+       message.append(error_message_helper.insert_entry_fail("device",inst))
+        
     measurement.save();
     
     try:

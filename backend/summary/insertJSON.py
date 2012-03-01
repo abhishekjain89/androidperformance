@@ -11,12 +11,13 @@ import ast
 import error_message_helper
 
 
-def device(dev,m_deviceid):
+def device(dev,m_deviceid,m_sim):
     
     count=0
     d = Device(deviceid = m_deviceid,phonenumber=dev['phoneNumber'])
     
     try:
+        
         try:
             d.phonetype = dev['phoneType']
         except:
@@ -58,6 +59,31 @@ def device(dev,m_deviceid):
             d.boardname = dev['boardName']
         except:
             pass
+        try:
+            d.datacap = dev['datacap']
+        except:
+            pass
+        try:
+            d.billingcycle = dev['billingcycle']
+        except:
+            pass
+        try:
+            d.networkcountry = dev["networkCountry"]
+        except:
+            pass
+        try:
+            d.networkname = dev["networkName"]
+        except:
+            pass
+        
+        try:
+            
+            s =sim(m_sim);
+            d.serialnumber = s
+        except Exception as inst:
+            print type(inst)     # the exception instance
+            print inst    
+            print error_message_helper.insert_entry_fail("sim",inst) 
         
         d.save()
 	
@@ -76,14 +102,6 @@ def network(dev,m):
     n = Network()
     try:
         n.measurementid = m.measurementid
-    except:
-        pass
-    try:
-        n.networkcountry = dev["networkCountry"]
-    except:
-        pass
-    try:
-        n.networkname = dev["networkName"]
     except:
         pass
     try:                
@@ -109,7 +127,7 @@ def network(dev,m):
                 result.cellid = parse(dev['cellId'])
             except:
                 pass
-            print dev
+            
             try:
                 result.celllac = parse(dev["cellLac"])
             except:
@@ -169,6 +187,7 @@ def sim(dev):
     
     count=0
     s = Sim()
+    
     try:
         s.serialnumber = dev["serialNumber"]
     except:
@@ -189,7 +208,6 @@ def sim(dev):
         s.networkcountry = dev["networkCountry"]
     except:
         pass
-    
     
     s.save()
     print "Sim inserted"
@@ -420,9 +438,8 @@ def pings(pings,measurement):
         except:
             pass
         
-        print "saved?"
         ping.save()
-        print "saved"
+    
         
 
 def wifi(dev,m):
