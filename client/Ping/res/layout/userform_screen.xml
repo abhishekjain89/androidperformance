@@ -97,14 +97,14 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:weightSum="2" >
 
             <TextView
                 android:id="@+id/billingCycleLabel"
                 android:layout_width="188dp"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Billing Cycle"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -112,14 +112,8 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="70dp"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <Button
-                    android:id="@+id/plus"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/plus" />
 
                 <EditText
                     android:id="@+id/billingCycle"
@@ -128,23 +122,21 @@
                     android:layout_margin="0dp"
                     android:inputType="phone"
                     android:text="1" >
+
+                    <requestFocus />
                 </EditText>
 
-                <Button
-                    android:id="@+id/minus"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/minus" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/meta"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="of each month"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="13dp" />
+
         </LinearLayout>
 
         <Button
