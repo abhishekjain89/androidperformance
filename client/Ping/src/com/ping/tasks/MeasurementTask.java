@@ -13,7 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.ping.Session;
+
 import com.ping.Values;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
@@ -56,12 +56,13 @@ public class MeasurementTask extends ServerTask{
 	boolean doGPS;
 	boolean doThroughput;
 	
+	
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 		this.doGPS = doGPS;
 		this.doThroughput = doThroughput;
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
 	}
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
@@ -84,19 +85,20 @@ public class MeasurementTask extends ServerTask{
 		measurement = new Measurement();
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		//android.os.Debug.startMethodTracing("lsd");
-
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		Values session = this.getValues();
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
+		
 
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
 		try {
-			Thread.sleep(Values.SHORT_SLEEP_TIME);
+			Thread.sleep(session.SHORT_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(Values.SHORT_SLEEP_TIME);
+				Thread.sleep(session.SHORT_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				this.killAll();
 				return;
@@ -106,7 +108,7 @@ public class MeasurementTask extends ServerTask{
 		}
 		Log.v(this.toString(),"Binaries Installed");
 
-		ArrayList<Address> dsts = Values.getPingServers();
+		ArrayList<Address> dsts = session.getPingServers();
 
 		for(Address dst : dsts)
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
@@ -116,7 +118,7 @@ public class MeasurementTask extends ServerTask{
 		startTime = System.currentTimeMillis();
 		
 		try {
-			Thread.sleep(Values.NORMAL_SLEEP_TIME);
+			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			this.killAll();
 			return;
@@ -124,7 +126,7 @@ public class MeasurementTask extends ServerTask{
 		
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
+				Thread.sleep(session.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				this.killAll();
 				return;	
@@ -144,9 +146,9 @@ public class MeasurementTask extends ServerTask{
 		SignalHandler.sendEmptyMessage(0);
 
 
-		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<Values.GPS_TIMEOUT){
+		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
 			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
+				Thread.sleep(session.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				return;
 			}
@@ -169,7 +171,7 @@ public class MeasurementTask extends ServerTask{
 		}
 		
 		try {
-			Thread.sleep(Values.NORMAL_SLEEP_TIME);
+			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
 			this.killAll();
 			return;
@@ -177,7 +179,7 @@ public class MeasurementTask extends ServerTask{
 		
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
+				Thread.sleep(session.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				this.killAll();
 				return;
@@ -192,7 +194,7 @@ public class MeasurementTask extends ServerTask{
 		}
 		
 		ArrayList<Screen> scrs = new ArrayList<Screen>();
-		Session session = (Session) getContext().getApplicationContext();
+		
 		ArrayList<Screen> buffer = session.screenBuffer;
 		for(Screen s: buffer)
 			scrs.add(s);

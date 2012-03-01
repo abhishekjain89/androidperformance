@@ -2,7 +2,7 @@ package com.ping.receivers;
 
 
 
-import com.ping.Session;
+import com.ping.Values;
 import com.ping.models.Screen;
 import com.ping.utils.DeviceUtil;
 
@@ -14,12 +14,12 @@ public class ScreenReceiver extends BroadcastReceiver {
      
     // thanks Jason
     public static boolean wasScreenOn = true;
-    Session session;
+    Values session;
     
     
     @Override
     public void onReceive(Context context, Intent intent) {
-    	session = (Session) context.getApplicationContext();
+    	session = (Values) context.getApplicationContext();
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
         	
         	session.AddScreen(false);

@@ -25,6 +25,7 @@ public class GPSUtil {
     
     public static boolean getLocation(Context context, LocationResult result)
     {
+    	Values session = (Values) context.getApplicationContext();
     	
         // Use LocationResult callback class to pass location value from GPSUtil to user code.
         locationResult = result;
@@ -57,7 +58,7 @@ public class GPSUtil {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork); 
         }
 
-        timer.schedule(new GetLastLocation(), Values.GPS_TIMEOUT);
+        timer.schedule(new GetLastLocation(), session.GPS_TIMEOUT);
         
         return true;
     }

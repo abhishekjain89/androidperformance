@@ -21,10 +21,13 @@ public class ServiceHelper {
 	
 	static PowerManager.WakeLock wl;
 	
+	public static Values values;
+	
 	public static void processStartService(Context context, String tag) {
 		/*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
 		wl.acquire();*/
+		
 		recurringStartService(context, tag);
 	}
 	
@@ -35,11 +38,11 @@ public class ServiceHelper {
 		pendingIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
 		
-
+		values = (Values) context.getApplicationContext();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, Values.FREQUENCY_SECS);
+        calendar.add(Calendar.SECOND, values.FREQUENCY_SECS);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
 		

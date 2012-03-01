@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import com.ping.R;
 
 import com.google.android.maps.MapActivity;
-import com.ping.Session;
+import com.ping.Values;
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
@@ -57,7 +57,7 @@ public class RunActivity extends Activity
 	//private LinearLayout table;
 
 	private ThreadPoolHelper serverhelper;
-	private Session session = null;
+	private Values session = null;
 	private Activity activity;
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";

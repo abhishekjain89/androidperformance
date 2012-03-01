@@ -26,7 +26,8 @@ import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ping.R;
-import com.ping.Session;
+import com.ping.Values;
+
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.helpers.UserDataHelper;
@@ -60,7 +61,7 @@ public class UserFormActivity extends Activity
 
 	private Activity activity;
 
-	private Session session = null;
+	private Values session = null;
 
 	private Button saveButton;
 	private EditText dataCapInput;
@@ -88,10 +89,7 @@ public class UserFormActivity extends Activity
 		saveButton = (Button) this.findViewById(R.id.save);
 		dataCapInput = (EditText) this.findViewById(R.id.dataCap);
 		billingCycleInput = (EditText) this.findViewById(R.id.billingCycle);
-
-		increment = (Button) this.findViewById(R.id.plus);
-		decrement = (Button) this.findViewById(R.id.minus);
-
+/*
 		increment.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {
 				int day = 1;
@@ -123,7 +121,7 @@ public class UserFormActivity extends Activity
 				billingCycleInput.setText(day+"");
 
 			}
-		});
+		});*/
 
 		saveButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	

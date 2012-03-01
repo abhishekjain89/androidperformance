@@ -18,7 +18,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.ping.Session;
+import com.ping.Values;
 import com.ping.Values;
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
@@ -61,8 +61,8 @@ public class PerformanceServiceAll extends Service{
 
 		updateTimer = new Timer("measurementTaskAll");
 		context = this.getApplicationContext();
-		
-		serverhelper = new ThreadPoolHelper(1,Values.THREADPOOL_KEEPALIVE_SEC);
+		Values session = (Values) context.getApplicationContext();
+		serverhelper = new ThreadPoolHelper(1,session.THREADPOOL_KEEPALIVE_SEC);
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -105,7 +105,7 @@ public class PerformanceServiceAll extends Service{
 
 	private void runTask() {
 
-		Session session = (Session) context.getApplicationContext();
+		Values session = (Values) context.getApplicationContext();
 
 		doGPS=session.doGPS();
 		doThroughput=session.doThroughput();
@@ -145,7 +145,7 @@ public class PerformanceServiceAll extends Service{
 
 
 	public class Listener extends BaseResponseListener{
-		Session session = (Session) context.getApplicationContext();
+		Values session = (Values) context.getApplicationContext();
 		public void onComplete(String response) {
 			System.out.println("throughput succeed");
 			ThroughputHandler.sendEmptyMessage(0);

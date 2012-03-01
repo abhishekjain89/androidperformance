@@ -3,7 +3,7 @@ package com.ping.helpers;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.ping.Session;
+
 import com.ping.tasks.ServerTask;
 import com.ping.utils.IDThreadPoolExecutor;
 

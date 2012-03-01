@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.content.Context;
+
 import com.ping.models.Link;
 import com.ping.models.Measure;
 import com.ping.models.Ping;
@@ -22,12 +24,12 @@ public class ThroughputHelper {
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Throughput getThroughput() {
+	public static Throughput getThroughput(Context context) {
 		
 		Throughput t = new Throughput();
 		
 		try {
-			Link up=ThroughputUtil.uplinkmeasurement();
+			Link up=ThroughputUtil.uplinkmeasurement(context);
 			t.setUpLink(up);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +39,7 @@ public class ThroughputHelper {
 			e.printStackTrace();
 		}
 		try {
-			Link down=ThroughputUtil.downlinkmeasurement();
+			Link down=ThroughputUtil.downlinkmeasurement(context);
 			t.setDownLink(down);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -59,7 +59,7 @@ public class ParameterTask extends ServerTask{
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
 	}
 
 	public void killAll(){

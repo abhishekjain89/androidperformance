@@ -31,12 +31,12 @@ public class BatteryUtil {
 		measurement.setBattery(battery);
 		
 		registerBatteryLevelReceiver(this.context);
-		
+		Values session = (Values) context.getApplicationContext();
 		notDone = true;
 		
 		while(notDone){
 			try {
-				Thread.sleep(Values.SHORT_SLEEP_TIME);
+				Thread.sleep(session.SHORT_SLEEP_TIME);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

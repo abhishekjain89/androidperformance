@@ -26,6 +26,7 @@ public class DeviceUtil {
 	public Device getDeviceDetail(Context context,Measurement measurement) {
 		Device dev = new Device();
 		dev.setContext(context);
+		Values session = (Values) context.getApplicationContext();
 		String srvnName = Context.TELEPHONY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 	
@@ -141,6 +142,7 @@ public class DeviceUtil {
 	
 	public Network getNetworkDetail(Context context) {
 		Network dev = new Network();
+		Values session = (Values) context.getApplicationContext();
 		String srvnName = Context.TELEPHONY_SERVICE;
 		String service = Context.CONNECTIVITY_SERVICE;
 
@@ -349,8 +351,8 @@ public class DeviceUtil {
 				
 			}
 			else {
-				dev.setCellId(Values.UNAVAILABLE_CELLID);
-				dev.setCellLac(Values.UNAVAILABLE_CELLLAC);
+				dev.setCellId(session.UNAVAILABLE_CELLID);
+				dev.setCellLac(session.UNAVAILABLE_CELLLAC);
 			}
 			
 	    } catch (Exception e) {

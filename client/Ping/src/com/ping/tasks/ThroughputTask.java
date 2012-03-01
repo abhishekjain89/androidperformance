@@ -24,7 +24,7 @@ public class ThroughputTask extends ServerTask{
 		
 		try {
 			
-			Throughput t = ThroughputHelper.getThroughput();
+			Throughput t = ThroughputHelper.getThroughput(getContext());
 			getResponseListener().onCompleteThroughput(t);
 			
 		} catch (Exception e) {

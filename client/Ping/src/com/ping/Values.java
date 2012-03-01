@@ -5,47 +5,52 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Application;
 import android.util.Log;
 
 import com.ping.models.*;
+import com.ping.utils.DeviceUtil;
 
-public class Values{
+public class Values extends Application{
 	
-	public static  int FREQUENCY_SECS = 15*60;
+	public  int FREQUENCY_SECS = 15*60;
 	
+	DeviceUtil util = new DeviceUtil();
+	public int gps_count=0;
+	public int throughput_count = 0;
 	
-	public static  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
+	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 	
-	public static  int UPLINKPORT=9912;
-	public static  int UPLINK_DURATION=25000;
-	public static  int DOWNLINKPORT=9710;
-	public static  int DOWNLINK_DURATION=20000;
-	public static  int DOWNLINK_BUFFER_SIZE=12000;
+	public  int UPLINKPORT=9912;
+	public  int UPLINK_DURATION=25000;
+	public  int DOWNLINKPORT=9710;
+	public  int DOWNLINK_DURATION=20000;
+	public  int DOWNLINK_BUFFER_SIZE=12000;
 	
-	public static  int TCP_HEADER_SIZE=54;
-	public static  int TCP_PACKET_SIZE=1380;
+	public  int TCP_HEADER_SIZE=54;
+	public  int TCP_PACKET_SIZE=1380;
 	
-	public static  int NORMAL_SLEEP_TIME = 1000;
-	public static  int SHORT_SLEEP_TIME = 100;
-	public static  int ONE_MINUTE_TIME = 60 * 1000;
-	
-	
-	
-	public static  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
-	public static  String API_SERVER_ADDRESS="ruggles.gtnoise.net";
-	
-	public static  int GPS_TIMEOUT = 20000;
-	public static  int SIGNALSTRENGTH_TIMEOUT = 10000;
-	public static  int WIFI_TIMEOUT = 10000;
-	
-	public static  String UNAVAILABLE_CELLID = "65535";
-	public static  String UNAVAILABLE_CELLLAC = "65535";
-	
-	public static  int THREADPOOL_MAX_SIZE = 10;
-	public static  int THREADPOOL_KEEPALIVE_SEC = 30;
+	public  int NORMAL_SLEEP_TIME = 1000;
+	public  int SHORT_SLEEP_TIME = 100;
+	public  int ONE_MINUTE_TIME = 60 * 1000;
 	
 	
-	public static ArrayList<Address> PING_SERVERS;
+	
+	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
+	public  String API_SERVER_ADDRESS="ruggles.gtnoise.net";
+	
+	public  int GPS_TIMEOUT = 20000;
+	public  int SIGNALSTRENGTH_TIMEOUT = 10000;
+	public  int WIFI_TIMEOUT = 10000;
+	
+	public  String UNAVAILABLE_CELLID = "65535";
+	public  String UNAVAILABLE_CELLLAC = "65535";
+	
+	public  int THREADPOOL_MAX_SIZE = 10;
+	public  int THREADPOOL_KEEPALIVE_SEC = 30;
+	
+	
+	public ArrayList<Address> PING_SERVERS;
 	
 	public Values(){
 		PING_SERVERS = new ArrayList<Address>();
@@ -58,11 +63,11 @@ public class Values{
 		
 	}
 	
-	public static ArrayList<Address> getPingServers(){
+	public ArrayList<Address> getPingServers(){
 		return PING_SERVERS;
 	}
 	
-	public static void insertValues(JSONObject obj){
+	public void insertValues(JSONObject obj){
 		try {
 			FREQUENCY_SECS = obj.getInt("frequency_secs");
 		} catch (JSONException e) {
@@ -175,6 +180,42 @@ public class Values{
 	
 	public String getTag(){
 		return "Values";
+	}
+	
+
+	public ArrayList<Screen> screenBuffer = new ArrayList<Screen>();
+	
+	public void AddScreen(boolean isOn){
+		screenBuffer.add(new Screen(util.getUTCTime(),util.getLocalTime(),isOn));
+		
+	}
+	
+	public void incrementGPS(){
+		gps_count++;
+		gps_count%=4;
+	}
+	
+	public void decrementGPS(){
+		gps_count--;
+		gps_count%=4;
+	}
+	
+	public void incrementThroughput(){
+		throughput_count++;
+		throughput_count%=THROUGHPUT_FREQ;
+	}
+	
+	public void decrementThroughput(){
+		throughput_count--;
+		throughput_count%=THROUGHPUT_FREQ;
+	}
+	
+	public boolean doGPS(){
+		return gps_count==0;
+	}
+	
+	public boolean doThroughput(){
+		return throughput_count==0;
 	}
 	
 }

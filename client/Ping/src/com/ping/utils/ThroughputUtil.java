@@ -9,6 +9,8 @@ import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
+import android.content.Context;
+
 import com.ping.Values;
 import com.ping.models.Link;
 
@@ -27,10 +29,11 @@ public class ThroughputUtil {
 		return message.toString();
 	}
 	
-	public static Link uplinkmeasurement() throws UnknownHostException, IOException
+	public static Link uplinkmeasurement(Context context) throws UnknownHostException, IOException
 	{
-		String serveraddress=Values.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,Values.UPLINKPORT);
+		Values session = (Values) context.getApplicationContext();
+		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.UPLINKPORT);
 		Socket uplinkclient=new Socket();
 		uplinkclient.connect(serversocket);
 
@@ -53,7 +56,7 @@ public class ThroughputUtil {
 		{
 			out.write(message);
 			end = System.currentTimeMillis();
-			if(end-start>=Values.UPLINK_DURATION/2){
+			if(end-start>=session.UPLINK_DURATION/2){
 				if(flag==0){intermediate= System.currentTimeMillis();
 				flag=1;
 				}
@@ -61,15 +64,15 @@ public class ThroughputUtil {
 			}
 
 			count++;
-		}while(end-start<=Values.UPLINK_DURATION);
+		}while(end-start<=session.UPLINK_DURATION);
 		throughput=count*((long)message.length+(54*3))/(end-start)*8;
 		System.out.println("Message length: "+message.length);
 		System.out.println("Intermediate: "+intermediate);
 		link.setCount(count);
 		link.setMessage_size(message.length+(54*3));
 		link.setTime(end-start);
-		link.setDstIp(Values.THROUGHPUT_SERVER_ADDRESS);
-		link.setDstPort(Values.UPLINKPORT+"");
+		link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
+		link.setDstPort(session.UPLINKPORT+"");
 		System.out.println(link.toJSON());
 		//tensecthroughput = tenseccount*((long)message.length+(54*3))/((end-intermediate)*8);
 		try{
@@ -90,10 +93,12 @@ public class ThroughputUtil {
 		return link;
 	}
 
-	public static Link downlinkmeasurement() throws IOException
+	public static Link downlinkmeasurement(Context context) throws IOException
 	{
-		String serveraddress=Values.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,Values.DOWNLINKPORT);
+		
+		Values session = (Values) context.getApplicationContext();
+		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.DOWNLINKPORT);
 		Socket downlinkclient=new Socket();
 		downlinkclient.connect(serversocket);
 
@@ -103,7 +108,7 @@ public class ThroughputUtil {
 		Link link = new Link();
 		out.flush();
 		try {
-			Thread.sleep(Values.NORMAL_SLEEP_TIME);
+			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,10 +118,10 @@ public class ThroughputUtil {
 		int count=0;
 		long start=System.currentTimeMillis();
 		long end=System.currentTimeMillis();
-		byte[] buffer=new byte[Values.DOWNLINK_BUFFER_SIZE];
+		byte[] buffer=new byte[session.DOWNLINK_BUFFER_SIZE];
 		do
 		{
-			messagebytes=in.read(buffer, 0, Values.DOWNLINK_BUFFER_SIZE);
+			messagebytes=in.read(buffer, 0, session.DOWNLINK_BUFFER_SIZE);
 			count++;
 			if(messagebytes<=0)
 				break;
@@ -125,10 +130,10 @@ public class ThroughputUtil {
 			end=System.currentTimeMillis();
 		}while(true);
 		link.setCount(1);
-		link.setMessage_size(totalbytes*((Values.TCP_PACKET_SIZE+Values.TCP_HEADER_SIZE)/(Values.TCP_PACKET_SIZE)));
+		link.setMessage_size(totalbytes*((session.TCP_PACKET_SIZE+session.TCP_HEADER_SIZE)/(session.TCP_PACKET_SIZE)));
 		link.setTime(end-start);
 		link.setDstIp(serveraddress);
-		link.setDstPort(Values.DOWNLINKPORT+"");
+		link.setDstPort(session.DOWNLINKPORT+"");
 		System.out.println("Downlink test complete");
 		System.out.println("Packets received " + count);
 		if(end-start>0) System.out.println("Throughput: "+ totalbytes*8/(int)(end-start)+ " kbps");

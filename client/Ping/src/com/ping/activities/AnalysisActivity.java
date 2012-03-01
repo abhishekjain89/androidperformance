@@ -25,7 +25,8 @@ import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ping.R;
-import com.ping.Session;
+
+import com.ping.Values;
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
@@ -63,7 +64,7 @@ public class AnalysisActivity extends Activity
 	//private TextView tv;
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
-	private Session session = null;
+	private Values session = null;
 	
 	
 	

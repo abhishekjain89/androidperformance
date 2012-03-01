@@ -56,7 +56,7 @@ public class SummaryTask extends ServerTask{
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 		
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,Values.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
 	}
 	
 	public void killAll(){
@@ -75,7 +75,7 @@ public class SummaryTask extends ServerTask{
 		try {
 			String output = http.request(this.getReqParams(), "POST", "summary", "", "".toString());
 			JSONObject object = new JSONObject(output);
-			Values.insertValues(object.getJSONObject("values"));
+			getValues().insertValues(object.getJSONObject("values"));
 			getResponseListener().onCompleteSummary(object);
 
 		} catch (Exception e) {
