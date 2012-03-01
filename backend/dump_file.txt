@@ -49,6 +49,15 @@ CREATE SEQUENCE ping_seq
 
 SELECT pg_catalog.setval('ping_seq', 1, false);
 
+CREATE SEQUENCE values_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('values_seq', 1, false);
+
 CREATE SEQUENCE link_seq
     START WITH 1
     INCREMENT BY 1
@@ -181,7 +190,6 @@ CREATE TABLE screen (
 
 CREATE TABLE network (
     measurementid integer,
-    
     networktype varchar(10),
     connectiontype varchar(10),
     mobilenetworkinfo text,
@@ -254,6 +262,31 @@ CREATE TABLE state (
 	timeslice integer
 );
 
+CREATE TABLE values (
+	valueid integer DEFAULT nextval('values_seq'::regclass) ,
+	frequency_secs integer,
+	throughput_freq integer,
+	uplink_port integer,
+	uplink_duration integer,
+	downlink_port integer,
+	downlink_duration integer,
+	tcp_headersize integer,
+	tcp_packetsize integer,
+	throughput_server_address text,
+	api_server_address text,
+	signalstrength_timeout integer,
+	wifi_timeout integer,
+	unavailable_cellid varchar(10),
+	unavailable_celllac varchar(10),
+	threadpool_max_size integer,
+	threadpool_keepalive_sec integer
+); 
+
+CREATE TABLE ping_servers(
+	ipaddress varchar(20),
+	tag varchar(20)
+);
+
 
 CREATE TABLE ping (
     avg double precision ,
@@ -291,6 +324,8 @@ ALTER TABLE ONLY usage
     ADD CONSTRAINT usage_measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY kill_list
     ADD CONSTRAINT kill_deviceid_pkey PRIMARY KEY (deviceid);
+ALTER TABLE ONLY ping_servers
+	ADD CONSTRAINT ping_servers_pkey PRIMARY KEY (ipaddress);
     
    
 ALTER TABLE ONLY application_use
@@ -306,7 +341,9 @@ ALTER TABLE ONLY cell
 ALTER TABLE ONLY state
     ADD CONSTRAINT state_measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY screen
-    ADD CONSTRAINT screen_pkey PRIMARY KEY (screenid);      
+    ADD CONSTRAINT screen_pkey PRIMARY KEY (screenid);
+ALTER TABLE ONLY values
+    ADD CONSTRAINT values_pkey PRIMARY KEY (valueid);      
 
 ALTER TABLE ONLY ping
     ADD CONSTRAINT ping_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
@@ -339,4 +376,16 @@ alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
 
 alter sequence screen_seq owned by screen.screenid;
 
+alter sequence values_seq owned by values.valueid;
+
 insert into kill_list VALUES('144c38fa58e8e98c42c239354820b43676838fa9');
+
+insert into values (frequency_secs,throughput_freq,uplink_port,uplink_duration,downlink_port,downlink_duration,tcp_headersize,tcp_packetsize,throughput_server_address,api_server_address,signalstrength_timeout,wifi_timeout,unavailable_cellid,unavailable_celllac,threadpool_max_size, threadpool_keepalive_sec)  VALUES(900,80,9912,25000,9710,20000,54,1380,'ruggles.gtnoise.net','ruggles.gtnoise.net',10000,10000,'65535','65535',10,30);
+
+insert into ping_servers VALUES('143.215.131.173','Atlanta, GA');
+insert into ping_servers VALUES('143.225.229.254', 'Napoli, ITALY');
+insert into ping_servers VALUES('128.48.110.150', 'Oakland, CA');
+insert into ping_servers VALUES('localhost', 'localhost');
+insert into ping_servers VALUES('www.google.com', 'Google');
+insert into ping_servers VALUES('www.facebook.com', 'Facebook');
+

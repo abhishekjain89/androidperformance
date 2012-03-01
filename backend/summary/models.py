@@ -216,4 +216,30 @@ class Ping(models.Model):
     class Meta:
         db_table = u'ping'
 
+class Values(models.Model):
+    valueid = models.AutoField(primary_key=True)
+    frequency_secs = models.IntegerField()
+    throughput_freq = models.IntegerField()
+    uplink_port = models.IntegerField()
+    uplink_duration = models.IntegerField()
+    downlink_port = models.IntegerField()
+    downlink_duration = models.IntegerField()
+    tcp_headersize = models.IntegerField()
+    tcp_packetsize = models.IntegerField()
+    throughput_server_address = models.TextField()
+    api_server_address = models.TextField()
+    signalstrength_timeout = models.IntegerField()
+    wifi_timeout = models.IntegerField()
+    unavailable_cellid = models.CharField(max_length=10)
+    unavailable_celllac = models.CharField(max_length=10)
+    threadpool_max_size = models.IntegerField()
+    threadpool_keepalive_sec = models.IntegerField()
+    class Meta:
+        db_table = u'values'
+
+class PingServers(models.Model):
+    ipaddress = models.CharField(max_length=20, primary_key=True)
+    tag = models.CharField(max_length=20)
+    class Meta:
+        db_table = u'ping_servers'
 

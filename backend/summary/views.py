@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from time import time,mktime,strftime,gmtime
 import hashlib
 import ast
-import error_message_helper,insertJSON
+import error_message_helper,insertJSON,getJSON
 
 def index(request):
     return render_to_response('index.html')
@@ -220,6 +220,7 @@ def summary(request):
     data['total-devices'] = len(Device.objects.all())
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
+    data['values'] = getJSON.values()
     return HttpResponse(str(data))
 
 def parameterCheck(request):

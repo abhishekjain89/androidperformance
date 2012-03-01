@@ -74,8 +74,9 @@ public class SummaryTask extends ServerTask{
 		
 		try {
 			String output = http.request(this.getReqParams(), "POST", "summary", "", "".toString());
-			
-			getResponseListener().onCompleteSummary(new JSONObject(output));
+			JSONObject object = new JSONObject(output);
+			Values.insertValues(object.getJSONObject("values"));
+			getResponseListener().onCompleteSummary(object);
 
 		} catch (Exception e) {
 			e.printStackTrace();
