@@ -227,7 +227,7 @@ CREATE TABLE measurement (
     "time" timestamp without time zone ,
     "localtime" timestamp without time zone ,
     deviceid varchar(40),
-    ismanual boolean,
+    ismanual boolean
 );
 
 CREATE TABLE usage (
