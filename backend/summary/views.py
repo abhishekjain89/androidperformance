@@ -221,7 +221,7 @@ def summary(request):
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
     data['values'] = getJSON.values()
-    return HttpResponse(str(data))
+    return HttpResponse(json.dumps(data))
 
 def parameterCheck(request):
     response = {}

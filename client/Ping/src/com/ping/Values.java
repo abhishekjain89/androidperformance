@@ -58,7 +58,7 @@ public class Values extends Application{
 		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA"));
 		PING_SERVERS.add(new Address("localhost", "localhost"));
-		PING_SERVERS.add(new Address("www.google.com", "Google"));
+		
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook"));
 		
 	}
