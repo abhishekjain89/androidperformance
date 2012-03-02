@@ -100,7 +100,10 @@ def measurement(request):
         count+=1
         m_state = request_object['state']
         count+=1
-        m_ismanual = request_object['isManual']
+        try:
+            m_ismanual = request_object['isManual']
+        except:
+            pass
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))           

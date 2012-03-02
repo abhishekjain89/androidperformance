@@ -3,12 +3,15 @@ package com.ping.helpers;
 import java.util.Calendar;
 
 import com.ping.Values;
+import com.ping.receivers.ScreenReceiver;
 import com.ping.services.PerformanceServiceAll;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -20,7 +23,7 @@ public class ServiceHelper {
 	private static PendingIntent pendingIntent;
 	
 	static PowerManager.WakeLock wl;
-	
+
 	public static Values values;
 	
 	public static void processStartService(Context context, String tag) {
@@ -62,6 +65,7 @@ public class ServiceHelper {
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
 
 		alarmManager.cancel(pendingIntent);
+
 		/*if(wl!=null)
 			if(wl.isHeld())
 				wl.release();*/
