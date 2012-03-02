@@ -48,40 +48,45 @@ import com.ping.utils.NeighborWifiUtil.NeighborResult;
  * 
  */
 public class SummaryTask extends ServerTask{
-	
+
 	ThreadPoolHelper serverhelper;
-	
-	
+
+
 	public SummaryTask(Context context,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
-		
+
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
 	}
-	
+
 	public void killAll(){
 		try{
-		serverhelper.shutdown();
+			serverhelper.shutdown();
 		}
 		catch(Exception e){
-			
+
 		}
 	}
-	
+
 	public void runTask() {
 
 		HTTPUtil http = new HTTPUtil();
-		
+
 		try {
 			String output = http.request(this.getReqParams(), "POST", "summary", "", "".toString());
 			JSONObject object = new JSONObject(output);
-			getValues().insertValues(object.getJSONObject("values"));
+			try{
+				getValues().insertValues(object.getJSONObject("values"));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 			getResponseListener().onCompleteSummary(object);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 
 	}
 

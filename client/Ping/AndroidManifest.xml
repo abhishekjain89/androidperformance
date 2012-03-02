@@ -35,7 +35,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:name="com.ping.Session" >
+        android:name="com.ping.Values" >
         <activity
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"

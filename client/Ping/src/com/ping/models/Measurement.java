@@ -188,7 +188,10 @@ public class Measurement implements Model{
 			putSafe(obj,"sim",sim.toJSON());
 			putSafe(obj,"wifi", wifi.toJSON());
 			putSafe(obj,"state",state.toJSON());
-			putSafe(obj, "isManual", isManual);
+			if(isManual)
+				putSafe(obj, "isManual", 1);
+			else
+				putSafe(obj, "isManual", 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
