@@ -108,10 +108,13 @@ def measurement(request):
     
     measurement = Measurement()
     measurement.time = m_time
-    if m_ismanual == 1:
-        measurement.ismanual = True
-    else:
-        measurement.ismanual = False
+    try:
+        if m_ismanual == 1:
+            measurement.ismanual = True
+        else:
+            measurement.ismanual = False
+    except:
+        pass
     
     
     
