@@ -120,6 +120,9 @@ public class Usage implements Model{
 
 				if(app.totalDataInMB()>=1)
 					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
+				else{
+					data.add(new Row(app.getAppIcon(),app.getName(),"< 1 MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
+				}
 			
 		}
 
