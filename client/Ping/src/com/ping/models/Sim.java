@@ -10,11 +10,11 @@ import com.ping.utils.SHA1Util;
 
 public class Sim implements Model{
 
-	String simNetworkCountry;
-	String simState;
-	String simOperatorName;
-	String simOperatorCode;
-	String simSerialNumber;
+	String simNetworkCountry = "";
+	String simState = "";
+	String simOperatorName = "";
+	String simOperatorCode = "";
+	String simSerialNumber = "";
 	
 	public String getSimNetworkCountry() {
 		return simNetworkCountry;

@@ -95,7 +95,7 @@ public class RunActivity extends Activity
 		
 		items = new ArrayList<Model>();
 		listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
-		serverhelper.execute(new MeasurementTask(activity,true,true, new MeasurementListener()));
+		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
 		listview.setAdapter(listadapter);
 
 	}

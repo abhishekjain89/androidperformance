@@ -2,8 +2,8 @@ package com.ping.models;
 
 public class Address{
 	
-	public String ip;
-	public String tagname;
+	public String ip = "";
+	public String tagname = "";
 	public String getIp() {
 		return ip;
 	}

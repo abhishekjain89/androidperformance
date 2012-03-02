@@ -9,11 +9,11 @@ import com.ping.R;
 
 public class Link implements Model{
 
-	public long count; 
-	public long message_size; //in bytes
-	public double time; // milliseconds
-	public String dstIp;
-	public String dstPort;
+	public long count = -1; 
+	public long message_size = -1; //in bytes
+	public double time = -1; // milliseconds
+	public String dstIp = "";
+	public String dstPort = "";
 	
 
 	public String getDstIp() {

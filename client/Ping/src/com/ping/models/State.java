@@ -9,11 +9,11 @@ import com.ping.utils.SHA1Util;
 
 public class State implements Model{
 	
-	public String cellId;
-	public String time;
-	public String local_time;
-	public String deviceid;
-	public String networkType;
+	public String cellId = "";
+	public String time = "";
+	public String local_time = "";
+	public String deviceid = "";
+	public String networkType = "";
 	
 	public String getDeviceid() {
 		return deviceid;

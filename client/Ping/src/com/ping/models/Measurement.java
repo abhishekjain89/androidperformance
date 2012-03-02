@@ -20,6 +20,16 @@ public class Measurement implements Model{
 	Sim sim; 
 	Throughput throughput;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
+	boolean isManual = false;
+	
+	public boolean isManual() {
+		return isManual;
+	}
+
+	public void setManual(boolean isManual) {
+		this.isManual = isManual;
+	}
+
 	public ArrayList<Screen> getScreens() {
 		return screens;
 	}
@@ -178,7 +188,7 @@ public class Measurement implements Model{
 			putSafe(obj,"sim",sim.toJSON());
 			putSafe(obj,"wifi", wifi.toJSON());
 			putSafe(obj,"state",state.toJSON());
-			
+			putSafe(obj, "isManual", isManual);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

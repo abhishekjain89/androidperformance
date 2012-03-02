@@ -75,9 +75,12 @@ below:
 ### Personally-identifiable information
 
 We consider the following information to be personally-identifiable information
-(PII). This information will be encrypted at all times. 
+(PII). This information will be ENCRYPTED at all times. 
 
 - telephone number
+- device id
+- device serial number
+- SIM number
 - gateway WAN interface IP address
 - gateway MAC addresses
 
