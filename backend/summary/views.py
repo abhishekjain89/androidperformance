@@ -100,6 +100,7 @@ def measurement(request):
         count+=1
         m_state = request_object['state']
         count+=1
+        m_ismanual = request_object['isManual']
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))           
@@ -107,6 +108,10 @@ def measurement(request):
     
     measurement = Measurement()
     measurement.time = m_time
+    if m_ismanual == 1:
+        measurement.ismanual = True
+    else:
+        measurement.ismanual = False
     
     
     

@@ -44,7 +44,7 @@ class Measurement(models.Model):
     time = models.DateTimeField()
     localtime = models.DateTimeField()
     deviceid = models.ForeignKey(Device, to_field='deviceid', db_column='deviceid')
-    
+    ismanual = models.BooleanField()
     class Meta:
         db_table = u'measurement'
 

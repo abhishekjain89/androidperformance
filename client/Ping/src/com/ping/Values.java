@@ -160,7 +160,7 @@ public class Values extends Application{
 		}
 		
 		try {
-			JSONArray pingArray = obj.getJSONArray("ping_servers");
+			JSONArray pingArray = obj.getJSONObject("ping_servers").getJSONArray("servers");
 			PING_SERVERS = new ArrayList<Address>();
 			
 			for(int i=0;i<pingArray.length();i++){
