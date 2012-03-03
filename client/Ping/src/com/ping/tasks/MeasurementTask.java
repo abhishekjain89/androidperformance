@@ -15,6 +15,7 @@ import android.util.Log;
 
 
 import com.ping.Values;
+import com.ping.helpers.MeasurementHelper;
 import com.ping.helpers.ThreadPoolHelper;
 import com.ping.listeners.BaseResponseListener;
 import com.ping.listeners.FakeListener;
@@ -157,9 +158,6 @@ public class MeasurementTask extends ServerTask{
 				return;
 			}
 		}
-
-
-		
 		
 		if(gpsRunning){
 			locationResult.gotLocation(null);
@@ -205,29 +203,9 @@ public class MeasurementTask extends ServerTask{
 		
 		measurement.setScreens(scrs);
 		getResponseListener().onCompleteMeasurement(measurement);
-
-		JSONObject object = new JSONObject();
-
-		try {
-			object = measurement.toJSON();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-
-		HTTPUtil http = new HTTPUtil();
-		String isSuccess = "Failure";
-		try {
-			
-			String output = http.request(this.getReqParams(), "POST", "measurement", "", object.toString());
-			System.out.println(object.toString());
-			System.out.println(output);
-			session.screenBuffer = new ArrayList<Screen>();
-			isSuccess = "Success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = "Failure";
-		}
+		
+		String isSuccess = MeasurementHelper.sendMeasurement(getContext(), measurement);
+		
 		if (isManual) {
 			new MeasurementListener().makeToast(isSuccess);
 
