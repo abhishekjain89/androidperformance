@@ -1,5 +1,6 @@
 package com.ping;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +53,13 @@ public class Values extends Application{
 	
 	public ArrayList<Address> PING_SERVERS;
 	
+	public Buffer unsentMeasurements;
+	
+	
 	public Values(){
+		
+		unsentMeasurements = new Buffer();
+	
 		PING_SERVERS = new ArrayList<Address>();
 		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA"));
 		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY"));
