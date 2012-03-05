@@ -24,9 +24,9 @@ public class DeviceHelper {
 		info.setDevice(deviceUtil.getDeviceDetail(context,info));		
 		info.setNetwork(deviceUtil.getNetworkDetail(context));		
 		info.setSim(deviceUtil.getSimDetail(context));
-		info.setTime(deviceUtil.getUTCTime());
-		info.setLocalTime(deviceUtil.getLocalTime());
-		info.setDeviceId(deviceUtil.getDeviceId(context));
+		info.setTime(deviceUtil.getUTCTime());//
+		info.setLocalTime(deviceUtil.getLocalTime());//
+		info.setDeviceId(deviceUtil.getDeviceId(context));//
 		info.setState(state);
 		
 		return info;

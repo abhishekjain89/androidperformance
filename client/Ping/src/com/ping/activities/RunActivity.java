@@ -203,7 +203,8 @@ public class RunActivity extends BaseActivityGroup
 		public void  handleMessage(Message msg) {
 			try {
 				String text = (String)msg.obj;
-				Toast.makeText(activity, text, 1000);
+				//Toast.makeText(activity, text, 1000);
+				Toast.makeText(RunActivity.this, text, 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
