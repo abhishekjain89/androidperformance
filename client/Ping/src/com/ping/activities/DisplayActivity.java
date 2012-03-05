@@ -2,20 +2,18 @@ package com.ping.activities;
 
 import java.util.ArrayList;
 
-import com.ping.R;
-import com.ping.Values;
-import com.ping.models.Model;
-import com.ping.models.Row;
-import com.ping.ui.UIUtil;
-import com.ping.ui.adapter.ItemAdapter;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.ping.R;
+import com.ping.Values;
+import com.ping.models.MainModel;
+import com.ping.models.Row;
+import com.ping.ui.UIUtil;
+import com.ping.ui.adapter.ItemAdapter;
 
 public class DisplayActivity extends Activity {
 	
@@ -32,7 +30,7 @@ public class DisplayActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		String key = extras.getString("model_key");
 		
-		Model item = session.getModel(key);
+		MainModel item = session.getModel(key);
 		
 		
 		title =  (TextView) findViewById(R.id.title);
@@ -42,7 +40,7 @@ public class DisplayActivity extends Activity {
 		
 		//note.setVisibility(View.GONE);
 		title.setText(item.getTitle());
-		
+		description.setText(item.getDescription());
 		
 		imageview.setImageResource(item.getIcon());
 		

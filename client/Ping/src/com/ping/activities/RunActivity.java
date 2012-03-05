@@ -2,16 +2,25 @@ package com.ping.activities;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ping.R;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.Toast;
 
-import com.google.android.maps.MapActivity;
+import com.ping.R;
 import com.ping.Values;
 import com.ping.helpers.ServiceHelper;
 import com.ping.helpers.ThreadPoolHelper;
@@ -19,6 +28,7 @@ import com.ping.listeners.BaseResponseListener;
 import com.ping.models.Battery;
 import com.ping.models.Device;
 import com.ping.models.GPS;
+import com.ping.models.MainModel;
 import com.ping.models.Measurement;
 import com.ping.models.Model;
 import com.ping.models.Network;
@@ -27,36 +37,8 @@ import com.ping.models.Sim;
 import com.ping.models.Throughput;
 import com.ping.models.Usage;
 import com.ping.models.Wifi;
-import com.ping.models.WifiNeighbor;
-import com.ping.services.PerformanceServiceAll;
 import com.ping.tasks.MeasurementTask;
 import com.ping.ui.adapter.ListAdapter;
-
-import android.app.Activity;
-import android.app.ActivityGroup;
-import android.app.TabActivity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.net.wifi.ScanResult;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.TableLayout.LayoutParams;
 
 
 public class RunActivity extends BaseActivityGroup
@@ -216,7 +198,7 @@ public class RunActivity extends BaseActivityGroup
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 
-			Model item = (Model)msg.obj;
+			MainModel item = (MainModel)msg.obj;
 			items.add(item);
 			/*listadapter.add(item);			
 			listadapter.notifyDataSetChanged();*/
