@@ -10,7 +10,7 @@
       <ImageView
         android:id="@+id/icon"
         android:layout_width="31dp"
-        android:layout_height="32dp"
+        android:layout_height="fill_parent"
         android:background="@color/transparent"
         android:padding="0px"
         android:scaleType="fitCenter"

@@ -39,8 +39,8 @@ public class Values extends Application{
 	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
 
 
-	public  String THROUGHPUT_SERVER_ADDRESS="Asruggles.gtnoise.net";
-	public  String API_SERVER_ADDRESS="Asruggles.gtnoise.net";
+	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
+	public  String API_SERVER_ADDRESS="ruggles.gtnoise.net";
 
 	public  int GPS_TIMEOUT = 20000;
 	public  int SIGNALSTRENGTH_TIMEOUT = 10000;
