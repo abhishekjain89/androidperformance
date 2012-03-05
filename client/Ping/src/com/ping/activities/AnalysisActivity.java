@@ -7,10 +7,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,7 +45,7 @@ import com.ping.ui.UIUtil;
 import com.ping.ui.adapter.ItemAdapter;
 
 
-public class AnalysisActivity extends Activity 
+public class AnalysisActivity extends BaseActivity 
 {
 	
 	//private TableLayout table;

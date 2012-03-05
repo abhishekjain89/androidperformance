@@ -59,7 +59,7 @@ import android.widget.Toast;
 import android.widget.TableLayout.LayoutParams;
 
 
-public class RunActivity extends ActivityGroup
+public class RunActivity extends BaseActivityGroup
 {
 	//private LinearLayout table;
 
@@ -77,6 +77,7 @@ public class RunActivity extends ActivityGroup
 	TabHost tabHost;
 	TabHost.TabSpec spec;  // Resusable TabSpec for each tab
 	Intent intent;  // Reusable Intent for each tab
+	public Button load;
 
 
 	@Override
@@ -97,7 +98,7 @@ public class RunActivity extends ActivityGroup
 		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
 		//listview.setAdapter(listadapter);
 
-
+		load = (Button) findViewById(R.id.load);
 		res = getResources(); // Resource object to get Drawables
 		tabHost =  (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(this.getLocalActivityManager());
@@ -183,7 +184,7 @@ public class RunActivity extends ActivityGroup
 		}
 
 		public void onCompleteSIM(Sim response) {
-			onCompleteOutput(response);
+			//onCompleteOutput(response);
 
 		}
 
@@ -235,7 +236,7 @@ public class RunActivity extends ActivityGroup
 
 	private Handler LoadBarHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-
+			load.setVisibility(View.GONE);
 			ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
 			ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
 		}

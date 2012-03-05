@@ -68,6 +68,7 @@ public class UserFormActivity extends Activity
 	private EditText billingCycleInput;
 	private Button increment;
 	private Button decrement;
+	Boolean force = false;
 
 
 	@Override
@@ -75,8 +76,18 @@ public class UserFormActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		UserDataHelper userhelp = new UserDataHelper(this);
+		Bundle extras = getIntent().getExtras();
 		
-		if(userhelp.isFilled()){
+
+		try{
+			force = extras.getBoolean("force");
+		}
+		catch (Exception e){
+			force = false;
+		}
+
+
+		if(!force && userhelp.isFilled()){
 			finish();
 			Intent myIntent = new Intent(this, AnalysisActivity.class);
 			startActivity(myIntent);
@@ -89,7 +100,7 @@ public class UserFormActivity extends Activity
 		saveButton = (Button) this.findViewById(R.id.save);
 		dataCapInput = (EditText) this.findViewById(R.id.dataCap);
 		billingCycleInput = (EditText) this.findViewById(R.id.billingCycle);
-/*
+		/*
 		increment.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {
 				int day = 1;
@@ -125,21 +136,23 @@ public class UserFormActivity extends Activity
 
 		saveButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
-				
+
 				UserDataHelper userhelp = new UserDataHelper(activity);
 				try{
-				int day = Integer.parseInt(billingCycleInput.getText().toString());
-				day=forceLimits(day);
-				userhelp.setBillingCycle(day);
-				userhelp.setDataCap(Integer.parseInt(dataCapInput.getText().toString()));
+					int day = Integer.parseInt(billingCycleInput.getText().toString());
+					day=forceLimits(day);
+					userhelp.setBillingCycle(day);
+					userhelp.setDataCap(Integer.parseInt(dataCapInput.getText().toString()));
 				}
 				catch(Exception e){
 					return;
 				}
 
 				finish();
-				Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
-				startActivity(myIntent);
+				if(!force){
+					Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+					startActivity(myIntent);
+				}
 
 			}
 		});
