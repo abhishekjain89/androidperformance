@@ -53,7 +53,7 @@ public class DeviceUtil {
 		// Get the phone's number
 		String phoneNumber = telephonyManager.getLine1Number();
 		dev.setPhoneNumber(phoneNumber);
-		
+		  
 
 		BatteryUtil b = new BatteryUtil();
 		b.getBattery(context,measurement);

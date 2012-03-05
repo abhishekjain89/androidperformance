@@ -229,7 +229,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onComplete(String response) {
 
-		}
+		} 
 
 		public void onCompleteMeasurement(Measurement response) {
 			getResponseListener().onCompleteMeasurement(response);
@@ -239,7 +239,7 @@ public class MeasurementTask extends ServerTask{
 			getResponseListener().onCompleteDevice(response);
 
 		}
-
+ 
 		public void onUpdateProgress(int val) {
 			// TODO Auto-generated method stub
 

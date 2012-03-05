@@ -17,7 +17,7 @@ public class DeviceHelper {
 	}
 	
 	public static Measurement runFullDetail(Context context, Measurement info) {
-
+    
 		DeviceUtil deviceUtil = new DeviceUtil();
 		StateUtil util = new StateUtil(context);
 		State state = util.createState();

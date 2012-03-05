@@ -11,7 +11,7 @@ import com.ping.models.Measurement;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.content.Context; 
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
@@ -23,7 +23,7 @@ public class BatteryUtil {
 	Context context=null;
 	
 	Battery battery = null;
-	
+	 
 	boolean notDone = false;
 	public String getBattery(Context context,Measurement measurement){
 		this.context = context;
