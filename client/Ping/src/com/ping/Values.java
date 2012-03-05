@@ -1,7 +1,6 @@
 package com.ping;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Stack;
 
 import org.json.JSONArray;
@@ -20,7 +19,7 @@ public class Values extends Application{
 	public  int FREQUENCY_SECS = 15*60;
 
 	DeviceUtil util = new DeviceUtil();
-
+	
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
 	public  int UPLINKPORT=9912;
@@ -39,8 +38,8 @@ public class Values extends Application{
 	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
 
 
-	public  String THROUGHPUT_SERVER_ADDRESS="Asruggles.gtnoise.net";
-	public  String API_SERVER_ADDRESS="Asruggles.gtnoise.net";
+	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
+	public  String API_SERVER_ADDRESS="ruggles.gtnoise.net";
 
 	public  int GPS_TIMEOUT = 20000;
 	public  int SIGNALSTRENGTH_TIMEOUT = 10000;
@@ -57,10 +56,6 @@ public class Values extends Application{
 
 	public Buffer unsentMeasurements;
 
-	public void savePreferences(){
-
-		//PreferencesUtil.setDataInt("throughput", throughput,this);
-	}
 
 	public Values(){
 
@@ -91,115 +86,96 @@ public class Values extends Application{
 		return PING_SERVERS;
 	}
 
-	public void loadValues(){
-
-
-		try {
-			FREQUENCY_SECS = Integer.parseInt(PreferencesUtil.getDataString("frequency_secs",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			THROUGHPUT_FREQ = Integer.parseInt(PreferencesUtil.getDataString("throughput_freq",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			UPLINKPORT = Integer.parseInt(PreferencesUtil.getDataString("uplink_port",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			UPLINK_DURATION = Integer.parseInt(PreferencesUtil.getDataString("uplink_duration",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			DOWNLINKPORT = Integer.parseInt(PreferencesUtil.getDataString("downlink_port",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			DOWNLINK_DURATION = Integer.parseInt(PreferencesUtil.getDataString("downlink_duration",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			TCP_HEADER_SIZE = Integer.parseInt(PreferencesUtil.getDataString("tcp_headersize",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			TCP_PACKET_SIZE = Integer.parseInt(PreferencesUtil.getDataString("tcp_packetsize",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-		try {
-			THROUGHPUT_SERVER_ADDRESS = PreferencesUtil.getDataString("throughput_server_address",this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			API_SERVER_ADDRESS = PreferencesUtil.getDataString("api_server_address",this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			SIGNALSTRENGTH_TIMEOUT = Integer.parseInt(PreferencesUtil.getDataString("signalstrength_timeout",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			WIFI_TIMEOUT = Integer.parseInt(PreferencesUtil.getDataString("wifi_timeout",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			UNAVAILABLE_CELLID = PreferencesUtil.getDataString("unavailable_cellid",this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			UNAVAILABLE_CELLLAC = PreferencesUtil.getDataString("unavailable_celllac",this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			THREADPOOL_MAX_SIZE = Integer.parseInt(PreferencesUtil.getDataString("threadpool_max_size",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			THREADPOOL_KEEPALIVE_SEC = Integer.parseInt(PreferencesUtil.getDataString("threadpool_keepalive_sec",this));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void insertValues(JSONObject obj){
-		Iterator<String> iterate = obj.keys();
+		try {
+			FREQUENCY_SECS = obj.getInt("frequency_secs");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
-		while(iterate.hasNext()){
-			String key = iterate.next();
+		try {
+			THROUGHPUT_FREQ = obj.getInt("throughput_freq");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
-			try {
-				String value = obj.getString(key);
-				PreferencesUtil.setDataString(key, value,this);
+		try {
+			UPLINKPORT = obj.getInt("uplink_port");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
-			} catch (JSONException e) {
+		try {
+			UPLINK_DURATION = obj.getInt("uplink_duration");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
-			}
+		try {
+			DOWNLINKPORT = obj.getInt("downlink_port");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			DOWNLINK_DURATION = obj.getInt("downlink_duration");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
+		try {
+			TCP_HEADER_SIZE = obj.getInt("tcp_headersize");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			TCP_PACKET_SIZE = obj.getInt("tcp_packetsize");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+
+		try {
+			THROUGHPUT_SERVER_ADDRESS = obj.getString("throughput_server_address");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			API_SERVER_ADDRESS = obj.getString("api_server_address");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			SIGNALSTRENGTH_TIMEOUT = obj.getInt("signalstrength_timeout");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			WIFI_TIMEOUT = obj.getInt("wifi_timeout");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			UNAVAILABLE_CELLID = obj.getString("unavailable_cellid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			UNAVAILABLE_CELLLAC = obj.getString("unavailable_celllac");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			THREADPOOL_MAX_SIZE = obj.getInt("threadpool_max_size");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			THREADPOOL_KEEPALIVE_SEC = obj.getInt("threadpool_keepalive_sec");
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 
 		try {
@@ -246,7 +222,7 @@ public class Values extends Application{
 		setThroughput(throughput_count);
 	}
 
-
+	
 
 	public boolean doThroughput(){
 		return getThroughput()==0;
