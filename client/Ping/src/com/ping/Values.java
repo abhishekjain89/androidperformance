@@ -35,7 +35,7 @@ public class Values extends Application{
 	public  int SHORT_SLEEP_TIME = 100;
 	public  int ONE_MINUTE_TIME = 60 * 1000;
 
-	public HashMap<String,Model> dataStore = new HashMap<String,Model>();
+	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
 
 
 	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
@@ -71,14 +71,14 @@ public class Values extends Application{
 
 	}
 	public void initDataStore(){
-		dataStore = new HashMap<String,Model>();
+		dataStore = new HashMap<String,MainModel>();
 	}
 
-	public void storeModel(Model m){
+	public void storeModel(MainModel m){
 		dataStore.put(m.getTitle(), m);
 	}
 
-	public Model getModel(String key){
+	public MainModel getModel(String key){
 		return dataStore.get(key);
 	}
 
