@@ -8,12 +8,17 @@ import org.json.JSONObject;
 
 import com.ping.R;
 
-public class GPS implements Model {
+public class GPS implements MainModel {
 	
 	String latitude = ""; 
 	String longitude = "";
 	String altitude = "";
-	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public GPS() {
 		
 	}

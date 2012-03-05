@@ -8,13 +8,20 @@ import org.json.JSONObject;
 import com.ping.R;
 import com.ping.utils.SHA1Util;
 
-public class Sim implements Model{
+public class Sim implements MainModel{
 
 	String simNetworkCountry = "";
 	String simState = "";
 	String simOperatorName = "";
 	String simOperatorCode = "";
 	String simSerialNumber = "";
+	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public String getSimNetworkCountry() {
 		return simNetworkCountry;

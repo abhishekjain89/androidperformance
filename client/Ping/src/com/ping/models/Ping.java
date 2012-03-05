@@ -20,6 +20,12 @@ public class Ping implements Model{
 	Measure measure;
 	
 	String time = "";
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public Ping(String scrIp, Address dst, Measure measure) {
 		//from an activity object, to get the device id :

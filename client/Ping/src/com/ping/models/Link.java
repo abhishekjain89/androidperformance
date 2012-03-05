@@ -16,6 +16,12 @@ public class Link implements Model{
 	public String dstPort = "";
 	
 
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
+
 	public String getDstIp() {
 		return dstIp;
 	}

@@ -7,11 +7,17 @@ import org.json.JSONObject;
 
 import com.ping.R;
 
-public class Throughput implements Model{
+public class Throughput implements MainModel{
 	
 	public Link downLink;
 	public Link upLink;
 	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public Link getDownLink() {
 		return downLink;
 	}

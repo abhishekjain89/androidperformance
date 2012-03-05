@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 
 import com.ping.utils.BatteryUtil;
 
-public class Battery  implements Model{
+public class Battery  implements MainModel{
 	
 	boolean isPresent = false;
 	String technology = "";
@@ -23,7 +23,12 @@ public class Battery  implements Model{
 	int temperature = -1;
 	int status = -1;
 	
-	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 
 	public int getStatus() {
 		return status;

@@ -15,6 +15,13 @@ public class State implements Model{
 	public String deviceid = "";
 	public String networkType = "";
 	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
+	
 	public String getDeviceid() {
 		return deviceid;
 	}

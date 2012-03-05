@@ -12,7 +12,7 @@ import com.ping.helpers.UserDataHelper;
 import com.ping.utils.SHA1Util;
 
 
-public class Device implements Model {
+public class Device implements MainModel {
 	String phoneType = "";
 	String phoneNumber = "";
 	String softwareVersion = "";
@@ -31,6 +31,11 @@ public class Device implements Model {
 	String networkCountry = "";
 	String networkName ="";
 
+	private static String DESCRIPTION = " D";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public String getNetworkCountry() {
 		return networkCountry;
 	}

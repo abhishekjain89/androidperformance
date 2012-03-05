@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import com.ping.R;
 
-public class Usage implements Model{
+public class Usage implements MainModel{
 
 
 	public List<Application> applications;
@@ -19,7 +19,12 @@ public class Usage implements Model{
 	private long total_recv = -1;
 	private long mobile_sent = -1;
 	private long mobile_recv = -1;
-	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 
 
 	public long getMobile_sent() {

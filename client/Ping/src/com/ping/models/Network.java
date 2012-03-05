@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import com.ping.R;
 
-public class Network implements Model{
+public class Network implements MainModel{
 
 	
 	String networkOperatorId ="";
@@ -27,6 +27,11 @@ public class Network implements Model{
 	String systemid = "";
 	
 
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public String getCellType() {
 		return cellType;
 	}

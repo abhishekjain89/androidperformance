@@ -11,7 +11,7 @@ import com.ping.utils.SHA1Util;
 
 import android.content.Context;
 
-public class Measurement implements Model{
+public class Measurement implements MainModel{
 	
 	
 	ArrayList<Ping> pings; 
@@ -21,6 +21,13 @@ public class Measurement implements Model{
 	Throughput throughput;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
 	boolean isManual = false;
+	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public boolean isManual() {
 		return isManual;

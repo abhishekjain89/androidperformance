@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.ping.R;
 import com.ping.utils.SHA1Util;
 
-public class Wifi implements Model{
+public class Wifi implements MainModel{
 
 	public int strength = -1;	
 	public int ipAddress = -1;
@@ -25,6 +25,12 @@ public class Wifi implements Model{
 	public ArrayList<WifiNeighbor> neighbors;
 	public ArrayList<WifiPreference> preference;
 
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
+	
 	public Wifi()
 	{
 		setNeighbors(new ArrayList<WifiNeighbor>());

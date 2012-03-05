@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import com.ping.R;
 import com.ping.utils.SHA1Util;
 
-public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
+public class WifiNeighbor implements MainModel,Comparable<WifiNeighbor>{
 	
 
 	String ssid = "";
@@ -18,6 +18,12 @@ public class WifiNeighbor implements Model,Comparable<WifiNeighbor>{
 	String capability = "";
 	boolean isConnected = false;
 	boolean isPreferred = false;
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public String getSSID() {
 		return ssid;

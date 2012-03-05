@@ -21,6 +21,12 @@ public class WifiPreference implements Model{
 	public String bssid = "";
 	public String keyMgmt = "";
 	public boolean isConnected = false;
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public String getId() {
 		return id;

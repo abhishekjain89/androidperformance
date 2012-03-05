@@ -18,7 +18,11 @@ public class Application implements Model,Comparable<Application> {
 	private long total_recv = -1;
 	private boolean isRunning = false;
 	private Drawable icon;
-	
+	private static String DESCRIPTION = "Shows data send and received for application";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public Drawable getAppIcon() {
 		return icon;
 	}
@@ -99,6 +103,4 @@ public class Application implements Model,Comparable<Application> {
 
 		return R.drawable.battery;
 	}
-
-
 }

@@ -11,6 +11,12 @@ public class Screen implements Model {
 	public String time = "";
 	public String localtime = "";
 	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	
 	public String getLocaltime() {
 		return localtime;

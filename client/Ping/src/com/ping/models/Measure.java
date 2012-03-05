@@ -12,7 +12,12 @@ public class Measure implements Model{
 	double min = -1;
 	double average = -1;
 	double stddev = -1;
-	
+
+	private static String DESCRIPTION = "";
+
+	public String getDescription() {
+		return DESCRIPTION;
+	}
 	public Measure(double max, double min, double average, double stddev){
 		this.max = max;
 		this.min = min;
