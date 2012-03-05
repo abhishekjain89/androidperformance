@@ -117,13 +117,16 @@ public class Usage implements Model{
 
 		Collections.sort(applications);
 		for(Application app: applications){
-
-				if(app.totalDataInMB()>=1)
+			try {
+				if(app.totalDataInMB()>=1) {
 					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
+				} 
 				else{
 					data.add(new Row(app.getAppIcon(),app.getName(),"< 1 MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
 				}
-			
+			} catch (Exception e) {
+				System.out.print(e.getLocalizedMessage());
+			}
 		}
 
 
