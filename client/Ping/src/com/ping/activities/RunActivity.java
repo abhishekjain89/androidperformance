@@ -129,7 +129,7 @@ public class RunActivity extends BaseActivityGroup
 			onCompleteOutput(response);
 		}
 
-		public void onCompleteOutput(Model model){
+		public void onCompleteOutput(MainModel model){
 
 			Message msg2=Message.obtain(UIHandler, 0, model);
 			UIHandler.sendMessage(msg2);

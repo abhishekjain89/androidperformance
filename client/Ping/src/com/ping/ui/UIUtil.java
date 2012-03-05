@@ -19,7 +19,7 @@ public class UIUtil {
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        totalHeight+=100;
+        totalHeight+=10;
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
