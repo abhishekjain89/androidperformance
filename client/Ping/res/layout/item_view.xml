@@ -1,47 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="2px"
-    
-    android:layout_marginBottom="50dp">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="40dp"
-    android:orientation="horizontal"
-    
-    >
+  >
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="60dp"
-        android:layout_height="fill_parent"
-        android:scaleType="fitCenter"
-        android:background="@drawable/btn_blue_dark"
-        android:src="@drawable/battery" />
-    
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:ellipsize="end"
-        android:gravity="center_horizontal"
-        android:background="@drawable/btn_blue_dark"
-        android:text="Title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFF"
-        android:textSize="30dp" >
-    </TextView>
-</LinearLayout>
-
-    <ListView
-        android:id="@+id/listview"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="none"
         android:layout_marginBottom="50dp"
-        >
-    </ListView>
+        android:orientation="vertical"
+        android:padding="2px" >
 
-</LinearLayout>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="60dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/btn_blue_dark"
+                android:scaleType="fitCenter"
+                android:src="@drawable/battery" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/btn_blue_dark"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:text="Title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFF"
+                android:textSize="30dp" >
+            </TextView>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:cacheColorHint="#00000000"
+            android:fadingEdge="none" >
+        </ListView>
+
+        <Button
+            android:id="@+id/note"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/btn_yellow"
+            android:text="Scroll down for more data"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFF"
+            android:textSize="13dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</ScrollView>

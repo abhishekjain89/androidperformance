@@ -4,57 +4,45 @@
     android:layout_height="fill_parent"
     android:background="#FFF" >
 
-    <ListView
-        android:id="@+id/allview"
+    <TabHost
+        android:id="@+id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="404dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="#FFF"
-        android:cacheColorHint="#00000000"
-        android:fadingEdge="none" >
-    </ListView>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_x="0dp"
-        android:layout_y="385dp" >
+        android:layout_height="fill_parent" >
 
-        <Button
-            android:id="@+id/note"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="20dp"
-          
-            android:background="@drawable/btn_yellow"
-            android:text="Scroll down for more data"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="13dp"
-            android:visibility="gone" />
+            android:layout_height="fill_parent"
+            
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/load"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_red"
-            android:text="Loading ..."
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="13dp" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                
+                android:layout_height="60dp"
+                android:background="@drawable/btn_blue" />
 
-    </LinearLayout>
+            <ScrollView
+                android:id="@+id/vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:cacheColorHint="#00000000"
+                android:isScrollContainer="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarSize="30dp"
+                android:scrollbarThumbVertical="@drawable/btn_blue" >
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:layout_x="0dp"
-        android:layout_y="405dp"
-        android:background="@drawable/btn_blue"
-        android:text="@string/backButton"
-        android:textColor="#FFF"
-        android:textSize="35dp"
-        android:textStyle="bold" />
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFF"
+                    android:cacheColorHint="#00000000"
+                    android:isScrollContainer="true"
+                    android:padding="5dp" />
+            </ScrollView>
+        </LinearLayout>
+    </TabHost>
 
 </AbsoluteLayout>

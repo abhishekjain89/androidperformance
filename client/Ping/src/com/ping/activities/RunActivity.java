@@ -33,26 +33,33 @@ import com.ping.tasks.MeasurementTask;
 import com.ping.ui.adapter.ListAdapter;
 
 import android.app.Activity;
+import android.app.ActivityGroup;
+import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TableLayout.LayoutParams;
 
 
-public class RunActivity extends Activity 
+public class RunActivity extends ActivityGroup
 {
 	//private LinearLayout table;
 
@@ -61,14 +68,16 @@ public class RunActivity extends Activity
 	private Activity activity;
 	private boolean firstPing=true;
 	public String serviceTag = "PerformanceService";
-	private Button backButton;
-	private Button noteButton;
-	private Button loadButton;
-	//private ProgressBar progress;
-	//private ProgressBar progressBar;
+
 	public ArrayList<Model> items;
 	public ListView listview;
 	public ListAdapter listadapter;
+
+	Resources res;
+	TabHost tabHost;
+	TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+	Intent intent;  // Reusable Intent for each tab
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,25 +87,24 @@ public class RunActivity extends Activity
 		activity = this;
 
 		serverhelper = new ThreadPoolHelper(5,10);
-		backButton=(Button)findViewById(R.id.back);
-		noteButton = (Button)findViewById(R.id.note);
-		loadButton = (Button)findViewById(R.id.load);
-		listview = (ListView) findViewById(R.id.allview);
-				
-		backButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {
-				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
-				ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
-				finish();
-			}
-		});
+
 
 		ServiceHelper.processStopService(this,serviceTag);
-		
+		session = (Values) this.getApplicationContext();
+		session.initDataStore();
 		items = new ArrayList<Model>();
-		listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
+		//listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
-		listview.setAdapter(listadapter);
+		//listview.setAdapter(listadapter);
+
+
+		res = getResources(); // Resource object to get Drawables
+		tabHost =  (TabHost) findViewById(R.id.tabhost);
+		tabHost.setup(this.getLocalActivityManager());
+
+
+		// Create an Intent to launch an Activity for the tab (to be reused)
+
 
 	}
 
@@ -106,12 +114,12 @@ public class RunActivity extends Activity
 	public class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			
+
 			//onCompleteOutput(response);
 		}
 
 		public void onCompleteDevice(Device response) {
-			
+
 			onCompleteOutput(response);
 		}
 
@@ -119,9 +127,9 @@ public class RunActivity extends Activity
 			LoadBarHandler.sendEmptyMessage(0);
 			onCompleteOutput(response);
 		}
-		
+
 		public void onCompleteOutput(Model model){
-			
+
 			Message msg2=Message.obtain(UIHandler, 0, model);
 			UIHandler.sendMessage(msg2);
 		}
@@ -163,7 +171,7 @@ public class RunActivity extends Activity
 			onCompleteOutput(response);
 
 		}
-		
+
 		public void onCompleteBattery(Battery response) {
 			onCompleteOutput(response);
 
@@ -171,22 +179,22 @@ public class RunActivity extends Activity
 
 		public void onCompleteNetwork(Network response) {
 			onCompleteOutput(response);
-			
+
 		}
 
 		public void onCompleteSIM(Sim response) {
 			onCompleteOutput(response);
-			
+
 		}
 
 		public void onCompleteSummary(JSONObject Object) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onFail(String response) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
@@ -205,18 +213,29 @@ public class RunActivity extends Activity
 
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-			noteButton.setVisibility(View.VISIBLE);
+
 			Model item = (Model)msg.obj;
 			items.add(item);
-			listadapter.add(item);			
-			listadapter.notifyDataSetChanged();		
+			/*listadapter.add(item);			
+			listadapter.notifyDataSetChanged();*/
+			intent = new Intent().setClass(activity, DisplayActivity.class);
+
+			session.storeModel(item);
+
+			intent.putExtra("model_key",item.getTitle());
 			
+			View tabview = createTabView(tabHost.getContext(),item);
+			
+			spec = tabHost.newTabSpec(item.getTitle()).setIndicator(tabview)
+					.setContent(intent);
+			tabHost.addTab(spec);
+
 		}
 	};
-	
+
 	private Handler LoadBarHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-			loadButton.setVisibility(View.GONE);
+
 			ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
 			ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
 		}
@@ -233,5 +252,18 @@ public class RunActivity extends Activity
 			}
 		}
 	};
+
+	private static View createTabView(final Context context, Model item) {
+
+		View view = LayoutInflater.from(context).inflate(R.layout.tabs_hg, null);
+
+		ImageView tv = (ImageView) view.findViewById(R.id.icon);
+
+		tv.setImageResource(item.getIcon());
+
+		return view;
+
+	}
+
 
 }

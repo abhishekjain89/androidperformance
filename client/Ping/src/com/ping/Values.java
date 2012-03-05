@@ -1,5 +1,6 @@
 package com.ping;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ public class Values extends Application{
 	public  int SHORT_SLEEP_TIME = 100;
 	public  int ONE_MINUTE_TIME = 60 * 1000;
 	
+	public HashMap<String,Model> dataStore = new HashMap<String,Model>();
 	
 	
 	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
@@ -68,6 +70,17 @@ public class Values extends Application{
 		
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook"));
 		
+	}
+	public void initDataStore(){
+		dataStore = new HashMap<String,Model>();
+	}
+	
+	public void storeModel(Model m){
+		dataStore.put(m.getTitle(), m);
+	}
+	
+	public Model getModel(String key){
+		return dataStore.get(key);
 	}
 	
 	public ArrayList<Address> getPingServers(){

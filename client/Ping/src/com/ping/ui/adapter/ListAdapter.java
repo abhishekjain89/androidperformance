@@ -105,7 +105,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 				ArrayList<Row> cells = item.getDisplayData();
 
 				if(cells.size()!=0){
-					ItemAdapter itemadapter = new ItemAdapter(activity,cells);
+					ItemAdapter itemadapter = new ItemAdapter(activity,null,cells);
 					for(Row cell: cells)
 						itemadapter.add(cell);
 					holder.listview.setAdapter(itemadapter);
