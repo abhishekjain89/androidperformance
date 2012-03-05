@@ -41,26 +41,20 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 	public ArrayList<Row> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
-	private Button note;
+	
 
-	public ItemAdapter(Activity activity,Button note,
-			ArrayList<Row> items) {
+	public ItemAdapter(Activity activity,ArrayList<Row> items) {
 		super(activity.getApplicationContext(), 0);
 
 		this.items = items;
 		this.activity = activity;
-		this.note = note;
+		
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 	}
 	
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		
-		if(note!=null)
-			if(position == getCount()-1){
-				note.setVisibility(View.GONE);
-			}
 		
 		
 		final Row item =items.get(position);

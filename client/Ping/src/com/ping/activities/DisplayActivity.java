@@ -23,7 +23,7 @@ public class DisplayActivity extends Activity {
 	TextView title;
 	ListView listview;
 	ImageView imageview;
-	Button note;
+	TextView description;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,16 +38,18 @@ public class DisplayActivity extends Activity {
 		title =  (TextView) findViewById(R.id.title);
 		listview = (ListView) findViewById(R.id.listview);
 		imageview = (ImageView) findViewById(R.id.image);
-		note = (Button) findViewById(R.id.note);
+		description = (TextView) findViewById(R.id.description);
+		
 		//note.setVisibility(View.GONE);
 		title.setText(item.getTitle());
+		
 		
 		imageview.setImageResource(item.getIcon());
 		
 		ArrayList<Row> cells = item.getDisplayData();
 
 		if(cells.size()!=0){
-			ItemAdapter itemadapter = new ItemAdapter(this,note,cells);
+			ItemAdapter itemadapter = new ItemAdapter(this,cells);
 			for(Row cell: cells)
 				itemadapter.add(cell);
 			listview.setAdapter(itemadapter);

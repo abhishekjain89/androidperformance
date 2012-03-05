@@ -198,7 +198,7 @@ public class AnalysisActivity extends BaseActivity
 				cells.add(new Row(R.layout.cell_view_title_banner,"Status: " + obj.get("status")));
 				
 				if(cells.size()!=0){
-					ItemAdapter itemadapter = new ItemAdapter(activity,null,cells);
+					ItemAdapter itemadapter = new ItemAdapter(activity,cells);
 					for(Row cell: cells)
 						itemadapter.add(cell);
 					listview.setAdapter(itemadapter);
