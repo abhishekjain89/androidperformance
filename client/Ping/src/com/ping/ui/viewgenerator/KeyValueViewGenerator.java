@@ -30,8 +30,11 @@ public class KeyValueViewGenerator extends ViewGenerator{
 	@Override
 	public void populateView(Row item) {
 		holder.first.setText(item.first);
-		
-		holder.second.setText(item.second);
+		String secondItem = item.second;
+		if (secondItem.length() > 0) {
+			secondItem = secondItem.substring(0, 1).toUpperCase() + secondItem.substring(1); 
+		}
+		holder.second.setText(secondItem);
 		
 	}
 	
