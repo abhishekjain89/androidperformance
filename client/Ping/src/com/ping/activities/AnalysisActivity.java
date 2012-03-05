@@ -84,8 +84,6 @@ public class AnalysisActivity extends BaseActivity
 		//configButton=(Button)findViewById(R.id.config);
 		
 		
-		
-		
 		ServiceHelper.processStopService(this,"com.android.services.PerformanceService");
 		ServiceHelper.processStartService(this,"com.android.services.PerformanceService");
 		
@@ -151,6 +149,8 @@ public class AnalysisActivity extends BaseActivity
 
 		public void makeToast(String text) {
 			Toast.makeText(getApplicationContext(), text, 10);
+			
+			Toast.makeText(getBaseContext(), text, 10);
 		}
 
 		public void onCompleteSignal(String signalStrength) {

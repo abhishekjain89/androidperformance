@@ -64,7 +64,7 @@ public class NeighborWifiUtil {
 			catch(Exception e){
 				e.printStackTrace();
 			}
-
+			//mainWifi.disconnect();
 
 		}
 	}

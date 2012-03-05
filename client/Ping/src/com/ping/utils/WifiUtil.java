@@ -26,19 +26,22 @@ public class WifiUtil {
 		boolean isWIFI = false;		
 		
 		Wifi wifiDetail = new Wifi();
-		
-		int connectionType = activeNetwork.getType();
-		switch (connectionType) {
-			case (ConnectivityManager.TYPE_MOBILE) : 
-				isWIFI = false;
-				break;
-		  	case (ConnectivityManager.TYPE_WIFI) : 
-		  		isWIFI = true;
-		  		break;
-		  	default: 
-		  		break;
+		if (activeNetwork == null) {
+			isWIFI = false;
 		}
-
+		else {
+			int connectionType = activeNetwork.getType();
+			switch (connectionType) {
+				case (ConnectivityManager.TYPE_MOBILE) : 
+					isWIFI = false;
+					break;
+			  	case (ConnectivityManager.TYPE_WIFI) : 
+			  		isWIFI = true;
+			  		break;
+			  	default: 
+			  		break;
+			}
+		}
 		if (!isWIFI) {		
 			return new Wifi();
 		}
