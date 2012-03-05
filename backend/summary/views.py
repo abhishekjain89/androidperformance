@@ -103,7 +103,7 @@ def measurement(request):
         try:
             m_ismanual = request_object['isManual']
         except:
-            pass
+            m_ismanual = 0
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))           
@@ -111,38 +111,36 @@ def measurement(request):
     
     measurement = Measurement()
     measurement.time = m_time
-    try:
-        if m_ismanual == 1:
-            measurement.ismanual = True
-        else:
-            measurement.ismanual = False
-    except:
-        pass
     
-    
+    if m_ismanual == 1:
+        measurement.ismanual = True
+    else:
+        measurement.ismanual = False
     
     measurement.localtime = m_localtime;
-    
+  
     message = []
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
-        measurement.deviceid = details
         try:
             exist = Measurement.objects.filter(deviceid=details,time=m_time)[0]
-            return HttpResponse(error_message_helper.duplicate_entry())
+            #return HttpResponse(error_message_helper.duplicate_entry())
         except Exception as inst:
             pass
     except:
         pass
-        
+    print "trying device"
     try:
         details=insertJSON.device(m_device,m_deviceid,m_sim)
         measurement.deviceid = details
     except Exception as inst:
-       message.append(error_message_helper.insert_entry_fail("device",inst))
-        
-    measurement.save();
+        message.append(error_message_helper.insert_entry_fail("device",inst))
     
+    try:
+        measurement.save()
+    except Exception as inst:
+        message.append(error_message_helper.insert_entry_fail("measurement",inst))
+       
     try:
         network=insertJSON.network(m_network,measurement)
     except Exception as inst:

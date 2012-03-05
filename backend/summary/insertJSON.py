@@ -14,83 +14,91 @@ import error_message_helper
 def device(dev,m_deviceid,m_sim):
     
     count=0
-    d = Device(deviceid = m_deviceid,phonenumber=dev['phoneNumber'])
+    
+    d = Device()
+    try:
+        d=Device.objects.filter(deviceid=m_deviceid)[0]
+    except:
+        d = Device()
+        try:
+            d.deviceid = m_deviceid
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
     
     try:
         
         try:
+            d.phonenumber=dev['phoneNumber']
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
+        try:
             d.phonetype = dev['phoneType']
-        except:
-            pass
-        try:         
-                        
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
+        try:                         
             d.softwareversion = dev['softwareVersion']
-        except:
-            pass
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
         try:
             d.phonemodel = dev['phoneModel']
-        except:
-            pass
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
         try:
             d.androidversion = dev['androidVersion']
-        except:
-            pass
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
         try:
             d.phonebrand = dev['phoneBrand']
-        except:
-            pass
+        except Exception as inst:
+            print error_message_helper.insert_entry_fail("device",inst)
         try:
             d.devicedesign = dev['deviceDesign']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.manufacturer = dev['manufacturer']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.productname = dev['productName']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.radioversion = dev['radioVersion']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.boardname = dev['boardName']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.datacap = dev['datacap']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.billingcycle = dev['billingcycle']
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.networkcountry = dev["networkCountry"]
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         try:
             d.networkname = dev["networkName"]
-        except:
-            pass
+        except Exception as inst:
+            error_message_helper.insert_entry_fail("device",inst)
         
-        try:
-            
+        try:           
             s =sim(m_sim);
             d.serialnumber = s
         except Exception as inst:
-            print type(inst)     # the exception instance
-            print inst    
             print error_message_helper.insert_entry_fail("sim",inst) 
+        
         
         d.save()
 	
         print "Device inserted"
     except Exception as inst:
-        print type(inst)     # the exception instance
-        print inst    
         print error_message_helper.insert_entry_fail("device",inst) 
        
     return d
@@ -98,7 +106,7 @@ def device(dev,m_deviceid,m_sim):
 
 def network(dev,m):
     
-    
+    print "trying network"
     n = Network()
     try:
         n.measurementid = m.measurementid
@@ -116,10 +124,10 @@ def network(dev,m):
         n.mobilenetworkinfo = parse(dev["mobileNetworkInfo"])
     except:
         pass
-     
+    print "trying cell" 
     try:
         result = Cell.objects.filter(cellid=parse(dev['cellId']))[0]
-        
+    
     except:
         try:
             result = Cell()
@@ -158,7 +166,7 @@ def network(dev,m):
             print "Cell inserted"
         except Exception as inst:
             print error_message_helper.insert_entry_fail("cell",inst)
-            pass
+            
         
     try:        
         n.cellid = result
@@ -185,32 +193,33 @@ def network(dev,m):
 
 def sim(dev):
     
-    count=0
     s = Sim()
-    
     try:
-        s.serialnumber = dev["serialNumber"]
-    except:
-        pass
-    try: 
-        s.state = dev["state"]
-    except:
-        pass
-    try: 
-        s.operatorcode = dev["operatorCode"]
-    except:
-        pass
-    try:        
-        s.operatorname = dev["operatorName"]
-    except:
-        pass
-    try:
-        s.networkcountry = dev["networkCountry"]
-    except:
-        pass
+        try:
+            s.serialnumber = dev["serialNumber"]
+        except:
+            pass
+        try: 
+            s.state = dev["state"]
+        except:
+            pass
+        try: 
+            s.operatorcode = dev["operatorCode"]
+        except:
+            pass
+        try:        
+            s.operatorname = dev["operatorName"]
+        except:
+            pass
+        try:
+            s.networkcountry = dev["networkCountry"]
+        except:
+            pass
     
-    s.save()
-    print "Sim inserted"
+        s.save()
+        print "Sim inserted"
+    except Exception as inst:
+        print error_message_helper.insert_entry_fail("sim",inst)
        
     return s
 
@@ -336,10 +345,22 @@ def usage(dev,m):
     
     u = Usage()
     u.measurementid=m.measurementid
+    
+    last =  None
+    
+    try:
+        print m.deviceid.deviceid
+        last_measurement = Measurement.objects.filter(deviceid=m.deviceid.deviceid).order_by('time')[0]
+        print last_measurement.measurementid
+        last = Usage.objects.filter(measurementid=last_measurement.measurementid)[0]
+    except:
+        pass
+    
     try:
         u.total_sent=dev['total_sent']
     except:
         pass
+    
     try:
         u.total_recv=dev['total_recv']
     except:
@@ -352,6 +373,7 @@ def usage(dev,m):
         u.mobile_recv=dev['mobile_recv']
     except:
         pass
+
 
     u.save()
     
@@ -388,10 +410,29 @@ def usage(dev,m):
             appUse.measurementid=m
         except:
             pass
-
+        
+     
         appUse.save()
     
+    print last
+    if last != None:
+        
+        if not type(last.total_till_now) is long:
+                
+            total_now = u.total_sent +  u.total_recv
+            total_last = last.total_sent + last.total_recv
+                
+            if total_now > total_last:
+                u.total_till_now = last.total_till_now + total_now - total_last
+            else:
+                u.total_till_now = last.total_till_now + total_now
+        else:
+            u.total_till_now = 0
+    else:
+        u.total_till_now = 0
+
     print "Usage inserted"
+    
         
     
     return u
