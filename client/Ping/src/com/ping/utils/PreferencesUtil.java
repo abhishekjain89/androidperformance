@@ -53,10 +53,17 @@ public class PreferencesUtil {
 		return getPreferences(context).getInt(str, -1);
 	}
 	
+	
 	public static void setDataInt(String key,int val,Context context){
 		Editor editor = getPreferences(context).edit();
 		
 		editor.putInt(key,val);
+		editor.commit();
+	}
+	public static void setDataString(String key,String val,Context context){
+		Editor editor = getPreferences(context).edit();
+		
+		editor.putString(key, val);
 		editor.commit();
 	}
 

@@ -77,6 +77,7 @@ public class SummaryTask extends ServerTask{
 			JSONObject object = new JSONObject(output);
 			try{
 				getValues().insertValues(object.getJSONObject("values"));
+				getValues().loadValues();
 			}
 			catch(Exception e){
 				e.printStackTrace();
