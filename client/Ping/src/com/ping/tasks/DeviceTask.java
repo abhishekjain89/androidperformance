@@ -31,10 +31,10 @@ public class DeviceTask extends ServerTask{
 		super(context, reqParams, listener);
 		this.measurement = measurement;
 	}
-
+ 
 	@Override
 	public void runTask() {
-		
+		 
 		measurement = DeviceHelper.deviceHelp(getContext(), measurement);
 		this.getResponseListener().onCompleteDevice(measurement.getDevice());
 		this.getResponseListener().onCompleteNetwork(measurement.getNetwork());
