@@ -76,7 +76,9 @@ public class AnalysisActivity extends BaseActivity
 		setContentView(R.layout.main_screen);
 		
 		activity = this;
-				
+		session = (Values) getApplicationContext();
+		session.loadValues();
+		
 		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
 		
