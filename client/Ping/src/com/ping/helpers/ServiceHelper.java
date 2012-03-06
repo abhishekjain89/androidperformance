@@ -26,15 +26,15 @@ public class ServiceHelper {
 
 	public static Values values;
 	
-	public static void processStartService(Context context, String tag) {
+	public static void processStartService(Context context) {
 		/*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
 		wl.acquire();*/
 		
-		recurringStartService(context, tag);
+		recurringStartService(context);
 	}
 	
-	public static void recurringStartService(Context context, String tag) {
+	public static void recurringStartService(Context context) {
 		Intent serviceIntent = new Intent(context, PerformanceServiceAll.class);
 		serviceIntent.putExtras(makeBundle(2));
 		
@@ -49,7 +49,7 @@ public class ServiceHelper {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
 		
-		Log.i(Bigtag, "STARTED: " + tag);
+		Log.i(Bigtag, "STARTED service");
 	}
 	
 	
@@ -61,7 +61,7 @@ public class ServiceHelper {
 		return b;
 	}
 	
-	public static void processStopService(Context context, String tag) {
+	public static void processStopService(Context context) {
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
 
 		alarmManager.cancel(pendingIntent);
@@ -69,12 +69,12 @@ public class ServiceHelper {
 		/*if(wl!=null)
 			if(wl.isHeld())
 				wl.release();*/
-		Log.i(Bigtag, "STOPPED: " + tag);
+		Log.i(Bigtag, "STOPPED: service");
 	}
 	
-	public static void processRestartService(Context context, String tag){
-		Log.i(Bigtag, "RESTARTING....... " + tag);
-		processStopService(context, tag);
-		processStartService(context, tag);
+	public static void processRestartService(Context context){
+		Log.i(Bigtag, "RESTARTING....... service");
+		processStopService(context);
+		processStartService(context);
 	}
 }

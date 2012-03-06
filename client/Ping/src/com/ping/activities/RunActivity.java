@@ -49,7 +49,7 @@ public class RunActivity extends BaseActivityGroup
 	private Values session = null;
 	private Activity activity;
 	private boolean firstPing=true;
-	public String serviceTag = "PerformanceService";
+	
 
 	public ArrayList<Model> items;
 	public ListView listview;
@@ -72,7 +72,7 @@ public class RunActivity extends BaseActivityGroup
 		serverhelper = new ThreadPoolHelper(5,10);
 
 
-		ServiceHelper.processStopService(this,serviceTag);
+		ServiceHelper.processStopService(this);
 		session = (Values) this.getApplicationContext();
 		session.initDataStore();
 		items = new ArrayList<Model>();
@@ -220,8 +220,8 @@ public class RunActivity extends BaseActivityGroup
 	private Handler LoadBarHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			load.setVisibility(View.GONE);
-			ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
-			ServiceHelper.processStartService(activity,"com.android.services.PerformanceService");
+			ServiceHelper.processStopService(activity);
+			ServiceHelper.processStartService(activity);
 		}
 	};
 

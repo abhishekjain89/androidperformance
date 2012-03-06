@@ -94,7 +94,7 @@ public class PerformanceServiceAll extends Service{
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
 		runTask();   
-		ServiceHelper.recurringStartService(context, "TAG");
+		ServiceHelper.recurringStartService(context);
 		return Service.START_STICKY;
 	}
 

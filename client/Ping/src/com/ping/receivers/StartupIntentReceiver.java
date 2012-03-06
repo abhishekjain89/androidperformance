@@ -49,7 +49,7 @@ public class StartupIntentReceiver extends BroadcastReceiver {
 		}*/
 		Log.v(this.toString(),"Binaries Installed");
 		/*   START PERFORMANCE SERVICE */
-		ServiceHelper.processStartService(context,"on startup");
+		ServiceHelper.processStartService(context);
 		 
 	}
 

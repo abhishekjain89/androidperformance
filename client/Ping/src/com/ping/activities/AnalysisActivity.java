@@ -79,20 +79,20 @@ public class AnalysisActivity extends Activity
 		
 		serverhelper = new ThreadPoolHelper(5,10);
 		testButton=(Button)findViewById(R.id.test);
-		settingsButton=(Button)findViewById(R.id.test);
-		aboutusButton=(Button)findViewById(R.id.test);
+		settingsButton=(Button)findViewById(R.id.settings);
+		aboutusButton=(Button)findViewById(R.id.aboutus);
 		
 		
 		//configButton=(Button)findViewById(R.id.config);
 		
 		
-		ServiceHelper.processStopService(this,"com.android.services.PerformanceService");
-		ServiceHelper.processStartService(this,"com.android.services.PerformanceService");
+		ServiceHelper.processStopService(this);
+		ServiceHelper.processStartService(this);
 		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 
-				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
+				ServiceHelper.processStopService(activity);
 				
 				Intent myIntent = new Intent(v.getContext(), RunActivity.class);
                 startActivity(myIntent);
@@ -101,8 +101,8 @@ public class AnalysisActivity extends Activity
 		
 		settingsButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
-
 				Intent myIntent = new Intent(v.getContext(), UserFormActivity.class);
+				myIntent.putExtra("force",true);
                 startActivity(myIntent);
 			}
 		});
@@ -110,8 +110,6 @@ public class AnalysisActivity extends Activity
 		aboutusButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 
-				ServiceHelper.processStopService(activity,"com.android.services.PerformanceService");
-				
 				Intent myIntent = new Intent(v.getContext(), AboutUsActivity.class);
                 startActivity(myIntent);
 			}

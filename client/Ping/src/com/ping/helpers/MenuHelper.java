@@ -24,7 +24,7 @@ public class MenuHelper {
 		
 		menu.add(0, MENU_PERIODIC, 0, "Settings");
 		//menu.add(0, PAST_RECORD, 0, "View past record");
-		menu.add(0, MENU_ABOUT, 0, "About us");
+		menu.add(0, MENU_ABOUT, 0, "About Us");
 		
 		return menu;
 	}
