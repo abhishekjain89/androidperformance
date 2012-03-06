@@ -58,7 +58,7 @@ public class WifiUtil {
 				int rssi = info.getRssi();
 				String macAddress = info.getMacAddress();
 				String ssid = info.getSSID();		
-		    	ssid = ssid.substring(1, ssid.length() - 1);
+		    	//ssid = ssid.substring(1, ssid.length() - 1);
 				SupplicantState supState = info.getSupplicantState();
 				String detailedInfo = supState.toString();
 				String units = WifiInfo.LINK_SPEED_UNITS;
