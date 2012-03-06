@@ -75,7 +75,8 @@ below:
 ### Personally-identifiable information
 
 We consider the following information to be personally-identifiable information
-(PII). This information will be ENCRYPTED at all times. 
+(PII). This information will be HASHED and ENCRYPTED at all times. It will be
+inaccesible my anyone.
 
 - telephone number
 - device id
@@ -83,12 +84,6 @@ We consider the following information to be personally-identifiable information
 - SIM number
 - gateway WAN interface IP address
 - gateway MAC addresses
-
-Other information collected as part your participation in Ping (e.g. ISP or
-network topology) could potentially be used to identify you in certain
-circumstances. You must assess and accept the risks of participating in Ping
-before you agree to participate in the Ping study.
-
 
 Information disclosure
 ----------------------
@@ -112,16 +107,15 @@ team in the following ways:
 Information retention
 ---------------------
 
-Device identity information will be
-retained for the duration of the Ping study. Service Information, Device Performance Information
- and Active Measurement Information (excluding PII) will be retained for at least
+Device identity information will be retained for the duration of the Ping 
+study. Service Information, Device Performance Information
+and Active Measurement Information (excluding PII) will be retained for at least
 the duration of the Ping study.
 
 Information security
 --------------------
 
 We take measures to protect the information collected as described above. We
-encrypt information as it is transmitted between the Ping gateway and our
-servers, or between your computer and our servers during enrollment. We have
-implemented access controls to limit access to information stored on our
-servers.
+encrypt information as it is transmitted between your device and our
+servers. We have implemented access controls to limit access to information 
+stored on our servers.
