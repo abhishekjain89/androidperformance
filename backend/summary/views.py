@@ -229,8 +229,14 @@ def summary(request):
     data['total-devices'] = len(Device.objects.all())
     data['total-cells'] = len(Cell.objects.all())
     data['total-wifis'] = len(WifiHotspot.objects.all())
+    return HttpResponse(json.dumps(data))
+
+def values(request):
+    
+    data={}
     data['values'] = getJSON.values()
     return HttpResponse(json.dumps(data))
+
 
 def parameterCheck(request):
     response = {}

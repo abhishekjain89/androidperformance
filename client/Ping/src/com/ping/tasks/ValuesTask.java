@@ -47,12 +47,12 @@ import com.ping.utils.NeighborWifiUtil.NeighborResult;
  * 
  * 
  */
-public class SummaryTask extends ServerTask{
+public class ValuesTask extends ServerTask{
 
 	ThreadPoolHelper serverhelper;
 
 
-	public SummaryTask(Context context,
+	public ValuesTask(Context context,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 
@@ -73,10 +73,16 @@ public class SummaryTask extends ServerTask{
 		HTTPUtil http = new HTTPUtil();
 
 		try {
-			String output = http.request(this.getReqParams(), "GET", "summary", "", "".toString());
+			String output = http.request(this.getReqParams(), "GET", "values", "", "".toString());
 			JSONObject object = new JSONObject(output);
-	
-			getResponseListener().onCompleteSummary(object);
+			try{
+				getValues().insertValues(object.getJSONObject("values"));
+				getValues().loadValues();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

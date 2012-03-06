@@ -38,16 +38,7 @@
                 android:textSize="30dp" >
             </TextView>
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:cacheColorHint="#00000000"
-            android:fadingEdge="none" >
-        </ListView>
-
+        
         <TextView
             android:id="@+id/description"
             android:layout_width="fill_parent"
@@ -59,6 +50,16 @@
             android:textColor="#000"
             android:textSize="15dp" >
         </TextView>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:cacheColorHint="#00000000"
+            android:fadingEdge="none" >
+        </ListView>
+=
     </LinearLayout>
 
 </ScrollView>
