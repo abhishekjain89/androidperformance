@@ -67,4 +67,8 @@ public class PreferencesUtil {
 		editor.commit();
 	}
 
+	public static String getDataString(String string, String string2,Context context) {
+		return getPreferences(context).getString(string, string2);
+	}
+
 }

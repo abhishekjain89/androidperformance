@@ -130,7 +130,7 @@ public class Values extends Application{
 		}
 
 		try {
-			TCP_HEADER_SIZE = Integer.parseInt(PreferencesUtil.getDataString("tcp_headersize",this));
+			TCP_HEADER_SIZE = Integer.parseInt(PreferencesUtil.getDataString("tcp_headersize","",this));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,12 +142,13 @@ public class Values extends Application{
 
 
 		try {
-			THROUGHPUT_SERVER_ADDRESS = PreferencesUtil.getDataString("throughput_server_address",this);
+			
+			THROUGHPUT_SERVER_ADDRESS = PreferencesUtil.getDataString("throughput_server_address",THROUGHPUT_SERVER_ADDRESS,this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			API_SERVER_ADDRESS = PreferencesUtil.getDataString("api_server_address",this);
+			API_SERVER_ADDRESS = PreferencesUtil.getDataString("api_server_address",API_SERVER_ADDRESS,this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,12 +165,12 @@ public class Values extends Application{
 		}
 
 		try {
-			UNAVAILABLE_CELLID = PreferencesUtil.getDataString("unavailable_cellid",this);
+			UNAVAILABLE_CELLID = PreferencesUtil.getDataString("unavailable_cellid",UNAVAILABLE_CELLID,this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			UNAVAILABLE_CELLLAC = PreferencesUtil.getDataString("unavailable_celllac",this);
+			UNAVAILABLE_CELLLAC = PreferencesUtil.getDataString("unavailable_celllac",UNAVAILABLE_CELLLAC,this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -259,5 +260,5 @@ public class Values extends Application{
 	public void setThroughput(int throughput){
 		PreferencesUtil.setDataInt("throughput", throughput,this);
 	}
-
+	
 }

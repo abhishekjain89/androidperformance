@@ -35,14 +35,14 @@ public class DisplayActivity extends Activity {
 		
 		title =  (TextView) findViewById(R.id.title);
 		listview = (ListView) findViewById(R.id.listview);
-		imageview = (ImageView) findViewById(R.id.image);
+		//imageview = (ImageView) findViewById(R.id.image);
 		description = (TextView) findViewById(R.id.description);
 		
 		//note.setVisibility(View.GONE);
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());
 		
-		imageview.setImageResource(item.getIcon());
+		//imageview.setImageResource(item.getIcon());
 		
 		ArrayList<Row> cells = item.getDisplayData();
 

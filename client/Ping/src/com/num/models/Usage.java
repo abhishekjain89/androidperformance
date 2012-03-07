@@ -122,6 +122,9 @@ public class Usage implements MainModel{
 
 		Collections.sort(applications);
 		for(Application app: applications){
+			
+			if(isOurApp(app)) continue;
+			
 			try {
 				if(app.totalDataInMB()>=1) {
 					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
@@ -142,6 +145,11 @@ public class Usage implements MainModel{
 	public int getIcon() {
 
 		return R.drawable.usage;
+	}
+	
+	public boolean isOurApp(Application app){
+		if(app.getName().equals("Num: Network Usage Monitor")) return true;
+		return false;
 	}
 
 

@@ -11,30 +11,32 @@
         android:id="@+id/linear"
         android:layout_width="fill_parent"
         android:layout_height="110dp"
+        android:padding="0dp"
         android:background="@drawable/btn_blue"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="65dp"
             android:gravity="center"
-            android:text="Ping"
+            android:text="Num"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
-            android:textSize="50dp"
+            android:textSize="55dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tagline"
+            android:layout_marginTop="5dp"
             android:layout_width="fill_parent"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/title"
             android:gravity="center"
-            android:text="Periodic Measurement Tool"
+            android:text="Network Usage Monitor"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
 

@@ -69,7 +69,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 		public TextView title;
 		public TextView text;
 		public ListView listview;
-		public ImageView imageview;
+		//public ImageView imageview;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -87,7 +87,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 			holder = new ViewHolder();
 			holder.title =  (TextView) v.findViewById(R.id.title);
 			holder.listview = (ListView) v.findViewById(R.id.listview);
-			holder.imageview = (ImageView) v.findViewById(R.id.image);
+			//holder.imageview = (ImageView) v.findViewById(R.id.image);
 
 			v.setTag(holder);
 		}
@@ -101,7 +101,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 			try{
 				holder.title.setText(item.getTitle());
 
-				holder.imageview.setImageResource(item.getIcon());
+				//holder.imageview.setImageResource(item.getIcon());
 				ArrayList<Row> cells = item.getDisplayData();
 
 				if(cells.size()!=0){
