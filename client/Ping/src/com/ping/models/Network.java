@@ -27,7 +27,7 @@ public class Network implements MainModel{
 	String systemid = "";
 	
 
-	private static String DESCRIPTION = "";
+	private static String DESCRIPTION = "Details of your device's current cellular network";
 
 	public String getDescription() {
 		return DESCRIPTION;

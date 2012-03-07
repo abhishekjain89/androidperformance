@@ -13,7 +13,7 @@ public class Throughput implements MainModel{
 	public Link upLink;
 	
 
-	private static String DESCRIPTION = "";
+	private static String DESCRIPTION = "Upload and Download speeds";
 
 	public String getDescription() {
 		return DESCRIPTION;

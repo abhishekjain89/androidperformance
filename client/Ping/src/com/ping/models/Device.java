@@ -31,7 +31,7 @@ public class Device implements MainModel {
 	String networkCountry = "";
 	String networkName ="";
 
-	private static String DESCRIPTION = " D";
+	private static String DESCRIPTION = "Device specifications";
 
 	public String getDescription() {
 		return DESCRIPTION;

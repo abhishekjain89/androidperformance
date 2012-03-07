@@ -24,7 +24,7 @@ public class Battery  implements MainModel{
 	int status = -1;
 	
 
-	private static String DESCRIPTION = "Shows descriptions on battery: ";
+	private static String DESCRIPTION = "Details of your device's battery";
 
 	public String getDescription() {
 		return DESCRIPTION;

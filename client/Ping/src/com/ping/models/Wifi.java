@@ -25,7 +25,7 @@ public class Wifi implements MainModel{
 	public ArrayList<WifiNeighbor> neighbors;
 	public ArrayList<WifiPreference> preference;
 
-	private static String DESCRIPTION = "";
+	private static String DESCRIPTION = "Details of your current and neighboring WiFi connections";
 
 	public String getDescription() {
 		return DESCRIPTION;

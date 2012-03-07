@@ -20,7 +20,7 @@ public class Usage implements MainModel{
 	private long mobile_sent = -1;
 	private long mobile_recv = -1;
 
-	private static String DESCRIPTION = "Shows usages of network per application";
+	private static String DESCRIPTION = "Network usage per application";
 
 	public String getDescription() {
 		return DESCRIPTION;

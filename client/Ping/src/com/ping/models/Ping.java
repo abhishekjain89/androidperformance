@@ -21,7 +21,7 @@ public class Ping implements Model{
 	
 	String time = "";
 
-	private static String DESCRIPTION = "";
+	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network";
 
 	public String getDescription() {
 		return DESCRIPTION;
