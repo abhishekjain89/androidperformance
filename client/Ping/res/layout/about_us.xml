@@ -5,38 +5,19 @@
     android:layout_height="fill_parent"
     android:background="#FFF"
     android:orientation="vertical" >
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linear"
+  	<TextView
+        android:id="@+id/tagline"
         android:layout_width="fill_parent"
-        android:layout_height="110dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/title"
         android:background="@drawable/btn_blue"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:text="Ping"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="50dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tagline"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:layout_below="@+id/title"
-            android:gravity="center"
-            android:text="Periodic Measurement Tool"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="About Us"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFF"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/vertical"
@@ -54,25 +35,13 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/heading"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="About Us"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
+            
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Project Ping is a project out of Georgia Tech, It hopes to provide thorough and relevant network and device details to the cellphone users."
+                android:text="This projct was developed inside Georgia Tech. It hopes to provide thorough and relevant network, usage and device details to the cellphone users."
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#000" />
 

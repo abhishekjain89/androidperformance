@@ -72,16 +72,19 @@ public class UserFormActivity extends Activity
 	final RadioButton[] rb = new RadioButton[5];
 	UserDataHelper userhelp;
 	Boolean force = false;
+	int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		userhelp = new UserDataHelper(this);
-		Bundle extras = getIntent().getExtras();
 		
+		Bundle extras = getIntent().getExtras();
+		activity = this;
+		userhelp = new UserDataHelper(activity);
 		int old_cap = userhelp.getDataCap();
+		
 		
 		
 		try{
@@ -97,17 +100,16 @@ public class UserFormActivity extends Activity
 			Intent myIntent = new Intent(this, AnalysisActivity.class);
 			startActivity(myIntent);
 		}
-		userhelp = new UserDataHelper(activity);
+		
 
 		setContentView(R.layout.userform_screen);
 
 
 		String[] limit_text = {"Dont have one","Dont know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
 		
-		final int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
+		
 
-		activity = this;
-
+		
 		saveButton = (Button) this.findViewById(R.id.save);
 		rGroup = (RadioGroup) findViewById(R.id.radio_group);
 
