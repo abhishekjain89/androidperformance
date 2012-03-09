@@ -29,22 +29,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:layout_margin="0dp"
-                android:background="@drawable/btn_blue_nocorners"
+                android:background="@drawable/btn_blue_dark"
                 android:padding="0dp" />
 
-            <ScrollView
-                android:id="@+id/vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:background="#FFF"
-                android:cacheColorHint="#00000000"
-                android:isScrollContainer="true"
-                android:padding="0dp"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbarSize="30dp"
-                android:scrollbarThumbVertical="@drawable/btn_blue" >
-
+         
+				
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent"
@@ -55,7 +44,7 @@
                     android:isScrollContainer="true"
                     android:padding="0dp"
                      />
-            </ScrollView>
+            
         </LinearLayout>
     </TabHost>
 

@@ -413,23 +413,7 @@ def usage(dev,m):
         
      
         appUse.save()
-    
-    print last
-    if last != None:
-        
-        if not type(last.total_till_now) is long:
-                
-            total_now = u.total_sent +  u.total_recv
-            total_last = last.total_sent + last.total_recv
-                
-            if total_now > total_last:
-                u.total_till_now = last.total_till_now + total_now - total_last
-            else:
-                u.total_till_now = last.total_till_now + total_now
-        else:
-            u.total_till_now = 0
-    else:
-        u.total_till_now = 0
+   
 
     print "Usage inserted"
     

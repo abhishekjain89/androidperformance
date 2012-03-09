@@ -120,6 +120,21 @@ public class MeasurementTask extends ServerTask{
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, new MeasurementListener()));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+
+		signalRunning = true;
+		wifiRunning = true;
+		WifiHandler.sendEmptyMessage(0);
+		/*
+		if(false){
+			GPSHandler.sendEmptyMessage(0);
+			gpsRunning = true;
+		}
+		else{
+			gpsRunning = false;
+		}*/
+		SignalHandler.sendEmptyMessage(0);
+		
+		measurement.setPings(pings);
 		
 		startTime = System.currentTimeMillis();
 		
@@ -139,17 +154,6 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 		
-		signalRunning = true;
-		wifiRunning = true;
-		WifiHandler.sendEmptyMessage(0);
-		if(false){
-			GPSHandler.sendEmptyMessage(0);
-			gpsRunning = true;
-		}
-		else{
-			gpsRunning = false;
-		}
-		SignalHandler.sendEmptyMessage(0);
 
 
 		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
@@ -159,12 +163,12 @@ public class MeasurementTask extends ServerTask{
 				return;
 			}
 		}
-		
+		/*
 		if(gpsRunning){
 			locationResult.gotLocation(null);
-		}
+		}*/
 
-		measurement.setPings(pings);
+		
 		
 		if(doThroughput){
 			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));

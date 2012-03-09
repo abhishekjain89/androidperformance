@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.num.Values;
+import com.num.activities.AboutUsActivity.Listener;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -82,10 +83,10 @@ public class AnalysisActivity extends Activity
 		settingsButton=(Button)findViewById(R.id.settings);
 		aboutusButton=(Button)findViewById(R.id.aboutus);
 		
-		
-		//configButton=(Button)findViewById(R.id.config);
-		
-		
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
+
+		serverhelper.execute(new ValuesTask(this,new FakeListener()));
+
 		ServiceHelper.processStopService(this);
 		ServiceHelper.processStartService(this);
 		

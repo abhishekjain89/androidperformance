@@ -6,150 +6,53 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linear"
+    <TextView
+        android:id="@+id/tagline"
         android:layout_width="fill_parent"
-        android:layout_height="110dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/title"
         android:background="@drawable/btn_blue"
-        android:orientation="vertical" >
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="Settings"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFF"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:text="Ping"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="50dp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/title"
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="Which of the following options is the closest to your monthly data plan limit?"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tagline"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:layout_below="@+id/title"
-            android:gravity="center"
-            android:text="Periodic Measurement Tool"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout"
+    <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/btn_blue_trans"
-        android:orientation="vertical"
-        android:padding="5dp" >
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/heading"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:gravity="center"
-            android:text="Mobile Plan Settings"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFF"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+    </RadioGroup>
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:weightSum="2" >
-
-            <TextView
-                android:id="@+id/dataCapLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.94"
-                android:text="Monthly Amount"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <EditText
-                android:id="@+id/dataCap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.03"
-                android:inputType="phone"
-                android:text="250" >
-            </EditText>
-
-            <TextView
-                android:id="@+id/MB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.29"
-                android:text="MB"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:weightSum="2" >
-
-            <TextView
-                android:id="@+id/billingCycleLabel"
-                android:layout_width="188dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="Billing Cycle"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <EditText
-                    android:id="@+id/billingCycle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:inputType="phone"
-                    android:text="1" >
-
-                    <requestFocus />
-                </EditText>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/meta"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="of each month"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="13dp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="15dp"
-            android:text="Save"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="15dp"
+        android:text="Save"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

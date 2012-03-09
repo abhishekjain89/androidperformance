@@ -49,23 +49,11 @@ import com.num.utils.NeighborWifiUtil.NeighborResult;
  */
 public class ValuesTask extends ServerTask{
 
-	ThreadPoolHelper serverhelper;
-
-
 	public ValuesTask(Context context,
 			ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
-	}
 
-	public void killAll(){
-		try{
-			serverhelper.shutdown();
-		}
-		catch(Exception e){
-
-		}
 	}
 
 	public void runTask() {
@@ -93,6 +81,6 @@ public class ValuesTask extends ServerTask{
 
 	@Override
 	public String toString() {
-		return "Summary Task";
+		return "Values Task";
 	}
 }

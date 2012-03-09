@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -64,10 +68,9 @@ public class UserFormActivity extends Activity
 	private Values session = null;
 
 	private Button saveButton;
-	private EditText dataCapInput;
-	private EditText billingCycleInput;
-	private Button increment;
-	private Button decrement;
+	private RadioGroup rGroup;
+	final RadioButton[] rb = new RadioButton[5];
+	UserDataHelper userhelp;
 	Boolean force = false;
 
 
@@ -75,10 +78,12 @@ public class UserFormActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		UserDataHelper userhelp = new UserDataHelper(this);
+		userhelp = new UserDataHelper(this);
 		Bundle extras = getIntent().getExtras();
 		
-
+		int old_cap = userhelp.getDataCap();
+		
+		
 		try{
 			force = extras.getBoolean("force");
 		}
@@ -92,78 +97,65 @@ public class UserFormActivity extends Activity
 			Intent myIntent = new Intent(this, AnalysisActivity.class);
 			startActivity(myIntent);
 		}
+		userhelp = new UserDataHelper(activity);
 
 		setContentView(R.layout.userform_screen);
+
+
+		String[] limit_text = {"Dont have one","Dont know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
+		
+		final int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
 
 		activity = this;
 
 		saveButton = (Button) this.findViewById(R.id.save);
-		dataCapInput = (EditText) this.findViewById(R.id.dataCap);
-		billingCycleInput = (EditText) this.findViewById(R.id.billingCycle);
-		/*
-		increment.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {
-				int day = 1;
-				try{
-					day = Integer.parseInt(billingCycleInput.getText().toString());
-					day+=1;
+		rGroup = (RadioGroup) findViewById(R.id.radio_group);
+
+		LinearLayout.LayoutParams rg = new RadioGroup.LayoutParams(
+				RadioGroup.LayoutParams.WRAP_CONTENT,50);
+
+		for (int i = 0; i < limit_text.length; i++) {
+			RadioButton radiobutton = new RadioButton(this);
+			radiobutton.setTextColor(Color.BLACK);
+			radiobutton.setTextSize(18);
+			radiobutton.setText(limit_text[i]);
+			if(old_cap == limit_val[i])
+				radiobutton.setChecked(true);
+			
+			radiobutton.setId(i);
+			rGroup.addView(radiobutton, rg);
+
+		}
+
+
+
+			saveButton.setOnClickListener(new OnClickListener()  {
+				public void onClick(View v) {	
+
+					int checkedRadioButton = rGroup.getCheckedRadioButtonId();
+
+					if(checkedRadioButton<0) return;
+
+
+					try{		
+						userhelp.setBillingCycle(0);
+						userhelp.setDataCap(limit_val[checkedRadioButton]);
+					}
+					catch(Exception e){
+						e.printStackTrace();
+					}
+
+					finish();
+					if(!force){
+						Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+						startActivity(myIntent);
+					}
+
 				}
-				catch(Exception e){
-					day=1;
-				}
-				day=forceLimits(day);
-				billingCycleInput.setText(day+"");
-
-			}
-		});
-
-		decrement.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {
-				int day = 1;
-				try{
-					day = Integer.parseInt(billingCycleInput.getText().toString());
-					day-=1;
-				}
-				catch(Exception e){
-					day=1;
-				}
-
-				day=forceLimits(day);
-				billingCycleInput.setText(day+"");
-
-			}
-		});*/
-
-		saveButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-
-				UserDataHelper userhelp = new UserDataHelper(activity);
-				try{
-					int day = Integer.parseInt(billingCycleInput.getText().toString());
-					day=forceLimits(day);
-					userhelp.setBillingCycle(day);
-					userhelp.setDataCap(Integer.parseInt(dataCapInput.getText().toString()));
-				}
-				catch(Exception e){
-					return;
-				}
-
-				finish();
-				if(!force){
-					Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
-					startActivity(myIntent);
-				}
-
-			}
-		});
+			});
 
 
-	}	
+		}
 
-	public static int forceLimits(int val){
-		if(val<1) val=1;
-		if(val>30) val=30;
-		return val;
-	}
 
 }

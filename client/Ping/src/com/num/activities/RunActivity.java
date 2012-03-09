@@ -240,6 +240,8 @@ public class RunActivity extends BaseActivityGroup
 	private static View createTabView(final Context context, Model item) {
 
 		View view = LayoutInflater.from(context).inflate(R.layout.tabs_hg, null);
+		view.setPadding(0,0,0,0);
+		
 
 		ImageView tv = (ImageView) view.findViewById(R.id.icon);
 

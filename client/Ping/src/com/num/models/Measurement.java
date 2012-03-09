@@ -23,7 +23,7 @@ public class Measurement implements MainModel{
 	boolean isManual = false;
 	
 
-	private static String DESCRIPTION = "";
+	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different servers";
 
 	public String getDescription() {
 		return DESCRIPTION;

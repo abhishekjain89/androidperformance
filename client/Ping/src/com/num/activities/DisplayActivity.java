@@ -20,7 +20,7 @@ public class DisplayActivity extends Activity {
 	Values session;
 	TextView title;
 	ListView listview;
-	ImageView imageview;
+	//ImageView imageview;
 	TextView description;
 	
 	public void onCreate(Bundle savedInstanceState) {
