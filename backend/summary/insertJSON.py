@@ -373,8 +373,8 @@ def usage(dev,m):
         u.mobile_recv=dev['mobile_recv']
     except:
         pass
-
-
+    u.total_till_now = 0
+    u.mobile_till_now = 0
     u.save()
     
     for app in dev['applications']:
