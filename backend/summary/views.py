@@ -355,4 +355,48 @@ def getTraffic(request):
     
     return HttpResponse(str(result))
 
+def CalculateTraffic(request):
+    output = ''
+    device_list = Device.objects.all()
+    
+    for device in device_list:
+        measurement_list = Measurement.objects.filter(deviceid=device).order_by('time')
+        print "new DEVICE"
+        last = None
+        
+        for measure in measurement_list:
+            
+            try:
+                current = Usage.objects.filter(measurementid=measure.measurementid)[0]
+            except:
+                continue
+            current_total = current.total_recv + current.total_sent
+            if last == None:
+                last = Usage.objects.filter(measurementid=measure.measurementid)[0]
+                print str(current_total)
+                last.total_till_now = 0
+                last.save()
+                continue
+            last_total = last.total_recv + last.total_sent
+            
+            if current_total>=last_total:
+                current.total_till_now = current_total - last_total
+                last=current
+            else:
+                if current_total < (last_total/2):
+                    current.total_till_now = current_total
+                    last=current
+                else:
+                    current.total_till_now = 0
+                    
+            print str(current_total) + " " + str(current.total_till_now)
+            current.save()
+            
+            
+            
+        
+        
+    return HttpResponse(output)
+            
+        
 
