@@ -1,0 +1,21 @@
+CREATE TABLE calculate_log (
+
+	"log_time" timestamp without time zone,
+	"time" timestamp without time zone
+);
+
+CREATE TABLE error_log (
+
+	"log_time" timestamp without time zone,
+	deviceid varchar(40),
+	error_text text
+);
+
+ALTER TABLE ONLY error_log
+	ADD CONSTRAINT error_log_pkey PRIMARY KEY (log_time);
+
+ALTER TABLE ONLY calculate_log
+	ADD CONSTRAINT calculate_log_pkey PRIMARY KEY (log_time);
+	
+ALTER TABLE ONLY application_use
+	ADD COLUMN total_diff bigint;	

@@ -327,7 +327,8 @@ ALTER TABLE ONLY kill_list
     ADD CONSTRAINT kill_deviceid_pkey PRIMARY KEY (deviceid);
 ALTER TABLE ONLY ping_servers
 	ADD CONSTRAINT ping_servers_pkey PRIMARY KEY (ipaddress);
-    
+
+	
    
 ALTER TABLE ONLY application_use
     ADD CONSTRAINT application_use_pkey PRIMARY KEY (application_useid);
@@ -389,4 +390,6 @@ insert into ping_servers VALUES('128.48.110.150', 'Oakland, CA');
 insert into ping_servers VALUES('localhost', 'localhost');
 insert into ping_servers VALUES('www.google.com', 'Google');
 insert into ping_servers VALUES('www.facebook.com', 'Facebook');
+
+
 

@@ -40,7 +40,7 @@ public class Values extends Application{
 
 
 	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
-	public  String API_SERVER_ADDRESS="ruggles.gtnoise.net";
+	public  String API_SERVER_ADDRESS="https://ruggles.gtnoise.net";
 
 	public  int GPS_TIMEOUT = 20000;
 	public  int SIGNALSTRENGTH_TIMEOUT = 10000;

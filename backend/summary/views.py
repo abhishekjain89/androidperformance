@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from time import time,mktime,strftime,gmtime
 import hashlib
 import ast
-import error_message_helper,insertJSON,getJSON
+import error_message_helper,insertJSON,getJSON,calculate_helper
 
 def index(request):
     return render_to_response('index.html')
@@ -204,7 +204,6 @@ def measurement(request):
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("state",inst))   
     
-    
     m_id = measurement.measurementid
     
     #except Exception as inst:     
@@ -216,6 +215,12 @@ def measurement(request):
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("ping",inst))            
     print "measurement insertion ended"
+    
+    print str(message)
+    if len(str(message)) > 5:
+        print "got milk?"
+        insertJSON.error_log(message,m_deviceid)
+    
     response['message'] = 'measurement inserted: ' + str(message)
     response['status'] = 'OK'
 
@@ -356,47 +361,22 @@ def getTraffic(request):
     return HttpResponse(str(result))
 
 def CalculateTraffic(request):
-    output = ''
+    output = 'done'
     device_list = Device.objects.all()
     
-    for device in device_list:
-        measurement_list = Measurement.objects.filter(deviceid=device).order_by('time')
-        print "new DEVICE"
-        last = None
-        
-        for measure in measurement_list:
+    try:
+        last_calculate = str(CalculateLog.objects.all().order_by('-log_time')[0].time)
+        print last_calculate
+        filter_list = Measurement.objects.filter(time__gte=last_calculate).order_by('time')
+    except:
+        filter_list = Measurement.objects.all().order_by('time')
+  
+    calculate_helper.traffic(device_list,filter_list)
+    calculate_helper.appTraffic(device_list,filter_list)
             
-            try:
-                current = Usage.objects.filter(measurementid=measure.measurementid)[0]
-            except:
-                continue
-            current_total = current.total_recv + current.total_sent
-            if last == None:
-                last = Usage.objects.filter(measurementid=measure.measurementid)[0]
-                print str(current_total)
-                last.total_till_now = 0
-                last.save()
-                continue
-            last_total = last.total_recv + last.total_sent
+    print "are you in?"
+    insertJSON.calculate_log(5)
             
-            if current_total>=last_total:
-                current.total_till_now = current_total - last_total
-                last=current
-            else:
-                if current_total < (last_total/2):
-                    current.total_till_now = current_total
-                    last=current
-                else:
-                    current.total_till_now = 0
-                    
-            print str(current_total) + " " + str(current.total_till_now)
-            current.save()
-            
-            
-            
-        
-        
     return HttpResponse(output)
+     
             
-        
-

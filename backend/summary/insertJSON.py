@@ -464,9 +464,27 @@ def pings(pings,measurement):
             pass
         
         ping.save()
-    
-        
 
+def calculate_log(range):
+    print "im in"
+    current_time= datetime.utcnow()
+    ranged = timedelta(hours=float(range))
+    l_time = current_time - ranged
+    
+    print str(range) + " hours" 
+    print current_time
+    print l_time
+    log = CalculateLog(log_time = current_time,time = l_time)
+    log.save()
+        
+def error_log(message,device):
+    
+    error_log = ErrorLog()
+    error_log.log_time = datetime.utcnow()
+    error_log.deviceid =device
+    error_log.error_text = str(message)
+    error_log.save()
+        
 def wifi(dev,m):
     
     w = Wifi()

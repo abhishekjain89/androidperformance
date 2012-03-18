@@ -104,6 +104,7 @@ class ApplicationUse(models.Model):
     total_recv = models.BigIntegerField()
     measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
     isrunning = models.BooleanField()
+    total_diff = models.BigIntegerField()
     class Meta:
         db_table = u'application_use'
 
@@ -242,4 +243,17 @@ class PingServers(models.Model):
     tag = models.CharField(max_length=20)
     class Meta:
         db_table = u'ping_servers'
+        
+class CalculateLog(models.Model):
+    log_time = models.DateTimeField(primary_key=True)
+    time = models.DateTimeField()
+    class Meta:
+        db_table = u'calculate_log'
+
+class ErrorLog(models.Model):
+    log_time = models.DateTimeField(primary_key=True)
+    deviceid = models.CharField(max_length=40)
+    error_text = models.TextField()
+    class Meta:
+        db_table = u'error_log'
 

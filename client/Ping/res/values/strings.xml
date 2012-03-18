@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, PingActivity!</string>
-    <string name="app_name">Num: Network Usage Monitor</string>
+    <string name="app_name">Network Usage Monitor</string>
     <string name="testButton">Manual Run</string>
     <string name="configButton">Settings</string>
     <string name="cancelButton">Cancel</string>

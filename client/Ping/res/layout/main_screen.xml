@@ -11,32 +11,21 @@
         android:id="@+id/linear"
         android:layout_width="fill_parent"
         android:layout_height="110dp"
-        android:padding="0dp"
         android:background="@drawable/btn_blue"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="65dp"
-            android:gravity="center"
-            android:text="Num"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="55dp"
-            android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="0dp" >
 
         <TextView
             android:id="@+id/tagline"
             android:layout_marginTop="5dp"
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:gravity="center"
             android:text="Network Usage Monitor"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
-            android:textSize="20dp"
+            android:textSize="38dp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -63,7 +52,7 @@
         <Button
             android:id="@+id/test"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
            
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
@@ -71,33 +60,33 @@
             android:background="@drawable/btn_blue"
             android:text="@string/testButton"
             android:textColor="#FFF"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/settings"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             
             android:background="@drawable/btn_blue"
             android:text="Settings"
             android:textColor="#FFF"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
         
          <Button
             android:id="@+id/aboutus"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             
             android:background="@drawable/btn_blue"
             android:text="About Us"
             android:textColor="#FFF"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
 
