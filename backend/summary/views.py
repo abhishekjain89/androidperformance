@@ -230,12 +230,10 @@ def summary(request):
 	
     data={}
     data['status']='Working Fine'
-
-	current_time= datetime.utcnow()
-	ranged = timedelta(hours=float(3))
-	l_time = current_time - ranged
-	
-	devices=str(len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))) + " from " + str(len(Device.objects.all()))
+    current_time= datetime.utcnow()
+    ranged = timedelta(hours=float(3))
+    l_time = current_time - ranged
+    devices=str(len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))) + " from " + str(len(Device.objects.all()))
 	
 
     data['total-apps'] = len(Application.objects.all())
