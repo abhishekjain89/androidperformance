@@ -15,6 +15,33 @@ def base_int(result,column):
 			tup = tup + (int(row[column]),)
 
 		return tup
+
+def base_float(result,column):
+		tup = ()
+		for row in result:
+			tup = tup + (float(row[column]),)
+
+		return tup
+
+
+
+def toarray(tup):
+	
+	ret = []
+	
+	for t in tup:
+		ret.append(t)
+		
+	return ret
+
+def normalize(tup):
+	
+	maxi = max(tup)
+	ret = ()
+	for t in tup:
+
+		ret = ret + (float(t)/float(maxi),)
+	return ret
 	
 def hour(result,column):
 	tup = ()
@@ -37,7 +64,7 @@ def hour_minute_period(result,column1,column2,period):
 		time = time_hour + float(time_min/60)
 
 		tup = tup + (time,)
-		print str(time_hour) + " " + str(time_min) + " " +str(time)
+		
 	
 	return tup
 
@@ -52,7 +79,6 @@ def MB(result,column):
 def group_by(result,column):
 	data = {}
 	for row in result:
-		print row
 		if not data.has_key(str(row[column])):
 			data[str(row[column])] = []
 

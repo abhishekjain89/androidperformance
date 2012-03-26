@@ -27,11 +27,11 @@ def query(text):
 		# for most people this isn't very useful so we'll show you how to return
 		# columns as a dictionary (hash) in the next example.
 		#pprint.pprint(records)
-		
+
 		return records
 	except:
 		# Get the most recent exception
-		exceptionType, exceptionValue, exceptionTraceback = sys.exc_info()
+		print  sys.exc_info()
 		# Exit the script and print an error telling what happened.
 		#sys.exit("Database connection failed!\n ->%s" % (exceptionValue))
 		
