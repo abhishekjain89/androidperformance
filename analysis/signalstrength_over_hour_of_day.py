@@ -20,7 +20,7 @@ for key in data.keys():
 	#plt.ylim(0,31)
 	plt.title(key)
 	x_ticks = tuple_gen.hour_minute_period(data[key],1,2,10)
-	y_vals = tuple_gen.base_int(data[key],3)
+	y_vals = (tuple_gen.base_float(data[key],3))
 
 	plt.plot(x_ticks,y_vals)
 	subplot_count+=1
