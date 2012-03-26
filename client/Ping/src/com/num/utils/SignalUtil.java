@@ -1,14 +1,10 @@
 package com.num.utils;
 
-import java.util.List;
-
 import android.content.Context;
-import android.net.wifi.ScanResult;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 
-import com.num.listeners.ResponseListener;
 
 
 public class SignalUtil {
@@ -68,11 +64,16 @@ public class SignalUtil {
 		}
 		
 		public void onSignalStrengthChanged(int asu) { 
-			signalStrength = asu;
-			getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-			//responseListener.onCompleteSignal("" + signalStrength);
-			signalResult.gotSignal("" + signalStrength);
-			telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+			try {
+				signalStrength = asu;
+				getTelephoneManager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+				//responseListener.onCompleteSignal("" + signalStrength);
+				signalResult.gotSignal("" + signalStrength);
+				telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	};
 
