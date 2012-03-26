@@ -6,24 +6,102 @@ import java.util.List;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.NetworkInfo.DetailedState;
 import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import com.num.Values;
+import com.num.activities.RunActivity.MeasurementListener;
 import com.num.models.Wifi;
+import com.num.models.WifiNeighbor;
 import com.num.models.WifiPreference;
+import com.num.utils.NeighborWifiUtil.NeighborResult;
 
 public class WifiUtil {
 	
-	public Wifi getWifiDetail(Context context)
-	{
+	boolean notDone = false;
+	boolean isWIFI = false;
+	Wifi wifi;
+
+	public Wifi getWifi(Context context) {
+		
+		Values session = (Values) context.getApplicationContext();
+		
+		wifi = getWifiDetail(context);
+		while(notDone){
+			try {
+				Thread.sleep(session.SHORT_SLEEP_TIME);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		NeighborWifiUtil neighborWifiUtil = new NeighborWifiUtil();
+		neighborWifiUtil.getNeighborWifi(context,neighborResult  );
+		if (isWIFI) {
+			notDone = true;		
+		}
+		while(notDone){
+			try {
+				Thread.sleep(session.SHORT_SLEEP_TIME);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return wifi;
+		
+	}
+
+
+	public NeighborResult neighborResult = new NeighborResult(){
+		@Override
+		public void gotNeighbor(List<ScanResult> wifiList){
+			ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
+			ArrayList<WifiPreference> prefers = wifi.getPreference();
+			for (int i = 0; i < wifiList.size(); i++) {
+				WifiNeighbor n = new WifiNeighbor();
+				String bssid = wifiList.get(i).BSSID;
+				String capability = wifiList.get(i).capabilities;
+				int frequency = wifiList.get(i).frequency;
+				int signalLevel = wifiList.get(i).level;
+				String ssid = wifiList.get(i).SSID;
+
+				n.setCapability(capability);
+				n.setMacAddress(bssid);
+				n.setFrequency(frequency);
+				n.setSignalLevel(signalLevel);
+				n.setSSID(ssid);
+				n.setPreferred(false);
+				if (ssid.equalsIgnoreCase(wifi.getSsid())) {
+					n.setConnected(true);
+				}
+				else {
+					n.setConnected(false);
+				}
+				for (int j = 0; j < prefers.size(); j++) {
+					if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
+						n.setPreferred(true);
+						break;
+					}
+				}
+				neighbors.add(n);
+			}
+			wifi.setNeighbors(neighbors);	
+			notDone = false;
+			//(new MeasurementListener()).onCompleteWifi(wifi);
+		}
+	};
+	
+	public Wifi getWifiDetail(Context context) {
 		String service = Context.CONNECTIVITY_SERVICE;
 		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
 		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
-		boolean isWIFI = false;		
+		isWIFI = false;		
 		
 		Wifi wifiDetail = new Wifi();
 		if (activeNetwork == null) {
@@ -43,6 +121,7 @@ public class WifiUtil {
 			}
 		}
 		if (!isWIFI) {		
+			notDone = false;
 			return new Wifi();
 		}
 		else {
@@ -115,6 +194,7 @@ public class WifiUtil {
 		    wifiDetail.setPreference(preference);
 		    
 		}
+		notDone = false;
 		return wifiDetail;
 	}
 

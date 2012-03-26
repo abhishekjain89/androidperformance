@@ -63,7 +63,7 @@ public class MeasurementTask extends ServerTask{
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	public boolean gpsRunning  = false;
 	public boolean signalRunning = false;
-	public boolean wifiRunning = false;
+	//public boolean wifiRunning = false;
 	public long startTime = 0;
 
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
@@ -120,10 +120,11 @@ public class MeasurementTask extends ServerTask{
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, new MeasurementListener()));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new WifiTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 
 		signalRunning = true;
-		wifiRunning = true;
-		WifiHandler.sendEmptyMessage(0);
+		//wifiRunning = true;
+		//WifiHandler.sendEmptyMessage(0);
 		/*
 		if(false){
 			GPSHandler.sendEmptyMessage(0);
@@ -156,7 +157,7 @@ public class MeasurementTask extends ServerTask{
 		
 
 
-		while((gpsRunning||signalRunning||wifiRunning) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
+		while((gpsRunning||signalRunning/*||wifiRunning*/) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
 			try {
 				Thread.sleep(session.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
@@ -294,12 +295,12 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteWifi(Wifi wifi) {		
-			if (wifiRunning)
-			{
-				measurement.setWifi(wifi);
-				wifiRunning = false;
-				getResponseListener().onCompleteWifi(wifi);
-			}
+			//if (wifiRunning)
+			//{
+			//	wifiRunning = false;
+			measurement.setWifi(wifi);
+			getResponseListener().onCompleteWifi(wifi);
+			//}
 		}
 
 		public void onCompleteNetwork(Network network) {
@@ -342,7 +343,7 @@ public class MeasurementTask extends ServerTask{
 	};
 
 
-	private Handler WifiHandler = new Handler() {
+	/*private Handler WifiHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			try {
 				WifiUtil wifiUtil = new WifiUtil();
@@ -357,7 +358,7 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 	};
-
+*/
 
 	private Handler SignalHandler = new Handler() {
 		public void  handleMessage(Message msg) {
@@ -375,7 +376,7 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 	
-	public NeighborResult neighborResult = new NeighborResult(){
+	/*public NeighborResult neighborResult = new NeighborResult(){
 		@Override
 		public void gotNeighbor(List<ScanResult> wifiList){
 			Wifi wifi = measurement.getWifi();
@@ -412,7 +413,7 @@ public class MeasurementTask extends ServerTask{
 			wifi.setNeighbors(neighbors);	
 			(new MeasurementListener()).onCompleteWifi(wifi);
 		}
-	};
+	};*/
 
 	public LocationResult locationResult = new LocationResult(){
 		@Override
