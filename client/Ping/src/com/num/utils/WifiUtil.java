@@ -120,9 +120,10 @@ public class WifiUtil {
 			  		break;
 			}
 		}
+		wifiDetail.setWifi(isWIFI);
 		if (!isWIFI) {		
 			notDone = false;
-			return new Wifi();
+			return wifiDetail;
 		}
 		else {
 			String srvc = Context.WIFI_SERVICE;

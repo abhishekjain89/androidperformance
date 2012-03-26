@@ -12,6 +12,7 @@ import com.num.R;
 
 public class Wifi implements MainModel{
 
+	public boolean isWifi = false;
 	public int strength = -1;	
 	public int ipAddress = -1;
 	public int speed = -1;
@@ -35,6 +36,15 @@ public class Wifi implements MainModel{
 	{
 		setNeighbors(new ArrayList<WifiNeighbor>());
 		setPreference(new ArrayList<WifiPreference>());
+	}
+	
+
+	public boolean isWifi() {
+		return isWifi;
+	}
+
+	public void setWifi(boolean isWifi) {
+		this.isWifi = isWifi;
 	}
 	
 	public boolean isPreferred() {
