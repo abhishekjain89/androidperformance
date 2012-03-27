@@ -2,17 +2,14 @@ package com.num.tasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
-import android.net.wifi.ScanResult;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
 
 import com.num.Values;
 import com.num.helpers.MeasurementHelper;
@@ -32,15 +29,9 @@ import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.models.Wifi;
-import com.num.models.WifiNeighbor;
-import com.num.models.WifiPreference;
 import com.num.utils.GPSUtil;
-import com.num.utils.HTTPUtil;
-import com.num.utils.NeighborWifiUtil;
-import com.num.utils.SignalUtil;
-import com.num.utils.WifiUtil;
 import com.num.utils.GPSUtil.LocationResult;
-import com.num.utils.NeighborWifiUtil.NeighborResult;
+import com.num.utils.SignalUtil;
 import com.num.utils.SignalUtil.SignalResult;
 
 /*

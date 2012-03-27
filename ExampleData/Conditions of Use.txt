@@ -1,7 +1,6 @@
 Conditions of Use
 Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully. 
 
-
 PRIVACY
 Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses. 
 
