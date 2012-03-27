@@ -285,7 +285,8 @@ def parameterCheck(request):
     except:
         response['go_ahead']=1
         pass
-    
+        
+    response['go_ahead']=0
     
     
     return HttpResponse(str(response))

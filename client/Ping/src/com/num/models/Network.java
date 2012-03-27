@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import com.num.R;
 
 public class Network implements MainModel{
-
 	
 	String networkOperatorId ="";
 	String networkType = "";

@@ -10,6 +10,9 @@ def package_profile_over_time_of_day(package):
 
 def app_by_total_data():
 	return "select application.package,application.name,sum(total_diff) from application_use,application where application_use.package = application.package and total_diff > 0 and application.package!='com.num' and application.package!='com.ping' group by application.package order by sum(total_diff) desc limit 20"
+	
+def app_by_popularity():
+	return "select count(distinct(deviceid)),count(*),package from application_use,measurement where application_use.measurementid = measurement.measurementid group by package order by count(distinct(deviceid)) desc limit 20"
 
 
 ########
