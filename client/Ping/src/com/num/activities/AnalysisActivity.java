@@ -80,7 +80,7 @@ public class AnalysisActivity extends Activity
 		session.loadValues();
 		
 		serverhelper = new ThreadPoolHelper(5,10);
-		testButton=(Button)findViewById(R.id.test);
+		testButton=(Button)findViewById(R.id.full_test);
 		settingsButton=(Button)findViewById(R.id.settings);
 		aboutusButton=(Button)findViewById(R.id.aboutus);
 		

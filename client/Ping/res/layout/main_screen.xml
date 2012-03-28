@@ -1,93 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relative"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#FFF"
-    android:weightSum="1" >
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linear"
-        android:layout_width="fill_parent"
-        android:layout_height="110dp"
-        android:background="@drawable/btn_blue"
-        android:orientation="vertical"
-        android:padding="0dp" >
-
-        <TextView
-            android:id="@+id/tagline"
-            android:layout_marginTop="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="38dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/welcome"
+        android:id="@+id/tagline"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/linear"
+        android:layout_height="50dp"
+        android:layout_below="@+id/title"
+        android:background="@drawable/btn_blue"
         android:gravity="center"
-        android:text="Welcome!"
+        android:padding="0dp"
+        android:text="Main Menu"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
+        android:textColor="#FFF"
         android:textSize="25dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welcome"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/test"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-           
-            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            
-            android:background="@drawable/btn_blue"
-            android:text="@string/testButton"
-            android:textColor="#FFF"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/settings"
+            <Button
+                android:id="@+id/full_test"
+                android:layout_width="140dp"
+                android:layout_height="110dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_blue"
+                android:text="@string/testButton"
+                android:textColor="#FFF"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/ping"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/pingButton"
+                    android:textColor="#FFF"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/wifi"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/wifiButton"
+                    android:textColor="#FFF"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            
-            android:background="@drawable/btn_blue"
-            android:text="Settings"
-            android:textColor="#FFF"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-        
-         <Button
-            android:id="@+id/aboutus"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            
-            android:background="@drawable/btn_blue"
-            android:text="About Us"
-            android:textColor="#FFF"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/settings"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn_blue"
+                android:text="Settings"
+                android:textColor="#FFF"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/aboutus"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn_blue"
+                android:text="About Us"
+                android:textColor="#FFF"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
