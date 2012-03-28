@@ -225,11 +225,19 @@ public class Measurement implements MainModel{
 		data.add(new Row("Latency (Avg,Max,Min,Std)"));
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
-			str.add(""+(int)p.measure.getAverage());
-			str.add(""+(int)p.measure.getMax());
-			str.add(""+(int)p.measure.getMin());
-			str.add(""+(int)p.measure.getStddev());
-			data.add(new Row(p.getDst().getTagname(),str));
+			if (p != null) {
+				if (p.measure != null) {
+					try {
+						str.add(""+(int)p.measure.getAverage());
+						str.add(""+(int)p.measure.getMax());
+						str.add(""+(int)p.measure.getMin());
+						str.add(""+(int)p.measure.getStddev());
+						data.add(new Row(p.getDst().getTagname(),str));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 		
 		return data;

@@ -119,8 +119,11 @@ public class Usage implements MainModel{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Total Apps",""+applications.size()));
 		data.add(new Row("Application Usage"));
-
-		Collections.sort(applications);
+		try {
+			Collections.sort(applications);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		for(Application app: applications){
 			
 			if(isOurApp(app)) continue;
@@ -136,8 +139,6 @@ public class Usage implements MainModel{
 				System.out.print(e.getLocalizedMessage());
 			}
 		}
-
-
 
 		return data;
 	}
