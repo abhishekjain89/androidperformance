@@ -1,10 +1,7 @@
-select max(time),date_part('day', time),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid))
-from measurement,throughput where measurement.measurementid = throughput.measurementid
-group by date_part('day', time);
+select cellid,dstip,count(*),avg("avg"),avg("stdev"),networktype
 
-
-select deviceid, sum(total_diff)/1024/1024,count(*),ismanual,count(distinct(date_part('day', time)))
-from measurement,application_use where package='com.num' and measurement.measurementid = application_use.measurementid
-group by deviceid,ismanual
-order by sum(total_diff) desc;
-
+from network,measurement,ping
+where network.measurementid = measurement.measurementid and ping.measurementid = measurement.measurementid and dstip='www.google.com' and connectiontype='Mobile: 3G' and "avg">2 and "avg"<1000
+group by cellid,dstip,networktype
+order by count(*)/10 desc
+limit 30;

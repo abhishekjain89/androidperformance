@@ -6,7 +6,7 @@
     android:background="#FFF"
     android:orientation="vertical" >
 
-      <LinearLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear"
         android:layout_width="fill_parent"
@@ -17,10 +17,10 @@
 
         <TextView
             android:id="@+id/tagline"
-            android:layout_marginTop="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -29,7 +29,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="fill_parent"
@@ -37,56 +36,25 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/btn_blue_trans"
         android:orientation="vertical"
         android:padding="5dp" >
-        
-         <TextView
-                android:id="@+id/heading"
-                android:layout_width="fill_parent"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="Terms and Conditions"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFF" />
-  <ScrollView
-    android:id="@+id/SCROLLER_ID"
-    android:layout_width="fill_parent"
-    android:layout_height="150dp"
-    android:scrollbars="vertical"
-    android:fillViewport="true">
-        <LinearLayout
-            android:id="@+id/privacyLayout"
+
+        <TextView
+            android:id="@+id/heading"
             android:layout_width="fill_parent"
-            android:layout_height="250dp"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Terms and Conditions"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/policyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Conditions of Use
-Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully.†
+        <WebView
+            android:id="@+id/policyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-PRIVACY
-Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses. 
-
-OWNERSHIP
-All content included on the application, such as text, button icons, images, data compilations, source code, and software, is the property of the Georgia Institute of Technology.
-
-LICENSE AND APPLICATION USAGE
-Team Network Usage Monitor grants you a limited license to access and make personal use of this application and not to modify it, or any portion of it. The source code may be accessed for viewing purposes or copied as long as modifications are not made directly to the source code. This license does not include any sale or commercial use of this application or its contents. This application or any portion of its code may not be sold, resold, or otherwise exploited for any commercial purpose. Any unauthorized use terminates the permission or license granted by the Ping team. You are granted a limited, revocable, and nonexclusive right to create a hyperlink to the android marketplace page of Ping so long as the link does not portray the Georgia Institute of Technology, the Ping application or members of the Ping team in a false, misleading, derogatory, or otherwise offensive matter. 
-
-QUESTIONS:
-Questions regarding our source code, suggestions, reviews, Privacy Policy, or other policy related material can be directed to us by emailing us at: projectping@gmail.com.
-"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFF" />
-        </LinearLayout>
-</ScrollView>
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
