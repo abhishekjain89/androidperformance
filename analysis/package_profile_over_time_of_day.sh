@@ -4,7 +4,7 @@ import database,query,tuple_gen
 import pprint
 import numpy as np
 import matplotlib.pyplot as plt
-pkgs = ('com.android.browser','com.google.android.youtube','com.facebook.katana','com.google.android.apps.maps')
+pkgs = ('com.android.browser','com.google.android.youtube','com.facebook.katana','com.android.pulse')
 plt.figure(1)
 subplot_count=1
 size = int(len(pkgs) ** 0.5)

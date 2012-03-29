@@ -79,8 +79,6 @@
             <uses-library android:name="com.google.android.maps" />
         </activity>
 
-        <uses-library android:name="com.google.android.maps" />
-
         <service
             android:enabled="true"
             android:name=".services.PerformanceServiceAll"
