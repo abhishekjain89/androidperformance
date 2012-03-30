@@ -22,9 +22,9 @@ public class WifiTask extends ServerTask{
 		
 		WifiUtil w = new WifiUtil();
 		Wifi wifiList = w.getWifi(this.getContext());
-		if (wifiList.isWifi()) {
-			this.getResponseListener().onCompleteWifi(wifiList );
-		}
+		
+		this.getResponseListener().onCompleteWifi(wifiList );
+		
 	}
 
 	@Override

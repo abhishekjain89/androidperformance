@@ -99,7 +99,7 @@ public class AllPingTask extends ServerTask{
 			return;
 
 		}
-		
+		measurement.setPings(pings);
 		getResponseListener().onCompleteMeasurement(measurement);
 
 

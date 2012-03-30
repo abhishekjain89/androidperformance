@@ -217,7 +217,7 @@ public class Measurement implements MainModel{
 
 	public String getTitle() {
 		
-		return "Pings";
+		return "Latency";
 	}
 	
 	public ArrayList<Row> getDisplayData(){

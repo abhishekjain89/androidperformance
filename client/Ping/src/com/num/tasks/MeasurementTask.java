@@ -43,7 +43,7 @@ import com.num.utils.SignalUtil.SignalResult;
  * 
  */
 public class MeasurementTask extends ServerTask{
-	
+
 	ThreadPoolHelper serverhelper;
 	boolean doGPS;
 	boolean doThroughput;
@@ -65,16 +65,16 @@ public class MeasurementTask extends ServerTask{
 		this.isManual = isManual;
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
 	}
-	
+
 	public void killAll(){
 		try{
-		serverhelper.shutdown();
+			serverhelper.shutdown();
 		}
 		catch(Exception e){
-			
+
 		}
 	}
-	
+
 	public void runTask() {
 
 		measurement = new Measurement();
@@ -83,7 +83,7 @@ public class MeasurementTask extends ServerTask{
 		//android.os.Debug.startMethodTracing("lsd");
 		Values session = this.getValues();
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
-		
+
 
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
 		try {
@@ -125,18 +125,18 @@ public class MeasurementTask extends ServerTask{
 			gpsRunning = false;
 		}*/
 		SignalHandler.sendEmptyMessage(0);
-		
+
 		measurement.setPings(pings);
-		
+
 		startTime = System.currentTimeMillis();
-		
+
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
 			this.killAll();
 			return;
 		}
-		
+
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(session.NORMAL_SLEEP_TIME);
@@ -145,7 +145,7 @@ public class MeasurementTask extends ServerTask{
 				return;	
 			}
 		}
-		
+
 
 
 		while((gpsRunning||signalRunning/*||wifiRunning*/) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
@@ -160,22 +160,22 @@ public class MeasurementTask extends ServerTask{
 			locationResult.gotLocation(null);
 		}*/
 
-		
-		
+
+
 		if(doThroughput){
 			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		}
 		else{
 			new MeasurementListener().onCompleteThroughput(new Throughput());
 		}
-		
+
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e) {
 			this.killAll();
 			return;
 		}
-		
+
 		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(session.NORMAL_SLEEP_TIME);
@@ -191,23 +191,23 @@ public class MeasurementTask extends ServerTask{
 			return;
 
 		}
-		
+
 		ArrayList<Screen> scrs = new ArrayList<Screen>();
-		
+
 		ArrayList<Screen> buffer = session.screenBuffer;
 		for(Screen s: buffer)
 			scrs.add(s);
-		
+
 		measurement.setScreens(scrs);
 		getResponseListener().onCompleteMeasurement(measurement);
-		
+
 		String isSuccess = MeasurementHelper.sendMeasurement(getContext(), measurement);
-		
+
 		if (isManual) {
 			new MeasurementListener().makeToast(isSuccess);
 
 		}
-		
+
 
 	}
 
@@ -221,7 +221,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompletePing(Ping response) {
 			pings.add(response);
-			
+
 		}
 
 		public void onComplete(String response) {
@@ -236,7 +236,7 @@ public class MeasurementTask extends ServerTask{
 			getResponseListener().onCompleteDevice(response);
 
 		}
- 
+
 		public void onUpdateProgress(int val) {
 			// TODO Auto-generated method stub
 
@@ -289,9 +289,11 @@ public class MeasurementTask extends ServerTask{
 			//if (wifiRunning)
 			//{
 			//	wifiRunning = false;
-			measurement.setWifi(wifi);
-			getResponseListener().onCompleteWifi(wifi);
-			//}
+			if (wifi.isWifi()) {
+
+				measurement.setWifi(wifi);
+				getResponseListener().onCompleteWifi(wifi);
+			}
 		}
 
 		public void onCompleteNetwork(Network network) {
@@ -312,12 +314,12 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompleteSummary(JSONObject Object) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onFail(String response) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
@@ -349,7 +351,7 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 	};
-*/
+	 */
 
 	private Handler SignalHandler = new Handler() {
 		public void  handleMessage(Message msg) {
@@ -360,13 +362,13 @@ public class MeasurementTask extends ServerTask{
 			}
 		}
 	};
-	
+
 	public SignalResult signalResult = new SignalResult() { 
 		public void gotSignal(String signal) {
 			(new MeasurementListener()).onCompleteSignal(signal);
 		}
 	};
-	
+
 	/*public NeighborResult neighborResult = new NeighborResult(){
 		@Override
 		public void gotNeighbor(List<ScanResult> wifiList){
@@ -423,7 +425,7 @@ public class MeasurementTask extends ServerTask{
 				gpsRunning = false;
 			}
 
-			
+
 			(new MeasurementListener()).onCompleteGPS(gps);
 		}
 	};

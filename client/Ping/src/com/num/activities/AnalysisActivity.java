@@ -56,6 +56,9 @@ public class AnalysisActivity extends Activity
 	private Button testButton;
 	private Button settingsButton;
 	private Button aboutusButton;
+	private Button pingButton;
+	private Button wifiButton;
+	
 	private ListView listview;
 	private TextView apptext;
 	private TextView devicetext;
@@ -83,6 +86,9 @@ public class AnalysisActivity extends Activity
 		testButton=(Button)findViewById(R.id.full_test);
 		settingsButton=(Button)findViewById(R.id.settings);
 		aboutusButton=(Button)findViewById(R.id.aboutus);
+		
+		pingButton=(Button)findViewById(R.id.ping);
+		wifiButton=(Button)findViewById(R.id.wifi);
 		
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
@@ -113,6 +119,24 @@ public class AnalysisActivity extends Activity
 			public void onClick(View v) {	
 
 				Intent myIntent = new Intent(v.getContext(), AboutUsActivity.class);
+                startActivity(myIntent);
+			}
+		});
+		
+		pingButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
+				myIntent.putExtra("model_key","latency");
+                startActivity(myIntent);
+			}
+		});
+		
+		wifiButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
+				myIntent.putExtra("model_key","wifi");
                 startActivity(myIntent);
 			}
 		});
