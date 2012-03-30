@@ -1,0 +1,1 @@
+select max(time),date_part('day', time),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid)) from measurement group by date_part('day', time);
