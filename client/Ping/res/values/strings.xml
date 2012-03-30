@@ -2,9 +2,11 @@
 <resources>
     <string name="hello">Hello World, PingActivity!</string>
     <string name="app_name">Network Usage Monitor</string>
-    <string name="testButton">Manual Run</string>
+    <string name="testButton">Full Test</string>
     <string name="pingButton">Latency</string>
     <string name="wifiButton">Wifi</string>
+    <string name="usageButton">Usage</string>
+    <string name="throughputButton">Throughput</string>
     <string name="configButton">Settings</string>
     <string name="cancelButton">Cancel</string>
     <string name="saveButton">Save</string>

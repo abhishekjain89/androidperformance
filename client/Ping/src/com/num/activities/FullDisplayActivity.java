@@ -57,6 +57,7 @@ public class FullDisplayActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		String key = extras.getString("model_key");
 		
+		
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
 		
@@ -64,6 +65,14 @@ public class FullDisplayActivity extends Activity {
 		listview = (ListView) findViewById(R.id.listview);
 		load = (Button) findViewById(R.id.load);
 		description = (TextView) findViewById(R.id.description);
+		try{
+			String secs = extras.getString("time");
+			if(secs!=null)
+				load.setText("Loading ...   will take about " + secs + " seconds");
+		}
+		catch (Exception e){
+			
+		}
 		
 
 	}

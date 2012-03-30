@@ -58,6 +58,8 @@ public class AnalysisActivity extends Activity
 	private Button aboutusButton;
 	private Button pingButton;
 	private Button wifiButton;
+	private Button usageButton;
+	private Button throughputButton;
 	
 	private ListView listview;
 	private TextView apptext;
@@ -89,6 +91,8 @@ public class AnalysisActivity extends Activity
 		
 		pingButton=(Button)findViewById(R.id.ping);
 		wifiButton=(Button)findViewById(R.id.wifi);
+		usageButton=(Button)findViewById(R.id.usage);
+		throughputButton=(Button)findViewById(R.id.throughput);
 		
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
@@ -128,6 +132,7 @@ public class AnalysisActivity extends Activity
 
 				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
 				myIntent.putExtra("model_key","latency");
+				myIntent.putExtra("time","6");
                 startActivity(myIntent);
 			}
 		});
@@ -137,6 +142,24 @@ public class AnalysisActivity extends Activity
 
 				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
 				myIntent.putExtra("model_key","wifi");
+                startActivity(myIntent);
+			}
+		});
+		usageButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
+				myIntent.putExtra("model_key","usage");
+                startActivity(myIntent);
+			}
+		});
+		
+		throughputButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
+				myIntent.putExtra("model_key","throughput");
+				myIntent.putExtra("time","40");
                 startActivity(myIntent);
 			}
 		});

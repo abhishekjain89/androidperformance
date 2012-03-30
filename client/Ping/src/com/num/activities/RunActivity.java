@@ -81,6 +81,7 @@ public class RunActivity extends BaseActivityGroup
 		//listview.setAdapter(listadapter);
 
 		load = (Button) findViewById(R.id.load);
+		load.setText("Loading ...   will take about 50 seconds");
 		res = getResources(); // Resource object to get Drawables
 		tabHost =  (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(this.getLocalActivityManager());
