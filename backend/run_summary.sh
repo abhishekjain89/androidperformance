@@ -1,0 +1,2 @@
+psql androidperformance < summary.txt
+
