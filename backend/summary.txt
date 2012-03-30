@@ -1,1 +1,2 @@
+select min(time),deviceid from measurement group by deviceid order by min(time);
 select max(time),date_part('day', time),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid)) from measurement group by date_part('day', time);
