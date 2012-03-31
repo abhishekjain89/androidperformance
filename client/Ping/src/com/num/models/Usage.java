@@ -83,7 +83,7 @@ public class Usage implements MainModel{
 			obj.putOpt("total_recv", total_recv);
 			obj.putOpt("mobile_sent", mobile_sent);
 			obj.putOpt("mobile_recv", mobile_recv);
-			
+
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class Usage implements MainModel{
 	public ArrayList<Row> getDisplayData(){
 
 		long total_use = 0;
-		
+
 
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Total Apps",""+applications.size()));
@@ -125,16 +125,12 @@ public class Usage implements MainModel{
 			e.printStackTrace();
 		}
 		for(Application app: applications){
-			
+
 			if(isOurApp(app)) continue;
-			
+
 			try {
-				if(app.totalDataInMB()>=1) {
-					data.add(new Row(app.getAppIcon(),app.getName(),app.totalDataInMB() + " MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
-				} 
-				else{
-					data.add(new Row(app.getAppIcon(),app.getName(),"< 1 MB",Math.max((int)((app.totalDataInMB()*100)/this.getTotalInMB()),5)));
-				}
+				data.add(new Row(app.getAppIcon(),app.getName(),getOutput(app.getTotal_sent()),getValue(app.getTotal_sent()),getOutput(app.getTotal_recv()),getValue(app.getTotal_recv())));
+
 			} catch (Exception e) {
 				System.out.print(e.getLocalizedMessage());
 			}
@@ -143,11 +139,24 @@ public class Usage implements MainModel{
 		return data;
 	}
 
+	public String getOutput(long val){
+		int total = (int) (val/1024/1024);
+		if(total>1)
+			return (int)Math.max(total,5) + " MB";
+		else
+			return "< 1 MB";
+	}
+	
+	public int getValue(long val){
+		int total = (int) (val/1024/1024);
+		return (int)Math.min(Math.max(total,5), 100);
+	}
+
 	public int getIcon() {
 
 		return R.drawable.usage;
 	}
-	
+
 	public boolean isOurApp(Application app){
 		if(app.getName().equals("Num: Network Usage Monitor")) return true;
 		return false;

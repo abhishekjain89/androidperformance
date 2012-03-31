@@ -28,13 +28,18 @@ public class IconKeyProgressViewGenerator extends ViewGenerator{
 		holder.second =  (TextView) view.findViewById(R.id.message);
 		holder.progress =  (ProgressBar) view.findViewById(R.id.value);
 		holder.imageview = (ImageView) view.findViewById(R.id.icon);
+		holder.second2 =  (TextView) view.findViewById(R.id.message2);
+		holder.progress2 =  (ProgressBar) view.findViewById(R.id.value2);
+		
 		return holder;
 	}
 	@Override
 	public void populateView(Row item) {
-		holder.first.setText(item.first);
-		holder.progress.setProgress(item.value);
-		holder.second.setText(item.second);
+		holder.first.setText(item.key);
+		holder.progress.setProgress(item.valueOne);
+		holder.second.setText(item.first);
+		holder.progress2.setProgress(item.valueTwo);
+		holder.second2.setText(item.second);
 		holder.imageview.setImageDrawable(item.image);
 		
 		
