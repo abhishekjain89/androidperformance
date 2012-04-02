@@ -148,6 +148,17 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+        <Button
+                    android:id="@+id/tour"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/btn_blue"
+                    android:text="Tour"
+                    android:textColor="#FFF"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
     </LinearLayout>
 
 </ScrollView>

@@ -60,6 +60,7 @@ public class AnalysisActivity extends Activity
 	private Button wifiButton;
 	private Button usageButton;
 	private Button throughputButton;
+	private Button tourButton;
 	
 	private ListView listview;
 	private TextView apptext;
@@ -93,6 +94,7 @@ public class AnalysisActivity extends Activity
 		wifiButton=(Button)findViewById(R.id.wifi);
 		usageButton=(Button)findViewById(R.id.usage);
 		throughputButton=(Button)findViewById(R.id.throughput);
+		tourButton = (Button)findViewById(R.id.tour);
 		
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
@@ -160,6 +162,15 @@ public class AnalysisActivity extends Activity
 				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
 				myIntent.putExtra("model_key","throughput");
 				myIntent.putExtra("time","40");
+                startActivity(myIntent);
+			}
+		});
+		
+		tourButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(),TourActivity.class);
+				
                 startActivity(myIntent);
 			}
 		});

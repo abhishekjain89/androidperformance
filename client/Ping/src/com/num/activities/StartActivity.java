@@ -89,7 +89,7 @@ public class StartActivity extends Activity
 			public void onAnimationEnd(Animation animation) {
 				finish();
 
-				Intent myIntent = new Intent(activity, UserFormActivity.class);
+				Intent myIntent = new Intent(activity, PrivacyActivity.class);
 				startActivity(myIntent);
 
 
