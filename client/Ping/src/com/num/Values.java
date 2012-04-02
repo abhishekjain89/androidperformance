@@ -67,12 +67,11 @@ public class Values extends Application{
 		unsentMeasurements = new Buffer();
 
 		PING_SERVERS = new ArrayList<Address>();
-		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA"));
-		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY"));
-		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA"));
-		PING_SERVERS.add(new Address("localhost", "localhost"));
-
-		PING_SERVERS.add(new Address("www.facebook.com", "Facebook"));
+		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA", "ping"));
+		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "ping"));
+		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "ping"));
+		PING_SERVERS.add(new Address("localhost", "localhost", "ping"));
+		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "ping"));
 
 	}
 	public void initDataStore(){
@@ -209,8 +208,10 @@ public class Values extends Application{
 
 			for(int i=0;i<pingArray.length();i++){
 				JSONObject pingObj = pingArray.getJSONObject(i);
-				Address address = new Address(pingObj.getString("ipaddress"),pingObj.getString("tag"));
+				Address address = new Address(pingObj.getString("ipaddress"),pingObj.getString("tag"), "ping");
 				PING_SERVERS.add(address);
+				Address address2 = new Address(pingObj.getString("ipaddress"),pingObj.getString("tag"), "firsthop");
+				PING_SERVERS.add(address2);
 			}
 
 

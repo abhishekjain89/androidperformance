@@ -14,12 +14,11 @@ import com.num.R;
 public class Ping implements Model{
 
 	
-	String srcIp = "";
-	
+	String srcIp = "";	
 	Address dst;
 	Measure measure;
-	
 	String time = "";
+	String type = "";
 
 	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network";
 
@@ -27,7 +26,7 @@ public class Ping implements Model{
 		return DESCRIPTION;
 	}
 	
-	public Ping(String scrIp, Address dst, Measure measure) {
+	public Ping(String scrIp, Address dst, Measure measure, String type) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		
@@ -40,8 +39,18 @@ public class Ping implements Model{
 	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	    String utcTime = sdf.format(new Date());
 	    this.time = utcTime;
+	    this.type = type;
+	    
 	}
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Address getDst() {
 		return dst;
 	}
