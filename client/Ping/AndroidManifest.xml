@@ -39,13 +39,19 @@
         <activity
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:name=".activities.PrivacyActivity"
+            android:name=".activities.StartActivity"
             android:screenOrientation="nosensor" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+         <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:name=".activities.PrivacyActivity"
+            android:screenOrientation="nosensor" >
         </activity>
         <activity
             android:configChanges="keyboardHidden|orientation"
