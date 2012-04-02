@@ -1,55 +1,36 @@
 package com.num.activities;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TableLayout.LayoutParams;
-import android.widget.TextView;
 
+import com.num.R;
 import com.num.Values;
-import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
-import com.num.listeners.ResponseListener;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.Measurement;
-import com.num.models.Model;
 import com.num.models.Network;
 import com.num.models.Ping;
-import com.num.models.Row;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.models.Wifi;
-import com.num.services.PerformanceServiceAll;
-import com.num.tasks.InstallBinariesTask;
-import com.num.tasks.MeasurementTask;
-import com.num.tasks.SummaryTask;
-import com.num.ui.UIUtil;
-import com.num.ui.adapter.ItemAdapter;
+import com.num.tasks.UrlTask;
 import com.num.utils.PreferencesUtil;
-import com.num.R;
 
 
 public class PrivacyActivity extends Activity 
@@ -72,25 +53,26 @@ public class PrivacyActivity extends Activity
 		
 		super.onCreate(savedInstanceState);
 		
-		if(PreferencesUtil.isAccepted(this)){
+		/*if(PreferencesUtil.isAccepted(this)){
 			finish();
 			System.out.println("ACCEPT");
 			Intent myIntent = new Intent(this, UserFormActivity.class);
             startActivity(myIntent);
-		}
+		}*/
 		
 		setContentView(R.layout.privacy_screen);
 		
 		activity = this;
 				
 		serverhelper = new ThreadPoolHelper(5,10);
-		
+		serverhelper.execute(new UrlTask(activity,new HashMap<String,String>(), "http://ruggles.gtnoise.net/static/Conditions_of_Use.html", new UrlListener()));
+
 		acceptButton = (Button) findViewById(R.id.accept);
 		rejectButton = (Button) findViewById(R.id.reject);
 		WebView webview = (WebView) findViewById(R.id.policyText);
 		webview.getSettings().setJavaScriptEnabled(true);
 		webview.loadData("Conditions of Use<br>Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully.<br>PRIVACY<br>Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses.",mimeType,null);
-		webview.loadUrl("http://ruggles.gtnoise.net/static/Conditions_of_Use.html");
+		//webview.loadUrl("http://ruggles.gtnoise.net/static/Conditions_of_Use.html");
 		
 		rejectButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -120,5 +102,100 @@ public class PrivacyActivity extends Activity
         }
     }
 	
-	
+
+	private Handler UrlHandler = new Handler() {
+		public void  handleMessage(Message msg) {
+			try {
+				String data = (String)msg.obj;
+				WebView webview = (WebView) findViewById(R.id.policyText);
+				webview.loadData(data,mimeType,null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+
+	private class UrlListener extends BaseResponseListener{
+
+		public void onComplete(String response) {
+			Message msg = new Message();
+			msg.obj = response;
+			UrlHandler.sendMessage(msg);			
+		}
+
+		public void onCompletePing(Ping response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteMeasurement(Measurement response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteDevice(Device response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteBattery(Battery response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateProgress(int val) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteGPS(GPS gps) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteUsage(Usage usage) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteThroughput(Throughput throughput) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void makeToast(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteSignal(String signalStrength) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteWifi(Wifi wifiList) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteNetwork(Network network) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteSIM(Sim sim) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onFail(String response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteSummary(JSONObject Object) {
+			// TODO Auto-generated method stub
+			
+		} 
+	}
 }
