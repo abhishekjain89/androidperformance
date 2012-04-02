@@ -141,7 +141,7 @@ public class DataFormActivity extends Activity
 
 					finish();
 					if(!force){
-						Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+						Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 						startActivity(myIntent);
 					}
 

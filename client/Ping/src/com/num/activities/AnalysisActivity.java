@@ -79,7 +79,7 @@ public class AnalysisActivity extends Activity
 		super.onCreate(savedInstanceState);
 		
 		
-		setContentView(R.layout.main_screen);
+		setContentView(R.layout.measurement_screen);
 		
 		activity = this;
 		session = (Values) getApplicationContext();
@@ -100,9 +100,6 @@ public class AnalysisActivity extends Activity
 
 		serverhelper.execute(new ValuesTask(this,new FakeListener()));
 
-		ServiceHelper.processStopService(this);
-		ServiceHelper.processStartService(this);
-		
 		testButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 
