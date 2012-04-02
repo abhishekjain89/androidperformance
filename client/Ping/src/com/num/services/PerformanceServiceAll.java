@@ -21,6 +21,7 @@ import android.util.Log;
 import com.num.Values;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
+import com.num.helpers.UserDataHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
 import com.num.models.Battery;
@@ -123,7 +124,10 @@ public class PerformanceServiceAll extends Service{
 				doThroughput=false;
 			}
 		}
-
+		UserDataHelper userhelp = new UserDataHelper(this);
+		
+		doThroughput = doThroughput && (userhelp.getDataEnable()==1);
+		
 		if(doThroughput){
 			serverhelper.execute(new ParameterTask(context,(new Listener())));
 		}

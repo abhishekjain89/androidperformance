@@ -20,7 +20,7 @@
             android:background="@drawable/btn_blue"
             android:gravity="center"
             android:padding="0dp"
-            android:text="Main Menu"
+            android:text="Manual Test"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFF"
             android:textSize="25dp"

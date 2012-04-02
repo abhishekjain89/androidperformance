@@ -26,8 +26,18 @@ public class UserDataHelper {
 		PreferencesUtil.setDataInt("billingcycle", billingCycle, context);
 	}
 	
+	public void setDataEnable(int val) {
+		PreferencesUtil.setDataInt("dataenable", val, context);
+	}
+	
+	public int getDataEnable() {
+		return PreferencesUtil.getDataInt("dataenable", context);
+	}
+	
 	public boolean isFilled(){		
-		return PreferencesUtil.contains("datacap", context) && PreferencesUtil.contains("billingcycle", context);
+		return PreferencesUtil.contains("datacap", context) && 
+				PreferencesUtil.contains("billingcycle", context) && 
+				PreferencesUtil.contains("dataenable", context);
 	}
 
 }

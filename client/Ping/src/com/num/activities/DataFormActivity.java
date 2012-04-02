@@ -58,7 +58,7 @@ import com.num.R;
 
 
 
-public class UserFormActivity extends Activity 
+public class DataFormActivity extends Activity 
 {
 
 	//private TableLayout table;
@@ -72,7 +72,7 @@ public class UserFormActivity extends Activity
 	final RadioButton[] rb = new RadioButton[5];
 	UserDataHelper userhelp;
 	Boolean force = false;
-	int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
+	int[] limit_val= {1,0};
 
 
 	@Override
@@ -83,9 +83,8 @@ public class UserFormActivity extends Activity
 		Bundle extras = getIntent().getExtras();
 		activity = this;
 		userhelp = new UserDataHelper(activity);
-		int old_cap = userhelp.getDataCap();
-		
-		
+		int old_val= userhelp.getDataEnable();
+
 		
 		try{
 			force = extras.getBoolean("force");
@@ -94,18 +93,12 @@ public class UserFormActivity extends Activity
 			force = false;
 		}
 
-
-		if(!force && userhelp.isFilled()){
-			finish();
-			Intent myIntent = new Intent(this, AnalysisActivity.class);
-			startActivity(myIntent);
-		}
 		
+		
+		setContentView(R.layout.dataform_screen);
 
-		setContentView(R.layout.userform_screen);
 
-
-		String[] limit_text = {"Dont have one","Dont know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
+		String[] limit_text = {"yes","no"};
 		
 		
 
@@ -121,7 +114,7 @@ public class UserFormActivity extends Activity
 			radiobutton.setTextColor(Color.BLACK);
 			radiobutton.setTextSize(18);
 			radiobutton.setText(limit_text[i]);
-			if(old_cap == limit_val[i])
+			if(old_val == limit_val[i])
 				radiobutton.setChecked(true);
 			
 			radiobutton.setId(i);
@@ -140,20 +133,17 @@ public class UserFormActivity extends Activity
 
 
 					try{		
-						userhelp.setBillingCycle(0);
-						userhelp.setDataCap(limit_val[checkedRadioButton]);
+						userhelp.setDataEnable(limit_val[checkedRadioButton]);
 					}
 					catch(Exception e){
 						e.printStackTrace();
 					}
 
-
 					finish();
-					
-					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
-					myIntent.putExtra("force", force);
-					startActivity(myIntent);
-					
+					if(!force){
+						Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+						startActivity(myIntent);
+					}
 
 				}
 			});
