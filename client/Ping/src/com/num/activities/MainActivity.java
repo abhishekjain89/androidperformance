@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -67,6 +68,13 @@ public class MainActivity extends Activity
 
 
 		setContentView(R.layout.main_screen);
+		
+		TextView tv=(TextView)findViewById(R.id.tagline);
+	    Typeface face=Typeface.createFromAsset(getAssets(),
+	                                          "fonts/Roboto-Bold.ttf");
+
+	    tv.setTypeface(face);
+	    
 
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);

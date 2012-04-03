@@ -99,29 +99,16 @@ public class TourActivity extends Activity
 		setContentView(R.layout.tour_screen);
 		text = (TextView) findViewById(R.id.text);
 		image = (ImageView) findViewById(R.id.image);
-		back = (Button) findViewById(R.id.back);
+		
 		next = (Button) findViewById(R.id.next);
 
 		len = image_list.length;
-
 		updateState(i);
-		
-
-
-		back.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-
-				i--;
-				updateState(i);
-
-			}
-		});
 		
 		next.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
-
-				i++;
-				updateState(i);
+				
+				updateState(++i);
 
 			}
 		});
@@ -134,15 +121,6 @@ public class TourActivity extends Activity
 		if(i<0) i=0;
 		if(i>len) i=len;
 
-		if(i==0){
-			back.setVisibility(View.INVISIBLE);
-			next.setVisibility(View.VISIBLE);
-
-		}
-		else if(i<len){
-			back.setVisibility(View.VISIBLE);
-			back.setVisibility(View.INVISIBLE);
-		}
 		else if(i==len){
 			finish();
 			if(!force){

@@ -52,15 +52,13 @@ public class AnalysisActivity extends Activity
 {
 	
 	//private TableLayout table;
-	private LinearLayout table;
-	private Button testButton;
-	private Button settingsButton;
-	private Button aboutusButton;
-	private Button pingButton;
-	private Button wifiButton;
-	private Button usageButton;
-	private Button throughputButton;
-	private Button tourButton;
+	
+	private LinearLayout testButton;
+	private LinearLayout pingButton;
+	private LinearLayout wifiButton;
+	private LinearLayout usageButton;
+	private LinearLayout throughputButton;
+	private LinearLayout tourButton;
 	
 	private ListView listview;
 	private TextView apptext;
@@ -86,15 +84,15 @@ public class AnalysisActivity extends Activity
 		session.loadValues();
 		
 		serverhelper = new ThreadPoolHelper(5,10);
-		testButton=(Button)findViewById(R.id.full_test);
-		settingsButton=(Button)findViewById(R.id.settings);
-		aboutusButton=(Button)findViewById(R.id.aboutus);
+		testButton=(LinearLayout)findViewById(R.id.full_test);
 		
-		pingButton=(Button)findViewById(R.id.ping);
-		wifiButton=(Button)findViewById(R.id.wifi);
-		usageButton=(Button)findViewById(R.id.usage);
-		throughputButton=(Button)findViewById(R.id.throughput);
-		tourButton = (Button)findViewById(R.id.tour);
+		
+		
+		pingButton=(LinearLayout)findViewById(R.id.ping);
+		wifiButton=(LinearLayout)findViewById(R.id.wifi);
+		usageButton=(LinearLayout)findViewById(R.id.usage);
+		throughputButton=(LinearLayout)findViewById(R.id.throughput);
+	
 		
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
@@ -110,21 +108,6 @@ public class AnalysisActivity extends Activity
 			}
 		});
 		
-		settingsButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-				Intent myIntent = new Intent(v.getContext(), UserFormActivity.class);
-				myIntent.putExtra("force",true);
-                startActivity(myIntent);
-			}
-		});
-		
-		aboutusButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-
-				Intent myIntent = new Intent(v.getContext(), AboutUsActivity.class);
-                startActivity(myIntent);
-			}
-		});
 		
 		pingButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -163,14 +146,7 @@ public class AnalysisActivity extends Activity
 			}
 		});
 		
-		tourButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-
-				Intent myIntent = new Intent(v.getContext(),TourActivity.class);
-				
-                startActivity(myIntent);
-			}
-		});
+	
 	
 
 	}	

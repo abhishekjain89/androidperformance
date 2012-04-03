@@ -3,197 +3,278 @@
     android:id="@+id/scroll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ccc" >
+    android:background="@drawable/slight_gray" >
 
     <LinearLayout
         android:id="@+id/relative"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:layout_marginRight="15dp" >
 
         <TextView
             android:id="@+id/tagline"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/title"
-            android:background="@drawable/btn_blue"
-            android:gravity="center"
+            
+            android:gravity="center_vertical"
             android:padding="0dp"
             android:text="Menu"
+            
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
+            android:textColor="@color/dark_gray"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center_vertical"
+           
+            android:background="@color/dark_gray"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:id="@+id/measurement"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFF"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/application" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/listitem_layout"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dp"
-                android:background="#FFF"
-                android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:text="Measurement"
-                    android:textColor="#449def"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="fill_parent"
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Measurement"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="Run manual measurement now"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
                     android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="top"
-                    android:text="Run manual measurement now"
-                    android:textColor="#222"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/application" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:orientation="vertical" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tour"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFF"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/usage" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/listitem_layout"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dp"
-                android:background="#FFF"
-                android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:text="Tour"
-                    android:textColor="#449def"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="fill_parent"
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Tour"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="Motivation of the study"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
                     android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="top"
-                    android:text="Understand what the study is about"
-                    android:textColor="#222"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/usage" />
             </LinearLayout>
-        </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:orientation="vertical" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/aboutus"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFF"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/sim" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/listitem_layout"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dp"
-                android:background="#FFF"
-                android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:text="About Us"
-                    android:textColor="#449def"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="fill_parent"
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="About Us"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="Read about the team"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
                     android:layout_height="30dp"
-                    android:background="#fff"
-                    android:gravity="top"
-                    android:text="Read about the team"
-                    android:textColor="#222"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/sim" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:orientation="vertical" />
         </LinearLayout>
          <LinearLayout
             android:id="@+id/settings"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/row_back"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/network" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/listitem_layout"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dp"
-               
-                android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    
-                    android:gravity="center_vertical"
-                    android:text="Settings"
-                    android:textColor="#449def"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="fill_parent"
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Configure"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="Change settings"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
                     android:layout_height="30dp"
-                    
-                    android:gravity="top"
-                    android:text="Configuration details"
-                    android:textColor="#222"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/dark_gray"
+                    android:orientation="vertical" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/network" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:orientation="vertical" />
         </LinearLayout>
     </LinearLayout>
 

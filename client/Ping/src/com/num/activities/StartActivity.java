@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -76,6 +77,12 @@ public class StartActivity extends Activity
 		setContentView(R.layout.startup);
 
 		title = (TextView) this.findViewById(R.id.title);
+
+		
+	    Typeface face=Typeface.createFromAsset(getAssets(),
+	                                          "fonts/Roboto-Black.ttf");
+
+	    title.setTypeface(face);
 
 		//title.setTextColor(title.getTextColors().withAlpha(0));
 
