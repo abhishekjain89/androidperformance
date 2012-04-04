@@ -96,7 +96,10 @@ def measurement(request):
         count+=1
         m_screens = request_object['screens']
         count+=1
-        m_wifi = request_object['wifi']
+        try:
+            m_wifi = request_object['wifi']
+        except:
+            pass
         count+=1
         m_state = request_object['state']
         count+=1
