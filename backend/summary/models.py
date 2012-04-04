@@ -230,7 +230,7 @@ class Lastmile(models.Model):
     measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
     lastmileid = models.AutoField(primary_key=True)
     class Meta:
-        db_table = u'ping'
+        db_table = u'lastmile'
 
 class Values(models.Model):
     valueid = models.AutoField(primary_key=True)

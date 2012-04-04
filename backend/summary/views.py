@@ -239,12 +239,13 @@ def measurement(request):
     try:
         insertJSON.lastmiles(lastmiles,measurement)    
     except Exception as inst:
+        
         message.append(error_message_helper.insert_entry_fail("lastmile",inst))            
     print "measurement insertion ended"
     
     print str(message)
     if len(str(message)) > 5:
-        print "got milk?"
+        print message
         insertJSON.error_log(message,m_deviceid)
     
     response['message'] = 'measurement inserted: ' + str(message)
