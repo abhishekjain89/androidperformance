@@ -22,7 +22,7 @@ def playground(request):
     print request.META
     
     
-    return return HttpResponse(str(request))
+    return  HttpResponse(str(request))
 
 def showdata(request,deviceid):
     did = deviceid
