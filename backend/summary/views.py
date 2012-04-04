@@ -69,7 +69,7 @@ def measurement(request):
     except:
         return HttpResponse(error_message_helper.invalid_format())
     m_wifi = None
-    m_state = None
+    m_state = {}
     count = 0
     try:
 
@@ -211,7 +211,7 @@ def measurement(request):
                states.save()
                   
     except Exception as inst:
-       message.append(error_message_helper.insert_entry_fail("state",inst))   
+       pass   
     
     m_id = measurement.measurementid
     
