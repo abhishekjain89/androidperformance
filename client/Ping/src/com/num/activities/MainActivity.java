@@ -57,8 +57,6 @@ public class MainActivity extends Activity
 	private LinearLayout measurementButton;
 	private LinearLayout settingsButton;
 	private LinearLayout aboutusButton;
-	private LinearLayout tourButton;
-
 
 
 	@Override
@@ -79,7 +77,7 @@ public class MainActivity extends Activity
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);
 		measurementButton = (LinearLayout)findViewById(R.id.measurement);
-		tourButton = (LinearLayout)findViewById(R.id.tour);
+	
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 
@@ -115,16 +113,7 @@ public class MainActivity extends Activity
 		});
 
 
-		tourButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
-
-				Intent myIntent = new Intent(v.getContext(),TourActivity.class);
-				myIntent.putExtra("force",true);
-				startActivity(myIntent);
-			}
-		});
-
-
+	
 	}	
 
 

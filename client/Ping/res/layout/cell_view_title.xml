@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="40dp"
-    android:orientation="horizontal"
-    android:padding="2px"
-    android:layout_marginTop="20dp"
-    android:background="#FFF"
+    android:layout_height="35dp"
+    android:orientation="vertical"
     android:weightSum="10" >
 
     <TextView
@@ -13,16 +10,19 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="4"
-        android:background="@drawable/btn_blue_mid"
-        android:gravity="center_horizontal"
         android:ellipsize="end"
-        
+        android:gravity="center_vertical"
         android:padding="0px"
-        android:text="Key"
+        android:text="KEY"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFF"
-        android:textSize="22dp" >
+        android:textColor="@color/dark_gray"
+        android:textSize="18dp" >
     </TextView>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_gray"
+        android:orientation="vertical" />
 
 </LinearLayout>

@@ -118,7 +118,7 @@ public class Usage implements MainModel{
 
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Total Apps",""+applications.size()));
-		data.add(new Row("Application Usage"));
+		data.add(new Row("TRAFFIC"));
 		try {
 			Collections.sort(applications);
 		} catch (Exception e) {
@@ -127,6 +127,7 @@ public class Usage implements MainModel{
 		for(Application app: applications){
 
 			if(isOurApp(app)) continue;
+			if(app.getTotal_recv() + app.getTotal_sent() < 1000000) continue;
 
 			try {
 				data.add(new Row(app.getAppIcon(),app.getName(),getOutput(app.getTotal_sent()),getValue(app.getTotal_sent()),getOutput(app.getTotal_recv()),getValue(app.getTotal_recv())));
@@ -158,7 +159,7 @@ public class Usage implements MainModel{
 	}
 
 	public boolean isOurApp(Application app){
-		if(app.getName().equals("Num: Network Usage Monitor")) return true;
+		if(app.getPackageName().contains("com.num")) return true;
 		return false;
 	}
 

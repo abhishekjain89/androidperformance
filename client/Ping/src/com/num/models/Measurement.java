@@ -226,7 +226,7 @@ public class Measurement implements MainModel{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Latency (Avg,Max,Min,Std)"));
+		data.add(new Row("LATENCY (Avg,Max,Min,Std)"));
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {

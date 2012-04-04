@@ -159,13 +159,13 @@ public class Wifi implements MainModel{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Your Info"));
+		data.add(new Row("YOUR INFO"));
 		data.add(new Row("Hotspot",this.getSsid()));
 		data.add(new Row("Status",this.getDetailedInfo()));
 		data.add(new Row("Speed",this.getSpeed() + " " + this.getUnits()));
 		data.add(new Row("Strength",this.getStrength()*10));
 		data.add(new Row("Neighbors",""+this.getNeighbors().size()));
-		data.add(new Row("Neighboring Wifis"));
+		data.add(new Row("NEIGHBORING WIFIS"));
 		Collections.sort(this.getNeighbors());
 		
 		ArrayList<String> used = new ArrayList<String>();

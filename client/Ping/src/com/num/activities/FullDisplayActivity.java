@@ -174,7 +174,7 @@ public class FullDisplayActivity extends Activity {
 			MainModel item = (MainModel)msg.obj;
 			load.setVisibility(View.GONE);
 			
-			title.setText(item.getTitle());
+			title.setText(item.getTitle().toUpperCase());
 			description.setText(item.getDescription());
 			
 			//imageview.setImageResource(item.getIcon());

@@ -99,7 +99,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 
 		if (item!=null) {	
 			try{
-				holder.title.setText(item.getTitle());
+				holder.title.setText(item.getTitle().toUpperCase());
 
 				//holder.imageview.setImageResource(item.getIcon());
 				ArrayList<Row> cells = item.getDisplayData();

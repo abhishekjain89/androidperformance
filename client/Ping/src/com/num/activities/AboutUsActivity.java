@@ -205,7 +205,7 @@ public class AboutUsActivity extends Activity
 				cells.add(new Row("Total Devices",""+obj.get("total-devices")));
 				cells.add(new Row("Total CellTowers",""+obj.get("total-cells")));
 				cells.add(new Row("Total Wifi-spots",""+obj.get("total-wifis")));
-				cells.add(new Row(R.layout.cell_view_title_banner,"Status: " + obj.get("status")));
+				//cells.add(new Row(R.layout.cell_view_title,"Status: " + obj.get("status")));
 				
 				if(cells.size()!=0){
 					ItemAdapter itemadapter = new ItemAdapter(activity,cells);

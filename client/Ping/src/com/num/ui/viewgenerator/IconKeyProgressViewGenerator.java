@@ -37,9 +37,9 @@ public class IconKeyProgressViewGenerator extends ViewGenerator{
 	public void populateView(Row item) {
 		holder.first.setText(item.key);
 		holder.progress.setProgress(item.valueOne);
-		holder.second.setText(item.first);
+		holder.second.setText("Sent: " + item.first);
 		holder.progress2.setProgress(item.valueTwo);
-		holder.second2.setText(item.second);
+		holder.second2.setText("Recv: " + item.second);
 		holder.imageview.setImageDrawable(item.image);
 		
 		
