@@ -88,7 +88,7 @@ public class TourActivity extends Activity
 
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
-
+		
 		try{
 			force = extras.getBoolean("force");
 		}
@@ -103,7 +103,7 @@ public class TourActivity extends Activity
 		next = (Button) findViewById(R.id.next);
 
 		len = image_list.length;
-		updateState(i);
+		updateState(len);
 		
 		next.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	

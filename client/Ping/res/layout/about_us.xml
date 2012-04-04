@@ -62,7 +62,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="fill"
-                android:text="This project was developed inside Georgia Tech. It hopes to provide thorough and relevant network, usage and device details to cellphone users."
+                android:text="This project was developed inside Georgia Tech. It hopes to provide thorough and relevant network, usage and device details to cellphone users. While gathering anonymous periodic data from the devices to better understand the cellular ecosystem."
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#000"
                 android:textSize="20dp" />
