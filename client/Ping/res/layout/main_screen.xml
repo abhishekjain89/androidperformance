@@ -89,7 +89,7 @@
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/application" />
+                    android:src="@drawable/measure" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,7 +149,7 @@
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/sim" />
+                    android:src="@drawable/team" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,7 +208,7 @@
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/network" />
+                    android:src="@drawable/configure" />
             </LinearLayout>
 
             <LinearLayout

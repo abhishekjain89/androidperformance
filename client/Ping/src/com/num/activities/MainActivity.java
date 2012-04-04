@@ -67,12 +67,6 @@ public class MainActivity extends Activity
 
 		setContentView(R.layout.main_screen);
 		
-		TextView tv=(TextView)findViewById(R.id.tagline);
-	    Typeface face=Typeface.createFromAsset(getAssets(),
-	                                          "fonts/Roboto-Bold.ttf");
-
-	    tv.setTypeface(face);
-	    
 
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);

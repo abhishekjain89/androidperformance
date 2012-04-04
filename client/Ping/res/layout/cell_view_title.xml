@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
+    
     android:orientation="vertical"
     android:weightSum="10" >
 
@@ -9,9 +10,10 @@
         android:id="@+id/key"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
         android:layout_weight="4"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:gravity="bottom"
         android:padding="0px"
         android:text="KEY"
         android:textAppearance="?android:attr/textAppearanceMedium"

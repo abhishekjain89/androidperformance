@@ -10,14 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.num.Values;
@@ -49,11 +57,18 @@ public class RunActivity extends BaseActivityGroup
 	private Values session = null;
 	private Activity activity;
 	private boolean firstPing=true;
-	
+	private static final int SWIPE_MIN_DISTANCE = 180; 
+	private static final int SWIPE_MAX_OFF_PATH = 250;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+	private GestureDetector gestureDetector;
+	View.OnTouchListener gestureListener;
+
+
 
 	public ArrayList<Model> items;
 	public ListView listview;
 	public ListAdapter listadapter;
+	public HorizontalScrollView scroll;
 
 	Resources res;
 	TabHost tabHost;
@@ -79,7 +94,7 @@ public class RunActivity extends BaseActivityGroup
 		//listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
 		//listview.setAdapter(listadapter);
-
+		scroll = (HorizontalScrollView) findViewById(R.id.scroller);
 		load = (Button) findViewById(R.id.load);
 		load.setText("Loading ...   will take about 50 seconds");
 		res = getResources(); // Resource object to get Drawables
@@ -87,10 +102,9 @@ public class RunActivity extends BaseActivityGroup
 		tabHost.setup(this.getLocalActivityManager());
 
 
-		// Create an Intent to launch an Activity for the tab (to be reused)
-
-
 	}
+
+
 
 
 
@@ -199,6 +213,8 @@ public class RunActivity extends BaseActivityGroup
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 
+
+
 			MainModel item = (MainModel)msg.obj;
 			items.add(item);
 			/*listadapter.add(item);			
@@ -208,15 +224,72 @@ public class RunActivity extends BaseActivityGroup
 			session.storeModel(item);
 
 			intent.putExtra("model_key",item.getTitle());
-			
+
 			View tabview = createTabView(tabHost.getContext(),item);
-			
+			tabview.setTag(item.getTitle());
 			spec = tabHost.newTabSpec(item.getTitle()).setIndicator(tabview)
 					.setContent(intent);
+
 			tabHost.addTab(spec);
+			
+			if(LastChosen==null){
+				LastChosen = tabview;
+			}else{
+				int diff = LastChosen.getLeft() - scroll.getScrollX() - 154;
+				moveScrollBy(diff);
+			}
+			tabHost.setCurrentTabByTag(tabHost.getCurrentTabTag());
+
+
+			tabview.setOnClickListener(new OnClickListener()  {
+				public void onClick(View v) {	
+					tabHost.setCurrentTabByTag((String) v.getTag());
+
+					int diff = v.getLeft() - scroll.getScrollX() - 154;
+					moveScrollBy(diff);
+					LastChosen =v;
+				}
+			});
+
 
 		}
 	};
+
+	private void moveScrollBy(int diff){
+		final long time = diff;
+		System.out.println("Difference is " + diff);
+		final int scrollIni = scroll.getScrollX();
+		if(time>0){
+			new CountDownTimer(time, 10) { 
+
+				public void onTick(long millisUntilFinished) { 
+
+					scroll.scrollTo((int) (scrollIni+((time-millisUntilFinished))), 0); 
+				} 
+
+				public void onFinish() { 
+
+				} 
+			}.start();
+		}
+		else{
+
+			new CountDownTimer(-time, 10) { 
+
+				public void onTick(long millisUntilFinished) { 
+
+					scroll.scrollTo((int) (scrollIni-((-time-millisUntilFinished))), 0); 
+				} 
+
+				public void onFinish() { 
+
+				} 
+			}.start();
+
+		}
+	}
+
+	private View LastChosen;
 
 	private Handler LoadBarHandler = new Handler(){
 		public void  handleMessage(Message msg) {
@@ -242,11 +315,12 @@ public class RunActivity extends BaseActivityGroup
 
 		View view = LayoutInflater.from(context).inflate(R.layout.tabs_hg, null);
 		view.setPadding(0,0,0,0);
-		
 
-		ImageView tv = (ImageView) view.findViewById(R.id.icon);
 
-		tv.setImageResource(item.getIcon());
+		//ImageView tv = (ImageView) view.findViewById(R.id.icon);
+		TextView tv =  (TextView) view.findViewById(R.id.text);
+
+		tv.setText(item.getTitle().toUpperCase());
 
 		return view;
 

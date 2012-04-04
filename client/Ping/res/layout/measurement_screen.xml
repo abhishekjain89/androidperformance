@@ -89,7 +89,7 @@
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/application" />
+                    android:src="@drawable/fulltest" />
             </LinearLayout>
 
             <LinearLayout

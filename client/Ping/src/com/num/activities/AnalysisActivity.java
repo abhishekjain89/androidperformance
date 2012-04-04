@@ -114,7 +114,7 @@ public class AnalysisActivity extends Activity
 
 				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
 				myIntent.putExtra("model_key","latency");
-				myIntent.putExtra("time","6");
+				myIntent.putExtra("time","10");
                 startActivity(myIntent);
 			}
 		});
