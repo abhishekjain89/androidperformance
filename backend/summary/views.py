@@ -19,10 +19,11 @@ def test_request(request):
 def playground(request):
     
     
-    print request.META
+    print str(request)
+    print str(request.META)
     
     
-    return  HttpResponse(str(request))
+    return HttpResponse(str(request))
 
 def showdata(request,deviceid):
     did = deviceid
