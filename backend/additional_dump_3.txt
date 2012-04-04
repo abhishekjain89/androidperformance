@@ -1,0 +1,3 @@
+ALTER TABLE ONLY error_log
+    ADD COLUMN user_agent text,
+    ADD COLUMN remote_addr varchar(20);

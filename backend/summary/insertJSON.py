@@ -528,12 +528,15 @@ def calculate_log(range):
     log = CalculateLog(log_time = current_time,time = l_time)
     log.save()
         
-def error_log(message,device):
+def error_log(message,device,request):
     
     error_log = ErrorLog()
     error_log.log_time = datetime.utcnow()
     error_log.deviceid =device
     error_log.error_text = str(message)
+    error_log.user_agent = str(request.META['HTTP_USER_AGENT'])
+    error_log.remote_addr = str(request.META['REMOTE_ADDR'])
+    
     error_log.save()
         
 def wifi(dev,m):

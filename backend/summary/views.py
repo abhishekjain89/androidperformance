@@ -18,12 +18,6 @@ def test_request(request):
 
 def playground(request):
     
-    
-    print str(request)
-    print str(request.META['HTTP_USER_AGENT'])
-    print str(request.META['REMOTE_ADDR'])
-    
-    
     return HttpResponse(str(request))
 
 def showdata(request,deviceid):
@@ -133,7 +127,7 @@ def measurement(request):
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))
-       insertJSON.error_log(request_object,m_deviceid)
+       insertJSON.error_log(request_object,m_deviceid,request)
        return HttpResponse(str(message))     
     print "measurement insertion started..."
     
@@ -256,7 +250,7 @@ def measurement(request):
     print str(message)
     if len(str(message)) > 5:
         print message
-        insertJSON.error_log(message,m_deviceid)
+        insertJSON.error_log(message,m_deviceid,request)
     
     response['message'] = 'measurement inserted: ' + str(message)
     response['status'] = 'OK'

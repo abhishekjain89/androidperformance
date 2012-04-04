@@ -269,6 +269,8 @@ class ErrorLog(models.Model):
     log_time = models.DateTimeField(primary_key=True)
     deviceid = models.CharField(max_length=40)
     error_text = models.TextField()
+    user_agent = models.TextField()
+    remote_addr = models.CharField(max_length=20)
     class Meta:
         db_table = u'error_log'
 
