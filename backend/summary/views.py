@@ -72,8 +72,11 @@ def measurement(request):
     m_state = {}
     count = 0
     try:
-
-        m_deviceid = request_object['deviceid']
+        try:
+            m_deviceid = request_object['deviceid']
+        except:
+            m_deviceid = ""
+            pass
         count+=1
         m_time = request_object['time']
         count+=1
