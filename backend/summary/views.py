@@ -16,6 +16,14 @@ def index(request):
 def test_request(request):
     return render_to_response('test_request.html')
 
+def playground(request):
+    
+    
+    print request.META
+    
+    
+    return render_to_response('test_request.html')
+
 def showdata(request,deviceid):
     did = deviceid
     print(did);
