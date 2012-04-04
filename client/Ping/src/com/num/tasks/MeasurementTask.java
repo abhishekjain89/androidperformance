@@ -111,7 +111,7 @@ public class MeasurementTask extends ServerTask{
 		serverhelper.execute(new WifiTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		for(Address dst : dsts)
 		{
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, dst.getType(), new MeasurementListener()));
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
 			//serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, "firsthop", new MeasurementListener()));
 		}
 		

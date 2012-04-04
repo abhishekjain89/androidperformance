@@ -16,16 +16,54 @@ public class PingHelper {
 	public static String pingOutput;
 	
 	public static Ping firstHopHelp(Address address, int count) {
+		Ping p 			= null;
+		int ttl 		= 1;
+		String ipDst 	= address.getIp();
+		String cmd 		= "ping";
+		String options 	= "-n -s 56 -c 1 -t " + ttl;
+		String output 	= "";
 
-		//Ping p=new Ping(ipSrc, address ,ping_measurement, "firsthop");
-		return null;
+		cmdUtil = new CommandLineUtil();
+		int hopCount = 1;
+		output = cmdUtil.runCommand(cmd, ipDst, options);
+		if (!output.contains("ttl")) {
+			if (!output.contains("From")){
+				while(!output.contains("From")) {
+					options 	= "-n -s 56 -c 1 -t " + ++ttl;
+					output = cmdUtil.runCommand(cmd, ipDst, options);
+					if (ttl > 50) {
+						break;
+					}
+				}			
+			}
+			ipDst = output.substring(output.indexOf("From") + 4, output.indexOf("icmp")).trim();
+			options 	= "-c 5";
+			output = cmdUtil.runCommand(cmd, ipDst, options);
+		}		
+		Measure ping_measurement = ParseUtil.PingParser(output);
+
+		Socket conn;
+		String ipSrc = "";
+		try {
+			conn = new Socket("www.google.com", 80);
+			ipSrc = conn.getLocalAddress().toString(); 
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		p=new Ping(ipSrc, address ,ping_measurement, "firsthop");
+		
+		return p;
 	}
 	
 	/**
 	 * Pinghelp helps run ping command by creating cmd and inputs
 	 * @return
 	 */
-	public static Ping pingHelp(Address address, int count, String type) {
+	public static Ping pingHelp(Address address, int count) {
 		Ping p 			= null;
 		String ipDst 	= address.getIp();
 		String cmd 		= "ping";
@@ -34,14 +72,7 @@ public class PingHelper {
 
 		cmdUtil = new CommandLineUtil();
 
-		if (type.equals("firsthop")) {
-			int hopCount = 1;
-			options += " -t " + hopCount;
-			output = cmdUtil.runCommand(cmd, ipDst, options);
-		}
-		else {
-			output = cmdUtil.runCommand(cmd, ipDst, options);
-		}
+		output = cmdUtil.runCommand(cmd, ipDst, options);
 		pingOutput = output;
 		
 		Measure ping_measurement = ParseUtil.PingParser(output);
@@ -58,13 +89,7 @@ public class PingHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		if (type.equals("firsthop")) {
-			p=new Ping(ipSrc, address ,ping_measurement, type);			
-		}
-		else {
-			p=new Ping(ipSrc, address ,ping_measurement, "ping");
-		}
-		
+		p=new Ping(ipSrc, address ,ping_measurement, "ping");
 		
 		return p;
 	}

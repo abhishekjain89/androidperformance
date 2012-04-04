@@ -26,20 +26,23 @@ import com.num.utils.HTTPUtil;
 public class PingTask extends ServerTask{
 	Address dst;
 	int count;
-	String type;
-	public PingTask(Context context, Map<String, String> reqParams, Address dst, int count, String type,
+	public PingTask(Context context, Map<String, String> reqParams, Address dst, int count,
 			ResponseListener listener) {
 		super(context, reqParams, listener);
 		this.dst  = dst;
 		this.count = count;
-		this.type = type;
 	}
 
 	@Override
 	public void runTask() {
-		
-		Ping ping = PingHelper.pingHelp(dst, count, type);
-		this.getResponseListener().onCompletePing(ping);
+		if (dst.getType().equals("ping")) {
+			Ping ping = PingHelper.pingHelp(dst, count);
+			this.getResponseListener().onCompletePing(ping);
+		}
+		else if (dst.getType().equals("firsthop")){
+			Ping ping = PingHelper.firstHopHelp(dst, count);
+			this.getResponseListener().onCompletePing(ping);
+		}
 	}
 
 	@Override
