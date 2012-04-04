@@ -70,7 +70,7 @@ public class Values extends Application{
 		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA", "ping"));
 		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "ping"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "ping"));
-		PING_SERVERS.add(new Address("localhost", "localhost", "ping"));
+		
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "ping"));
 
 	}

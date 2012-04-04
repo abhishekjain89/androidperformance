@@ -32,10 +32,10 @@ public class KeyFourValueViewGenerator extends ViewGenerator{
 	@Override
 	public void populateView(Row item) {
 		holder.first.setText(item.first);
-		holder.second.setText(item.seconds.get(0));
-		holder.third.setText(item.seconds.get(1));
-		holder.fourth.setText(item.seconds.get(2));
-		holder.fifth.setText(item.seconds.get(3));
+		holder.second.setText("Avg: " + item.seconds.get(0) + " ms");
+		holder.third.setText("Max: " +item.seconds.get(1) + " ms");
+		holder.fourth.setText("Min: " +item.seconds.get(2) + " ms");
+		holder.fifth.setText("Std: " +item.seconds.get(3) + " ms");
 		
 	}
 	

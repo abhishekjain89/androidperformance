@@ -83,6 +83,7 @@ public class Ping implements Model{
 			obj.putOpt("src_ip", srcIp);
 			obj.putOpt("dst_ip", dst.getIp());
 			obj.putOpt("time", time);
+			obj.putOpt("type", getType());
 			obj.putOpt("measure", measure.toJSON());
 			
 		} catch (JSONException e) {

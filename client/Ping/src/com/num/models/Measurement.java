@@ -226,10 +226,29 @@ public class Measurement implements MainModel{
 	
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("LATENCY (Avg,Max,Min,Std)"));
+		data.add(new Row("ROUND TRIP"));
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
+				if(p.getType().equals("ping"))
+				if (p.measure != null) {
+					try {
+						str.add(""+(int)p.measure.getAverage());
+						str.add(""+(int)p.measure.getMax());
+						str.add(""+(int)p.measure.getMin());
+						str.add(""+(int)p.measure.getStddev());
+						data.add(new Row(p.getDst().getTagname(),str));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		data.add(new Row("FIRST HOP"));
+		for(Ping p: pings){
+			ArrayList<String> str = new ArrayList<String>();
+			if (p != null) {
+				if(p.getType().equals("firsthop"))
 				if (p.measure != null) {
 					try {
 						str.add(""+(int)p.measure.getAverage());

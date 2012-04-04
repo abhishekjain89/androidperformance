@@ -74,7 +74,7 @@ public class AllPingTask extends ServerTask{
 		ArrayList<Address> dsts = session.getPingServers();
 
 		for(Address dst : dsts)
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, "ping", new MeasurementListener()));
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, dst.getType(), new MeasurementListener()));
 		
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);

@@ -39,7 +39,7 @@ public class DisplayActivity extends Activity {
 		description = (TextView) findViewById(R.id.description);
 		
 		//note.setVisibility(View.GONE);
-		title.setText(item.getTitle());
+		title.setText(item.getTitle().toUpperCase());
 		description.setText(item.getDescription());
 		
 		//imageview.setImageResource(item.getIcon());
