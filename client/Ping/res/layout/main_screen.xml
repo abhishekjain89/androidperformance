@@ -63,7 +63,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Measurement"
+                        android:text="Measurements"
                         android:textColor="#000"
                         android:textSize="20dp" />
 
@@ -71,7 +71,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
-                        android:text="Run manual measurement now"
+                        android:text="Run performance tests"
                         android:textColor="@color/dark_gray"
                         android:textSize="15dp" />
                 </LinearLayout>
@@ -131,7 +131,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
-                        android:text="Motivation of the study"
+                        android:text="Read motivation about the study"
                         android:textColor="@color/dark_gray"
                         android:textSize="15dp" />
                 </LinearLayout>

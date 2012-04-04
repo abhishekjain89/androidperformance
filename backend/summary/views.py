@@ -77,9 +77,11 @@ def measurement(request):
         except:
             m_deviceid = ""
             pass
-        count+=1
-        m_time = request_object['time']
-        count+=1
+        try:
+            m_time = request_object['time']
+        except:
+            pass    
+        
         m_localtime = request_object['localtime']
         count+=1
         pings = request_object['pings']

@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="35dp"
     android:orientation="horizontal"
-    android:background="#fff"
+    
     android:padding="2px"
     android:weightSum="10" >
 
@@ -34,6 +34,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:ellipsize="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:progressDrawable="@drawable/progress"
             android:textSize="14dp" >
         </ProgressBar>
@@ -42,8 +44,8 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            
+            
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="Percent%"
