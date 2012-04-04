@@ -70,6 +70,7 @@ def measurement(request):
         return HttpResponse(error_message_helper.invalid_format())
     m_wifi = None
     m_state = {}
+    lastmiles = {}
     count = 0
     try:
         try:
@@ -85,7 +86,12 @@ def measurement(request):
         m_localtime = request_object['localtime']
         count+=1
         pings = request_object['pings']
-        count+=1   
+        count+=1
+        try:
+            lastmiles = request_object['lastmiles']
+        except:
+            pass
+              
         m_device = request_object['device']
         count+=1
         m_network = request_object['network']
@@ -228,7 +234,12 @@ def measurement(request):
         insertJSON.pings(pings,measurement)
         
     except Exception as inst:
-        message.append(error_message_helper.insert_entry_fail("ping",inst))            
+        message.append(error_message_helper.insert_entry_fail("ping",inst))        
+        
+    try:
+        insertJSON.lastmiles(lastmiles,measurement)    
+    except Exception as inst:
+        message.append(error_message_helper.insert_entry_fail("lastmile",inst))            
     print "measurement insertion ended"
     
     print str(message)

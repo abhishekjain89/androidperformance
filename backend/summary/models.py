@@ -217,6 +217,21 @@ class Ping(models.Model):
     class Meta:
         db_table = u'ping'
 
+class Lastmile(models.Model):
+    avg = models.FloatField()
+    stdev = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    scrip = models.CharField(max_length=20)
+    dstip = models.CharField(max_length=20)
+    firstip = models.CharField(max_length=20)
+    time = models.DateTimeField()
+    hopcount = models.IntegerField()
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
+    lastmileid = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = u'ping'
+
 class Values(models.Model):
     valueid = models.AutoField(primary_key=True)
     frequency_secs = models.IntegerField()

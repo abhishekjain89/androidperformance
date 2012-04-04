@@ -464,6 +464,57 @@ def pings(pings,measurement):
             pass
         
         ping.save()
+        
+def lastmiles(lastmiles,measurement):
+    
+    for p in lastmiles:
+        lastmile = Lastmile()
+       
+        
+        lastmile.measurementid = measurement
+        
+        try:
+            lastmile.scrip = p['src_ip']
+        except:
+            pass
+        try:        
+            lastmile.dstip = p['dst_ip']
+        except:
+            pass
+        try:
+            lastmile.time = p['time']
+        except:
+            pass
+        try:
+            lastmile.hopcount = p['hopcount']
+        except:
+            pass
+        try:
+            lastmile.firstip = p['firstip']
+        except:
+            pass
+        
+        measure = p['measure']
+        
+        
+        try:           
+            lastmile.avg = measure['average']
+        except:
+            pass
+        try:
+            lastmile.stdev = measure['stddev']
+        except:
+            pass
+        try:
+            lastmile.min = measure['min']
+        except:
+            pass
+        try:
+            lastmile.max = measure['max']
+        except:
+            pass
+        
+        lastmile.save()
 
 def calculate_log(range):
     print "im in"

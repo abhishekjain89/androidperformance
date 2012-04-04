@@ -75,15 +75,7 @@ public class StartActivity extends Activity
 		activity = this;
 
 		setContentView(R.layout.startup);
-
-		title = (TextView) this.findViewById(R.id.title);
-
-		
-	    Typeface face=Typeface.createFromAsset(getAssets(),
-	                                          "fonts/Roboto-Black.ttf");
-
-	    title.setTypeface(face);
-
+		title = (TextView) findViewById(R.id.title);
 		//title.setTextColor(title.getTextColors().withAlpha(0));
 
 		final Animation in = new AlphaAnimation(0.0f, 1.0f);

@@ -1,0 +1,25 @@
+CREATE SEQUENCE lastmile_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+
+SELECT pg_catalog.setval('lastmile_seq', 1, false);
+
+CREATE TABLE lastmile (
+    avg double precision ,
+    stdev double precision ,
+    min double precision ,
+    max double precision ,
+    scrip varchar(20) ,
+    dstip varchar(20) ,
+    "time" timestamp without time zone,
+    firstip varchar(20),
+    hopcount integer,
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass),
+    lastmileid integer DEFAULT nextval('lastmile_seq'::regclass) 
+);
+
+ALTER TABLE ONLY lastmile
+    ADD CONSTRAINT lastmile_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
