@@ -69,6 +69,7 @@ def measurement(request):
     except:
         return HttpResponse(error_message_helper.invalid_format())
     m_wifi = None
+    m_state = None
     count = 0
     try:
 
