@@ -74,8 +74,8 @@ public class LastMile {
 			obj.putOpt("src_ip", srcIp);
 			obj.putOpt("dst_ip", dst.getIp());
 			obj.putOpt("time", time);
-			obj.putOpt("hopCount", hopCount);
-			obj.putOpt("firstIp", firstIp);
+			obj.putOpt("hopcount", hopCount);
+			obj.putOpt("firstip", firstIp);
 			obj.putOpt("measure", measure.toJSON());
 			
 		} catch (JSONException e) {

@@ -196,7 +196,7 @@ public class Measurement implements MainModel{
 				tmparray.put(p.toJSON());
 			}
 			
-			putSafe(obj,"lastMiles", tmparray);
+			putSafe(obj,"lastmiles", tmparray);
 			
 			
 			
