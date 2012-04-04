@@ -100,9 +100,12 @@ def measurement(request):
             m_wifi = request_object['wifi']
         except:
             pass
-        count+=1
-        m_state = request_object['state']
-        count+=1
+        
+        try:
+            m_state = request_object['state']
+        except:
+            pass
+        
         try:
             m_ismanual = request_object['isManual']
         except:

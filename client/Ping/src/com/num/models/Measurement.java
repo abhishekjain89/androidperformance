@@ -193,7 +193,9 @@ public class Measurement implements MainModel{
 			putSafe(obj,"usage",usage.toJSON());
 			putSafe(obj,"network",network.toJSON());
 			putSafe(obj,"sim",sim.toJSON());
-			putSafe(obj,"wifi", wifi.toJSON());
+			if(wifi!=null)
+				putSafe(obj,"wifi", wifi.toJSON());
+			
 			putSafe(obj,"state",state.toJSON());
 			if(isManual)
 				putSafe(obj, "isManual", 1);
