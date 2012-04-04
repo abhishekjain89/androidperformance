@@ -106,7 +106,8 @@ def measurement(request):
             m_ismanual = 0
 
     except Exception as inst:
-       message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))           
+       message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))
+       return HttpResponse(str(message))     
     print "measurement insertion started..."
     
     measurement = Measurement()
