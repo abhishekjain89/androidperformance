@@ -169,8 +169,12 @@ public class Measurement implements MainModel{
 		JSONObject obj = new JSONObject();
 		
 		try {
+			putSafe(obj,"time", time);	
+			putSafe(obj,"localtime",localTime);
+			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
 			
 			JSONArray array = new JSONArray();
+			
 			for(Ping p: pings){
 				array.put(p.toJSON());
 			}
@@ -183,9 +187,7 @@ public class Measurement implements MainModel{
 			}
 			
 			putSafe(obj,"screens", array2);
-			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
-			putSafe(obj,"time", time);	
-			putSafe(obj,"localtime",localTime);
+			
 			putSafe(obj,"device",device.toJSON());
 			putSafe(obj,"throughput",throughput.toJSON());
 			putSafe(obj,"gps",gps.toJSON());
