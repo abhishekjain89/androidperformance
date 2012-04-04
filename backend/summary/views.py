@@ -68,7 +68,7 @@ def measurement(request):
         request_object = ast.literal_eval(request.read())
     except:
         return HttpResponse(error_message_helper.invalid_format())
-    
+    m_wifi = None
     count = 0
     try:
 
@@ -168,7 +168,8 @@ def measurement(request):
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("gps",inst))
     try:
-        wifi=insertJSON.wifi(m_wifi,measurement)
+        if not m_wifi == None:
+            wifi=insertJSON.wifi(m_wifi,measurement)
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("wifi",inst))
     
