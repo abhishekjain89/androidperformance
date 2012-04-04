@@ -20,7 +20,8 @@ def playground(request):
     
     
     print str(request)
-    print str(request.META)
+    print str(request.META['HTTP_USER_AGENT'])
+    print str(request.META['REMOTE_ADDR'])
     
     
     return HttpResponse(str(request))
