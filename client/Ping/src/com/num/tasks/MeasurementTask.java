@@ -21,6 +21,7 @@ import com.num.models.Address;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
+import com.num.models.LastMile;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -52,6 +53,7 @@ public class MeasurementTask extends ServerTask{
 
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
+	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
 	public boolean gpsRunning  = false;
 	public boolean signalRunning = false;
 	//public boolean wifiRunning = false;
@@ -130,6 +132,7 @@ public class MeasurementTask extends ServerTask{
 		SignalHandler.sendEmptyMessage(0);
 
 		measurement.setPings(pings);
+		measurement.setLastMiles(lastMiles);
 
 		startTime = System.currentTimeMillis();
 
@@ -323,6 +326,11 @@ public class MeasurementTask extends ServerTask{
 		public void onFail(String response) {
 			// TODO Auto-generated method stub
 
+		}
+
+		public void onCompleteLastMile(LastMile lastMile) {
+			lastMiles.add(lastMile);
+			
 		}
 	}
 

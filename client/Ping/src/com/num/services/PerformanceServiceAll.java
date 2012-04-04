@@ -27,6 +27,7 @@ import com.num.listeners.FakeListener;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
+import com.num.models.LastMile;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -253,6 +254,10 @@ public class PerformanceServiceAll extends Service{
 				}
 			}
 		};
+		public void onCompleteLastMile(LastMile lastMile) {
+			// TODO Auto-generated method stub
+			
+		}
 
 	}
 

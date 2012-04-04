@@ -22,6 +22,7 @@ import com.num.listeners.BaseResponseListener;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
+import com.num.models.LastMile;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -194,6 +195,11 @@ public class PrivacyActivity extends Activity
 		}
 
 		public void onCompleteSummary(JSONObject Object) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteLastMile(LastMile lastMile) {
 			// TODO Auto-generated method stub
 			
 		} 

@@ -1,6 +1,5 @@
 package com.num.models;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,13 +10,14 @@ import org.json.JSONObject;
 
 import com.num.R;
 
-public class Ping implements Model{
+public class LastMile {
 
-	
 	String srcIp = "";	
 	Address dst;
 	Measure measure;
 	String time = "";
+	int hopCount = -1;
+	String firstIp = "";
 
 
 	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network";
@@ -26,14 +26,15 @@ public class Ping implements Model{
 		return DESCRIPTION;
 	}
 	
-	public Ping(String scrIp, Address dst, Measure measure) {
+	public LastMile(String scrIp, Address dst, Measure measure, int hopCount, String firstIp) {
 		//from an activity object, to get the device id :
 		//Secure.getString(getContentResolver(),Secure.ANDROID_ID);
 		
 		this.srcIp=scrIp;
 		this.dst = dst;
 		this.measure = measure;		
-		
+		this.hopCount = hopCount;
+		this.firstIp = firstIp;
 
 	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -73,6 +74,8 @@ public class Ping implements Model{
 			obj.putOpt("src_ip", srcIp);
 			obj.putOpt("dst_ip", dst.getIp());
 			obj.putOpt("time", time);
+			obj.putOpt("hopCount", hopCount);
+			obj.putOpt("firstIp", firstIp);
 			obj.putOpt("measure", measure.toJSON());
 			
 		} catch (JSONException e) {
@@ -85,7 +88,7 @@ public class Ping implements Model{
 	
 	public String getTitle() {
 		
-		return "Ping";
+		return "LastMile";
 	}
 	
 	public ArrayList<Row> getDisplayData(){
@@ -98,6 +101,4 @@ public class Ping implements Model{
 
 		return R.drawable.png;
 	}
-
-
 }

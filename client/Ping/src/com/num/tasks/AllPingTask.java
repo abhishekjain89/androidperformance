@@ -21,6 +21,7 @@ import com.num.models.Address;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
+import com.num.models.LastMile;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -48,6 +49,7 @@ public class AllPingTask extends ServerTask{
 
 	Measurement measurement; 
 	ArrayList<Ping> pings = new ArrayList<Ping>();
+	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
 	
 	public AllPingTask(Context context, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
@@ -100,6 +102,7 @@ public class AllPingTask extends ServerTask{
 
 		}
 		measurement.setPings(pings);
+		measurement.setLastMiles(lastMiles);
 		getResponseListener().onCompleteMeasurement(measurement);
 
 
@@ -194,6 +197,11 @@ public class AllPingTask extends ServerTask{
 
 		public void onFail(String response) {
 			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteLastMile(LastMile lastMile) {
+			lastMiles.add(lastMile);
 			
 		}
 	}

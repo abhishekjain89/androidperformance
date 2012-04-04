@@ -35,6 +35,7 @@ import com.num.listeners.ResponseListener;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
+import com.num.models.LastMile;
 import com.num.models.Measurement;
 import com.num.models.Model;
 import com.num.models.Network;
@@ -187,6 +188,11 @@ public class AboutUsActivity extends Activity
 		}
 
 		public void onFail(String response) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteLastMile(LastMile lastMile) {
 			// TODO Auto-generated method stub
 			
 		}

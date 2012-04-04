@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.num.models.Address;
+import com.num.models.LastMile;
 import com.num.models.Measure;
 import com.num.models.Ping;
 import com.num.utils.CommandLineUtil;
@@ -15,8 +16,8 @@ public class PingHelper {
 	public static CommandLineUtil cmdUtil;
 	public static String pingOutput;
 	
-	public static Ping firstHopHelp(Address address, int count) {
-		Ping p 			= null;
+	public static LastMile firstHopHelp(Address address, int count) {
+		LastMile p 			= null;
 		int ttl 		= 1;
 		String ipDst 	= address.getIp();
 		String cmd 		= "ping";
@@ -54,7 +55,7 @@ public class PingHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		p=new Ping(ipSrc, address ,ping_measurement, "firsthop");
+		p=new LastMile(ipSrc, address ,ping_measurement, ttl, ipDst);
 		
 		return p;
 	}
@@ -89,7 +90,7 @@ public class PingHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		p=new Ping(ipSrc, address ,ping_measurement, "ping");
+		p=new Ping(ipSrc, address ,ping_measurement);
 		
 		return p;
 	}

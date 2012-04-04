@@ -15,6 +15,7 @@ public class Measurement implements MainModel{
 	
 	
 	ArrayList<Ping> pings; 
+	ArrayList<LastMile> lastMiles;
 	Device device; 
 	Network network; 
 	Sim sim; 
@@ -24,6 +25,14 @@ public class Measurement implements MainModel{
 	
 
 	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different servers";
+
+	public ArrayList<LastMile> getLastMiles() {
+		return lastMiles;
+	}
+
+	public void setLastMiles(ArrayList<LastMile> lastMiles) {
+		this.lastMiles = lastMiles;
+	}
 
 	public String getDescription() {
 		return DESCRIPTION;
@@ -180,6 +189,16 @@ public class Measurement implements MainModel{
 			}
 			
 			putSafe(obj,"pings", array);
+
+			JSONArray tmparray = new JSONArray();
+			
+			for(LastMile p: lastMiles){
+				tmparray.put(p.toJSON());
+			}
+			
+			putSafe(obj,"lastMiles", tmparray);
+			
+			
 			
 			JSONArray array2 = new JSONArray();
 			for(Screen s: screens){
@@ -230,7 +249,6 @@ public class Measurement implements MainModel{
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
-				if(p.getType().equals("ping"))
 				if (p.measure != null) {
 					try {
 						str.add(""+(int)p.measure.getAverage());
@@ -240,15 +258,14 @@ public class Measurement implements MainModel{
 						data.add(new Row(p.getDst().getTagname(),str));
 					} catch (Exception e) {
 						e.printStackTrace();
-					}
 				}
+			}
 			}
 		}
 		data.add(new Row("FIRST HOP"));
-		for(Ping p: pings){
+		for(LastMile p: lastMiles){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
-				if(p.getType().equals("firsthop"))
 				if (p.measure != null) {
 					try {
 						str.add(""+(int)p.measure.getAverage());
