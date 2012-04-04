@@ -1,5 +1,6 @@
 package com.num.models;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Buffer {
@@ -7,17 +8,18 @@ public class Buffer {
 	public Stack bufferMeasurement;
 	
 	public Buffer(){
-		bufferMeasurement = new Stack<Measurement>();
+		bufferMeasurement = new Stack<String>();
 	}
 	
 
 	public void addMeasurment(Measurement m){
-		bufferMeasurement.add(m);
+		m.setScreens(new ArrayList<Screen>());
+		bufferMeasurement.add(m.toJSON().toString());
 	}
 	
-	public Measurement getLastMeasurement(){
+	public String getLastMeasurement(){
 		
-		return (Measurement) bufferMeasurement.peek();
+		return (String) bufferMeasurement.peek();
 		
 	}
 	
@@ -26,8 +28,8 @@ public class Buffer {
 		return false;
 	}
 	
-	public Measurement removeLastMeasurement(){
-		return (Measurement) bufferMeasurement.pop();
+	public String removeLastMeasurement(){
+		return (String) bufferMeasurement.pop();
 	}
 
 

@@ -19,12 +19,11 @@ public class MeasurementHelper {
 
 		while(!session.unsentMeasurements.isEmpty()){
 
-			Measurement measurement = session.unsentMeasurements.getLastMeasurement();
-			measurement.setScreens(new ArrayList<Screen>());
-			JSONObject object = measurement.toJSON();
+			String input = session.unsentMeasurements.getLastMeasurement();
+			
 
 			try {
-				String output = http.request(new HashMap<String,String>(), "POST", "measurement", "", object.toString());
+				String output = http.request(new HashMap<String,String>(), "POST", "measurement", "", input);
 				session.unsentMeasurements.removeLastMeasurement();
 			} catch (Exception e) {
 				return;
