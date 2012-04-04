@@ -3,39 +3,65 @@
     android:id="@+id/relative"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFF"
+    android:background="@drawable/slight_gray"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tagline"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linear"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/title"
-        android:background="@drawable/btn_blue"
-        android:gravity="center"
-        android:padding="0dp"
-        android:text="Settings"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFF"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        android:paddingLeft="15dp" >
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Save"
+        <TextView
+            android:id="@+id/tagline"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:padding="0dp"
+            android:text="Configure"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/dark_gray"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linear"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:gravity="fill"
+        android:padding="0dp"
+        android:text="This application is designed to take periodic network throughput measurments every 2 days. This metric is really important for us to understand the cellular network ecosystem. This speed test can use up to 250 MB of data a month. We understand that many of our users are constrained by tight data caps. Would you like to enable this test?"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textSize="18dp" />
 
     <ScrollView
         android:id="@+id/SCROLLER_ID"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:layout_above="@+id/save"
+         android:layout_marginLeft="65dp"
+         android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/question"
         android:fillViewport="true"
@@ -44,23 +70,24 @@
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="320dp"
             android:orientation="vertical" >
         </RadioGroup>
+
     </ScrollView>
 
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tagline"
-        android:gravity="center"
-        android:padding="0dp"
-        android:text="This application is designed to take periodic network throughput measurments every 2 days. This metric is really important for us to understand the cellular network ecosystem. This speed test can use up to 250 MB of data a month. We understand that many of our users are constrained by tight data caps. Would you like to enable this test?"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_layout"
+        android:text="Save"
+        android:textSize="20dp" />
 
 </RelativeLayout>

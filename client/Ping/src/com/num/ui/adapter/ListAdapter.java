@@ -8,7 +8,7 @@ import java.util.Map;
 import com.num.activities.RunActivity.MeasurementListener;
 import com.num.models.Model;
 import com.num.models.Row;
-import com.num.tasks.MeasurementTask;
+
 import com.num.ui.UIUtil;
 import com.num.R;
 
@@ -103,11 +103,20 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 
 				//holder.imageview.setImageResource(item.getIcon());
 				ArrayList<Row> cells = item.getDisplayData();
-
+				ArrayList<Row> new_cells = new ArrayList<Row>();
+				
+					for(Row cell: cells){
+						new_cells.add(cell);
+						new_cells.add(new Row());
+						
+					}
+				
 				if(cells.size()!=0){
-					ItemAdapter itemadapter = new ItemAdapter(activity,cells);
-					for(Row cell: cells)
+					ItemAdapter itemadapter = new ItemAdapter(activity,new_cells);
+					for(Row cell: new_cells){
 						itemadapter.add(cell);
+						
+					}
 					holder.listview.setAdapter(itemadapter);
 
 

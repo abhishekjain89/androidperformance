@@ -87,7 +87,7 @@ public class StartActivity extends Activity
 		//title.setTextColor(title.getTextColors().withAlpha(0));
 
 		final Animation in = new AlphaAnimation(0.0f, 1.0f);
-		in.setDuration(5000);
+		in.setDuration(000);
 
 		title.setAnimation(in);
 

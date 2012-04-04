@@ -71,6 +71,7 @@
         android:layout_marginRight="25dp"
         android:orientation="vertical"
         android:padding="0dp"
+        android:gravity="fill"
         
         android:text="Once Upon a time in a far away land"
         android:textAppearance="?android:attr/textAppearanceLarge"

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.drawable.Drawable;
 
+import com.num.ui.viewgenerator.DumbGenerator;
 import com.num.ui.viewgenerator.IconKeyProgressViewGenerator;
 import com.num.ui.viewgenerator.KeyFourValueViewGenerator;
 import com.num.ui.viewgenerator.KeyIconProgressViewGenerator;
@@ -32,6 +33,10 @@ public class Row {
 		this.first = first;
 
 		viewgen = new TitleViewGenerator(R.layout.cell_view_title);
+	}
+	
+	public Row(){
+		viewgen = new DumbGenerator(R.layout.divider);
 	}
 
 

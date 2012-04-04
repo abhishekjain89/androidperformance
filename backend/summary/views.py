@@ -62,7 +62,7 @@ def devicesummary(request):
 def measurement(request):
 
     response = {}
-
+    message=[]
     print "start"
     try:
         request_object = ast.literal_eval(request.read())
@@ -119,7 +119,7 @@ def measurement(request):
     
     measurement.localtime = m_localtime;
   
-    message = []
+    
     try:
         details=Device.objects.filter(deviceid=m_deviceid)[0]
         try:

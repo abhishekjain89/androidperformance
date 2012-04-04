@@ -2,7 +2,7 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFF" >
+    android:background="@drawable/slight_gray" >
 
     <TabHost
         android:id="@+id/tabhost"
@@ -18,10 +18,10 @@
                 android:id="@+id/load"
                 android:layout_width="fill_parent"
                 android:layout_height="20dp"
+                android:textColor="#fff"
                 android:background="@drawable/btn_red"
                 android:text="Loading ..."
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#FFF"
                 android:textSize="13dp" />
 
             <TabWidget
@@ -32,19 +32,13 @@
                 android:background="@drawable/btn_blue_dark"
                 android:padding="0dp" />
 
-         
-				
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:background="#FFF"
-                    android:cacheColorHint="#00000000"
-                    android:isScrollContainer="true"
-                    android:padding="0dp"
-                     />
-            
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:isScrollContainer="true"
+                android:padding="0dp" />
         </LinearLayout>
     </TabHost>
 
