@@ -117,7 +117,7 @@ def measurement(request):
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))
-       insertJSON.error_log(message,'none')
+       insertJSON.error_log(message,m_deviceid)
        return HttpResponse(str(message))     
     print "measurement insertion started..."
     
