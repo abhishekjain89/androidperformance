@@ -159,6 +159,10 @@ def measurement(request):
         measurement.deviceid = details
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("device",inst))
+        insertJSON.error_log(message,m_deviceid,request)
+        return HttpResponse(str(message))  
+        
+        
     
     try:
         measurement.save()
