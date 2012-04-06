@@ -1,5 +1,5 @@
-select avg("?column?"),(cast(NOW() as date)-cast("min" as date)+1),avg("?column?")/(cast(NOW() as date)-cast("min" as date)+1) ,cast("min" as date) from (select max(time)-min(time),min(time), deviceid from measurement  group by deviceid order by min(time) ) as foo group by cast("min" as date) order by "min" asc;
-select max(log_time),deviceid,count(*) from error_log where log_time > NOW() - INTERVAL '22 hour'  group by deviceid order by max(log_time) desc;
+select avg("?column?"),(cast(NOW() as date)-cast("min" as date)),avg("?column?")/(cast(NOW() as date)-cast("min" as date)) ,cast("min" as date) from (select max(time)-min(time),min(time), deviceid from measurement where time > NOW() - INTERVAL '22 hour' group by deviceid order by min(time) ) as foo group by cast("min" as date) order by "min" asc;
+select max(log_time),deviceid,count(*) from error_log  group by deviceid order by max(log_time) desc;
 select max(time)-min(time),NOW()-min(time),min(time),deviceid from measurement group by deviceid order by min(time);
 select cast(max(time) as date),extract(hour from time),count(distinct(deviceid)),count(*) from measurement where time > NOW() - INTERVAL '22 hour' group by extract(hour from time) order by max(time);
 select count("min"),cast("min" as date) from (select min(time),deviceid from measurement group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) asc;
