@@ -12,8 +12,8 @@ import com.num.R;
 import android.content.Context;
 
 public class Measurement implements MainModel{
-	
-	
+
+
 	ArrayList<Ping> pings; 
 	ArrayList<LastMile> lastMiles;
 	Device device; 
@@ -22,7 +22,7 @@ public class Measurement implements MainModel{
 	Throughput throughput;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
 	boolean isManual = false;
-	
+
 
 	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different servers";
 
@@ -37,7 +37,7 @@ public class Measurement implements MainModel{
 	public String getDescription() {
 		return DESCRIPTION;
 	}
-	
+
 	public boolean isManual() {
 		return isManual;
 	}
@@ -141,9 +141,9 @@ public class Measurement implements MainModel{
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
-	
-	
+
+
+
 	public String getDeviceId() {
 		return deviceId;
 	}
@@ -165,7 +165,7 @@ public class Measurement implements MainModel{
 		device = new Device();
 		gps = new GPS();
 	}
-	
+
 	public GPS getGps() {
 		return gps;
 	}
@@ -173,40 +173,50 @@ public class Measurement implements MainModel{
 	public void setGps(GPS gps) {
 		this.gps = gps;
 	}
-	
+
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
-		
+
 		try {
 			putSafe(obj,"time", time);	
 			putSafe(obj,"localtime",localTime);
 			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
-			
+
 			JSONArray array = new JSONArray();
-			
-			for(Ping p: pings){
-				array.put(p.toJSON());
+			try{
+				for(Ping p: pings){
+					array.put(p.toJSON());
+				}
 			}
-			
+			catch(Exception e){
+
+			}
+
 			putSafe(obj,"pings", array);
 
 			JSONArray tmparray = new JSONArray();
-			
-			for(LastMile p: lastMiles){
-				tmparray.put(p.toJSON());
+			try{
+				for(LastMile p: lastMiles){
+					tmparray.put(p.toJSON());
+				}
+
 			}
-			
+			catch(Exception e)
+			{
+
+			}
+
 			putSafe(obj,"lastmiles", tmparray);
-			
-			
-			
+
+
+
 			JSONArray array2 = new JSONArray();
 			for(Screen s: screens){
 				array2.put(s.toJSON());
 			}
-			
+
 			putSafe(obj,"screens", array2);
-			
+
 			putSafe(obj,"device",device.toJSON());
 			putSafe(obj,"throughput",throughput.toJSON());
 			putSafe(obj,"gps",gps.toJSON());
@@ -216,7 +226,7 @@ public class Measurement implements MainModel{
 			putSafe(obj,"sim",sim.toJSON());
 			if(wifi!=null)
 				putSafe(obj,"wifi", wifi.toJSON());
-			
+
 			putSafe(obj,"state",state.toJSON());
 			if(isManual)
 				putSafe(obj, "isManual", 1);
@@ -225,24 +235,24 @@ public class Measurement implements MainModel{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return obj;
 	}
-	
+
 	public void putSafe(JSONObject obj,String key,Object text){
-		 
+
 		try {
 			obj.put(key,text);
 		} catch (JSONException e) {
-			
+
 		}
 	}
 
 	public String getTitle() {
-		
+
 		return "Latency";
 	}
-	
+
 	public ArrayList<Row> getDisplayData(){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("ROUND TRIP"));
@@ -258,8 +268,8 @@ public class Measurement implements MainModel{
 						data.add(new Row(p.getDst().getTagname(),str));
 					} catch (Exception e) {
 						e.printStackTrace();
+					}
 				}
-			}
 			}
 		}
 		data.add(new Row("FIRST HOP"));
@@ -279,10 +289,10 @@ public class Measurement implements MainModel{
 				}
 			}
 		}
-		
+
 		return data;
 	}
-	
+
 	public int getIcon() {
 
 		return R.drawable.png;
