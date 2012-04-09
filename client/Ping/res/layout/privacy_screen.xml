@@ -6,6 +6,15 @@
     android:background="@drawable/slight_gray"
     android:orientation="vertical" >
 
+    <ProgressBar
+        android:id="@+id/progressBarPrivacy"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible" />
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear"
@@ -52,7 +61,8 @@
             android:id="@+id/policyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="16.86" />
+            android:layout_weight="16.86"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,17 +78,17 @@
             android:id="@+id/accept"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="@drawable/button_layout"
             android:text="Accept"
             android:textSize="20dp" />
 
         <Button
             android:id="@+id/reject"
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/button_layout"
             android:text="Reject"
