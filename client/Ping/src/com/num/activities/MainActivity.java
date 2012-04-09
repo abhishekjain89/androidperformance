@@ -71,7 +71,7 @@ public class MainActivity extends Activity
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);
 		measurementButton = (LinearLayout)findViewById(R.id.measurement);
-	
+		
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 

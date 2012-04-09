@@ -55,6 +55,7 @@ public class ThroughputUtil {
 		do
 		{
 			out.write(message);
+			
 			end = System.currentTimeMillis();
 			if(end-start>=session.UPLINK_DURATION/2){
 				if(flag==0){intermediate= System.currentTimeMillis();

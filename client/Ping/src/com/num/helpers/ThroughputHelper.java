@@ -46,6 +46,8 @@ public class ThroughputHelper {
 			e.printStackTrace();
 		}
 		
+		//TRIGGER DB
+		
 		return t;
 		
 	}
