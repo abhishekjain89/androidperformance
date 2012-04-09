@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.num.R;
 import com.num.Values;
@@ -53,8 +54,9 @@ public class PrivacyActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
+
 		/*if(PreferencesUtil.isAccepted(this)){
+
 			finish();
 			System.out.println("ACCEPT");
 			Intent myIntent = new Intent(this, UserFormActivity.class);
@@ -108,8 +110,13 @@ public class PrivacyActivity extends Activity
 		public void  handleMessage(Message msg) {
 			try {
 				String data = (String)msg.obj;
+				ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPrivacy);
+				
+				pb.setVisibility(View.INVISIBLE);
 				WebView webview = (WebView) findViewById(R.id.policyText);
 				webview.loadData(data,mimeType,null);
+				webview.setVisibility(View.VISIBLE);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
