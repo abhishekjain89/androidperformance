@@ -57,6 +57,7 @@ public class MainActivity extends Activity
 	private LinearLayout measurementButton;
 	private LinearLayout settingsButton;
 	private LinearLayout aboutusButton;
+	private LinearLayout previousButton;
 
 
 	@Override
@@ -71,6 +72,7 @@ public class MainActivity extends Activity
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);
 		measurementButton = (LinearLayout)findViewById(R.id.measurement);
+		previousButton = (LinearLayout)findViewById(R.id.previous);
 		
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
@@ -107,6 +109,14 @@ public class MainActivity extends Activity
 		});
 
 
+
+		previousButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), PreviousActivity.class);
+				startActivity(myIntent);
+			}
+		});
 	
 	}	
 

@@ -143,6 +143,96 @@ public class DeviceUtil {
 		return dev;
 	}
 	
+	public static String getNetworkInfo(Context context) {
+		
+		Values session = (Values) context.getApplicationContext();
+		String srvnName = Context.TELEPHONY_SERVICE;
+		String service = Context.CONNECTIVITY_SERVICE;
+
+		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
+		ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(service);
+		NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo(); // Null if 3G/Wifi off
+		boolean isWIFI = false;		
+		String networkLevelType = "";
+		
+		if (activeNetwork != null) {
+			int networkType2 = activeNetwork.getType();
+			if(networkType2 == ConnectivityManager.TYPE_WIMAX) {
+				networkLevelType = "4G";
+			}
+			else {
+			// Get the type of network you are connected to
+			int networkType = telephonyManager.getNetworkType();
+			switch (networkType) {
+			  case (TelephonyManager.NETWORK_TYPE_1xRTT)   :    
+			  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_CDMA)    :   	  	  	  
+			  	  networkLevelType = "2G/3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_EDGE)    : 
+			  	  networkLevelType = "2G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_EVDO_0)  : 
+			  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_EVDO_A)  : 
+		  	  	  networkLevelType = "3G";
+		  	  	  break;
+			  case (TelephonyManager.NETWORK_TYPE_EVDO_B)   :    
+			  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_IDEN)   :    
+			  	  networkLevelType = "PDT"; 
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_GPRS)    : 
+			  	  networkLevelType = "2G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_HSDPA)   : 
+		  	  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_HSPA)    : 
+			  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_HSUPA)   : 
+	  	  	  	  networkLevelType = "3G";
+	  	  	  	  break;
+			  case (TelephonyManager.NETWORK_TYPE_UMTS)    : 
+			  	  networkLevelType = "3G";
+				  break;
+			  case (TelephonyManager.NETWORK_TYPE_UNKNOWN) : 
+			  	  networkLevelType = "2G";	
+				  break;
+			  case (13) : 
+			  	  networkLevelType = "4G";
+				  break;
+			  default: 
+				  break;
+			}
+			}
+			try {
+				int connectionType = activeNetwork.getType();
+				switch (connectionType) {
+					case (ConnectivityManager.TYPE_MOBILE) : 
+						isWIFI = false;
+						break;
+				  	case (ConnectivityManager.TYPE_WIFI) : 
+						networkLevelType = "Wifi";
+				  		isWIFI = true;
+				  		break;
+				  	default: 
+				  		break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			networkLevelType = "No Network";
+		}
+		return networkLevelType;
+	}
+	
 	public Network getNetworkDetail(Context context) {
 		Network dev = new Network();
 		Values session = (Values) context.getApplicationContext();

@@ -9,7 +9,8 @@ import android.content.Context;
 import com.num.helpers.ThroughputHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.Throughput;
-import com.num.utils.ThroughputData;
+import com.num.models.ThroughputData;
+import com.num.utils.DeviceUtil;
 import com.num.utils.ThroughputDataSource;
 
 public class ThroughputTask extends ServerTask{
@@ -29,13 +30,12 @@ public class ThroughputTask extends ServerTask{
 			
 			Throughput t = ThroughputHelper.getThroughput(getContext());
 			getResponseListener().onCompleteThroughput(t);
-			String downlink = "" + t.downLink.speedInBits();
-			String uplink = "" + t.upLink.speedInBits();
+
+			String connection = DeviceUtil.getNetworkInfo(getContext());
 			ThroughputDataSource datasource = new ThroughputDataSource(getContext());
 			datasource.open();
-
 			List<ThroughputData> values = datasource.getAllThroughputData();
-			ThroughputData td = datasource.createThroughput(downlink, uplink);
+			datasource.createThroughput(t, connection);
 			values = datasource.getAllThroughputData();
 			datasource.close();
 		} catch (Exception e) {
