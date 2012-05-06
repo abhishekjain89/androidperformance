@@ -74,8 +74,7 @@ public class MainActivity extends Activity
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);
 		measurementButton = (LinearLayout)findViewById(R.id.measurement);
 		previousButton = (LinearLayout)findViewById(R.id.previous);
-		
-		
+
 		if(!session.DEBUG){
 			aboutusButton.setVisibility(View.GONE);
 			previousButton.setVisibility(View.GONE);
@@ -115,6 +114,14 @@ public class MainActivity extends Activity
 		});
 
 
+
+		previousButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+
+				Intent myIntent = new Intent(v.getContext(), PreviousActivity.class);
+				startActivity(myIntent);
+			}
+		});
 	
 	}	
 

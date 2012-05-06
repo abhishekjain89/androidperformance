@@ -2,18 +2,20 @@ package com.num;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Stack;
- 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Application;
-import android.util.Log;
 
-import com.num.models.*;
+import com.num.models.Address;
+import com.num.models.Buffer;
+import com.num.models.MainModel;
+import com.num.models.Screen;
 import com.num.utils.DeviceUtil;
 import com.num.utils.PreferencesUtil;
+import com.num.utils.ThroughputDataSource;
 
 public class Values extends Application{
 
@@ -53,6 +55,8 @@ public class Values extends Application{
 
 	public  int THREADPOOL_MAX_SIZE = 10;
 	public  int THREADPOOL_KEEPALIVE_SEC = 30;
+
+	public ThroughputDataSource datasource;
 
 
 	public ArrayList<Address> PING_SERVERS;
