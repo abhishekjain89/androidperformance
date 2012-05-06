@@ -1,4 +1,4 @@
-select max(log_time),deviceid,count(*) from error_log  group by deviceid order by max(log_time) desc;
+select max(log_time),deviceid,count(*) from error_log  group by deviceid order by max(log_time) desc limit 10;
 select max(time)-min(time),NOW()-min(time),min(time),deviceid from measurement group by deviceid order by min(time) asc limit 15;
-select count("min"),cast("min" as date) from (select min(time),deviceid from measurement group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) desc limit 15;
-select localtime,cast(time as date),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid)) from measurement group by cast(time as date) asc limit 15;
+select count("min"),cast("min" as date) from (select min(time),deviceid from measurement group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) asc limit 15;
+select localtime,cast(time as date),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid)) from measurement group by cast(time as date) order by cast(time as date) desc limit 15;
