@@ -17,6 +17,8 @@ import com.num.utils.PreferencesUtil;
 
 public class Values extends Application{
 
+	public boolean DEBUG = true;
+	
 	public  int FREQUENCY_SECS = 15*60;
 
 	DeviceUtil util = new DeviceUtil();

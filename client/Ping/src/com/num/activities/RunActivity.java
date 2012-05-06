@@ -2,6 +2,9 @@ package com.num.activities;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONObject;
 
@@ -63,13 +66,14 @@ public class RunActivity extends BaseActivityGroup
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	private GestureDetector gestureDetector;
 	View.OnTouchListener gestureListener;
-
+	static int timeCount = 70;
 
 
 	public ArrayList<Model> items;
 	public ListView listview;
 	public ListAdapter listadapter;
 	public HorizontalScrollView scroll;
+	public Button nextButton;
 
 	Resources res;
 	TabHost tabHost;
@@ -92,24 +96,71 @@ public class RunActivity extends BaseActivityGroup
 		session = (Values) this.getApplicationContext();
 		session.initDataStore();
 		items = new ArrayList<Model>();
+		nextButton = (Button) findViewById(R.id.next);
 		//listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
 		//listview.setAdapter(listadapter);
 		scroll = (HorizontalScrollView) findViewById(R.id.scroller);
 		load = (Button) findViewById(R.id.load);
-		load.setText("Loading ...   will take about 50 seconds");
+		
 		res = getResources(); // Resource object to get Drawables
 		tabHost =  (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(this.getLocalActivityManager());
+		
 
+		nextButton.setOnClickListener(new OnClickListener()  {
+			public void onClick(View v) {	
+			
+				int id = tabHost.getCurrentTab();
+				tabHost.setCurrentTab(id+1);
+				
+				
+				View v1 = tabHost.getCurrentTabView();
+				int diff = v1.getLeft() - scroll.getScrollX() - 154;
+				moveScrollBy(diff);
+				LastChosen =v1;
+				
+				toggleVisibility();
+			}
+		});
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				timeCount--;		
+				Message msg=Message.obtain(LoadMessageHandler, 0, new Integer(timeCount));
+				LoadMessageHandler.sendMessage(msg);
+			}
 
+		}, 0, 1000);
+	
 	}
+	
+	private Handler LoadMessageHandler = new Handler(){
+		public void  handleMessage(Message msg) {
+			Integer time= (Integer)msg.obj;
+			
+			if(time>0)
+				load.setText("Loading ...   will take about " + (time) + " seconds");
+			else
+				load.setText("Loading ...   Very soon!");
+		}	
+	};
+	
 
+	
 
-
-
-
-
+	public void toggleVisibility(){
+		
+		if(tabHost.getCurrentTab()==tabHost.getTabWidget().getTabCount()-1){
+			nextButton.setVisibility(View.INVISIBLE);
+		}
+		else{
+			nextButton.setVisibility(View.VISIBLE);
+		}
+	}
+		
 	public class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
@@ -246,7 +297,7 @@ public class RunActivity extends BaseActivityGroup
 			}
 			tabHost.setCurrentTabByTag(tabHost.getCurrentTabTag());
 
-
+			toggleVisibility();
 			tabview.setOnClickListener(new OnClickListener()  {
 				public void onClick(View v) {	
 					tabHost.setCurrentTabByTag((String) v.getTag());
@@ -254,6 +305,7 @@ public class RunActivity extends BaseActivityGroup
 					int diff = v.getLeft() - scroll.getScrollX() - 154;
 					moveScrollBy(diff);
 					LastChosen =v;
+					toggleVisibility();
 				}
 			});
 

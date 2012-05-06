@@ -9,10 +9,10 @@ def package_profile_over_time_of_day(package):
 	return "select date_part('hour', \"localtime\"),cast(floor(date_part('minute', \"localtime\")/10) as int),sum(total_diff),max(total_diff),count(*) from measurement,application_use where measurement.measurementid = application_use.measurementid and package='"+ str(package) + "' and total_diff>0 group by date_part('hour', \"localtime\"),cast(floor(date_part('minute', \"localtime\")/10) as int) order by date_part('hour', \"localtime\"),cast(floor(date_part('minute', \"localtime\")/10) as int)"
 
 def app_by_total_data():
-	return "select application.package,application.name,sum(total_diff) from application_use,application where application_use.package = application.package and total_diff > 0 and application.package!='com.num' and application.package!='com.ping' group by application.package order by sum(total_diff) desc limit 20"
+	return "select application.package,application.name,sum(total_diff) from application_use,application where application_use.package = application.package and total_diff > 0 and application.package!='com.num' and application.package!='com.ping' group by application.package order by sum(total_diff) desc limit 10"
 	
 def app_by_popularity():
-	return "select count(distinct(deviceid)),count(*),package from application_use,measurement where application_use.measurementid = measurement.measurementid group by package order by count(distinct(deviceid)) desc limit 20"
+	return "select count(distinct(deviceid)),count(*),application.name from application,application_use,measurement where application_use.measurementid = measurement.measurementid and application_use.package = application.package group by application.name order by count(distinct(deviceid)) desc limit 10"
 
 
 ########

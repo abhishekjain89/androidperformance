@@ -57,13 +57,15 @@ public class MainActivity extends Activity
 	private LinearLayout measurementButton;
 	private LinearLayout settingsButton;
 	private LinearLayout aboutusButton;
+	private LinearLayout previousButton;
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
+		
+		Values session = (Values) this.getApplicationContext();
 
 		setContentView(R.layout.main_screen);
 		
@@ -71,7 +73,13 @@ public class MainActivity extends Activity
 		settingsButton=(LinearLayout)findViewById(R.id.settings);
 		aboutusButton=(LinearLayout)findViewById(R.id.aboutus);
 		measurementButton = (LinearLayout)findViewById(R.id.measurement);
+		previousButton = (LinearLayout)findViewById(R.id.previous);
 		
+		
+		if(!session.DEBUG){
+			aboutusButton.setVisibility(View.GONE);
+			previousButton.setVisibility(View.GONE);
+		}
 
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
 

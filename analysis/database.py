@@ -6,7 +6,7 @@ import pprint
 def query(text):
 	#start the script
 
-	conn_string = "host='localhost' dbname='androidperformance' user='postgres' password='pass'"
+	conn_string = "host='localhost' dbname='androidperformance_analysis' user='postgres' password='pass'"
 	# print the connection string we will use to connect
 	#print "Connecting to database\n	->%s" % (conn_string)
 	try:

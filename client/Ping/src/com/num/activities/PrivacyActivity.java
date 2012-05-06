@@ -39,7 +39,7 @@ public class PrivacyActivity extends Activity
 {
 	
 	//private TableLayout table;
-
+	
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
@@ -53,15 +53,18 @@ public class PrivacyActivity extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
+		
 		super.onCreate(savedInstanceState);
-
-		/*if(PreferencesUtil.isAccepted(this)){
+		
+		Values session = (Values) this.getApplicationContext();
+		
+		if(!session.DEBUG&&PreferencesUtil.isAccepted(this)){
 
 			finish();
 			System.out.println("ACCEPT");
 			Intent myIntent = new Intent(this, UserFormActivity.class);
             startActivity(myIntent);
-		}*/
+		}
 		
 		setContentView(R.layout.privacy_screen);
 		

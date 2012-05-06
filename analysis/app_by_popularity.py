@@ -24,7 +24,7 @@ ax = fig.add_subplot(111)
 rects1 = ax.bar(ind, data_vals, width, color='r')
 
 # add some
-ax.set_ylabel('MB')
+ax.set_ylabel('Count')
 ax.set_title('Total Data by Application')
 ax.set_xticks(ind+width)
 ax.set_xticklabels(x_ticks,rotation='vertical')

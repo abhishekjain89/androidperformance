@@ -1,6 +1,8 @@
 package com.num.activities;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONObject;
 
@@ -49,6 +51,7 @@ public class FullDisplayActivity extends Activity {
 	TextView description;
 	Activity activity;
 	private ThreadPoolHelper serverhelper;
+	static int timeCount = 70;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,15 +71,40 @@ public class FullDisplayActivity extends Activity {
 		description = (TextView) findViewById(R.id.description);
 		try{
 			String secs = extras.getString("time");
+			timeCount = Integer.parseInt(secs);
 			if(secs!=null)
 				load.setText("Loading ...   will take about " + secs + " seconds");
 		}
 		catch (Exception e){
-			
+			timeCount = 2;
 		}
 		
 
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				timeCount--;		
+				Message msg=Message.obtain(LoadMessageHandler, 0, new Integer(timeCount));
+				LoadMessageHandler.sendMessage(msg);
+			}
+
+		}, 0, 1000);
+
 	}
+	
+	private Handler LoadMessageHandler = new Handler(){
+		public void  handleMessage(Message msg) {
+			Integer time= (Integer)msg.obj;
+			
+			if(time>0)
+				load.setText("Loading ...   will take about " + (time) + " seconds");
+			else
+				load.setText("Loading ...   Very soon!");
+		}	
+	};
+	
+
 	
 
 

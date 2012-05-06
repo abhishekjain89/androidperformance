@@ -118,7 +118,7 @@ public class Usage implements MainModel{
 
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Total Apps",""+applications.size()));
-		data.add(new Row("TRAFFIC"));
+		data.add(new Row("TRAFFIC (since last restart)"));
 		try {
 			Collections.sort(applications);
 		} catch (Exception e) {
