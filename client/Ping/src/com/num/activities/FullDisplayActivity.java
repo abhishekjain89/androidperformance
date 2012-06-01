@@ -52,6 +52,7 @@ public class FullDisplayActivity extends Activity {
 	Activity activity;
 	private ThreadPoolHelper serverhelper;
 	static int timeCount = 70;
+	Timer timer = new Timer();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,7 +81,7 @@ public class FullDisplayActivity extends Activity {
 		}
 		
 
-		Timer timer = new Timer();
+		
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
@@ -91,6 +92,12 @@ public class FullDisplayActivity extends Activity {
 
 		}, 0, 1000);
 
+	}
+	
+	@Override
+	public void finish(){
+		super.finish();
+		timer.cancel();
 	}
 	
 	private Handler LoadMessageHandler = new Handler(){
