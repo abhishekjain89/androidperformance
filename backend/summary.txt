@@ -1,3 +1,3 @@
-select max(time)-min(time),NOW()-min(time),min(time),(NOW()-min(time)/min(time)) from measurement group by deviceid order by min(time) desc limit 30;
+select max(time)-min(time),NOW()-min(time),min(time) from measurement group by deviceid order by min(time) desc limit 30;
 select count("min"),cast("min" as date) from (select min(time),deviceid from measurement group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) desc limit 15;
 select localtime,cast(time as date),count(distinct(deviceid)),count(*),count(*)/count(distinct(deviceid)) from measurement group by cast(time as date) order by cast(time as date) desc limit 15;
