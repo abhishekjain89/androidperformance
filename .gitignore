@@ -1,0 +1,4 @@
+*.pyc
+settings_dev.py
+bin/
+gen/
