@@ -51,7 +51,7 @@
         android:padding="0dp"
         android:text="This application is designed to take periodic network throughput measurments every 2 days. This metric is really important for us to understand the cellular network ecosystem. This speed test can use up to 250 MB of data a month. We understand that many of our users are constrained by tight data caps. Would you like to enable this test?"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
+        android:textColor="@color/text_primary"
         android:textSize="18dp" />
 
     <ScrollView

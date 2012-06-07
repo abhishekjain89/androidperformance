@@ -3,9 +3,10 @@
 
     <color name="transparent">#00000000</color>
     <color name="light_blue">#ABDDED</color>
-    <color name="mid_blue">#9ECBD9</color>
+    <color name="mid_blue">#2A8AA8</color>
     <color name="dark_blue">#7FA2AD</color>
     <color name="dark_gray">#B3B3B3</color>
     <color name="mid_gray">#D6D6D6</color>
+    <color name="text_primary">#fff</color>
 
 </resources>

@@ -18,7 +18,7 @@
 			android:ellipsize="end"
 			android:layout_weight="6"
 			android:background="#FFF"
-			android:textColor="#000"
+			android:textColor="@color/text_primary"
 			android:scrollHorizontally="false"
 			
 			android:textAppearance="?android:attr/textAppearanceMedium"

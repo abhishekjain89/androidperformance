@@ -16,7 +16,7 @@
 
         android:padding="0px"
         android:text="Key"
-        android:textColor="#000"
+        android:textColor="@color/text_primary"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="18dp" >
     </TextView>

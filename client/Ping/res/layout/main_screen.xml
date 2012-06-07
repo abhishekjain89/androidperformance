@@ -63,8 +63,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Measurements"
-                        android:textColor="#000"
+                        android:text="Measurements"                        
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Previous Data"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="About Us"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -242,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Configure"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView

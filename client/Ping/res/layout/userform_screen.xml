@@ -52,7 +52,7 @@
         android:padding="0dp"
         android:text="Which of the following options is the closest to your monthly data plan limit?"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
+        android:textColor="@color/text_primary"
         android:textSize="18dp" />
 
     <ScrollView

@@ -42,7 +42,7 @@
             android:padding="0px"
             android:text="Keysdggsfgsfgdggshsfghsfhsfggf"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000"
+            android:textColor="@color/text_primary"
             android:textSize="18dp" >
         </TextView>
     </LinearLayout>
@@ -82,7 +82,7 @@
                 android:layout_centerVertical="true"
                 android:text="Percent%"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000"
+                android:textColor="@color/text_primary"
                 android:textSize="14dp" />
         </RelativeLayout>
 
@@ -114,7 +114,7 @@
                 android:layout_centerVertical="true"
                 android:text="Percent%"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000"
+                android:textColor="@color/text_primary"
                 android:textSize="14dp" />
         </RelativeLayout>
     </LinearLayout>

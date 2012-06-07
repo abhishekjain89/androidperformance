@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Full Test"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Usage"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Wifi"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -242,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Throughput"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Latency"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
                     <TextView

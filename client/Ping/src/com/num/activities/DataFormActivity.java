@@ -111,7 +111,7 @@ public class DataFormActivity extends Activity
 
 		for (int i = 0; i < limit_text.length; i++) {
 			RadioButton radiobutton = new RadioButton(this);
-			radiobutton.setTextColor(Color.BLACK);
+			radiobutton.setTextColor(R.color.text_primary);
 			radiobutton.setTextSize(18);
 			radiobutton.setText(limit_text[i]);
 			if(old_val == limit_val[i])

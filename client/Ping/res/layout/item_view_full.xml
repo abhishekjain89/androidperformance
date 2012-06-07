@@ -91,7 +91,7 @@
                         android:layout_marginRight="10dp"
                         android:gravity="fill"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
+                        android:textColor="@color/text_primary"
                         android:textSize="18dp" >
                     </TextView>
 
