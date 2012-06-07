@@ -1,5 +1,6 @@
 select max(time)-min(time),(NOW()-min(time)) as start,min(time) from measurement group by deviceid order by min(time) desc limit 30;
 select count("min"),cast("min" as date) from (select min(time),deviceid from measurement group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) desc limit 15;
+select count("min"),cast("min" as date) from (select min(time) from measurement where deviceid in (select deviceid from measurement where time>now()::date) group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) desc limit 15;
 select localtime,cast(time as date),count(distinct(deviceid)),count(*),cast(count(*)*(24*3600)/date_part('epoch', localtime::interval) as int) from measurement group by cast(time as date) order by cast(time as date) desc limit 15;
-select count("min"),cast("min" as date) from (select min(time),deviceid from measurement where deviceid in (select deviceid from measurement where time>now()::date) group by deviceid order by min(time)) as foo group by cast("min" as date) order by cast("min" as date) desc limit 15;
+
 
