@@ -9,7 +9,10 @@ import java.util.TimerTask;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -74,6 +78,7 @@ public class RunActivity extends BaseActivityGroup
 	public ListAdapter listadapter;
 	public HorizontalScrollView scroll;
 	public Button nextButton;
+	public ProgressBar progress;
 
 	Resources res;
 	TabHost tabHost;
@@ -97,33 +102,35 @@ public class RunActivity extends BaseActivityGroup
 		session.initDataStore();
 		items = new ArrayList<Model>();
 		nextButton = (Button) findViewById(R.id.next);
+		progress = (ProgressBar) findViewById(R.id.progress);
 		//listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
 		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
 		//listview.setAdapter(listadapter);
 		scroll = (HorizontalScrollView) findViewById(R.id.scroller);
 		load = (Button) findViewById(R.id.load);
-		
+
 		res = getResources(); // Resource object to get Drawables
 		tabHost =  (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(this.getLocalActivityManager());
 		
+		
 
 		nextButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
-			
+
 				int id = tabHost.getCurrentTab();
 				tabHost.setCurrentTab(id+1);
-				
-				
+
+
 				View v1 = tabHost.getCurrentTabView();
 				int diff = v1.getLeft() - scroll.getScrollX() - 154;
 				moveScrollBy(diff);
 				LastChosen =v1;
-				
+
 				toggleVisibility();
 			}
 		});
-		
+
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -134,12 +141,15 @@ public class RunActivity extends BaseActivityGroup
 			}
 
 		}, 0, 1000);
-	
+
 	}
-	
+
 	private Handler LoadMessageHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			Integer time= (Integer)msg.obj;
+
+			
+				
 			
 			if(time>0)
 				load.setText("Loading ...   will take about " + (time) + " seconds");
@@ -147,20 +157,22 @@ public class RunActivity extends BaseActivityGroup
 				load.setText("Loading ...   Very soon!");
 		}	
 	};
-	
 
-	
+
+
 
 	public void toggleVisibility(){
-		
+
 		if(tabHost.getCurrentTab()==tabHost.getTabWidget().getTabCount()-1){
 			nextButton.setVisibility(View.INVISIBLE);
+			progress.setVisibility(View.VISIBLE);
 		}
 		else{
 			nextButton.setVisibility(View.VISIBLE);
+			progress.setVisibility(View.GONE);
 		}
 	}
-		
+
 	public class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
@@ -249,7 +261,7 @@ public class RunActivity extends BaseActivityGroup
 
 		public void onCompleteLastMile(LastMile lastMile) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
@@ -288,7 +300,7 @@ public class RunActivity extends BaseActivityGroup
 					.setContent(intent);
 
 			tabHost.addTab(spec);
-			
+
 			if(LastChosen==null){
 				LastChosen = tabview;
 			}else{

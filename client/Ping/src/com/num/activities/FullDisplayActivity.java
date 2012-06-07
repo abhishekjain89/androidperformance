@@ -7,6 +7,8 @@ import java.util.TimerTask;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.num.Values;
@@ -42,7 +45,7 @@ import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
 public class FullDisplayActivity extends Activity {
-	
+
 	Values session;
 	TextView title;
 	ListView listview;
@@ -50,10 +53,11 @@ public class FullDisplayActivity extends Activity {
 	//ImageView imageview;
 	TextView description;
 	Activity activity;
+	ProgressBar progress;
 	private ThreadPoolHelper serverhelper;
 	static int timeCount = 70;
 	Timer timer = new Timer();
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = this;
@@ -61,15 +65,16 @@ public class FullDisplayActivity extends Activity {
 		session = (Values) this.getApplicationContext();
 		Bundle extras = getIntent().getExtras();
 		String key = extras.getString("model_key");
-		
-		
+
+
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-		
+
 		title =  (TextView) findViewById(R.id.title);
 		listview = (ListView) findViewById(R.id.listview);
 		load = (Button) findViewById(R.id.load);
 		description = (TextView) findViewById(R.id.description);
+		progress = (ProgressBar) findViewById(R.id.progress);
 		try{
 			String secs = extras.getString("time");
 			timeCount = Integer.parseInt(secs);
@@ -79,8 +84,6 @@ public class FullDisplayActivity extends Activity {
 		catch (Exception e){
 			timeCount = 2;
 		}
-		
-
 		
 		timer.schedule(new TimerTask() {
 			@Override
@@ -93,26 +96,26 @@ public class FullDisplayActivity extends Activity {
 		}, 0, 1000);
 
 	}
-	
+
 	@Override
 	public void finish(){
 		super.finish();
 		timer.cancel();
 	}
-	
+
 	private Handler LoadMessageHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			Integer time= (Integer)msg.obj;
-			
+
 			if(time>0)
 				load.setText("Loading ...   will take about " + (time) + " seconds");
 			else
 				load.setText("Loading ...   Very soon!");
 		}	
 	};
-	
 
-	
+
+
 
 
 
@@ -204,7 +207,7 @@ public class FullDisplayActivity extends Activity {
 
 		public void onCompleteLastMile(LastMile lastMile) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
@@ -214,12 +217,13 @@ public class FullDisplayActivity extends Activity {
 
 			MainModel item = (MainModel)msg.obj;
 			load.setVisibility(View.GONE);
-			
+			progress.setVisibility(View.GONE);
+
 			title.setText(item.getTitle().toUpperCase());
 			description.setText(item.getDescription());
-			
+
 			//imageview.setImageResource(item.getIcon());
-			
+
 			ArrayList<Row> cells = item.getDisplayData();
 
 			if(cells.size()!=0){
@@ -232,7 +236,7 @@ public class FullDisplayActivity extends Activity {
 				itemadapter.notifyDataSetChanged();
 				UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
 			}
-			
+
 
 		}
 	};

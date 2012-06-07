@@ -40,12 +40,12 @@ public class PingTask extends ServerTask{
 			this.getResponseListener().onCompletePing(ping);
 
 			String connection = DeviceUtil.getNetworkInfo(getContext());
-			PingDataSource datasource = new PingDataSource(getContext());
-			datasource.open();
-			List<PingData> values = datasource.getAllPingData();
-			datasource.createPing(ping, connection);
-			values = datasource.getAllPingData();
-			datasource.close();
+			//PingDataSource datasource = new PingDataSource(getContext());
+			//datasource.open();
+			//List<PingData> values = datasource.getAllPingData();
+			//datasource.createPing(ping, connection);
+			//values = datasource.getAllPingData();
+			//datasource.close();
 			
 		}
 		else if (dst.getType().equals("firsthop")){

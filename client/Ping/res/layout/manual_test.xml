@@ -81,4 +81,11 @@
         android:text="Next"
         android:textSize="20dp" />
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/next"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

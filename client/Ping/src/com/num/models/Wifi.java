@@ -158,7 +158,14 @@ public class Wifi implements MainModel{
 	}
 	
 	public ArrayList<Row> getDisplayData(){
+
 		ArrayList<Row> data = new ArrayList<Row>();
+		
+		if(this.getSpeed()<1){
+			data.add(new Row("THE WIFI IS UNAVAILABLE"));
+			
+			return data;
+		}
 		data.add(new Row("YOUR INFO"));
 		data.add(new Row("Hotspot",this.getSsid()));
 		data.add(new Row("Status",this.getDetailedInfo()));

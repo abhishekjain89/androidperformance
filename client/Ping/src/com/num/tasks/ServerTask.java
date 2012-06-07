@@ -26,40 +26,45 @@ public abstract class ServerTask implements Runnable{
 	}
 
 	public void run() {
-		
+
 		long startTime = System.currentTimeMillis();
 		
-		this.runTask();
-		
+		try{
+			this.runTask();
+		}
+		catch(Exception e){
+
+		}
+
 		long endTime = System.currentTimeMillis();
 		Log.i(toString(), "Total execution time: " + (endTime-startTime) + " ms");
-		
+
 
 	}
 
 	public abstract void runTask();
-	
+
 	public abstract String toString();
-	
+
 	public Context getContext()
 	{
 		return context;
 	}
-	
+
 	public Values getValues()
 	{
 		return session;
 	}
-	
+
 	public HashMap<String, String> getReqParams()
 	{
 		return (HashMap<String, String>) reqParams;
 	}
-	
+
 	public ResponseListener getResponseListener()
 	{
 		return listener;
 	}
-	
-	
+
+
 }
