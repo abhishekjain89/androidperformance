@@ -2,3 +2,6 @@
 settings_dev.py
 bin/
 gen/
+.project
+.pydevproject
+backend/build/

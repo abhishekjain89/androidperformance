@@ -118,7 +118,7 @@ public class UserFormActivity extends Activity
 
 		for (int i = 0; i < limit_text.length; i++) {
 			RadioButton radiobutton = new RadioButton(this);
-			radiobutton.setTextColor(R.color.text_primary);
+			
 			radiobutton.setTextSize(18);
 			
 			radiobutton.setText(limit_text[i]);
@@ -126,12 +126,11 @@ public class UserFormActivity extends Activity
 				radiobutton.setChecked(true);
 			
 			radiobutton.setId(i);
+			radiobutton.setTextColor(Color.GRAY);
 			rGroup.addView(radiobutton, rg);
 
 		}
-
-
-
+		
 			saveButton.setOnClickListener(new OnClickListener()  {
 				public void onClick(View v) {	
 

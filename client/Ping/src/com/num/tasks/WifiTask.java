@@ -21,9 +21,14 @@ public class WifiTask extends ServerTask{
 	public void runTask() {
 		
 		WifiUtil w = new WifiUtil();
-		Wifi wifiList = w.getWifi(this.getContext());
+		Wifi wifiList = new Wifi();
+		try{
+		wifiList = w.getWifi(this.getContext());
+		} catch (Exception e) {
+			 
+		}
 		
-		this.getResponseListener().onCompleteWifi(wifiList );
+		this.getResponseListener().onCompleteWifi(wifiList);
 		
 	}
 

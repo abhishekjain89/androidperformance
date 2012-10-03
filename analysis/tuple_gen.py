@@ -62,7 +62,19 @@ def hour_minute_period(result,column1,column2,period):
 		time_hour = float(row[column1])
 		time_min = float(row[column2])*period
 		time = time_hour + float(time_min/60)
+		
+		tup = tup + (time,)
+		
+	
+	return tup
 
+def hour_minute_in_mins(result,column1,column2):
+	tup = ()
+	for row in result:
+		time_hour = float(row[column1])
+		time_min = float(row[column2])
+		time = time_hour*60 + float(time_min)
+		
 		tup = tup + (time,)
 		
 	

@@ -4,8 +4,9 @@ import database,query,tuple_gen
 import pprint
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 
-
+matplotlib.use('Agg')
 result = database.query(query.usage_over_hour_of_day())
 
 pprint.pprint(result)

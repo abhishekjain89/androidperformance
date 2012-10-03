@@ -44,7 +44,7 @@ def appTraffic(device_list,filter_list):
         
         print "new DEVICE(app): " + str(device.deviceid)
         last_list = {}
-      
+        
         for measure in measurement_list:
             
             appuse_list = ApplicationUse.objects.filter(measurementid=measure.measurementid)

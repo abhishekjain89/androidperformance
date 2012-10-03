@@ -24,7 +24,7 @@
             
             android:gravity="center_vertical"
             android:padding="0dp"
-            android:text="MEASUREMENTS"
+            android:text="MENU > MEASUREMENTS"
             
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/dark_gray"

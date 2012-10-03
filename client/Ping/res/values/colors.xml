@@ -8,5 +8,6 @@
     <color name="dark_gray">#B3B3B3</color>
     <color name="mid_gray">#D6D6D6</color>
     <color name="text_primary">#fff</color>
+    <color name="black">#000</color>
 
 </resources>

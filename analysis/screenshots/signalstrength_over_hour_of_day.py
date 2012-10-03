@@ -18,9 +18,6 @@ subplot_count = 511
 for key in data.keys():
 	plt.subplot(subplot_count)
 	#plt.ylim(0,31)
-	N = len(data.keys())
-	ind = np.arange(N)  # the x locations for the groups
-width = 0.35       # the width of the bars
 	plt.title(key)
 	x_ticks = tuple_gen.hour_minute_period(data[key],1,2,10)
 	y_vals = (tuple_gen.base_float(data[key],3))
