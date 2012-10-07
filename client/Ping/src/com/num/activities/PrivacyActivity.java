@@ -24,6 +24,7 @@ import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
+import com.num.models.Link;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -210,6 +211,21 @@ public class PrivacyActivity extends Activity
 		}
 
 		public void onCompleteLastMile(LastMile lastMile) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateUpLink(Link link) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateDownLink(Link link) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateThroughput(Throughput throughput) {
 			// TODO Auto-generated method stub
 			
 		} 

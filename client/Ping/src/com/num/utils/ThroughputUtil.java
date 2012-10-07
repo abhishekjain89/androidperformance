@@ -12,11 +12,15 @@ import java.util.Random;
 import android.content.Context;
 
 import com.num.Values;
+import com.num.listeners.ResponseListener;
 import com.num.models.Link;
+import com.num.models.Throughput;
 
 
 
 public class ThroughputUtil {
+	
+	static long responseListenerUpdateFrequency = 800;
 	
 	public static String generateRandom()
 	{
@@ -29,7 +33,7 @@ public class ThroughputUtil {
 		return message.toString();
 	}
 	
-	public static Link uplinkmeasurement(Context context) throws UnknownHostException, IOException
+	public static Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
 	{
 		Values session = (Values) context.getApplicationContext();
 		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
@@ -44,28 +48,32 @@ public class ThroughputUtil {
 		String buf= generateRandom();
 		byte[] message = buf.getBytes();
 		long throughput=0;
-		long tensecthroughput=0;
+		long endSecond =  System.currentTimeMillis();
 		long start = System.currentTimeMillis();
 		//System.out.println(start);
 		long end = System.currentTimeMillis();
 		long intermediate = System.currentTimeMillis();
 		long count=0;
-		long tenseccount=0;
-		int flag=0;
+		
 		do
 		{
-			out.write(message);
-			
+			out.write(message);			
 			end = System.currentTimeMillis();
-			if(end-start>=session.UPLINK_DURATION/2){
-				if(flag==0){intermediate= System.currentTimeMillis();
-				flag=1;
-				}
-				tenseccount++;
+			
+			if (end>endSecond+responseListenerUpdateFrequency) {
+				endSecond = end;
+				link.setCount(count);
+				link.setMessage_size(message.length+(54*3));
+				link.setTime(end-start);
+				link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
+				link.setDstPort(session.UPLINKPORT+"");				
+				responseListener.onUpdateUpLink(link);
 			}
-
+			
 			count++;
+			
 		}while(end-start<=session.UPLINK_DURATION);
+		
 		throughput=count*((long)message.length+(54*3))/(end-start)*8;
 		System.out.println("Message length: "+message.length);
 		System.out.println("Intermediate: "+intermediate);
@@ -94,7 +102,7 @@ public class ThroughputUtil {
 		return link;
 	}
 
-	public static Link downlinkmeasurement(Context context) throws IOException
+	public static Link downlinkmeasurement(Context context, ResponseListener responseListener) throws IOException
 	{
 		
 		Values session = (Values) context.getApplicationContext();
@@ -110,6 +118,10 @@ public class ThroughputUtil {
 		out.flush();
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
+			
+			
+			
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,6 +130,7 @@ public class ThroughputUtil {
 		int totalbytes=0;
 		int count=0;
 		long start=System.currentTimeMillis();
+		long endSecond =  System.currentTimeMillis();
 		long end=System.currentTimeMillis();
 		byte[] buffer=new byte[session.DOWNLINK_BUFFER_SIZE];
 		do
@@ -126,7 +139,18 @@ public class ThroughputUtil {
 			count++;
 			if(messagebytes<=0)
 				break;
-			//System.out.println(messagebytes);
+			
+
+			if (end>endSecond+responseListenerUpdateFrequency) {
+				endSecond = end;
+				link.setCount(1);
+				link.setMessage_size(totalbytes*((session.TCP_PACKET_SIZE+session.TCP_HEADER_SIZE)/(session.TCP_PACKET_SIZE)));
+				link.setTime(end-start);
+				link.setDstIp(serveraddress);
+				link.setDstPort(session.DOWNLINKPORT+"");
+				responseListener.onUpdateDownLink(link);
+			}
+			
 			totalbytes+=messagebytes;
 			end=System.currentTimeMillis();
 		}while(true);

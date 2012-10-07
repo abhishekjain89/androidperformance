@@ -28,9 +28,9 @@ public class Values extends Application{
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
 	public  int UPLINKPORT=9912;
-	public  int UPLINK_DURATION=25000;
+	public  static int UPLINK_DURATION=25000;
 	public  int DOWNLINKPORT=9710;
-	public  int DOWNLINK_DURATION=20000;
+	public  static int DOWNLINK_DURATION=20000;
 	public  int DOWNLINK_BUFFER_SIZE=12000;
 
 	public  int TCP_HEADER_SIZE=54;

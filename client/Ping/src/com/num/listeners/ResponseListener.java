@@ -13,6 +13,7 @@ import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
+import com.num.models.Link;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -65,6 +66,12 @@ public interface ResponseListener {
 	public void onCompleteSummary(JSONObject Object);
 
 	public void onCompleteLastMile(LastMile lastMile);
+	
+	public void onUpdateUpLink(Link link);
+	
+	public void onUpdateThroughput(Throughput throughput);
+	
+	public void onUpdateDownLink(Link link);
 
 	
 

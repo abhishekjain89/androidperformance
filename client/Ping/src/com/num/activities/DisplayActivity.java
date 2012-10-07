@@ -42,8 +42,6 @@ public class DisplayActivity extends Activity {
 		title.setText(item.getTitle().toUpperCase());
 		description.setText(item.getDescription());
 		
-		//imageview.setImageResource(item.getIcon());
-		
 		ArrayList<Row> cells = item.getDisplayData();
 
 		if(cells.size()!=0){

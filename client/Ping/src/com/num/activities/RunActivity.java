@@ -43,6 +43,7 @@ import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
+import com.num.models.Link;
 import com.num.models.MainModel;
 import com.num.models.Measurement;
 import com.num.models.Model;
@@ -263,6 +264,21 @@ public class RunActivity extends BaseActivityGroup
 			// TODO Auto-generated method stub
 
 		}
+
+		public void onUpdateUpLink(Link link) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateDownLink(Link link) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onUpdateThroughput(Throughput throughput) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	private Handler toastHandler = new Handler() {
@@ -294,11 +310,13 @@ public class RunActivity extends BaseActivityGroup
 
 			intent.putExtra("model_key",item.getTitle());
 
-			View tabview = createTabView(tabHost.getContext(),item);
-			tabview.setTag(item.getTitle());
+			
+			View tabview = createTabView(tabHost.getContext(),item);					
+			tabview.setTag(item.getTitle());			
 			spec = tabHost.newTabSpec(item.getTitle()).setIndicator(tabview)
 					.setContent(intent);
 
+			
 			tabHost.addTab(spec);
 
 			if(LastChosen==null){
@@ -324,6 +342,7 @@ public class RunActivity extends BaseActivityGroup
 
 		}
 	};
+	
 
 	private void moveScrollBy(int diff){
 		final long time = diff;

@@ -6,11 +6,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.num.R;
+import com.num.Values;
 
 public class Throughput implements MainModel{
 	
 	public Link downLink;
 	public Link upLink;
+	public boolean isComplete = false;
 	
 
 	private static String DESCRIPTION = "Upload and Download speeds";
@@ -71,8 +73,21 @@ public class Throughput implements MainModel{
 		} else {
 			upL = (int)upLink.speedInBits();
 		}
-		data.add(new Row("Downlink",downL + " Kbps"));
-		data.add(new Row("Uplink",upL+ " Kbps"));
+		
+		if (upL>0) {
+			data.add(new Row("Upload",(int)upLink.getTime()/(Values.UPLINK_DURATION/100),upL+ " Kbps"));
+		}
+		
+		if (downL>0) {
+			data.add(new Row("Download",(int)downLink.getTime()/(Values.DOWNLINK_DURATION/100),downL + " Kbps"));
+		}
+		
+		if(isComplete) {
+			data.add(new Row("Test Complete"));
+		} else {
+			data.add(new Row("In progress ..."));
+		}
+		
 		return data;
 	}
 	

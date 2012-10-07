@@ -64,7 +64,11 @@ public class Row {
 	}
 
 	public Row(String first,int value){
-		this(first,value+" %",value);
+		this(first,value,value+ " %");
+	}
+	
+	public Row(String first,int value, String display){
+		this(first,display,value);
 		viewgen = new KeyProgressViewGenerator(R.layout.cell_view_keyprogress);
 	}
 
@@ -73,10 +77,6 @@ public class Row {
 		this.value = value;
 		viewgen = new KeyProgressViewGenerator(R.layout.cell_view_keyprogress);
 	}
-
-
-
-
 	public Row(String first,int imageid,int value){
 		this(first,value);
 		this.imageResourceID = imageid;
