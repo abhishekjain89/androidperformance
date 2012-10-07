@@ -28,7 +28,7 @@ public class MapViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item) {
+	public void populateView(Row item,Context context) {
 		MapController controller = holder.map.getController();
 		
 		GeoPoint point = new GeoPoint((int)(item.valueOne*1E6),(int)(item.valueTwo*1E6));

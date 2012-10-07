@@ -253,7 +253,7 @@ public class Measurement implements MainModel{
 		return "Latency";
 	}
 
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("ROUND TRIP"));
 		for(Ping p: pings){

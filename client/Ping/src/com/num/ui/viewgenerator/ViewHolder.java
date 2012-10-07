@@ -1,6 +1,7 @@
 package com.num.ui.viewgenerator;
 
 import com.google.android.maps.MapView;
+import com.num.models.GraphData;
 
 import android.widget.*;
 
@@ -14,5 +15,6 @@ public class ViewHolder{
 		public TextView third;
 		public TextView fourth;
 		public TextView fifth;
-		public MapView map;
+		public LinearLayout linear;
+		public MapView map;		
 	}

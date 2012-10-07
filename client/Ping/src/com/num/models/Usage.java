@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.R;
 
 public class Usage implements MainModel{
@@ -111,7 +113,7 @@ public class Usage implements MainModel{
 		backendData = res;
 	}
 
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 
 		long total_use = 0;
 

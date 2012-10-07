@@ -185,7 +185,7 @@ public class Device implements MainModel {
 		return "Device";
 	}
 
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Brand",getPhoneBrand()));
 		data.add(new Row("Model",getPhoneModel()));

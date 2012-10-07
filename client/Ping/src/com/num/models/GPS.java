@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.R;
 
 public class GPS implements MainModel {
@@ -73,7 +75,7 @@ public class GPS implements MainModel {
 		return "GPS";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Latitude",latitude));
 		data.add(new Row("Longitude",longitude));

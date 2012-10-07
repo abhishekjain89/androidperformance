@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.R;
 
 public class Link implements Model{
@@ -87,7 +89,7 @@ public class Link implements Model{
 		return "Link";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;

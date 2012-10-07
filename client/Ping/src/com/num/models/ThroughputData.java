@@ -24,8 +24,8 @@ public class ThroughputData {
 		this.time = time;
 	}
 
-	public String getSpeed() {
-		return speed;
+	public int getSpeed() {
+		return (int)Double.parseDouble(speed);
 	}
 
 	public void setSpeed(String speed) {

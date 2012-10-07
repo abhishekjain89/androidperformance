@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
+
 import com.num.R;
 
 public class Measure implements Model{
@@ -70,7 +73,7 @@ public class Measure implements Model{
 		return "Measure";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;

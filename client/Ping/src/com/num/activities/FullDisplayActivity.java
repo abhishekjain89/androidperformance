@@ -222,7 +222,7 @@ public class FullDisplayActivity extends Activity {
 		}
 
 		public void onUpdateThroughput(Throughput throughput) {
-			System.out.println("update");
+
 			onCompleteOutput(throughput);
 			
 			
@@ -242,7 +242,7 @@ public class FullDisplayActivity extends Activity {
 
 			//imageview.setImageResource(item.getIcon());
 
-			ArrayList<Row> cells = item.getDisplayData();
+			ArrayList<Row> cells = item.getDisplayData(activity);
 
 			if(cells.size()!=0){
 				ItemAdapter itemadapter = new ItemAdapter(activity,cells);

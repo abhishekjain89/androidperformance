@@ -7,6 +7,7 @@ import com.num.models.Model;
 import com.num.models.Row;
 import com.num.R;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public abstract class ViewGenerator {
 	}
 	public abstract ViewHolder fillViewHolder(View view,LayoutInflater inflater);
 	
-	public abstract void populateView(Row item);
+	public abstract void populateView(Row item, Context context);
 	
 	
 

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.num.listeners.ResponseListener;
 import com.num.R;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class Application implements Model,Comparable<Application> {
@@ -88,7 +89,7 @@ public class Application implements Model,Comparable<Application> {
 		return "Application";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;

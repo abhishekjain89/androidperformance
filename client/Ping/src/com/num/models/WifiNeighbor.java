@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.utils.SHA1Util;
 import com.num.R;
 
@@ -96,7 +98,7 @@ public class WifiNeighbor implements MainModel,Comparable<WifiNeighbor>{
 		return "Wifi Neighbor";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("First","Second"));
 		return data;

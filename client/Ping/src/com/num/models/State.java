@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.utils.SHA1Util;
 
 public class State implements Model{
@@ -76,7 +78,7 @@ public class State implements Model{
 	public String getTitle() {
 		return "State";
 	}
-	public ArrayList<Row> getDisplayData() {
+	public ArrayList<Row> getDisplayData(Context context){
 		return null;
 	}
 

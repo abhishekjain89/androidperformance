@@ -72,7 +72,7 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 
 		if (item!=null) {	
 			try{
-				item.getViewGenerator().populateView(item);
+				item.getViewGenerator().populateView(item,activity);
 				
 			} catch(Exception e) {
 				e.printStackTrace();

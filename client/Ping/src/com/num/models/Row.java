@@ -2,9 +2,11 @@ package com.num.models;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
 import com.num.ui.viewgenerator.DumbGenerator;
+import com.num.ui.viewgenerator.GraphViewGenerator;
 import com.num.ui.viewgenerator.IconKeyProgressViewGenerator;
 import com.num.ui.viewgenerator.KeyFourValueViewGenerator;
 import com.num.ui.viewgenerator.KeyIconProgressViewGenerator;
@@ -15,6 +17,7 @@ import com.num.ui.viewgenerator.TitleViewGenerator;
 import com.num.ui.viewgenerator.ViewGenerator;
 import com.num.R;
 
+@SuppressLint("ParserError")
 public class Row {
 
 	public String first="";
@@ -26,6 +29,7 @@ public class Row {
 	public Drawable image;
 	public int imageResourceID;
 	public ArrayList<String> seconds;
+	public GraphData graphData;
 
 	ViewGenerator viewgen;
 
@@ -37,6 +41,10 @@ public class Row {
 	
 	public Row(){
 		viewgen = new DumbGenerator(R.layout.divider);
+	}
+	
+	public Row(GraphData data) {
+		viewgen = new GraphViewGenerator(data);
 	}
 
 

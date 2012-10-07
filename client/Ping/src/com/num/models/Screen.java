@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.utils.SHA1Util;
 
 public class Screen implements Model {
@@ -69,7 +71,7 @@ public class Screen implements Model {
 	public String getTitle() {
 		return "Screen";
 	}
-	public ArrayList<Row> getDisplayData() {
+	public ArrayList<Row> getDisplayData(Context context){
 		// TODO Auto-generated method stub
 		return null;
 	}

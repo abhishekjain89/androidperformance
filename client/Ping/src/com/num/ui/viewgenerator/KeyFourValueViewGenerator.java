@@ -30,7 +30,7 @@ public class KeyFourValueViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item) {
+	public void populateView(Row item,Context context) {
 		holder.first.setText(item.first);
 		holder.second.setText("Avg: " + item.seconds.get(0) + " ms");
 		holder.third.setText("Max: " +item.seconds.get(1) + " ms");

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.R;
 
 public class Network implements MainModel{
@@ -153,7 +155,7 @@ public class Network implements MainModel{
 		return "Network";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Type",getNetworkType()));
 		data.add(new Row("CellID",getCellId()));

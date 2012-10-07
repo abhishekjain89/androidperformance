@@ -42,7 +42,7 @@ public class DisplayActivity extends Activity {
 		title.setText(item.getTitle().toUpperCase());
 		description.setText(item.getDescription());
 		
-		ArrayList<Row> cells = item.getDisplayData();
+		ArrayList<Row> cells = item.getDisplayData(this);
 
 		if(cells.size()!=0){
 			ItemAdapter itemadapter = new ItemAdapter(this,cells);

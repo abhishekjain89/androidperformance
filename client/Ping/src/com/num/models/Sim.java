@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.num.utils.SHA1Util;
 import com.num.R;
 
@@ -75,7 +77,7 @@ public class Sim implements MainModel{
 		return "Sim";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Country",simNetworkCountry));
 		data.add(new Row("Status",simState));

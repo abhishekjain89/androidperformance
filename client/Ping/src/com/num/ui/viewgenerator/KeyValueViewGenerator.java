@@ -28,7 +28,7 @@ public class KeyValueViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item) {
+	public void populateView(Row item,Context context) {
 		holder.first.setText(item.first);
 		String secondItem = item.second;
 		if (secondItem.length() > 0) {

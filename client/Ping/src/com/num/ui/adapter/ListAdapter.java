@@ -102,7 +102,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 				holder.title.setText(item.getTitle().toUpperCase());
 
 				//holder.imageview.setImageResource(item.getIcon());
-				ArrayList<Row> cells = item.getDisplayData();
+				ArrayList<Row> cells = item.getDisplayData(activity);
 				ArrayList<Row> new_cells = new ArrayList<Row>();
 				
 					for(Row cell: cells){

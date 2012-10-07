@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import com.num.utils.BatteryUtil;
 import com.num.R;
+
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 
@@ -127,7 +129,7 @@ public class Battery  implements MainModel{
 		return "Battery";
 	}
 	
-	public ArrayList<Row> getDisplayData(){
+	public ArrayList<Row> getDisplayData(Context context){
 		BatteryUtil util = new BatteryUtil();
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("Charge",(level*100)/scale));
