@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-
 import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.Address;
 import com.num.models.LastMile;
 import com.num.models.Ping;
 import com.num.models.PingData;
-import com.num.models.ThroughputData;
 import com.num.utils.DeviceUtil;
 import com.num.utils.PingDataSource;
 

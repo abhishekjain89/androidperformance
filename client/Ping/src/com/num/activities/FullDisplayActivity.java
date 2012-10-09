@@ -102,6 +102,9 @@ public class FullDisplayActivity extends Activity {
 	public void finish(){
 		super.finish();
 		timer.cancel();
+		try{
+		serverhelper.shutdown();
+		} catch (Exception e) {	}
 	}
 
 	private Handler LoadMessageHandler = new Handler(){

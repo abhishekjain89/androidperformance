@@ -1,5 +1,7 @@
 package com.num.helpers;
 
+import com.num.database.mapping.ThroughputMapping;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -52,7 +54,7 @@ public class PingDatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase database, int oldVersion,
 			int newVersion) {
-		Log.w(ThroughputDatabaseHelper .class.getName(), "Upgrading database from version "
+		Log.w(ThroughputMapping .class.getName(), "Upgrading database from version "
 				+ oldVersion + " to " + newVersion
 				+ ", which will destroy all old data");
 		database.execSQL("DROP TABLE IF EXISTS " + TABLE_PING);

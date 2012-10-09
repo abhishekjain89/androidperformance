@@ -14,7 +14,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.num.helpers.PingDatabaseHelper;
 import com.num.models.Ping;
 import com.num.models.PingData;
-import com.num.models.ThroughputData;
 
 public class PingDataSource {
 

@@ -9,13 +9,13 @@ import org.json.JSONObject;
 
 import android.app.Application;
 
+import com.num.database.datasource.ThroughputDataSource;
 import com.num.models.Address;
 import com.num.models.Buffer;
 import com.num.models.MainModel;
 import com.num.models.Screen;
 import com.num.utils.DeviceUtil;
 import com.num.utils.PreferencesUtil;
-import com.num.utils.ThroughputDataSource;
 
 public class Values extends Application{
 

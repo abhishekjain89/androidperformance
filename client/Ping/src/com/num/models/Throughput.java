@@ -10,9 +10,9 @@ import android.content.Context;
 
 import com.num.R;
 import com.num.Values;
+import com.num.database.DatabaseOutput;
+import com.num.database.datasource.ThroughputDataSource;
 import com.num.utils.DeviceUtil;
-import com.num.utils.ThroughputDataSource;
-import com.num.utils.ThroughputDataSource.ThroughputOutput;
 
 public class Throughput implements MainModel{
 
@@ -92,17 +92,22 @@ public class Throughput implements MainModel{
 			
 			ThroughputDataSource dataSource = new ThroughputDataSource(context);
 			dataSource.open();
-			ThroughputOutput output = dataSource.getOutput();
+			DatabaseOutput output = dataSource.getOutput();
 			HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
-			if (output.averageDownload>0) {
-				data.add(new Row("DOWNLOAD GRAPH"));
+			if (output.getLong("avg_download")>0) {
 				data.add(new Row("Connection",DeviceUtil.getNetworkInfo(context)));
-				data.add(new Row("Avg Download",output.averageDownload + " Kbps"));
-				data.add(new Row(new GraphData(graphPoints.get("downlink"))));
-				if (output.averageUpload>0) {
+				data.add(new Row("DOWNLOAD GRAPH"));				
+				data.add(new Row("Avg Download",output.getLong("avg_download") + " Kbps"));
+				GraphData graphdata = new GraphData(graphPoints.get("downlink"));
+				graphdata.setxAxisTitle("Historical trend of Download tests");				
+				data.add(new Row(graphdata));
+				
+				if (output.getLong("avg_upload")>0) {
 					data.add(new Row("UPLOAD GRAPH"));
-					data.add(new Row("Avg Upload",output.averageUpload + " Kbps"));
-					data.add(new Row(new GraphData(graphPoints.get("uplink"))));
+					data.add(new Row("Avg Upload",output.getLong("avg_upload") + " Kbps"));
+					GraphData graphdata2 = new GraphData(graphPoints.get("uplink"));
+					graphdata2.setxAxisTitle("Historical trend of Upload tests");
+					data.add(new Row(graphdata2));
 				}
 			}
 			
