@@ -16,16 +16,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class ThroughputMapping extends BaseMapping {
+public class LatencyMapping extends BaseMapping {
 
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_TIME = "time";
-	public static final String COLUMN_SPEED = "speed";
+	public static final String COLUMN_AVG = "avg";
+	public static final String COLUMN_MIN = "min";
+	public static final String COLUMN_MAX = "max";
+	public static final String COLUMN_STD = "std";
+	public static final String COLUMN_SRCIP = "srcip";
+	public static final String COLUMN_DSTIP = "dstip";
+	public static final String COLUMN_CONNECTION = "connection";
 	public static final String COLUMN_TYPE = "type";
-	public static final String COLUMN_CONNECTION = "connection";	
 	
-	public ThroughputMapping(Context context) {		
-		super(context);
+	
+	public LatencyMapping(Context context) {		
+		super(context);		
 		setColumnMap();		
 	}
 	
@@ -33,14 +39,20 @@ public class ThroughputMapping extends BaseMapping {
 		columns = new DatabaseColumns(getTableName());
 		columns.add(COLUMN_ID,"integer primary key autoincrement");
 		columns.add(COLUMN_TIME,"text not null");
-		columns.add(COLUMN_SPEED,"text not null");
 		columns.add(COLUMN_TYPE,"text not null");
-		columns.add(COLUMN_CONNECTION,"text not null");		
+		columns.add(COLUMN_AVG,"real");
+		columns.add(COLUMN_MIN,"real");
+		columns.add(COLUMN_MAX,"real");
+		columns.add(COLUMN_STD,"real");
+		columns.add(COLUMN_SRCIP,"text not null");
+		columns.add(COLUMN_DSTIP,"text not null");
+		columns.add(COLUMN_CONNECTION,"text not null");
+				
 	}
 
 	@Override
 	public String getTableName() {
-		return "throughput";
+		return "latency";
 	}
 	
 }

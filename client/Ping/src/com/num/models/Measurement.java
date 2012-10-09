@@ -24,7 +24,7 @@ public class Measurement implements MainModel{
 	boolean isManual = false;
 
 
-	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different servers";
+	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different destination servers";
 
 	public ArrayList<LastMile> getLastMiles() {
 		return lastMiles;
@@ -256,16 +256,21 @@ public class Measurement implements MainModel{
 	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("ROUND TRIP"));
+		
+		int pingMax = 0;		
+		for(Ping p: pings) pingMax = Math.max((int)p.measure.getAverage(), pingMax);
+		pingMax*=1.2;
+		
+		
+		
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
 				if (p.measure != null) {
-					try {
-						str.add(""+(int)p.measure.getAverage());
-						str.add(""+(int)p.measure.getMax());
-						str.add(""+(int)p.measure.getMin());
-						str.add(""+(int)p.measure.getStddev());
-						data.add(new Row(p.getDst().getTagname(),str));
+					if(p.getDst().getTagname().equals("localhost")) continue;
+					
+					try {						
+						data.add(new Row(p.getDst().getTagname(),(int)p.measure.getAverage()*100/pingMax,((int)p.measure.getAverage()) +" ms"));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -278,11 +283,8 @@ public class Measurement implements MainModel{
 			if (p != null) {
 				if (p.measure != null) {
 					try {
-						str.add(""+(int)p.measure.getAverage());
-						str.add(""+(int)p.measure.getMax());
-						str.add(""+(int)p.measure.getMin());
-						str.add(""+(int)p.measure.getStddev());
-						data.add(new Row(p.getDst().getTagname(),str));
+						if(p.getDst().getTagname().equals("localhost")) continue;
+						data.add(new Row(p.getDst().getTagname(),(int)p.measure.getAverage()*100/pingMax,((int)p.measure.getAverage()) +" ms"));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

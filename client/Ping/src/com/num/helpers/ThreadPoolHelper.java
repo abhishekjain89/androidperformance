@@ -31,8 +31,7 @@ public class ThreadPoolHelper {
 		
 	}
 	public void shutdown(){
-		tpe.shutdownNow();
-		
+		tpe.shutdownNow();		
 	}
 	
 	

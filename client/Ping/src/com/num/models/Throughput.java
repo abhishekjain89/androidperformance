@@ -95,20 +95,21 @@ public class Throughput implements MainModel{
 			DatabaseOutput output = dataSource.getOutput();
 			HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
 			if (output.getLong("avg_download")>0) {
-				data.add(new Row("Connection",DeviceUtil.getNetworkInfo(context)));
-				data.add(new Row("DOWNLOAD GRAPH"));				
+				String connection = DeviceUtil.getNetworkInfo(context);
+				
+				data.add(new Row("GRAPHS"));				
 				data.add(new Row("Avg Download",output.getLong("avg_download") + " Kbps"));
 				GraphData graphdata = new GraphData(graphPoints.get("downlink"));
-				graphdata.setxAxisTitle("Historical trend of Download tests");				
+				graphdata.setxAxisTitle("Historical trend of Download tests for " + connection);				
 				data.add(new Row(graphdata));
 				
-				if (output.getLong("avg_upload")>0) {
-					data.add(new Row("UPLOAD GRAPH"));
+				if (output.getLong("avg_upload")>0) {					
 					data.add(new Row("Avg Upload",output.getLong("avg_upload") + " Kbps"));
 					GraphData graphdata2 = new GraphData(graphPoints.get("uplink"));
-					graphdata2.setxAxisTitle("Historical trend of Upload tests");
+					graphdata2.setxAxisTitle("Historical trend of Upload tests for " + connection);
 					data.add(new Row(graphdata2));
 				}
+			
 			}
 			
 			dataSource.close();

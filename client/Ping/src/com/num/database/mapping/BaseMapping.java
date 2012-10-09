@@ -13,7 +13,7 @@ import android.util.Log;
 public abstract class BaseMapping extends SQLiteOpenHelper {
 
 	public static String DATABASE_NAME="networkusage.db";
-	public static int DATABASE_VERSION = 1;
+	public static int DATABASE_VERSION = 2;
 	public String TABLE_NAME;
 
 	public BaseMapping(Context context) {
@@ -51,8 +51,6 @@ public abstract class BaseMapping extends SQLiteOpenHelper {
 
 	public abstract void setColumnMap();
 	
-	public String getTableName() {
-		return TABLE_NAME;
-	}
+	public abstract String getTableName();
 	
 }

@@ -104,6 +104,7 @@ public class FullDisplayActivity extends Activity {
 		timer.cancel();
 		try{
 		serverhelper.shutdown();
+		
 		} catch (Exception e) {	}
 	}
 

@@ -18,35 +18,44 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.num.database.DatabaseOutput;
 import com.num.database.mapping.BaseMapping;
+import com.num.database.mapping.LatencyMapping;
 import com.num.database.mapping.ThroughputMapping;
 import com.num.models.GraphData;
 
 import com.num.models.GraphPoint;
 import com.num.models.Link;
 import com.num.models.MainModel;
+import com.num.models.Measure;
 import com.num.models.Model;
+import com.num.models.Ping;
 import com.num.models.Throughput;
 import com.num.utils.DeviceUtil;
 
-public class ThroughputDataSource extends DataSource {
+public class LatencyDataSource extends DataSource {
 	
-	public ThroughputDataSource(Context context) {
+	public LatencyDataSource(Context context) {
 		super(context);
-		setDBHelper(new ThroughputMapping(context));
+		setDBHelper(new LatencyMapping(context));
 	}
 	
-	public void addRow(Link l, String type, String connectionType) {
+	public void addRow(Ping p, String connectionType) {
 		ContentValues value = new ContentValues();		
-		
+		Measure m = p.getMeasure();
 	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    String time = sdf.format(new Date());		
-		value.put(ThroughputMapping.COLUMN_TIME, time);
-		value.put(ThroughputMapping.COLUMN_SPEED, "" + l.speedInBits());
-		value.put(ThroughputMapping.COLUMN_TYPE, type);
-		value.put(ThroughputMapping.COLUMN_CONNECTION,connectionType);
+		value.put(LatencyMapping.COLUMN_TIME, time);		
+		value.put(LatencyMapping.COLUMN_TYPE, p.getDst().getType());
+		value.put(LatencyMapping.COLUMN_CONNECTION,connectionType);
+		value.put(LatencyMapping.COLUMN_AVG, m.getAverage());
+		value.put(LatencyMapping.COLUMN_MIN, m.getMin());
+		value.put(LatencyMapping.COLUMN_MAX, m.getMax());
+		value.put(LatencyMapping.COLUMN_STD, m.getStddev());
+		value.put(LatencyMapping.COLUMN_SRCIP, p.getSrcIp().substring(1));
+		value.put(LatencyMapping.COLUMN_DSTIP, p.getDst().getTagname());
+		
 		long insertId = database.insert(dbHelper.getTableName(), null, value);
 		Cursor cursor = database.query(dbHelper.getTableName(),
-				getColumns(), ThroughputMapping.COLUMN_ID + " = " + insertId, null, null, null, null);
+				getColumns(), LatencyMapping.COLUMN_ID + " = " + insertId, null, null, null, null);
 		cursor.moveToFirst();
 		Map<String,String> newThroughputData = dbHelper.getDatabaseColumns().getDataStore(cursor);
 		cursor.close();
@@ -54,10 +63,12 @@ public class ThroughputDataSource extends DataSource {
 	
 	protected void insertModel(Model model) {
 		
+		Ping ping = (Ping) model;
 		String currentConnectionType = DeviceUtil.getNetworkInfo(context);
-		addRow(((Throughput)model).getDownLink(), "downlink", currentConnectionType);
-		addRow(((Throughput)model).getUpLink(), "uplink", currentConnectionType);		
+		addRow((Ping) model, currentConnectionType);				
 	}
+	
+	
 	
 	public DatabaseOutput getOutput() {
 		open();
@@ -72,25 +83,6 @@ public class ThroughputDataSource extends DataSource {
 		
 		for (Map<String,String> data : allData) {
 			
-			if(!data.get(ThroughputMapping.COLUMN_CONNECTION).equals(currentConnectionType)) {
-				continue;
-			}
-			
-			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("uplink")){
-				try {
-				totalUpload+=(int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED));
-				countUpload++;
-				} catch (Exception e) {
-					continue;
-				}				
-			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("downlink")){
-				try {
-				totalDownload+=(int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED));
-				countDownload++;
-				} catch (Exception e) {
-					continue;
-				}				
-			}						
 		}
 		
 		if(countDownload==0) countDownload++;

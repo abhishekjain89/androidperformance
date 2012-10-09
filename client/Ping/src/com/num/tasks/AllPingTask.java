@@ -12,6 +12,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.num.Values;
+import com.num.database.datasource.LatencyDataSource;
 import com.num.helpers.MeasurementHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -104,6 +105,13 @@ public class AllPingTask extends ServerTask{
 		}
 		measurement.setPings(pings);
 		measurement.setLastMiles(lastMiles);
+		
+		LatencyDataSource dataSource = new LatencyDataSource(getContext());
+		for(Ping p : pings)
+			dataSource.insert(p);
+		
+		dataSource.getOutput();
+		
 		getResponseListener().onCompleteMeasurement(measurement);
 
 

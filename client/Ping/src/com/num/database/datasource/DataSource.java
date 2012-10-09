@@ -22,6 +22,7 @@ import com.num.models.GraphData;
 import com.num.models.GraphPoint;
 import com.num.models.Link;
 import com.num.models.MainModel;
+import com.num.models.Model;
 import com.num.models.Throughput;
 import com.num.utils.DeviceUtil;
 
@@ -48,8 +49,7 @@ public abstract class DataSource {
 	
 	public abstract DatabaseOutput getOutput();
 	
-	protected abstract void insertModel(MainModel model);
-	
+	protected abstract void insertModel(Model model);
 	
 	
 	public String[] getColumns() {
@@ -79,7 +79,7 @@ public abstract class DataSource {
 		return dataStores;
 	}
 	
-	public void insert(MainModel model) {
+	public void insert(Model model) {
 		open();
 		insertModel(model);
 		close();

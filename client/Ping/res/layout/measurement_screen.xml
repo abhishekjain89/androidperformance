@@ -123,7 +123,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Usage"
+                        android:text="Application Usage"
                         android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
@@ -241,7 +241,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Throughput"
+                        android:text="Speed Test"
                         android:textColor="@color/text_primary"
                         android:textSize="20dp" />
 
@@ -326,7 +326,7 @@
                     android:layout_width="50dp"
                     android:layout_height="fill_parent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/png" />
+                    android:src="@drawable/stopwatch" />
             </LinearLayout>
 
             <LinearLayout

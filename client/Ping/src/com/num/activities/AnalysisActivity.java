@@ -108,6 +108,7 @@ public class AnalysisActivity extends Activity
 			}
 		});
 		
+		testButton.setVisibility(View.GONE);
 		
 		pingButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
@@ -127,6 +128,11 @@ public class AnalysisActivity extends Activity
                 startActivity(myIntent);
 			}
 		});
+		
+
+		
+		wifiButton.setVisibility(View.GONE);
+		
 		usageButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	
 
