@@ -30,6 +30,7 @@ import com.num.models.Model;
 import com.num.models.Ping;
 import com.num.models.Throughput;
 import com.num.utils.DeviceUtil;
+import com.sun.org.apache.regexp.internal.recompile;
 
 public class LatencyDataSource extends DataSource {
 	
@@ -98,28 +99,37 @@ public class LatencyDataSource extends DataSource {
 	}
 	
 	public HashMap<String, ArrayList<GraphPoint>> getGraphData() {
+		return getGraphData(DeviceUtil.getNetworkInfo(context), "Atlanta, GA");
+	}
+	
+	public HashMap<String, ArrayList<GraphPoint>> getGraphData(String currentConnectionType, String destination) {
 		open();
 		List<Map<String,String>> allData = getDataStores();
 		
-		ArrayList<GraphPoint> downloadPoints = new ArrayList<GraphPoint>();
-		ArrayList<GraphPoint> uploadPoints = new ArrayList<GraphPoint>();
+		ArrayList<GraphPoint> roundtripPoints = new ArrayList<GraphPoint>();
+		ArrayList<GraphPoint> firsthopPoints = new ArrayList<GraphPoint>();
 		
-		for (Map<String,String> data : allData) {
-			String currentConnectionType = DeviceUtil.getNetworkInfo(context);
+		for (Map<String,String> data : allData) {			
 			
-			if(!data.get(ThroughputMapping.COLUMN_CONNECTION).equals(currentConnectionType)) {
+			if(!data.get(LatencyMapping.COLUMN_CONNECTION).equals(currentConnectionType)) {
 				continue;
 			}
 			
-			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("uplink")){
+			if(!data.get(LatencyMapping.COLUMN_DSTIP).equals(destination)) {
+				continue;
+			}
+			
+			
+			
+			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("ping")){
 				try {
-					uploadPoints.add(new GraphPoint(uploadPoints.size(), (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED))));
+					roundtripPoints.add(new GraphPoint(roundtripPoints.size(), (int)Double.parseDouble(data.get(LatencyMapping.COLUMN_AVG))));
 				} catch (Exception e) {
 					continue;
 				}				
-			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("downlink")){
+			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("firsthop")){
 				try {
-					downloadPoints.add(new GraphPoint(downloadPoints.size(), (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED))));
+					firsthopPoints.add(new GraphPoint(firsthopPoints.size(), (int)Double.parseDouble(data.get(LatencyMapping.COLUMN_AVG))));
 				} catch (Exception e) {
 					continue;
 				}				
@@ -128,11 +138,10 @@ public class LatencyDataSource extends DataSource {
 		
 		HashMap collection = new HashMap<String,ArrayList<GraphPoint>>();
 		
-		collection.put("uplink", uploadPoints);
-		collection.put("downlink", downloadPoints);
+		collection.put("ping", roundtripPoints);
+		collection.put("firsthop", firsthopPoints);
 		close();
 		return collection;
 		
 	}
-
 }

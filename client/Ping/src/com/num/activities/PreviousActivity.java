@@ -14,7 +14,6 @@ import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.FakeListener;
 import com.num.models.PingData;
 import com.num.tasks.ValuesTask;
-import com.num.utils.PingDataSource;
 
 public class PreviousActivity extends Activity 
 {
@@ -42,19 +41,7 @@ public class PreviousActivity extends Activity
 		serverhelper.execute(new ValuesTask(this,new FakeListener()));
 		previous =  (TextView) findViewById(R.id.previous_data);
 
-		PingDataSource datasource = new PingDataSource(this);
-		datasource.open();
-		List<PingData> values = datasource.getAllPingData();
-		PingData p = values.get(0);
-		datasource.close();
-		String output = "";
-		for (PingData pd : values) {
-			output += pd + "\n";
-		}
 		
-		previous.setText(output);
-		
-
 		
 	}	
 	

@@ -1,11 +1,16 @@
 package com.num.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.num.database.DatabaseOutput;
+import com.num.database.datasource.LatencyDataSource;
+import com.num.database.datasource.ThroughputDataSource;
+import com.num.utils.DeviceUtil;
 import com.num.utils.SHA1Util;
 import com.num.R;
 
@@ -291,7 +296,19 @@ public class Measurement implements MainModel{
 				}
 			}
 		}
-
+		
+		data.add(new Row("GRAPHS"));
+		LatencyDataSource dataSource = new LatencyDataSource(context);
+		String connection = DeviceUtil.getNetworkInfo(context);	
+		HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
+		GraphData graphdata = new GraphData(graphPoints.get("ping"));
+		graphdata.setxAxisTitle("Historical trend of Roundtrip tests for " + connection);				
+		data.add(new Row(graphdata));
+		
+		GraphData graphdata2 = new GraphData(graphPoints.get("firsthop"));
+		graphdata2.setxAxisTitle("Historical trend of FirstHop tests for " + connection);				
+		data.add(new Row(graphdata2));
+		
 		return data;
 	}
 

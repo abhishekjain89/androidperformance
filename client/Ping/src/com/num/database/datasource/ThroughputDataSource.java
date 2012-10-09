@@ -59,7 +59,7 @@ public class ThroughputDataSource extends DataSource {
 		addRow(((Throughput)model).getUpLink(), "uplink", currentConnectionType);		
 	}
 	
-	public DatabaseOutput getOutput() {
+	public DatabaseOutput getOutput(String currentConnectionType) {
 		open();
 		List<Map<String,String>> allData = getDataStores();
 		
@@ -67,8 +67,6 @@ public class ThroughputDataSource extends DataSource {
 		int totalDownload = 0;
 		int countUpload = 0;
 		int countDownload = 0;		
-		
-		String currentConnectionType = DeviceUtil.getNetworkInfo(context); 
 		
 		for (Map<String,String> data : allData) {
 			
@@ -102,18 +100,24 @@ public class ThroughputDataSource extends DataSource {
 		output.add("avg_download", ""+totalDownload/countDownload);
 		close();
 		return output;
-		
+	}
+	
+	public DatabaseOutput getOutput() {
+		return getOutput(DeviceUtil.getNetworkInfo(context));
 	}
 	
 	public HashMap<String, ArrayList<GraphPoint>> getGraphData() {
+		return getGraphData(DeviceUtil.getNetworkInfo(context));
+	}
+	
+	public HashMap<String, ArrayList<GraphPoint>> getGraphData(String currentConnectionType) {
 		open();
 		List<Map<String,String>> allData = getDataStores();
 		
 		ArrayList<GraphPoint> downloadPoints = new ArrayList<GraphPoint>();
 		ArrayList<GraphPoint> uploadPoints = new ArrayList<GraphPoint>();
 		
-		for (Map<String,String> data : allData) {
-			String currentConnectionType = DeviceUtil.getNetworkInfo(context);
+		for (Map<String,String> data : allData) {			
 			
 			if(!data.get(ThroughputMapping.COLUMN_CONNECTION).equals(currentConnectionType)) {
 				continue;

@@ -56,18 +56,13 @@ public class GraphViewGenerator extends ViewGenerator{
 		
 		createGraph(context);
 		
-		xy.add(0, 5);
-		xy.add(1, 23);
-		xy.add(2, 53);
-		xy.add(3, 51);
-		
 		updateGraph(context);
 	}
 	
 	private void updateGraph(Context context){
 		
 		
-		renderer.setXAxisMax(data.getPoints().size());
+		renderer.setXAxisMax(data.getPoints().size()-1);
 		renderer.setXAxisMin(0);
 		int count = 0;
 		for(GraphPoint point : data.getPoints()) {

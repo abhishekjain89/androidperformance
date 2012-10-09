@@ -91,7 +91,7 @@ public class Throughput implements MainModel{
 		if(isComplete) {
 			
 			ThroughputDataSource dataSource = new ThroughputDataSource(context);
-			dataSource.open();
+			
 			DatabaseOutput output = dataSource.getOutput();
 			HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
 			if (output.getLong("avg_download")>0) {
@@ -112,7 +112,6 @@ public class Throughput implements MainModel{
 			
 			}
 			
-			dataSource.close();
 		} else {
 			data.add(new Row("In progress ..."));
 		}

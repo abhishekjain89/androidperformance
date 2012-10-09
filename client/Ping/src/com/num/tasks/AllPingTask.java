@@ -109,6 +109,8 @@ public class AllPingTask extends ServerTask{
 		LatencyDataSource dataSource = new LatencyDataSource(getContext());
 		for(Ping p : pings)
 			dataSource.insert(p);
+		//for(LastMile l : lastMiles)
+			//dataSource.insert(l);
 		
 		dataSource.getOutput();
 		

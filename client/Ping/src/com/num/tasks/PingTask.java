@@ -11,7 +11,7 @@ import com.num.models.LastMile;
 import com.num.models.Ping;
 import com.num.models.PingData;
 import com.num.utils.DeviceUtil;
-import com.num.utils.PingDataSource;
+
 
 /*
  * Measurement Task 
