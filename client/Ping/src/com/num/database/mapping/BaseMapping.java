@@ -13,12 +13,11 @@ import android.util.Log;
 public abstract class BaseMapping extends SQLiteOpenHelper {
 
 	public static String DATABASE_NAME="networkusage.db";
-	public static int DATABASE_VERSION = 2;
+	public static int DATABASE_VERSION = 3;
 	public String TABLE_NAME;
 
 	public BaseMapping(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);		
 	}
 	
 	public DatabaseColumns columns;
@@ -42,10 +41,11 @@ public abstract class BaseMapping extends SQLiteOpenHelper {
 	}
 	
 	public String getCreateText() {
-		return columns.getDatabaseCreateText();
+		return getDatabaseColumns().getDatabaseCreateText();
 	}
 	
 	public DatabaseColumns getDatabaseColumns() {
+		setColumnMap();
 		return columns;
 	}
 

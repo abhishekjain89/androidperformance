@@ -18,6 +18,10 @@ import android.util.Log;
 
 public class LatencyMapping extends BaseMapping {
 
+	public LatencyMapping(Context context) {
+		super(context);
+	}
+
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_TIME = "time";
 	public static final String COLUMN_AVG = "avg";
@@ -28,12 +32,6 @@ public class LatencyMapping extends BaseMapping {
 	public static final String COLUMN_DSTIP = "dstip";
 	public static final String COLUMN_CONNECTION = "connection";
 	public static final String COLUMN_TYPE = "type";
-	
-	
-	public LatencyMapping(Context context) {		
-		super(context);		
-		setColumnMap();		
-	}
 	
 	public void setColumnMap() {
 		columns = new DatabaseColumns(getTableName());

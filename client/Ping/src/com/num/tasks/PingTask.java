@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+
+import com.num.database.datasource.LatencyDataSource;
 import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.Address;
@@ -33,21 +35,15 @@ public class PingTask extends ServerTask{
 
 	@Override
 	public void runTask() {
+		LatencyDataSource dataSource = new LatencyDataSource(getContext());
 		if (dst.getType().equals("ping")) {
 			Ping ping = PingHelper.pingHelp(dst, count);
-			this.getResponseListener().onCompletePing(ping);
-
-			String connection = DeviceUtil.getNetworkInfo(getContext());
-			//PingDataSource datasource = new PingDataSource(getContext());
-			//datasource.open();
-			//List<PingData> values = datasource.getAllPingData();
-			//datasource.createPing(ping, connection);
-			//values = datasource.getAllPingData();
-			//datasource.close();
-			
+			dataSource.insert(ping);
+			this.getResponseListener().onCompletePing(ping);			
 		}
 		else if (dst.getType().equals("firsthop")){
 			LastMile lastMile = PingHelper.firstHopHelp(dst, count);
+			dataSource.insert(lastMile);
 			this.getResponseListener().onCompleteLastMile(lastMile);
 		}
 	}
@@ -56,6 +52,4 @@ public class PingTask extends ServerTask{
 	public String toString() {
 		return "Ping Task";
 	}
-	
-
 }

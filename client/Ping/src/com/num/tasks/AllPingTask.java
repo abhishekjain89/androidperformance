@@ -103,18 +103,8 @@ public class AllPingTask extends ServerTask{
 			return;
 
 		}
-		measurement.setPings(pings);
-		measurement.setLastMiles(lastMiles);
-		
-		LatencyDataSource dataSource = new LatencyDataSource(getContext());
-		for(Ping p : pings)
-			dataSource.insert(p);
-		//for(LastMile l : lastMiles)
-			//dataSource.insert(l);
-		
-		dataSource.getOutput();
-		
-		getResponseListener().onCompleteMeasurement(measurement);
+		measurement.isComplete = true;
+		(new MeasurementListener()).onCompleteMeasurement(measurement);
 
 
 	}
@@ -129,7 +119,8 @@ public class AllPingTask extends ServerTask{
 
 		public void onCompletePing(Ping response) {
 			pings.add(response);
-			
+			measurement.isComplete = false;
+			onCompleteMeasurement(new Measurement());
 		}
 
 		public void onComplete(String response) {
@@ -137,6 +128,8 @@ public class AllPingTask extends ServerTask{
 		} 
 
 		public void onCompleteMeasurement(Measurement response) {
+			measurement.setPings(pings);
+			measurement.setLastMiles(lastMiles);
 			getResponseListener().onCompleteMeasurement(response);
 		}
 

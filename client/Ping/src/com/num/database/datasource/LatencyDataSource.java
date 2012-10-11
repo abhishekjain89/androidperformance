@@ -23,6 +23,7 @@ import com.num.database.mapping.ThroughputMapping;
 import com.num.models.GraphData;
 
 import com.num.models.GraphPoint;
+import com.num.models.LastMile;
 import com.num.models.Link;
 import com.num.models.MainModel;
 import com.num.models.Measure;
@@ -39,7 +40,7 @@ public class LatencyDataSource extends DataSource {
 		setDBHelper(new LatencyMapping(context));
 	}
 	
-	public void addRow(Ping p, String connectionType) {
+	private void addRow(Ping p, String connectionType) {
 		ContentValues value = new ContentValues();		
 		Measure m = p.getMeasure();
 	    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -63,10 +64,8 @@ public class LatencyDataSource extends DataSource {
 	}
 	
 	protected void insertModel(Model model) {
-		
-		Ping ping = (Ping) model;
-		String currentConnectionType = DeviceUtil.getNetworkInfo(context);
-		addRow((Ping) model, currentConnectionType);				
+		String currentConnectionType = DeviceUtil.getNetworkInfo(context);		
+		addRow((Ping) model, currentConnectionType);							
 	}
 	
 	

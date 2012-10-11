@@ -25,6 +25,7 @@ public class Measurement implements MainModel{
 	Network network; 
 	Sim sim; 
 	Throughput throughput;
+	public boolean isComplete = false;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
 	boolean isManual = false;
 
@@ -266,8 +267,6 @@ public class Measurement implements MainModel{
 		for(Ping p: pings) pingMax = Math.max((int)p.measure.getAverage(), pingMax);
 		pingMax*=1.2;
 		
-		
-		
 		for(Ping p: pings){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
@@ -282,7 +281,7 @@ public class Measurement implements MainModel{
 				}
 			}
 		}
-		data.add(new Row("FIRST HOP"));
+		/*data.add(new Row("FIRST HOP"));
 		for(LastMile p: lastMiles){
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
@@ -295,20 +294,21 @@ public class Measurement implements MainModel{
 					}
 				}
 			}
+		}*/
+		
+		if(isComplete) {
+			data.add(new Row("GRAPHS"));
+			LatencyDataSource dataSource = new LatencyDataSource(context);
+			String connection = DeviceUtil.getNetworkInfo(context);	
+			HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
+			GraphData graphdata = new GraphData(graphPoints.get("ping"));
+			graphdata.setxAxisTitle("Historical trend of Roundtrip tests for " + connection);				
+			data.add(new Row(graphdata));
+			
+			//GraphData graphdata2 = new GraphData(graphPoints.get("firsthop"));
+			//graphdata2.setxAxisTitle("Historical trend of FirstHop tests for " + connection);				
+			//data.add(new Row(graphdata2));
 		}
-		
-		data.add(new Row("GRAPHS"));
-		LatencyDataSource dataSource = new LatencyDataSource(context);
-		String connection = DeviceUtil.getNetworkInfo(context);	
-		HashMap<String,ArrayList<GraphPoint>> graphPoints = dataSource.getGraphData();
-		GraphData graphdata = new GraphData(graphPoints.get("ping"));
-		graphdata.setxAxisTitle("Historical trend of Roundtrip tests for " + connection);				
-		data.add(new Row(graphdata));
-		
-		GraphData graphdata2 = new GraphData(graphPoints.get("firsthop"));
-		graphdata2.setxAxisTitle("Historical trend of FirstHop tests for " + connection);				
-		data.add(new Row(graphdata2));
-		
 		return data;
 	}
 

@@ -25,8 +25,7 @@ public class ThroughputMapping extends BaseMapping {
 	public static final String COLUMN_CONNECTION = "connection";	
 	
 	public ThroughputMapping(Context context) {		
-		super(context);
-		setColumnMap();		
+		super(context);		
 	}
 	
 	public void setColumnMap() {

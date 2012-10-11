@@ -62,8 +62,7 @@ public class AppUsageHelper {
 			if (recv > 0 || sent > 0)
 			{
 				Application app = new Application();
-				app.setName(AppUsageUtil.getAppLabel(context, uid));
-				
+				app.setName(AppUsageUtil.getAppLabel(context, uid));				
 				app.setPackageName(AppUsageUtil.getAppPkg(context,uid));
 				app.setIcon(AppUsageUtil.getAppIcon(context, uid));
 				app.setTotal_recv(TrafficStats.getUidRxBytes(uid));

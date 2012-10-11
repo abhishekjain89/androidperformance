@@ -55,7 +55,7 @@ public class Application implements Model,Comparable<Application> {
 		this.total_recv = total_recv;
 	}
 	public JSONObject toJSON() {
-
+		
 		JSONObject obj = new JSONObject();
 		try {
 			obj.putOpt("name",name);
