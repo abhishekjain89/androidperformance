@@ -122,13 +122,13 @@ public class LatencyDataSource extends DataSource {
 			
 			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("ping")){
 				try {
-					roundtripPoints.add(new GraphPoint(roundtripPoints.size(), (int)Double.parseDouble(data.get(LatencyMapping.COLUMN_AVG))));
+					roundtripPoints.add(new GraphPoint(roundtripPoints.size(),extractPoint(data)));
 				} catch (Exception e) {
 					continue;
 				}				
 			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("firsthop")){
 				try {
-					firsthopPoints.add(new GraphPoint(firsthopPoints.size(), (int)Double.parseDouble(data.get(LatencyMapping.COLUMN_AVG))));
+					firsthopPoints.add(new GraphPoint(firsthopPoints.size(),extractPoint(data)));
 				} catch (Exception e) {
 					continue;
 				}				
@@ -143,4 +143,10 @@ public class LatencyDataSource extends DataSource {
 		return collection;
 		
 	}
+
+	@Override
+	public int extractPoint(Map<String, String> data) {
+		return  (int)Double.parseDouble(data.get(LatencyMapping.COLUMN_AVG));
+	}
+
 }

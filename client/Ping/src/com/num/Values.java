@@ -9,6 +9,8 @@ import org.json.JSONObject;
 
 import android.app.Application;
 
+import com.num.database.DatabasePicker;
+import com.num.database.datasource.DataSource;
 import com.num.database.datasource.ThroughputDataSource;
 import com.num.models.Address;
 import com.num.models.Buffer;
@@ -39,6 +41,10 @@ public class Values extends Application{
 	public  int NORMAL_SLEEP_TIME = 1000;
 	public  int SHORT_SLEEP_TIME = 100;
 	public  int ONE_MINUTE_TIME = 60 * 1000;
+	
+	public DatabasePicker picker;
+	
+	
 
 	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
 
@@ -66,6 +72,15 @@ public class Values extends Application{
 	public void savePreferences(){
 
 		//PreferencesUtil.setDataInt("throughput", throughput,this);
+	}
+	
+	public DatabasePicker createPicker(DataSource dataSource) {
+		picker = new DatabasePicker(dataSource);
+		return picker;
+	}
+	
+	public DatabasePicker getPicker() {
+		return picker;
 	}
 
 	public Values(){

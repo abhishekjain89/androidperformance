@@ -125,13 +125,13 @@ public class ThroughputDataSource extends DataSource {
 			
 			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("uplink")){
 				try {
-					uploadPoints.add(new GraphPoint(uploadPoints.size(), (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED))));
+					uploadPoints.add(new GraphPoint(uploadPoints.size(),extractPoint(data)));
 				} catch (Exception e) {
 					continue;
 				}				
 			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("downlink")){
 				try {
-					downloadPoints.add(new GraphPoint(downloadPoints.size(), (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED))));
+					downloadPoints.add(new GraphPoint(downloadPoints.size(),extractPoint(data)));
 				} catch (Exception e) {
 					continue;
 				}				
@@ -145,6 +145,11 @@ public class ThroughputDataSource extends DataSource {
 		close();
 		return collection;
 		
+	}
+
+	@Override
+	public int extractPoint(Map<String, String> data) {
+		return (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED));
 	}
 
 }

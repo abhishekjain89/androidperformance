@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="35dp"
+    android:orientation="horizontal"
+    android:padding="2px"
+    android:weightSum="10" >
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="140dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
+		android:gravity="center_vertical"
+        android:ellipsize="end"
+
+        android:padding="0px"
+        android:text="Key"
+        android:textColor="@color/text_primary"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="140dp"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="6"
+        android:paddingLeft="20dp"
+        android:scrollHorizontally="false"
+        android:text="Value"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/dark_gray"
+        android:textSize="16dp" >
+    </TextView>
+
+</LinearLayout>

@@ -43,6 +43,10 @@ public class Measure implements Model{
 	public double getAverage() {
 		return average;
 	}
+	
+	public String showText() {
+		return (int)getAverage()+" ms";
+	}
 	public void setAverage(int average) {
 		this.average = average;
 	}

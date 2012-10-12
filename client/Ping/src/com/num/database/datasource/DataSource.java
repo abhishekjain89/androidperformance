@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -16,6 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.num.database.DatabaseOutput;
 import com.num.database.mapping.BaseMapping;
+import com.num.database.mapping.LatencyMapping;
 import com.num.database.mapping.ThroughputMapping;
 import com.num.models.GraphData;
 
@@ -89,6 +91,46 @@ public abstract class DataSource {
 		insertModel(model);
 		close();
 	}
+
+	public ArrayList<GraphPoint> getGraphData(HashMap<String, String> filter) {
+		open();
+		List<Map<String,String>> allData = getDataStores();
+		ArrayList<GraphPoint> points = new ArrayList<GraphPoint>();
+		
+		ArrayList<String> fields = new ArrayList<String>();
+		
+		Iterator<String> iter = filter.keySet().iterator();		
+		while(iter.hasNext()) {			
+			fields.add(iter.next());
+		}
+		
+		
+		for (Map<String,String> data : allData) {
+			
+			boolean approved = true;
+				
+			for(String field : fields) {
+				if(filter.get(field).equals("")) continue;
+				
+				String value = filter.get(field);
+				
+				if(!data.get(field).equals(value)){
+					approved=false;
+					break;
+				}
+								
+			}
+			
+			if(approved) {
+				points.add(new GraphPoint(data.size(),extractPoint(data)));
+			}
+		}
+				
+		return points;
+		
+	}
+	
+	public abstract int extractPoint(Map<String,String> data);
 	
 	
 }

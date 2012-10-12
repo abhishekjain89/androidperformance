@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.num.database.DatabaseOutput;
 import com.num.database.datasource.LatencyDataSource;
 import com.num.database.datasource.ThroughputDataSource;
+import com.num.graph.PingGraph;
 import com.num.utils.DeviceUtil;
 import com.num.utils.SHA1Util;
 import com.num.R;
@@ -263,7 +264,7 @@ public class Measurement implements MainModel{
 		ArrayList<Row> data = new ArrayList<Row>();
 		data.add(new Row("ROUND TRIP"));
 		
-		int pingMax = 0;		
+		int pingMax = 1;		
 		for(Ping p: pings) pingMax = Math.max((int)p.measure.getAverage(), pingMax);
 		pingMax*=1.2;
 		
@@ -271,10 +272,9 @@ public class Measurement implements MainModel{
 			ArrayList<String> str = new ArrayList<String>();
 			if (p != null) {
 				if (p.measure != null) {
-					if(p.getDst().getTagname().equals("localhost")) continue;
-					
+					if(p.getDst().getTagname().equals("localhost")) continue;					
 					try {						
-						data.add(new Row(p.getDst().getTagname(),(int)p.measure.getAverage()*100/pingMax,((int)p.measure.getAverage()) +" ms"));
+						data.add(new Row(new PingGraph(p, pingMax)));						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

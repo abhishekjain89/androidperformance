@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
+import com.num.graph.PingGraph;
 import com.num.ui.viewgenerator.DumbGenerator;
 import com.num.ui.viewgenerator.GraphViewGenerator;
 import com.num.ui.viewgenerator.IconKeyProgressViewGenerator;
@@ -12,6 +13,7 @@ import com.num.ui.viewgenerator.KeyFourValueViewGenerator;
 import com.num.ui.viewgenerator.KeyIconProgressViewGenerator;
 import com.num.ui.viewgenerator.KeyProgressViewGenerator;
 import com.num.ui.viewgenerator.KeyValueViewGenerator;
+import com.num.ui.viewgenerator.LatencyViewGenerator;
 import com.num.ui.viewgenerator.MapViewGenerator;
 import com.num.ui.viewgenerator.TitleViewGenerator;
 import com.num.ui.viewgenerator.ViewGenerator;
@@ -45,6 +47,10 @@ public class Row {
 	
 	public Row(GraphData data) {
 		viewgen = new GraphViewGenerator(data);
+	}
+	
+	public Row(PingGraph pingGraph) {
+		viewgen = new LatencyViewGenerator(pingGraph);
 	}
 
 

@@ -101,34 +101,20 @@ public class ApplicationDataSource extends DataSource {
 	
 	public DatabaseOutput getOutput() {
 		open();
-		List<Map<String,String>> allData = getDataStores();
-		
-		int totalUpload = 0;
-		int totalDownload = 0;
-		int countUpload = 0;
-		int countDownload = 0;		
-		
-		String currentConnectionType = DeviceUtil.getNetworkInfo(context); 
-		
-		for (Map<String,String> data : allData) {
-			
-		}
-		
-		if(countDownload==0) countDownload++;
-		if(countUpload==0) countUpload++;
-		
-		DatabaseOutput output = new DatabaseOutput();
-				
-		output.add("avg_upload", ""+totalUpload/countUpload);
-		output.add("avg_download", ""+totalDownload/countDownload);
 		close();
-		return output;
+		return null;
 		
 	}
 	
 	public HashMap<String, ArrayList<GraphPoint>> getGraphData() {
 		//return getGraphData(DeviceUtil.getNetworkInfo(context), "Atlanta, GA");
 		return  null;
+	}
+
+	@Override
+	public int extractPoint(Map<String, String> data) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

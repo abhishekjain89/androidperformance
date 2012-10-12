@@ -1,10 +1,13 @@
 package com.num.ui.viewgenerator;
 
+import com.num.activities.FullDisplayActivity;
+import com.num.activities.GraphActivity;
 import com.num.models.Model;
 import com.num.models.Row;
 import com.num.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,7 +38,7 @@ public class IconKeyProgressViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item,Context context,View view) {
+	public void populateView(Row item,final Context context,View view) {
 		holder.first.setText(item.key);
 		holder.progress.setProgress(item.valueOne);
 		holder.second.setText("Sent: " + item.first);
@@ -46,7 +49,8 @@ public class IconKeyProgressViewGenerator extends ViewGenerator{
 		holder.linear.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				
+				Intent myIntent = new Intent(context, GraphActivity.class);				
+                context.startActivity(myIntent);
 				
 			}
 		});

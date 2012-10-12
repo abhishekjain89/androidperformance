@@ -59,6 +59,13 @@
             android:name=".activities.PrivacyActivity"
             android:screenOrientation="nosensor" >
         </activity>
+        
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:name=".activities.GraphActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
         <activity
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
