@@ -52,7 +52,7 @@ public class GraphViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item,Context context) {
+	public void populateView(Row item,Context context,View view) {
 		
 		createGraph(context);
 		
@@ -63,7 +63,7 @@ public class GraphViewGenerator extends ViewGenerator{
 		
 		
 		renderer.setXAxisMax(data.getPoints().size()-1);
-		renderer.setXAxisMin(0);
+		
 		int count = 0;
 		for(GraphPoint point : data.getPoints()) {
 			xy.add(count++, point.y);
@@ -79,10 +79,11 @@ public class GraphViewGenerator extends ViewGenerator{
 		renderer = new XYMultipleSeriesRenderer();
 		xy = new XYSeries("");
 		
-		renderer.setMargins(new int[] {30, 40, -30, 0});    
+		renderer.setMargins(new int[] {0, 20, -30, 0});    
 		
 		renderer.setYAxisMax(data.getyMax()*1.2);
-		renderer.setXAxisMin(0.0);		
+		renderer.setXAxisMin(0.0);
+		renderer.setYAxisMin(0.0);
 		renderer.setApplyBackgroundColor(true);
 		renderer.setBackgroundColor(context.getResources().getColor(R.color.black));
 		renderer.setMarginsColor(context.getResources().getColor(R.color.black));

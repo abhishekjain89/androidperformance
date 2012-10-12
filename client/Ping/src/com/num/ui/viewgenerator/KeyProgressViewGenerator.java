@@ -29,14 +29,9 @@ public class KeyProgressViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item,Context context) {
-		holder.first.setText(item.first);
-		
-		holder.progress.setProgress(item.value);
-		
-		//System.out.println(holder.progress.getLayoutParams().width);
-		//holder.progress.getLayoutParams().width = 140;
-		//holder.progress.getLayoutParams().width = (int) ((float)(140) * ((float)item.value/(float)100));
+	public void populateView(Row item,Context context,View view) {
+		holder.first.setText(item.first);		
+		holder.progress.setProgress(item.value);		
 		holder.second.setText(item.second);
 	}
 	

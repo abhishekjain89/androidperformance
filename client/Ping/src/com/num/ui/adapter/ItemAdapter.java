@@ -41,64 +41,35 @@ public class ItemAdapter  extends ArrayAdapter<Row>{
 	public ArrayList<Row> items;
 	private Activity activity;
 	private LayoutInflater inflater=null;
-	
+
 
 	public ItemAdapter(Activity activity,ArrayList<Row> items) {
 		super(activity.getApplicationContext(), 0);
 
 		this.items = items;
 		this.activity = activity;
-		
+
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
+
 	}
-	
+
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-		
-		
+		View v = convertView;				
 		final Row item =items.get(position);
-		
-		if (v == null) {
-			
-			v=item.getViewGenerator().generateViewHolder(inflater);
-			
+
+		if (v == null) {			
+			v=item.getViewGenerator().generateViewHolder(inflater);			
 		}
-		else
-		{			
-			//
+		try{
+			item.getViewGenerator().populateView(item,activity,v);
+		} catch(Exception e) {
+			e.printStackTrace();
+
 		}
 
 
-		if (item!=null) {	
-			try{
-				item.getViewGenerator().populateView(item,activity);
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-
-			}
-		}
-		
 		return v;
 	}
-
-	class imageViewClickListener implements OnClickListener {
-		Row item;
-		
-		public imageViewClickListener( Row item)
-		{
-			this.item = item;
-			
-		}
-
-		public void onClick(View v)
-		{
-
-		}
-
-	}
-
 
 }
 

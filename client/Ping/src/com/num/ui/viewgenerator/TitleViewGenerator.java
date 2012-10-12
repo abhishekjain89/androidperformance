@@ -25,7 +25,7 @@ public class TitleViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item,Context context) {
+	public void populateView(Row item,Context context,View view) {
 		holder.first.setText(item.first);
 		
 		

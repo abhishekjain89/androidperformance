@@ -33,7 +33,7 @@ public abstract class ServerTask implements Runnable{
 			this.runTask();
 		}
 		catch(Exception e){
-
+			e.printStackTrace();
 		}
 
 		long endTime = System.currentTimeMillis();

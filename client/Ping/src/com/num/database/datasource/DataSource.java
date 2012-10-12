@@ -44,6 +44,11 @@ public abstract class DataSource {
 	public void close() {
 		dbHelper.close();
 	}
+	
+	public String getTime() {
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    return sdf.format(new Date());	
+	}
 
 	public abstract HashMap<String, ArrayList<GraphPoint>> getGraphData();
 	
@@ -62,10 +67,10 @@ public abstract class DataSource {
 	
 	public List<Map<String,String>> getDataStores() {
 		List<Map<String,String>> dataStores = new ArrayList<Map<String,String>>();
-
+		System.out.println("querying db");
 		Cursor cursor = database.query(dbHelper.getTableName(),
 				getColumns(), null, null, null, null, null);
-
+		System.out.println("querying db DONE");
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Map<String,String> dataStore = 

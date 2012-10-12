@@ -37,7 +37,7 @@ public abstract class ViewGenerator {
 	}
 	public abstract ViewHolder fillViewHolder(View view,LayoutInflater inflater);
 	
-	public abstract void populateView(Row item, Context context);
+	public abstract void populateView(Row item, Context context, View view);
 	
 	
 

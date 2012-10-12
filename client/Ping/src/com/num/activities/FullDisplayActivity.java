@@ -171,6 +171,7 @@ public class FullDisplayActivity extends Activity {
 
 		}
 		public void onCompleteUsage(Usage response) {
+			System.out.println("usage completed");
 			onCompleteOutput(response);
 
 		}

@@ -8,10 +8,13 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.num.database.datasource.ApplicationDataSource;
+import com.num.database.datasource.LatencyDataSource;
 import com.num.helpers.AppUsageHelper;
 import com.num.helpers.DeviceHelper;
 import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
+import com.num.models.Application;
 import com.num.models.Measurement;
 import com.num.models.Ping;
 import com.num.models.Usage;
@@ -43,8 +46,11 @@ public class UsageTask extends ServerTask{
 		
 		Usage usage = AppUsageHelper.getUsageData(getContext());
 		
-		
-		
+		ApplicationDataSource dataSource = new ApplicationDataSource(getContext());		
+		dataSource.insert(usage);
+		dataSource.open();
+		dataSource.getDataStores();
+		dataSource.close();
 		getResponseListener().onCompleteUsage(usage);
 		
 	}

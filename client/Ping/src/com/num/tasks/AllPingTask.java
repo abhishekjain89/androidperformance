@@ -46,21 +46,21 @@ import com.num.utils.SignalUtil.SignalResult;
  * 
  */
 public class AllPingTask extends ServerTask{
-	
-	ThreadPoolHelper serverhelper;
-
 	Measurement measurement; 
+	ThreadPoolHelper serverhelperPing;
+	ThreadPoolHelper serverhelperLastMile;
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
 	
 	public AllPingTask(Context context, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
+
 	}
 	
 	public void killAll(){
 		try{
-		serverhelper.shutdown();
+		serverhelperPing.shutdown();
+		serverhelperLastMile.shutdown();
 		}
 		catch(Exception e){
 			
@@ -70,16 +70,21 @@ public class AllPingTask extends ServerTask{
 	public void runTask() {
 
 		measurement = new Measurement();
-		// TODO Run ping task with list of things such as ip address and number of pings	
-		//android.os.Debug.startMethodTracing("lsd");
+		measurement.setPings(pings);
+		measurement.setLastMiles(lastMiles);
+		measurement.isComplete = false;
+		
 		Values session = this.getValues();
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelperPing = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelperLastMile = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
 		ArrayList<Address> dsts = session.getPingServers();
 
 		for(Address dst : dsts)
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
-		
+			if(dst.getType().equals("ping"))
+				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
+			else
+				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
@@ -87,7 +92,7 @@ public class AllPingTask extends ServerTask{
 			return;
 		}
 		
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
+		while(serverhelperPing.getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(session.NORMAL_SLEEP_TIME);
 			} catch (InterruptedException e) {
@@ -118,9 +123,8 @@ public class AllPingTask extends ServerTask{
 	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			pings.add(response);
-			measurement.isComplete = false;
-			onCompleteMeasurement(new Measurement());
+			pings.add(response);			
+			onCompleteMeasurement(measurement);
 		}
 
 		public void onComplete(String response) {
@@ -128,8 +132,6 @@ public class AllPingTask extends ServerTask{
 		} 
 
 		public void onCompleteMeasurement(Measurement response) {
-			measurement.setPings(pings);
-			measurement.setLastMiles(lastMiles);
 			getResponseListener().onCompleteMeasurement(response);
 		}
 

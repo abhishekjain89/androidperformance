@@ -32,7 +32,7 @@ public class KeyIconProgressViewGenerator extends ViewGenerator{
 		return holder;
 	}
 	@Override
-	public void populateView(Row item,Context context) {
+	public void populateView(Row item,Context context,View view) {
 		holder.first.setText(item.first);
 		holder.progress.setProgress(item.value);
 		holder.second.setText(item.second);
