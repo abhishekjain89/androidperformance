@@ -41,6 +41,25 @@ public class Usage implements MainModel{
 	public void setMobile_recv(long mobile_recv) {
 		this.mobile_recv = mobile_recv;
 	}
+	
+
+	public long getMobile() {
+		return getMobile_recv() + getMobile_sent();
+	}
+	
+
+	public long getWifi() {
+		return getTotal() - getMobile();
+	}
+	
+	public long getWifi_sent() {
+		return getTotal_sent() - getMobile_sent();
+	}
+	
+	public long getWifi_recv() {
+		return getTotal_recv() - getMobile_recv();
+	}
+	
 	public Usage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,6 +86,12 @@ public class Usage implements MainModel{
 	}
 	public void setTotal_recv(long total_recv) {
 		this.total_recv = total_recv;
+	}
+	
+	
+
+	public long getTotal() {
+		return getTotal_recv() + getTotal_sent();
 	}
 
 	public JSONObject toJSON(){
@@ -119,8 +144,8 @@ public class Usage implements MainModel{
 
 
 		ArrayList<Row> data = new ArrayList<Row>();
-		data.add(new Row("Total Apps",""+applications.size()));
-		data.add(new Row("TRAFFIC (since last restart)"));
+		
+		
 		try {
 			Collections.sort(applications);
 		} catch (Exception e) {
@@ -132,8 +157,7 @@ public class Usage implements MainModel{
 			if(app.getTotal_recv() + app.getTotal_sent() < 1000000) continue;
 
 			try {
-				data.add(new Row(app.getAppIcon(),app.getName(),getOutput(app.getTotal_sent()),getValue(app.getTotal_sent()),getOutput(app.getTotal_recv()),getValue(app.getTotal_recv())));
-
+				data.add(new Row(app));
 			} catch (Exception e) {
 				System.out.print(e.getLocalizedMessage());
 			}
@@ -142,18 +166,7 @@ public class Usage implements MainModel{
 		return data;
 	}
 
-	public String getOutput(long val){
-		int total = (int) (val/1024/1024);
-		if(total>1)
-			return (int)Math.max(total,5) + " MB";
-		else
-			return "< 1 MB";
-	}
 	
-	public int getValue(long val){
-		int total = (int) (val/1024/1024);
-		return (int)Math.min(Math.max(total,5), 100);
-	}
 
 	public int getIcon() {
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:padding="2px" >
+
+        <TextView
+            android:id="@+id/key"
+            android:layout_width="125dp"
+            android:layout_height="fill_parent"
+            android:gravity="bottom|left"
+            android:text="Key number"
+            android:textColor="@color/text_primary"
+            android:textSize="22dp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/choose"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/key"
+            android:background="#55333333" >
+        </Spinner>
+
+        
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cell_layout"
+            android:paddingLeft="10dp"
+            android:src="@drawable/edit" />
+        
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/edit"
+            android:layout_toRightOf="@id/key"
+            android:gravity="bottom|right"
+            android:text="Value"
+            
+            
+            android:textColor="@color/mid_blue"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

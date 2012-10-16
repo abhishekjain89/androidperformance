@@ -16,5 +16,6 @@ public class ViewHolder{
 		public TextView fourth;
 		public TextView fifth;
 		public LinearLayout linear;
-		public MapView map;		
+		public MapView map;
+		public Spinner spinner;	
 	}

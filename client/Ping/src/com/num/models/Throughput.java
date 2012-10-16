@@ -12,6 +12,7 @@ import com.num.R;
 import com.num.Values;
 import com.num.database.DatabaseOutput;
 import com.num.database.datasource.ThroughputDataSource;
+import com.num.graph.LinkGraph;
 import com.num.utils.DeviceUtil;
 
 public class Throughput implements MainModel{
@@ -79,13 +80,13 @@ public class Throughput implements MainModel{
 		} else {
 			upL = (int)upLink.speedInBits();
 		}
-
+		
 		if (upL>0) {
-			data.add(new Row("Upload",(int)upLink.getTime()/(Values.UPLINK_DURATION/100),upL+ " Kbps"));
+			data.add(new Row(new LinkGraph(upLink, Values.UPLINK_DURATION, "Upload", "uplink")));
 		}
 
 		if (downL>0) {
-			data.add(new Row("Download",(int)downLink.getTime()/(Values.DOWNLINK_DURATION/100),downL + " Kbps"));
+			data.add(new Row(new LinkGraph(downLink, Values.DOWNLINK_DURATION, "Download", "downlink")));
 		}
 
 		if(isComplete) {

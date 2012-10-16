@@ -294,8 +294,7 @@ public class Measurement implements MainModel{
 					}
 				}
 			}
-		}*/
-		
+		}
 		if(isComplete) {
 			data.add(new Row("GRAPHS"));
 			LatencyDataSource dataSource = new LatencyDataSource(context);
@@ -308,7 +307,7 @@ public class Measurement implements MainModel{
 			//GraphData graphdata2 = new GraphData(graphPoints.get("firsthop"));
 			//graphdata2.setxAxisTitle("Historical trend of FirstHop tests for " + connection);				
 			//data.add(new Row(graphdata2));
-		}
+		}*/
 		return data;
 	}
 

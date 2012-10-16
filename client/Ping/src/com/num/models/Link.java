@@ -23,6 +23,10 @@ public class Link implements Model{
 	public String getDescription() {
 		return DESCRIPTION;
 	}
+	
+	public String showData() {
+		return (int)speedInBits()+" kbps";
+	}
 
 	public String getDstIp() {
 		return dstIp;

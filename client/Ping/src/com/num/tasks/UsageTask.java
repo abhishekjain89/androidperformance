@@ -48,9 +48,6 @@ public class UsageTask extends ServerTask{
 		
 		ApplicationDataSource dataSource = new ApplicationDataSource(getContext());		
 		dataSource.insert(usage);
-		dataSource.open();
-		dataSource.getDataStores();
-		dataSource.close();
 		getResponseListener().onCompleteUsage(usage);
 		
 	}

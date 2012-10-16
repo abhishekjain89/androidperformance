@@ -6,8 +6,6 @@ public class GraphData {
 	
 	List<GraphPoint> points;
 	
-	int yMax;
-	
 	String xAxisTitle="";
 	String xAxisUnits="";
 	
@@ -15,17 +13,17 @@ public class GraphData {
 	String yAxisUnits="";
 	
 	public int getyMax() {
+		int yMax = 0;
+		
+		for(GraphPoint point : points) {
+			yMax = Math.max(yMax, point.y);
+		}
+		
 		return yMax;
 	}
 
 	public GraphData(List<GraphPoint> points){
 		this.points = points;
-		
-		yMax = 0;
-		
-		for(GraphPoint point : points) {
-			yMax = Math.max(yMax, point.y);
-		}
 		
 	}
 	

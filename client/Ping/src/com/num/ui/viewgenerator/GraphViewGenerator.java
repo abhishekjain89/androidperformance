@@ -1,4 +1,5 @@
 package com.num.ui.viewgenerator;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -24,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class GraphViewGenerator extends ViewGenerator{
+public class GraphViewGenerator extends ViewGenerator {
 
 	ViewHolder holder;
 	private XYMultipleSeriesDataset dataset;
@@ -33,10 +34,9 @@ public class GraphViewGenerator extends ViewGenerator{
 	private XYSeriesRenderer mCurrentRenderer;
 	private GraphicalView mChartView;
 	private int index = 0;
-	private XYSeries xy; 
-	
-	private GraphData data;
+	private XYSeries xy;
 
+	private GraphData data;
 
 	public GraphViewGenerator(GraphData data) {
 		super(R.layout.cell_view_graph);
@@ -46,53 +46,53 @@ public class GraphViewGenerator extends ViewGenerator{
 
 	@Override
 	public ViewHolder fillViewHolder(View view, LayoutInflater inflater) {
-				
+
 		holder.linear = (LinearLayout) view.findViewById(R.id.chart);
-		
+
 		return holder;
 	}
+
 	@Override
-	public void populateView(Row item,Context context,View view) {
-		
+	public void populateView(Row item, Context context, View view) {
+
 		createGraph(context);
-		
+
 		updateGraph(context);
 	}
-	
-	private void updateGraph(Context context){
-		
-		
-		renderer.setXAxisMax(data.getPoints().size()-1);
-		
+
+	private void updateGraph(Context context) {
+
+		renderer.setXAxisMax(data.getPoints().size() - 1);
+
 		int count = 0;
-		for(GraphPoint point : data.getPoints()) {
+		for (GraphPoint point : data.getPoints()) {
 			xy.add(count++, point.y);
 		}
-		
+
 		mChartView.repaint();
-		
+
 	}
-	
-	private void createGraph(Context context){
-		
-		
+
+	private void createGraph(Context context) {
+
 		renderer = new XYMultipleSeriesRenderer();
 		xy = new XYSeries("");
-		
-		renderer.setMargins(new int[] {0, 20, -30, 0});    
-		
-		renderer.setYAxisMax(data.getyMax()*1.2);
+
+		renderer.setMargins(new int[] { 0, 20, -30, 0 });
+
+		renderer.setYAxisMax(data.getyMax() * 1.2);
 		renderer.setXAxisMin(0.0);
 		renderer.setYAxisMin(0.0);
 		renderer.setApplyBackgroundColor(true);
-		renderer.setBackgroundColor(context.getResources().getColor(R.color.black));
+		renderer.setBackgroundColor(context.getResources().getColor(
+				R.color.black));
 		renderer.setMarginsColor(context.getResources().getColor(R.color.black));
-		renderer.setGridColor(context.getResources().getColor(R.color.dark_blue));
-		
+		renderer.setGridColor(context.getResources()
+				.getColor(R.color.dark_blue));
+
 		renderer.setLabelsTextSize(14);
-		
-				
-		renderer.setPointSize(0);		
+
+		renderer.setPointSize(0);
 		dataset = new XYMultipleSeriesDataset();
 		dataset.addSeries(xy);
 		mCurrentSeries = xy;
@@ -100,31 +100,36 @@ public class GraphViewGenerator extends ViewGenerator{
 		renderer.addSeriesRenderer(seriesrenderer);
 		seriesrenderer.setPointStyle(PointStyle.CIRCLE);
 		seriesrenderer.setFillPoints(true);
-		seriesrenderer.setChartValuesSpacing(2); 
+		seriesrenderer.setChartValuesSpacing(2);
 		seriesrenderer.setFillBelowLine(true);
-		seriesrenderer.setColor(context.getResources().getColor(R.color.light_blue));
-		seriesrenderer.setFillBelowLineColor(context.getResources().getColor(R.color.mid_blue));
+		seriesrenderer.setColor(context.getResources().getColor(
+				R.color.light_blue));
+		seriesrenderer.setFillBelowLineColor(context.getResources().getColor(
+				R.color.mid_blue));
 		seriesrenderer.setLineWidth(2);
-		
-		//mChartView = ChartFactory.getBarChartView(context, dataset, renderer, org.achartengine.chart.BarChart.Type.DEFAULT);
-		//mChartView = ChartFactory.getLineChartView(context, dataset, renderer);
-		mChartView = ChartFactory.getCubeLineChartView(context, dataset, renderer, 0);
-				
-		renderer.setAxesColor(context.getResources().getColor(R.color.dark_blue));		
-		renderer.setPanEnabled(false,false);
+
+		// mChartView = ChartFactory.getBarChartView(context, dataset, renderer,
+		// org.achartengine.chart.BarChart.Type.DEFAULT);
+		// mChartView = ChartFactory.getLineChartView(context, dataset,
+		// renderer);
+		mChartView = ChartFactory.getCubeLineChartView(context, dataset,
+				renderer, 0);
+
+		renderer.setAxesColor(context.getResources()
+				.getColor(R.color.dark_blue));
+		renderer.setPanEnabled(false, false);
 		renderer.setZoomEnabled(false, false);
 		renderer.setChartTitle(data.getxAxisTitle());
 		renderer.setChartTitleTextSize(20);
 		renderer.setTextTypeface("Bold", Typeface.NORMAL);
-//		renderer.setChartValuesTextSize(//arg0)
+		// renderer.setChartValuesTextSize(//arg0)
 		renderer.setClickEnabled(false);
 		renderer.setShowGridX(true);
 		renderer.setInScroll(true);
 		renderer.setSelectableBuffer(100);
-		holder.linear.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-				250));
-		
+		holder.linear.addView(mChartView, new LayoutParams(
+				LayoutParams.FILL_PARENT, 250));
+
 	}
-	
 
 }

@@ -2,10 +2,13 @@ package com.num.activities;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.chart.TimeChart;
+import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
@@ -68,12 +71,14 @@ public class GraphActivity extends Activity
 	LinearLayout chart;
 	private XYMultipleSeriesDataset dataset;
 	private XYMultipleSeriesRenderer renderer;
-	private XYSeries mCurrentSeries;
+	
 	private XYSeriesRenderer mCurrentRenderer;
 	private GraphicalView mChartView;
 	private int index = 0;
 	private GraphData data;
-	private XYSeries xy; 
+	 
+	private TimeSeries timeseries;
+	private ListView listview;
 
 
 	@Override
@@ -84,84 +89,117 @@ public class GraphActivity extends Activity
 
 		values = (Values) this.getApplicationContext();
 		picker = values.getPicker();
+		picker.setGraphUpdateHandler(updateGraphHandler);
 
 		TextView title = (TextView) this.findViewById(R.id.title);
 		chart =  (LinearLayout) this.findViewById(R.id.chart);
+		listview = (ListView) findViewById(R.id.listview);
 
 		title.setText(picker.getTitle());
-
-		data = picker.getGraphData();
 		
-		createGraph(this);
-		updateGraph(this);
+		createGraph();
+		updateGraph();
+	
+		populatePicker();
 
 
 	}
+	
+	public Handler updateGraphHandler = new Handler(){
+		
+		public void  handleMessage(Message msg) {
+			updateGraph();
+			
+		}
+		
+		
+	};
+	
+	private void populatePicker() {
+		
+		ArrayList<Row> cells = picker.getRows();
+		
+		if(cells.size()!=0){
+			ItemAdapter itemadapter = new ItemAdapter(this,cells);
+			for(Row cell: cells)
+				itemadapter.add(cell);
+			listview.setAdapter(itemadapter);
 
-	private void updateGraph(Context context){
 
+			itemadapter.notifyDataSetChanged();
+			UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
+		}
 
-		renderer.setXAxisMax(data.getPoints().size()-1);
+	}
 
+	private void updateGraph(){
+		data = picker.getGraphDataWithoutOutliers();
+				
+		//renderer.setXAxisMax(data.getPoints().size()-1);
+		renderer.setYAxisMax(data.getyMax()*1.2);
+		renderer.setChartTitle(data.getxAxisTitle());
+		timeseries.clear();
 		int count = 0;
 		for(GraphPoint point : data.getPoints()) {
-			xy.add(count++, point.y);
+			timeseries.add(point.datetime, point.y);
 		}
 
 		mChartView.repaint();
 
 	}
 
-	private void createGraph(Context context){
+	private void createGraph(){
 
 
 		renderer = new XYMultipleSeriesRenderer();
-		xy = new XYSeries("");
+		timeseries = new TimeSeries("");
 
 		renderer.setMargins(new int[] {0, 20, -30, 0});    
-
-		renderer.setYAxisMax(data.getyMax()*1.2);
-		renderer.setXAxisMin(0.0);
+		
+		renderer.setYAxisMax(0);
+		
 		renderer.setYAxisMin(0.0);
 		renderer.setApplyBackgroundColor(true);
-		renderer.setBackgroundColor(context.getResources().getColor(R.color.black));
-		renderer.setMarginsColor(context.getResources().getColor(R.color.black));
-		renderer.setGridColor(context.getResources().getColor(R.color.dark_blue));
+		renderer.setBackgroundColor(getResources().getColor(R.color.black));
+		renderer.setMarginsColor(getResources().getColor(R.color.black));
+		renderer.setGridColor(getResources().getColor(R.color.dark_blue));
 
 		renderer.setLabelsTextSize(14);
 
 
 		renderer.setPointSize(0);		
 		dataset = new XYMultipleSeriesDataset();
-		dataset.addSeries(xy);
-		mCurrentSeries = xy;
+		dataset.addSeries(timeseries);
+		
 		XYSeriesRenderer seriesrenderer = new XYSeriesRenderer();
 		renderer.addSeriesRenderer(seriesrenderer);
 		seriesrenderer.setPointStyle(PointStyle.CIRCLE);
 		seriesrenderer.setFillPoints(true);
 		seriesrenderer.setChartValuesSpacing(2); 
 		seriesrenderer.setFillBelowLine(true);
-		seriesrenderer.setColor(context.getResources().getColor(R.color.light_blue));
-		seriesrenderer.setFillBelowLineColor(context.getResources().getColor(R.color.mid_blue));
+		seriesrenderer.setColor(getResources().getColor(R.color.light_blue));
+		seriesrenderer.setFillBelowLineColor(getResources().getColor(R.color.mid_blue));
 		seriesrenderer.setLineWidth(2);
-		mChartView = ChartFactory.getCubeLineChartView(context, dataset, renderer, 0);
+		//mChartView = ChartFactory.getCubeLineChartView(context, dataset, renderer, 0);
+		 mChartView = ChartFactory.getTimeChartView(this, dataset, renderer,"MM/dd HH:00");
 
-		renderer.setAxesColor(context.getResources().getColor(R.color.dark_blue));		
+		renderer.setAxesColor(getResources().getColor(R.color.dark_blue));		
 		renderer.setPanEnabled(false,false);
 		renderer.setZoomEnabled(false, false);
-		renderer.setChartTitle(data.getxAxisTitle());
+		
 		renderer.setChartTitleTextSize(20);
 		renderer.setTextTypeface("Bold", Typeface.NORMAL);
-		//		renderer.setChartValuesTextSize(//arg0)
+
 		renderer.setClickEnabled(false);
 		renderer.setShowGridX(true);
 		renderer.setInScroll(true);
 		renderer.setSelectableBuffer(100);
+		chart.removeAllViews();
 		chart.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
 				250));
+		mChartView.repaint();
 
 	}
-
-
+	
 
 }

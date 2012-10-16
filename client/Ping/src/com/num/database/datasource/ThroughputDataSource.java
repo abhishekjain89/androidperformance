@@ -1,5 +1,6 @@
 package com.num.database.datasource;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class ThroughputDataSource extends DataSource {
 	}
 	
 	public DatabaseOutput getOutput(String currentConnectionType) {
-		open();
+		
 		List<Map<String,String>> allData = getDataStores();
 		
 		int totalUpload = 0;
@@ -98,7 +99,7 @@ public class ThroughputDataSource extends DataSource {
 				
 		output.add("avg_upload", ""+totalUpload/countUpload);
 		output.add("avg_download", ""+totalDownload/countDownload);
-		close();
+
 		return output;
 	}
 	
@@ -111,7 +112,7 @@ public class ThroughputDataSource extends DataSource {
 	}
 	
 	public HashMap<String, ArrayList<GraphPoint>> getGraphData(String currentConnectionType) {
-		open();
+
 		List<Map<String,String>> allData = getDataStores();
 		
 		ArrayList<GraphPoint> downloadPoints = new ArrayList<GraphPoint>();
@@ -125,13 +126,13 @@ public class ThroughputDataSource extends DataSource {
 			
 			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("uplink")){
 				try {
-					uploadPoints.add(new GraphPoint(uploadPoints.size(),extractPoint(data)));
+					uploadPoints.add(new GraphPoint(uploadPoints.size(),extractValue(data),extractTime(data)));
 				} catch (Exception e) {
 					continue;
 				}				
 			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("downlink")){
 				try {
-					downloadPoints.add(new GraphPoint(downloadPoints.size(),extractPoint(data)));
+					downloadPoints.add(new GraphPoint(downloadPoints.size(),extractValue(data),extractTime(data)));
 				} catch (Exception e) {
 					continue;
 				}				
@@ -142,14 +143,26 @@ public class ThroughputDataSource extends DataSource {
 		
 		collection.put("uplink", uploadPoints);
 		collection.put("downlink", downloadPoints);
-		close();
+
 		return collection;
 		
 	}
 
 	@Override
-	public int extractPoint(Map<String, String> data) {
+	public int extractValue(Map<String, String> data) {
 		return (int)Double.parseDouble(data.get(ThroughputMapping.COLUMN_SPEED));
+	}
+
+	@Override
+	public Date extractTime(Map<String, String> data) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString =  data.get(ThroughputMapping.COLUMN_TIME);
+		try {
+			return df.parse(dateString);
+		} catch (ParseException e) {			
+			e.printStackTrace();
+			return new Date();
+		}
 	}
 
 }

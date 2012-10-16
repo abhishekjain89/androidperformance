@@ -14,7 +14,6 @@ import com.num.models.Ping;
 import com.num.models.PingData;
 import com.num.utils.DeviceUtil;
 
-
 /*
  * Measurement Task 
  * set tasks to run and give ip address to ping and more
@@ -23,27 +22,25 @@ import com.num.utils.DeviceUtil;
  * 
  * 
  */
-public class PingTask extends ServerTask{
+public class PingTask extends ServerTask {
 	Address dst;
 	int count;
-	public PingTask(Context context, Map<String, String> reqParams, Address dst, int count,
-			ResponseListener listener) {
+
+	public PingTask(Context context, Map<String, String> reqParams,
+			Address dst, int count, ResponseListener listener) {
 		super(context, reqParams, listener);
-		this.dst  = dst;
+		this.dst = dst;
 		this.count = count;
 	}
 
 	@Override
 	public void runTask() {
-		LatencyDataSource dataSource = new LatencyDataSource(getContext());
+
 		if (dst.getType().equals("ping")) {
 			Ping ping = PingHelper.pingHelp(dst, count);
-			dataSource.insert(ping);
-			this.getResponseListener().onCompletePing(ping);			
-		}
-		else if (dst.getType().equals("firsthop")){
+			this.getResponseListener().onCompletePing(ping);
+		} else if (dst.getType().equals("firsthop")) {
 			LastMile lastMile = PingHelper.firstHopHelp(dst, count);
-			dataSource.insert(lastMile);
 			this.getResponseListener().onCompleteLastMile(lastMile);
 		}
 	}

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
+import com.num.database.DatabasePicker;
+import com.num.graph.LinkGraph;
 import com.num.graph.PingGraph;
+import com.num.ui.viewgenerator.ApplicationViewGenerator;
 import com.num.ui.viewgenerator.DumbGenerator;
 import com.num.ui.viewgenerator.GraphViewGenerator;
 import com.num.ui.viewgenerator.IconKeyProgressViewGenerator;
@@ -15,6 +18,9 @@ import com.num.ui.viewgenerator.KeyProgressViewGenerator;
 import com.num.ui.viewgenerator.KeyValueViewGenerator;
 import com.num.ui.viewgenerator.LatencyViewGenerator;
 import com.num.ui.viewgenerator.MapViewGenerator;
+import com.num.ui.viewgenerator.PickerOutlierViewGenerator;
+import com.num.ui.viewgenerator.PickerViewGenerator;
+import com.num.ui.viewgenerator.ThroughputViewGenerator;
 import com.num.ui.viewgenerator.TitleViewGenerator;
 import com.num.ui.viewgenerator.ViewGenerator;
 import com.num.R;
@@ -49,8 +55,24 @@ public class Row {
 		viewgen = new GraphViewGenerator(data);
 	}
 	
+	public Row(LinkGraph linkGraph) {
+		viewgen = new ThroughputViewGenerator(linkGraph);
+	}
+	
 	public Row(PingGraph pingGraph) {
 		viewgen = new LatencyViewGenerator(pingGraph);
+	}
+	
+	public Row(Application app) {
+		viewgen = new ApplicationViewGenerator(app);
+	}
+	
+	public Row(DatabasePicker picker, String column) {
+		viewgen = new PickerViewGenerator(picker, column);
+	}
+	
+	public Row(DatabasePicker picker ) {
+		viewgen = new PickerOutlierViewGenerator(picker);
 	}
 
 

@@ -1,5 +1,6 @@
 package com.num.database.datasource;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,84 +38,169 @@ import com.num.utils.DeviceUtil;
 import com.sun.org.apache.regexp.internal.recompile;
 
 public class ApplicationDataSource extends DataSource {
-	
+
 	public ApplicationDataSource(Context context) {
 		super(context);
 		setDBHelper(new ApplicationMapping(context));
 	}
-	
+
 	private void addRow(Application app) {
-		ContentValues value = new ContentValues();			    
-	    
-		value.put(ApplicationMapping.COLUMN_TIME, getTime());		
+		ContentValues value = new ContentValues();
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
 		value.put(ApplicationMapping.COLUMN_NAME, app.getName());
-		value.put(ApplicationMapping.COLUMN_PACKAGE, app.getPackageName());
-		value.put(ApplicationMapping.COLUMN_TOTAL_SENT, app.getTotal_sent());
-		value.put(ApplicationMapping.COLUMN_TOTAL_RECV, app.getTotal_recv());
-		value.put(ApplicationMapping.COLUMN_IS_RUNNING, app.getIsRunning());		
-		long insertId = database.insert(dbHelper.getTableName(), null, value);				
+		value.put(ApplicationMapping.COLUMN_DATA, app.getTotal_sent());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "sent");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, app.getName());
+		value.put(ApplicationMapping.COLUMN_DATA, app.getTotal_recv());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "received");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, app.getName());
+		value.put(ApplicationMapping.COLUMN_DATA, app.getTotal());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "total");
+		database.insert(dbHelper.getTableName(), null, value);
 	}
-	
+
 	private void addRow(Usage usage) {
-		ContentValues value = new ContentValues();		
-	    
-		value.put(ApplicationMapping.COLUMN_TIME, getTime());					
-		value.put(ApplicationMapping.COLUMN_NAME, "Total");
-		value.put(ApplicationMapping.COLUMN_PACKAGE, "total");
-		value.put(ApplicationMapping.COLUMN_TOTAL_SENT, usage.getTotal_sent());
-		value.put(ApplicationMapping.COLUMN_TOTAL_RECV, usage.getTotal_recv());
-		value.put(ApplicationMapping.COLUMN_IS_RUNNING, true);		
+		ContentValues value = new ContentValues();
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getTotal_sent());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "sent");
 		database.insert(dbHelper.getTableName(), null, value);
-		
-		value.put(ApplicationMapping.COLUMN_TIME, getTime());					
-		value.put(ApplicationMapping.COLUMN_NAME, "Mobile");
-		value.put(ApplicationMapping.COLUMN_PACKAGE, "Mobile");
-		value.put(ApplicationMapping.COLUMN_TOTAL_SENT, usage.getMobile_sent());
-		value.put(ApplicationMapping.COLUMN_TOTAL_RECV, usage.getMobile_recv());
-		value.put(ApplicationMapping.COLUMN_IS_RUNNING, true);		
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getTotal_recv());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "received");
 		database.insert(dbHelper.getTableName(), null, value);
-		
-		value.put(ApplicationMapping.COLUMN_TIME, getTime());					
-		value.put(ApplicationMapping.COLUMN_NAME, "Wifi");
-		value.put(ApplicationMapping.COLUMN_PACKAGE, "Wifi");
-		value.put(ApplicationMapping.COLUMN_TOTAL_SENT,  usage.getTotal_sent() - usage.getMobile_sent());
-		value.put(ApplicationMapping.COLUMN_TOTAL_RECV,  usage.getTotal_sent() - usage.getMobile_recv());
-		value.put(ApplicationMapping.COLUMN_IS_RUNNING, true);		
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getTotal());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "total");
 		database.insert(dbHelper.getTableName(), null, value);
-		
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Mobile");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getMobile_sent());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "sent");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Mobile");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getMobile_recv());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "received");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Mobile");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getMobile());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "total");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Wifi");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getWifi_sent());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "sent");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Wifi");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getWifi_recv());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "received");
+		database.insert(dbHelper.getTableName(), null, value);
+
+		value.put(ApplicationMapping.COLUMN_TIME, getTime());
+		value.put(ApplicationMapping.COLUMN_NAME, "All Wifi");
+		value.put(ApplicationMapping.COLUMN_DATA, usage.getWifi());
+		value.put(ApplicationMapping.COLUMN_DIRECTION, "total");
+		database.insert(dbHelper.getTableName(), null, value);
+
 	}
-	
+
 	protected void insertModel(Model model) {
-		
+
 		Usage usage = (Usage) model;
-		
-		for(Application app : usage.getApplications()) {
+
+		for (Application app : usage.getApplications()) {
+			try{
+			
 			addRow(app);
-		
-		}		
-		
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 		addRow(usage);
-		
+
 	}
-	
-	
-	
+
 	public DatabaseOutput getOutput() {
 		open();
 		close();
 		return null;
-		
+
 	}
-	
+
 	public HashMap<String, ArrayList<GraphPoint>> getGraphData() {
-		//return getGraphData(DeviceUtil.getNetworkInfo(context), "Atlanta, GA");
-		return  null;
+		// return getGraphData(DeviceUtil.getNetworkInfo(context),
+		// "Atlanta, GA");
+		return null;
 	}
 
 	@Override
-	public int extractPoint(Map<String, String> data) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<GraphPoint> getGraphData(HashMap<String, String> filter) {
+
+		List<Map<String, String>> allData = getDataStores(filter);
+		ArrayList<GraphPoint> points = new ArrayList<GraphPoint>();
+
+		int oldValue = 0;
+		boolean isFirst = true;
+		for (Map<String, String> data : allData) {
+			int newValue = extractValue(data);
+			int difference = 0;
+			if (newValue < oldValue)
+				difference = newValue;
+			else
+				difference = newValue - oldValue;
+			if (isFirst) {
+				isFirst = false;
+			} else {
+				points.add(new GraphPoint(data.size(), difference,
+						extractTime(data)));
+			}
+			oldValue = newValue;
+		}
+
+		return points;
+
 	}
-	
+
+	@Override
+	public int extractValue(Map<String, String> data) {
+		return (int) Double.parseDouble(data
+				.get(ApplicationMapping.COLUMN_DATA)) / 1000;
+	}
+
+	@Override
+	public Date extractTime(Map<String, String> data) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString = data.get(LatencyMapping.COLUMN_TIME);
+		try {
+			return df.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return new Date();
+		}
+	}
+
 }

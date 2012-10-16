@@ -51,7 +51,7 @@ public class AllPingTask extends ServerTask{
 	ThreadPoolHelper serverhelperLastMile;
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
-	
+	LatencyDataSource dataSource = new LatencyDataSource(getContext());
 	public AllPingTask(Context context, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
 
@@ -68,7 +68,9 @@ public class AllPingTask extends ServerTask{
 	}
 	
 	public void runTask() {
-
+		
+		MeasurementListener listener= new MeasurementListener();
+		
 		measurement = new Measurement();
 		measurement.setPings(pings);
 		measurement.setLastMiles(lastMiles);
@@ -82,9 +84,9 @@ public class AllPingTask extends ServerTask{
 
 		for(Address dst : dsts)
 			if(dst.getType().equals("ping"))
-				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
+				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
 			else
-				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
+				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
 		} catch (InterruptedException e1) {
@@ -123,6 +125,7 @@ public class AllPingTask extends ServerTask{
 	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
+			dataSource.insert(response);
 			pings.add(response);			
 			onCompleteMeasurement(measurement);
 		}
@@ -208,7 +211,7 @@ public class AllPingTask extends ServerTask{
 
 		public void onCompleteLastMile(LastMile lastMile) {
 			lastMiles.add(lastMile);
-			
+			dataSource.insert(lastMile);
 		}
 
 		public void onUpdateUpLink(Link link) {

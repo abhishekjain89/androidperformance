@@ -11,13 +11,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public abstract class BaseMapping extends SQLiteOpenHelper {
+	
+	String TABLE_NAME;
+	int DATABASE_VERSION;
 
-	public static String DATABASE_NAME="networkusage.db";
-	public static int DATABASE_VERSION = 3;
-	public String TABLE_NAME;
-
-	public BaseMapping(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);		
+	public BaseMapping(Context context,String tableName, int version) {
+		super(context, tableName+".db", null, version);
+		TABLE_NAME = tableName;
+		DATABASE_VERSION = version;
 	}
 	
 	public DatabaseColumns columns;
@@ -33,7 +34,7 @@ public abstract class BaseMapping extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase database, int oldVersion,
 			int newVersion) {
-		Log.w(BaseMapping .class.getName(), "Upgrading database from version "
+		Log.w(BaseMapping .class.getName(), "Upgrading database " + getDBName()+" from version "
 				+ oldVersion + " to " + newVersion
 				+ ", which will destroy all old data");
 		database.execSQL("DROP TABLE IF EXISTS " + getTableName());
@@ -51,6 +52,12 @@ public abstract class BaseMapping extends SQLiteOpenHelper {
 
 	public abstract void setColumnMap();
 	
-	public abstract String getTableName();
+	public String getTableName() {
+		return TABLE_NAME;
+	}
+	
+	public String getDBName() {
+		return getTableName()+".db";
+	}
 	
 }

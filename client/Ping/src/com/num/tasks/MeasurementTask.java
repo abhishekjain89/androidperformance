@@ -12,6 +12,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.num.Values;
+import com.num.database.datasource.LatencyDataSource;
 import com.num.helpers.MeasurementHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -49,7 +50,7 @@ public class MeasurementTask extends ServerTask{
 	ThreadPoolHelper serverhelper;
 	boolean doGPS;
 	boolean doThroughput;
-
+	LatencyDataSource dataSource = new LatencyDataSource(getContext());
 	boolean isManual = false;
 
 	Measurement measurement; 
@@ -81,6 +82,7 @@ public class MeasurementTask extends ServerTask{
 	public void runTask() {
 
 		measurement = new Measurement();
+		MeasurementListener listener= new MeasurementListener();
 		measurement.setManual(isManual);
 		// TODO Run ping task with list of things such as ip address and number of pings	
 		//android.os.Debug.startMethodTracing("lsd");
@@ -109,12 +111,12 @@ public class MeasurementTask extends ServerTask{
 
 		ArrayList<Address> dsts = session.getPingServers();
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
-		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, new MeasurementListener()));
+		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		serverhelper.execute(new WifiTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		for(Address dst : dsts)
 		{
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new MeasurementListener()));
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, listener));
 			//serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, "firsthop", new MeasurementListener()));
 		}
 		
@@ -228,7 +230,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompletePing(Ping response) {
 			pings.add(response);
-
+			dataSource.insert(response);
 		}
 
 		public void onComplete(String response) {
@@ -331,7 +333,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompleteLastMile(LastMile lastMile) {
 			lastMiles.add(lastMile);
-			
+			dataSource.insert(lastMile);
 		}
 
 		public void onUpdateUpLink(Link link) {

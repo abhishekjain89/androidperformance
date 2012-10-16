@@ -54,6 +54,11 @@ public class Application implements Model,Comparable<Application> {
 	public void setTotal_recv(long total_recv) {
 		this.total_recv = total_recv;
 	}
+	
+	public long getTotal() {
+		return getTotal_recv() + getTotal_sent();
+	}
+	
 	public JSONObject toJSON() {
 		
 		JSONObject obj = new JSONObject();

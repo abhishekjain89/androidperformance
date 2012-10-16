@@ -17,6 +17,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class ThroughputMapping extends BaseMapping {
+	
+	public static String TABLE_NAME = "throughput";
+	public static int DATABASE_VERSION = 1;
 
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_TIME = "time";
@@ -25,7 +28,7 @@ public class ThroughputMapping extends BaseMapping {
 	public static final String COLUMN_CONNECTION = "connection";	
 	
 	public ThroughputMapping(Context context) {		
-		super(context);		
+		super(context,TABLE_NAME,DATABASE_VERSION);		
 	}
 	
 	public void setColumnMap() {

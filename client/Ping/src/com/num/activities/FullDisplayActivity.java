@@ -50,79 +50,48 @@ public class FullDisplayActivity extends Activity {
 	Values session;
 	TextView title;
 	ListView listview;
-	Button load;
+	
 	//ImageView imageview;
 	TextView description;
 	Activity activity;
-	ProgressBar progress;
+	
 	private ThreadPoolHelper serverhelper;
-	static int timeCount = 70;
-	Timer timer = new Timer();
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = this;
-		setContentView(R.layout.item_view_full);
-		session = (Values) this.getApplicationContext();
+		session = (Values) this.getApplicationContext();		
 		Bundle extras = getIntent().getExtras();
 		String key = extras.getString("model_key");
-
-
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-
-		title =  (TextView) findViewById(R.id.title);
-		listview = (ListView) findViewById(R.id.listview);
-		load = (Button) findViewById(R.id.load);
-		description = (TextView) findViewById(R.id.description);
-		progress = (ProgressBar) findViewById(R.id.progress);
-		try{
-			String secs = extras.getString("time");
-			timeCount = Integer.parseInt(secs);
-			if(secs!=null)
-				load.setText("Loading ...   will take about " + secs + " seconds");
-		}
-		catch (Exception e){
-			timeCount = 2;
-		}
 		
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				timeCount--;		
-				Message msg=Message.obtain(LoadMessageHandler, 0, new Integer(timeCount));
-				LoadMessageHandler.sendMessage(msg);
-			}
-
-		}, 0, 1000);
-
+		showLoadPage();
+		
+		
+	}
+	
+	public void showLoadPage() {
+		setContentView(R.layout.load_screen);		
+	}
+	
+	public void showDisplayPage() {
+		setContentView(R.layout.item_view_full);
+		title =  (TextView) findViewById(R.id.title);
+		listview = (ListView) findViewById(R.id.listview);	
+		description = (TextView) findViewById(R.id.description);
 	}
 
 	@Override
 	public void finish(){
 		super.finish();
-		timer.cancel();
+	
 		try{
 		serverhelper.shutdown();
 		
 		} catch (Exception e) {	}
 	}
-
-	private Handler LoadMessageHandler = new Handler(){
-		public void  handleMessage(Message msg) {
-			Integer time= (Integer)msg.obj;
-
-			if(time>0)
-				load.setText("Loading ...   will take about " + (time) + " seconds");
-			else
-				load.setText("Loading ...   Very soon!");
-		}	
-	};
-
-
-
-
-
 
 	public class MeasurementListener extends BaseResponseListener{
 
@@ -237,10 +206,10 @@ public class FullDisplayActivity extends Activity {
 
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
-
+			
+			showDisplayPage();
+			
 			MainModel item = (MainModel)msg.obj;
-			load.setVisibility(View.GONE);
-			progress.setVisibility(View.GONE);
 
 			title.setText(item.getTitle().toUpperCase());
 			description.setText(item.getDescription());
