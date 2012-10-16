@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import com.num.database.DatabasePicker;
 import com.num.graph.LinkGraph;
 import com.num.graph.PingGraph;
+import com.num.ui.viewgenerator.ActivityItemViewGenerator;
 import com.num.ui.viewgenerator.ApplicationViewGenerator;
 import com.num.ui.viewgenerator.DumbGenerator;
 import com.num.ui.viewgenerator.GraphViewGenerator;
@@ -57,6 +58,10 @@ public class Row {
 	
 	public Row(LinkGraph linkGraph) {
 		viewgen = new ThroughputViewGenerator(linkGraph);
+	}
+	
+	public Row(ActivityItem item) {
+		viewgen = new ActivityItemViewGenerator(item);
 	}
 	
 	public Row(PingGraph pingGraph) {

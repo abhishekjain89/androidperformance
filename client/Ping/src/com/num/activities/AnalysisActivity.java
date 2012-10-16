@@ -1,6 +1,5 @@
 package com.num.activities;
 
-
 import java.util.ArrayList;
 
 import org.json.JSONException;
@@ -24,11 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.num.Values;
-import com.num.activities.AboutUsActivity.Listener;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
+import com.num.models.ActivityItem;
 import com.num.models.Battery;
 import com.num.models.Device;
 import com.num.models.GPS;
@@ -46,117 +45,92 @@ import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
+public class AnalysisActivity extends Activity {
 
-
-public class AnalysisActivity extends Activity 
-{
-	
-	//private TableLayout table;
-	
-	private LinearLayout testButton;
-	private LinearLayout pingButton;
-	private LinearLayout wifiButton;
-	private LinearLayout usageButton;
-	private LinearLayout throughputButton;
-	private LinearLayout tourButton;
-	
 	private ListView listview;
 	private TextView apptext;
 	private TextView devicetext;
-	//private TextView tv;
+	// private TextView tv;
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
-	
-	
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		
-		
+
 		setContentView(R.layout.measurement_screen);
-		
+
 		activity = this;
 		session = (Values) getApplicationContext();
 		session.loadValues();
-		
-		serverhelper = new ThreadPoolHelper(5,10);
-		testButton=(LinearLayout)findViewById(R.id.full_test);
-		
-		
-		
-		pingButton=(LinearLayout)findViewById(R.id.ping);
-		wifiButton=(LinearLayout)findViewById(R.id.wifi);
-		usageButton=(LinearLayout)findViewById(R.id.usage);
-		throughputButton=(LinearLayout)findViewById(R.id.throughput);
-	
-		
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10,30);
+		listview = (ListView) findViewById(R.id.listview);
+		serverhelper = new ThreadPoolHelper(5, 10);
 
-		serverhelper.execute(new ValuesTask(this,new FakeListener()));
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10, 30);
 
-		testButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+		serverhelper.execute(new ValuesTask(this, new FakeListener()));
 
-				ServiceHelper.processStopService(activity);
-				
-				Intent myIntent = new Intent(v.getContext(), RunActivity.class);
-                startActivity(myIntent);
+		ArrayList<Row> cells = new ArrayList<Row>();
+
+		cells.add(new Row(new ActivityItem("Application Usage", "Get data breakdown by app", new Handler() {
+
+			public void handleMessage(Message msg) {
+				Intent myIntent = new Intent(activity,
+						FullDisplayActivity.class);
+				myIntent.putExtra("model_key", "usage");
+				startActivity(myIntent);
 			}
-		});
-		
-		testButton.setVisibility(View.GONE);
-		
-		pingButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
 
-				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
-				myIntent.putExtra("model_key","latency");
-				myIntent.putExtra("time","15");
-                startActivity(myIntent);
-			}
-		});
-		
-		wifiButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+		}, R.drawable.usage)));		
 
-				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
-				myIntent.putExtra("model_key","wifi");
-                startActivity(myIntent);
-			}
-		});
-		
+		cells.add(new Row(new ActivityItem("Speed Test", "Get Down/Up speed, 40 sec", new Handler() {
+			public void handleMessage(Message msg) {
+				Intent myIntent = new Intent(activity,
+						FullDisplayActivity.class);
+				myIntent.putExtra("model_key", "throughput");
+				myIntent.putExtra("time", "45");
+				startActivity(myIntent);}
 
-		
-		wifiButton.setVisibility(View.GONE);
-		
-		usageButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+		}, R.drawable.throughput)));
 
-				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
-				myIntent.putExtra("model_key","usage");
-                startActivity(myIntent);
-			}
-		});
+
+		cells.add(new Row(new ActivityItem("Latency", "Get time to reach server, 5 sec", new Handler() {
+			public void handleMessage(Message msg) {
+				Intent myIntent = new Intent(activity,
+						FullDisplayActivity.class);
+				myIntent.putExtra("model_key", "latency");
+				myIntent.putExtra("time", "15");
+				startActivity(myIntent);}
+
+		}, R.drawable.stopwatch)));
 		
-		throughputButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+		cells.add(new Row(new ActivityItem("Configure", "Change preference", new Handler() {
+			public void handleMessage(Message msg) {
+				Intent myIntent = new Intent(activity, UserFormActivity.class);
+				myIntent.putExtra("force",true);
+				startActivity(myIntent);
+				}
 
-				Intent myIntent = new Intent(v.getContext(), FullDisplayActivity.class);
-				myIntent.putExtra("model_key","throughput");
-				myIntent.putExtra("time","45");
-                startActivity(myIntent);
-			}
-		});
+		}, R.drawable.configure)));
 		
-	
-	
+		cells.add(new Row(new ActivityItem("About Us", "Read about this project", new Handler() {
+			public void handleMessage(Message msg) {
+				Intent myIntent = new Intent(activity, AboutUsActivity.class);				
+				startActivity(myIntent);
+				}
 
-	}	
-	
+		}, R.drawable.team)));
 
-	
+
+		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
+		for(Row cell: cells)
+			itemadapter.add(cell);
+		listview.setAdapter(itemadapter);
+		itemadapter.notifyDataSetChanged();
+		UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
+
+	}
+
 }

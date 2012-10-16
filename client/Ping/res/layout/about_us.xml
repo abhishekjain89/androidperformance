@@ -62,32 +62,10 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="fill"
-                android:text="This project was developed inside Georgia Tech. It hopes to provide thorough and relevant network, usage and device details to cellphone users. While gathering anonymous periodic data from the devices we hope to better understand the cellular ecosystem."
+                android:text="This project was developed inside Georgia Tech. It hopes to provide thorough and relevant network information to cellphone users. While gathering anonymous periodic data from the devices we hope to better understand the cellular ecosystem. Support us by rating the app on the marketplace."
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_primary"
                 android:textSize="20dp" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/dark_gray"
-                android:orientation="horizontal" />
-
-            <ListView
-                android:id="@+id/allview"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/test"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView1"
-                android:listSelector="@android:color/transparent"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:fadingEdge="none" >
-            </ListView>
 
             <Button
                 android:id="@+id/back"
@@ -98,7 +76,7 @@
                 android:layout_marginRight="80dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_layout"
-                android:text="Back"
+                android:text="Rate App"
                 android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>

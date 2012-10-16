@@ -97,7 +97,7 @@ public class UserFormActivity extends Activity
 
 		if(!force && userhelp.isFilled()){
 			finish();
-			Intent myIntent = new Intent(this, MainActivity.class);
+			Intent myIntent = new Intent(this, AnalysisActivity.class);
 			startActivity(myIntent);
 		}
 		

@@ -37,7 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.num.Values;
-import com.num.activities.AboutUsActivity.Listener;
 import com.num.database.DatabasePicker;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
