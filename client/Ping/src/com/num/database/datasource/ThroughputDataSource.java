@@ -31,6 +31,11 @@ import com.num.utils.DeviceUtil;
 
 public class ThroughputDataSource extends DataSource {
 	
+	private final String GRAPH_TYPE = "area";
+	private final String Y_AXIS_UNITS = "kbps";
+		
+	private final String[] MODES = {"normal","aggregate"};
+	
 	public ThroughputDataSource(Context context) {
 		super(context);
 		setDBHelper(new ThroughputMapping(context));
@@ -163,6 +168,27 @@ public class ThroughputDataSource extends DataSource {
 			e.printStackTrace();
 			return new Date();
 		}
+	}
+	
+	@Override
+	public String getGraphType() {
+		return GRAPH_TYPE;
+	}
+
+	@Override
+	public String getYAxisLabel() {
+		return Y_AXIS_UNITS;
+	}
+
+	@Override
+	public void aggregatePoints(GraphPoint oldP, GraphPoint newP) {
+		oldP.incrementCount();
+		oldP.y+=newP.y;
+	}
+	
+	@Override
+	public String[] getModes() {
+		return MODES;
 	}
 
 }

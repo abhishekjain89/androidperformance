@@ -64,19 +64,18 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical" >
 
-                    <LinearLayout
-                        android:id="@+id/chart"
+                    
+                    <com.num.graph.TimelineView
+                        android:id="@+id/timeline"
                         android:layout_width="fill_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="0dp" />
-
-                    <LinearLayout
+                    
+                     <com.num.graph.BarView
+                        android:id="@+id/barchart"
                         android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/dark_gray"
-                        android:orientation="horizontal" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp" />
 
                     <ListView
                         android:id="@+id/listview"

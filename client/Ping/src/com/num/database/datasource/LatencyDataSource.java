@@ -36,6 +36,11 @@ import com.sun.org.apache.regexp.internal.recompile;
 
 public class LatencyDataSource extends DataSource {
 	
+	private final String GRAPH_TYPE = "area";
+	private final String Y_AXIS_UNITS = "ms";
+	
+	private final String[] MODES = {"normal","aggregate"};
+	
 	public LatencyDataSource(Context context) {
 		super(context);
 		setDBHelper(new LatencyMapping(context));		
@@ -197,4 +202,25 @@ public class LatencyDataSource extends DataSource {
 		}
 	}
 
+	@Override
+	public String getGraphType() {
+		return GRAPH_TYPE;
+	}
+
+	@Override
+	public String getYAxisLabel() {
+		return Y_AXIS_UNITS;
+	}
+
+	@Override
+	public void aggregatePoints(GraphPoint oldP, GraphPoint newP) {
+		oldP.incrementCount();
+		oldP.y+=newP.y;
+	}
+	
+
+	@Override
+	public String[] getModes() {
+		return MODES;
+	}
 }

@@ -61,6 +61,9 @@ public class WifiUtil {
 	public NeighborResult neighborResult = new NeighborResult(){
 		@Override
 		public void gotNeighbor(List<ScanResult> wifiList){
+			try{
+				
+			
 			ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
 			ArrayList<WifiPreference> prefers = wifi.getPreference();
 			for (int i = 0; i < wifiList.size(); i++) {
@@ -93,7 +96,9 @@ public class WifiUtil {
 			}
 			wifi.setNeighbors(neighbors);	
 			notDone = false;
-			//(new MeasurementListener()).onCompleteWifi(wifi);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	};
 	

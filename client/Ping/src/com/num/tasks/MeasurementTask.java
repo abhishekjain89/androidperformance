@@ -117,21 +117,11 @@ public class MeasurementTask extends ServerTask{
 		for(Address dst : dsts)
 		{
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, listener));
-			//serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, "firsthop", new MeasurementListener()));
 		}
 		
 
 		signalRunning = true;
-		//wifiRunning = true;
-		//WifiHandler.sendEmptyMessage(0);
-		/*
-		if(false){
-			GPSHandler.sendEmptyMessage(0);
-			gpsRunning = true;
-		}
-		else{
-			gpsRunning = false;
-		}*/
+	
 		SignalHandler.sendEmptyMessage(0);
 
 		measurement.setPings(pings);

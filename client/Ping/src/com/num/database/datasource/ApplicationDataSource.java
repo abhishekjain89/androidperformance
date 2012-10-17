@@ -3,8 +3,10 @@ package com.num.database.datasource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -36,8 +38,13 @@ import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.utils.DeviceUtil;
 import com.sun.org.apache.regexp.internal.recompile;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 public class ApplicationDataSource extends DataSource {
+	
+	private final String GRAPH_TYPE = "bar";
+	private final String Y_AXIS_UNITS = "KB";
+	private final String[] MODES = {"aggregate"};
 
 	public ApplicationDataSource(Context context) {
 		super(context);
@@ -130,10 +137,10 @@ public class ApplicationDataSource extends DataSource {
 		Usage usage = (Usage) model;
 
 		for (Application app : usage.getApplications()) {
-			try{
-			
-			addRow(app);
-			
+			try {
+
+				addRow(app);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -156,16 +163,19 @@ public class ApplicationDataSource extends DataSource {
 		// "Atlanta, GA");
 		return null;
 	}
-
-	@Override
-	public ArrayList<GraphPoint> getGraphData(HashMap<String, String> filter) {
+	
+	public ArrayList<GraphPoint> getAggregateGraphData(HashMap<String, String> filter) {
 
 		List<Map<String, String>> allData = getDataStores(filter);
 		ArrayList<GraphPoint> points = new ArrayList<GraphPoint>();
 
 		int oldValue = 0;
 		boolean isFirst = true;
+
+		Map<String, GraphPoint> pointmap = new HashMap<String, GraphPoint>();
+
 		for (Map<String, String> data : allData) {
+			
 			int newValue = extractValue(data);
 			int difference = 0;
 			if (newValue < oldValue)
@@ -175,10 +185,39 @@ public class ApplicationDataSource extends DataSource {
 			if (isFirst) {
 				isFirst = false;
 			} else {
-				points.add(new GraphPoint(data.size(), difference,
-						extractTime(data)));
+				GraphPoint newPoint = new GraphPoint(0, difference,
+						extractTime(data));
+				newPoint.setString(extractDate(data));
+				newPoint.sortByDate(true);								
+				String date = extractDate(data);
+
+				if (pointmap.containsKey(date)) {
+					GraphPoint oldPoint = pointmap.get(date);					
+					aggregatePoints(oldPoint, newPoint);
+				} else {										
+					pointmap.put(date, newPoint);
+				}
+
 			}
 			oldValue = newValue;
+		}
+
+		Iterator<String> iter = pointmap.keySet().iterator();
+		int count = 0;
+		while (iter.hasNext()) {
+			String date = iter.next();
+			points.add(pointmap.get(date));
+
+		}
+
+		try {
+			Collections.sort(points);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		for (GraphPoint point : points) {
+			point.x = count++;
 		}
 
 		return points;
@@ -203,4 +242,23 @@ public class ApplicationDataSource extends DataSource {
 		}
 	}
 
+	@Override
+	public String getGraphType() {
+		return GRAPH_TYPE;
+	}
+
+	@Override
+	public String getYAxisLabel() {
+		return Y_AXIS_UNITS;
+	}
+
+	@Override
+	public void aggregatePoints(GraphPoint oldP, GraphPoint newP) {
+		oldP.y+=newP.y;
+	}
+
+	@Override
+	public String[] getModes() {
+		return MODES;
+	}
 }

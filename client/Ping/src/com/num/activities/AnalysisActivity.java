@@ -23,6 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.num.Values;
+import com.num.database.DatabasePicker;
+import com.num.database.datasource.ApplicationDataSource;
+import com.num.database.datasource.LatencyDataSource;
+import com.num.database.mapping.ApplicationMapping;
+import com.num.database.mapping.LatencyMapping;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -39,10 +44,12 @@ import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.models.Wifi;
+import com.num.tasks.MeasurementTask;
 import com.num.tasks.SummaryTask;
 import com.num.tasks.ValuesTask;
 import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
+import com.num.utils.DeviceUtil;
 import com.num.R;
 
 public class AnalysisActivity extends Activity {
@@ -54,7 +61,6 @@ public class AnalysisActivity extends Activity {
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -66,12 +72,11 @@ public class AnalysisActivity extends Activity {
 		session = (Values) getApplicationContext();
 		session.loadValues();
 		listview = (ListView) findViewById(R.id.listview);
-		serverhelper = new ThreadPoolHelper(5, 10);
-
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(10, 30);
+		
+		serverhelper = new ThreadPoolHelper(10, 30);
 
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
-
+		ServiceHelper.processRestartService(this);
 		ArrayList<Row> cells = new ArrayList<Row>();
 
 		cells.add(new Row(new ActivityItem("Application Usage", "Get data breakdown by app", new Handler() {
@@ -122,6 +127,22 @@ public class AnalysisActivity extends Activity {
 				}
 
 		}, R.drawable.team)));
+		
+		cells.add(new Row(new ActivityItem("Graphing", "Quick Graph", new Handler() {
+			public void handleMessage(Message msg) {
+				
+				DatabasePicker picker = session.createPicker(new LatencyDataSource(activity));
+				picker.setTitle("Latency Graph");
+				picker.filterBy(LatencyMapping.COLUMN_TYPE,"ping","Type");
+				picker.filterBy(LatencyMapping.COLUMN_DSTIP,"gsoogle","Destination");
+				picker.filterBy(LatencyMapping.COLUMN_MEASUREMENT,"average","Metric");
+				picker.filterBy(LatencyMapping.COLUMN_CONNECTION,DeviceUtil.getNetworkInfo(activity),"Connection");
+				Intent myIntent = new Intent(activity, GraphActivity.class);				
+				activity.startActivity(myIntent);
+                                             
+				}
+
+		}, R.drawable.measure)));
 
 
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);

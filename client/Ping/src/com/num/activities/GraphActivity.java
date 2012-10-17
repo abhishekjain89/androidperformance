@@ -1,6 +1,5 @@
 package com.num.activities;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -38,6 +37,8 @@ import android.widget.Toast;
 
 import com.num.Values;
 import com.num.database.DatabasePicker;
+import com.num.graph.ChartView;
+import com.num.graph.TimelineView;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -61,29 +62,17 @@ import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
-
-
-public class GraphActivity extends Activity 
-{
+public class GraphActivity extends Activity {
 	Values values;
 	DatabasePicker picker;
-	LinearLayout chart;
-	private XYMultipleSeriesDataset dataset;
-	private XYMultipleSeriesRenderer renderer;
-	
-	private XYSeriesRenderer mCurrentRenderer;
-	private GraphicalView mChartView;
-	private int index = 0;
-	private GraphData data;
-	 
-	private TimeSeries timeseries;
-	private ListView listview;
 
+	private ListView listview;
+	private ChartView chart;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);				
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.graph_view);
 
 		values = (Values) this.getApplicationContext();
@@ -91,114 +80,47 @@ public class GraphActivity extends Activity
 		picker.setGraphUpdateHandler(updateGraphHandler);
 
 		TextView title = (TextView) this.findViewById(R.id.title);
-		chart =  (LinearLayout) this.findViewById(R.id.chart);
-		listview = (ListView) findViewById(R.id.listview);
-
-		title.setText(picker.getTitle());
 		
-		createGraph();
-		updateGraph();
-	
-		populatePicker();
-
-
-	}
-	
-	public Handler updateGraphHandler = new Handler(){
-		
-		public void  handleMessage(Message msg) {
-			updateGraph();
-			
+		if (picker.getChartType().equals("area"))
+			chart = (TimelineView) this.findViewById(R.id.timeline);
+		else if (picker.getChartType().equals("bar")){
+			chart = (ChartView) this.findViewById(R.id.barchart);
 		}
 		
-		
+		listview = (ListView) findViewById(R.id.listview);
+		chart.setPicker(picker);
+		title.setText(picker.getTitle());
+
+		chart.constructGraph();
+		// chart.updateGraph();
+
+		populatePicker();
+
+	}
+
+	public Handler updateGraphHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			chart.updateGraph();
+
+		}
+
 	};
-	
+
 	private void populatePicker() {
-		
+
 		ArrayList<Row> cells = picker.getRows();
-		
-		if(cells.size()!=0){
-			ItemAdapter itemadapter = new ItemAdapter(this,cells);
-			for(Row cell: cells)
+
+		if (cells.size() != 0) {
+			ItemAdapter itemadapter = new ItemAdapter(this, cells);
+			for (Row cell : cells)
 				itemadapter.add(cell);
 			listview.setAdapter(itemadapter);
 
-
 			itemadapter.notifyDataSetChanged();
-			UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
+			UIUtil.setListViewHeightBasedOnChildren(listview, itemadapter);
 		}
 
 	}
-
-	private void updateGraph(){
-		data = picker.getGraphDataWithoutOutliers();
-				
-		//renderer.setXAxisMax(data.getPoints().size()-1);
-		renderer.setYAxisMax(data.getyMax()*1.2);
-		renderer.setChartTitle(data.getxAxisTitle());
-		timeseries.clear();
-		int count = 0;
-		for(GraphPoint point : data.getPoints()) {
-			timeseries.add(point.datetime, point.y);
-		}
-
-		mChartView.repaint();
-
-	}
-
-	private void createGraph(){
-
-
-		renderer = new XYMultipleSeriesRenderer();
-		timeseries = new TimeSeries("");
-
-		renderer.setMargins(new int[] {0, 20, -30, 0});    
-		
-		renderer.setYAxisMax(0);
-		
-		renderer.setYAxisMin(0.0);
-		renderer.setApplyBackgroundColor(true);
-		renderer.setBackgroundColor(getResources().getColor(R.color.black));
-		renderer.setMarginsColor(getResources().getColor(R.color.black));
-		renderer.setGridColor(getResources().getColor(R.color.dark_blue));
-
-		renderer.setLabelsTextSize(14);
-
-
-		renderer.setPointSize(0);		
-		dataset = new XYMultipleSeriesDataset();
-		dataset.addSeries(timeseries);
-		
-		XYSeriesRenderer seriesrenderer = new XYSeriesRenderer();
-		renderer.addSeriesRenderer(seriesrenderer);
-		seriesrenderer.setPointStyle(PointStyle.CIRCLE);
-		seriesrenderer.setFillPoints(true);
-		seriesrenderer.setChartValuesSpacing(2); 
-		seriesrenderer.setFillBelowLine(true);
-		seriesrenderer.setColor(getResources().getColor(R.color.light_blue));
-		seriesrenderer.setFillBelowLineColor(getResources().getColor(R.color.mid_blue));
-		seriesrenderer.setLineWidth(2);
-		//mChartView = ChartFactory.getCubeLineChartView(context, dataset, renderer, 0);
-		 mChartView = ChartFactory.getTimeChartView(this, dataset, renderer,"MM/dd HH:00");
-
-		renderer.setAxesColor(getResources().getColor(R.color.dark_blue));		
-		renderer.setPanEnabled(false,false);
-		renderer.setZoomEnabled(false, false);
-		
-		renderer.setChartTitleTextSize(20);
-		renderer.setTextTypeface("Bold", Typeface.NORMAL);
-
-		renderer.setClickEnabled(false);
-		renderer.setShowGridX(true);
-		renderer.setInScroll(true);
-		renderer.setSelectableBuffer(100);
-		chart.removeAllViews();
-		chart.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-				250));
-		mChartView.repaint();
-
-	}
-	
 
 }

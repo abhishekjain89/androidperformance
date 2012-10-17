@@ -1,7 +1,9 @@
 package com.num.database.datasource;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,12 +37,14 @@ public abstract class DataSource {
 	public Context context;
 	public BaseMapping dbHelper;
 	public boolean inTransaction=false;
+	 
+	public int currentMode = 0;
 
 	public DataSource(Context context) {
 		this.context = context;
 
 	}
-	
+
 	public void delay() {
 		try {
 			Thread.sleep(100);
@@ -63,12 +67,12 @@ public abstract class DataSource {
 
 	}
 
-	
+
 	public void open() throws SQLException {
 		waitForTransaction();
 		inTransaction = true;
 		database =dbHelper.getWritableDatabase();
-		
+
 	}
 
 	public void close() {
@@ -96,7 +100,6 @@ public abstract class DataSource {
 	}
 
 	public ArrayList<String> getDistinctValues(String column) {
-		System.out.println("fetch Distinct Values " + column);
 		open();
 		String[] columns = new String[1];
 		columns[0] = column;
@@ -116,8 +119,7 @@ public abstract class DataSource {
 	}
 
 	protected List<Map<String, String>> getDataStores(
-			HashMap<String, String> filter) {
-		System.out.println("fetch DataSource with filter");
+			HashMap<String, String> filter) {		
 		open();
 		List<Map<String, String>> dataStores = new ArrayList<Map<String, String>>();
 		String selection = "";
@@ -135,7 +137,9 @@ public abstract class DataSource {
 			arguments[count++] = value;
 		}
 
-		selection = selection.substring(0, selection.length() - 4);
+		if(selection.length()>5) {
+			selection = selection.substring(0, selection.length() - 4);
+		}
 
 		Cursor cursor = database.query(dbHelper.getTableName(), getColumns(),
 				selection, arguments, null, null, "_id");
@@ -175,7 +179,7 @@ public abstract class DataSource {
 	}
 
 	public void insert(Model model) {
-				
+		Log.w("db", "inserting");		
 		open();
 		insertModel(model);
 		close();		
@@ -183,6 +187,15 @@ public abstract class DataSource {
 	}
 
 	public ArrayList<GraphPoint> getGraphData(HashMap<String, String> filter) {
+
+		if(getMode().equals("normal")) return getNormalGraphData(filter);
+		else if(getMode().equals("aggregate")) return getAggregateGraphData(filter);
+		else return null;
+
+	}
+
+	public ArrayList<GraphPoint> getNormalGraphData(HashMap<String, String> filter) {
+
 
 		List<Map<String, String>> allData = getDataStores(filter);
 		ArrayList<GraphPoint> points = new ArrayList<GraphPoint>();
@@ -196,8 +209,85 @@ public abstract class DataSource {
 
 	}
 
+	public ArrayList<GraphPoint> getAggregateGraphData(HashMap<String, String> filter) {
+
+		List<Map<String, String>> allData = getDataStores(filter);
+		ArrayList<GraphPoint> points = new ArrayList<GraphPoint>();
+
+		Map<String, GraphPoint> pointmap = new HashMap<String, GraphPoint>();
+
+		for (Map<String, String> data : allData) {
+
+
+			GraphPoint newPoint = new GraphPoint(0, extractValue(data),
+					extractTime(data));
+			newPoint.setString(extractDate(data));
+			newPoint.sortByDate(true);								
+			String date = extractDate(data);
+
+			if (pointmap.containsKey(date)) {
+				GraphPoint oldPoint = pointmap.get(date);					
+				aggregatePoints(oldPoint, newPoint);
+			} else {										
+				pointmap.put(date, newPoint);
+			}
+
+		}
+
+		Iterator<String> iter = pointmap.keySet().iterator();
+		int count = 0;
+		while (iter.hasNext()) {
+			String date = iter.next();
+			points.add(pointmap.get(date));
+
+		}
+
+		try {
+			Collections.sort(points);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		for (GraphPoint point : points) {
+			point.x = count++;
+		}
+
+		return points;
+
+	}
+
 	public abstract int extractValue(Map<String, String> data);
 
 	public abstract Date extractTime(Map<String, String> data);
+
+	public String extractDate(Map<String, String> data) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString = data.get(LatencyMapping.COLUMN_TIME);
+		try {
+			Date d = df.parse(dateString);
+			return (d.getMonth() + 1) + "-" + d.getDate();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return new Date().toString();
+		}
+	}
+
+	public abstract void aggregatePoints(GraphPoint oldP,GraphPoint newP);
+
+	public abstract String getGraphType();
+
+	public abstract String getYAxisLabel();
+
+	public abstract String[] getModes();
+
+	public String getMode() {
+		return getModes()[currentMode];
+	}
+
+	public void setMode(int mode) {
+		currentMode = mode;
+	}
+
+
 
 }
