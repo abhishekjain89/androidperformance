@@ -92,10 +92,12 @@ public class Values extends Application{
 		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "ping"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "ping"));
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "ping"));
+		PING_SERVERS.add(new Address("www.google.com", "Google", "ping"));
 		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA", "firsthop"));
 		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "firsthop"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "firsthop"));
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "firsthop"));
+		PING_SERVERS.add(new Address("www.google.com", "Google", "firsthop"));
 
 	}
 	public void initDataStore(){

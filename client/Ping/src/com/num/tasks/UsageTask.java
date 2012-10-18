@@ -47,8 +47,9 @@ public class UsageTask extends ServerTask{
 		Usage usage = AppUsageHelper.getUsageData(getContext());
 		
 		ApplicationDataSource dataSource = new ApplicationDataSource(getContext());		
-		dataSource.insert(usage);
+		//dataSource.insert(usage);
 		getResponseListener().onCompleteUsage(usage);
+		dataSource.insert(usage);
 		
 	}
 
