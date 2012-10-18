@@ -1,8 +1,11 @@
 package com.num.utils;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -10,6 +13,7 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.num.Values;
 import com.num.listeners.ResponseListener;
@@ -37,27 +41,27 @@ public class ThroughputUtil {
 	{
 		Values session = (Values) context.getApplicationContext();
 		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.UPLINKPORT);
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,9915);
 		Socket uplinkclient=new Socket();
 		uplinkclient.connect(serversocket);
 
-		DataInputStream in = new DataInputStream(uplinkclient.getInputStream());
-		DataOutputStream out = new DataOutputStream(uplinkclient.getOutputStream());
+		BufferedReader in = new BufferedReader(new InputStreamReader(uplinkclient.getInputStream()));
+		PrintWriter out = new PrintWriter(uplinkclient.getOutputStream(), true);
 		Link link = new Link();
 		System.out.println("Starting uplink test:");
 		String buf= generateRandom();
 		byte[] message = buf.getBytes();
 		long throughput=0;
+		String close = "end";
 		long endSecond =  System.currentTimeMillis();
 		long start = System.currentTimeMillis();
 		//System.out.println(start);
-		long end = System.currentTimeMillis();
-		long intermediate = System.currentTimeMillis();
+		long end = System.currentTimeMillis();		
 		long count=0;
 		
 		do
 		{
-			out.write(message);			
+			out.println(buf);			
 			end = System.currentTimeMillis();
 			
 			if (end>endSecond+responseListenerUpdateFrequency) {
@@ -73,13 +77,18 @@ public class ThroughputUtil {
 			count++;
 			
 		}while(end-start<=session.UPLINK_DURATION);
-		
-		throughput=count*((long)message.length+(54*3))/(end-start)*8;
-		System.out.println("Message length: "+message.length);
-		System.out.println("Intermediate: "+intermediate);
-		link.setCount(count);
-		link.setMessage_size(message.length+(54*3));
-		link.setTime(end-start);
+		System.out.println("Writing end");
+		out.println();
+		out.println(close);
+		//char receive_buffer[] = new char[10];
+		int total = Integer.parseInt(in.readLine());
+		Log.d("Uplink Measurement", "Received total "+ total);
+		long time = (long) Integer.parseInt(in.readLine());
+		Log.d("Uplink Measurement", "Received Time " + time);
+		total+=count*54*3;		
+		link.setCount(1);
+		link.setMessage_size(total);
+		link.setTime(time);
 		link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
 		link.setDstPort(session.UPLINKPORT+"");
 		System.out.println(link.toJSON());
