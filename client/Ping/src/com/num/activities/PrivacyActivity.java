@@ -78,8 +78,6 @@ public class PrivacyActivity extends Activity
 			rejectButton = (Button) findViewById(R.id.reject);
 			WebView webview = (WebView) findViewById(R.id.policyText);
 			webview.getSettings().setJavaScriptEnabled(true);
-			//webview.loadData("Conditions of Use<br>Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully.<br>PRIVACY<br>Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses.",mimeType,null);
-			//webview.loadUrl("http://ruggles.gtnoise.net/static/Conditions_of_Use.html");
 
 			rejectButton.setOnClickListener(new OnClickListener()  {
 				public void onClick(View v) {	
@@ -105,7 +103,6 @@ public class PrivacyActivity extends Activity
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (intent!=null){
 			Bundle extras = intent.getExtras();
-			//tv.setText(extras!=null ? extras.getString("returnKey") : "empty");
 		}
 	}
 

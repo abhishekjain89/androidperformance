@@ -29,7 +29,7 @@ public class Values extends Application{
 
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
-	public  int UPLINKPORT=9912;
+	public  int UPLINKPORT=9912; //change to 9915
 	public  static int UPLINK_DURATION=25000;
 	public  int DOWNLINKPORT=9710;
 	public  static int DOWNLINK_DURATION=20000;

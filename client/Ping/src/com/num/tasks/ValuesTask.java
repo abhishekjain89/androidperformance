@@ -57,9 +57,9 @@ public class ValuesTask extends ServerTask{
 	}
 
 	public void runTask() {
-
-		HTTPUtil http = new HTTPUtil();
 		/*
+		HTTPUtil http = new HTTPUtil();
+		
 		try {
 			String output = http.request(this.getReqParams(), "GET", "values", "", "".toString());
 			JSONObject object = new JSONObject(output);
