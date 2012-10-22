@@ -14,7 +14,7 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import sun.awt.RepaintArea;
+//import sun.awt.RepaintArea;
 
 import android.content.Context;
 import android.graphics.Color;

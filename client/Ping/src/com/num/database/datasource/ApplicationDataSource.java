@@ -37,8 +37,6 @@ import com.num.models.Ping;
 import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.utils.DeviceUtil;
-import com.sun.org.apache.regexp.internal.recompile;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 public class ApplicationDataSource extends DataSource {
 	

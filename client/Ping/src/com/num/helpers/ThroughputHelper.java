@@ -22,6 +22,7 @@ import com.num.models.Network;
 import com.num.models.Ping;
 import com.num.models.Sim;
 import com.num.models.Throughput;
+import com.num.models.Traceroute;
 import com.num.models.Usage;
 import com.num.models.Wifi;
 import com.num.utils.CommandLineUtil;
@@ -119,6 +120,11 @@ public class ThroughputHelper {
 
 		public void onUpdateThroughput(Throughput throughput) {
 			listener.onUpdateThroughput(throughput);
+			
+		}
+
+		public void onCompleteTraceroute(Traceroute traceroute) {
+			// TODO Auto-generated method stub
 			
 		}
 	}
