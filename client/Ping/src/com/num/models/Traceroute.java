@@ -64,7 +64,7 @@ public class Traceroute implements MainModel{
 		ArrayList<Row> data = new ArrayList<Row>();
 		
 		for(TracerouteEntry entry : traceroutelist) {
-			data.add(new Row(""+entry.hopnumber,""+entry.ipAddr+"  "+entry.rtt));
+			data.add(new Row(""+entry.hopnumber,""+entry.ipAddr));
 		}
 		
 		return data;

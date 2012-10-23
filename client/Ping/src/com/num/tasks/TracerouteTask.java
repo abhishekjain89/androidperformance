@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Context;
 
 
+import com.num.helpers.TracerouteHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.Address;
 import com.num.models.Traceroute;
@@ -43,10 +44,10 @@ public class TracerouteTask extends ServerTask {
 	@Override
 	public void runTask() {
 
-		Traceroute traceroute = new Traceroute();
-		traceroute.addToList(new TracerouteEntry("cc.gatech",0,1));
+		Traceroute traceroute = TracerouteHelper.TraceHelp(dst.ip, startindex, endindex);
+		/*traceroute.addToList(new TracerouteEntry("cc.gatech",0,1));
 		traceroute.addToList(new TracerouteEntry("kacb.gatech",0,2));
-		traceroute.addToList(new TracerouteEntry("oit.gatech",0,3));
+		traceroute.addToList(new TracerouteEntry("oit.gatech",0,3));*/
 		this.getResponseListener().onCompleteTraceroute(traceroute);
 	}
 
