@@ -143,6 +143,8 @@ public class AnalysisActivity extends Activity {
 				}
 
 		}, R.drawable.measure)));
+		
+		
 
 
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);

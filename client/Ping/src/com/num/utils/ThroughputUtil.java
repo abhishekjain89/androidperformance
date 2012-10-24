@@ -41,7 +41,7 @@ public class ThroughputUtil {
 	{
 		Values session = (Values) context.getApplicationContext();
 		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,9915);
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.UPLINKPORT);
 		Socket uplinkclient=new Socket();
 		uplinkclient.connect(serversocket);
 

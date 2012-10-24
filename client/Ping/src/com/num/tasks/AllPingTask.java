@@ -87,23 +87,8 @@ public class AllPingTask extends ServerTask{
 				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
 			else
 				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
-		try {
-			Thread.sleep(session.NORMAL_SLEEP_TIME);
-		} catch (InterruptedException e1) {
-			this.killAll();
-			return;
-		}
 		
-		while(serverhelperPing.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(session.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				this.killAll();
-				return;	
-			}
-		}
-		
-	
+		serverhelperPing.waitOnTasks();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

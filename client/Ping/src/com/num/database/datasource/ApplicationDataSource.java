@@ -41,7 +41,7 @@ import com.sun.org.apache.regexp.internal.recompile;
 import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 public class ApplicationDataSource extends DataSource {
-	
+
 	private final String GRAPH_TYPE = "bar";
 	private final String Y_AXIS_UNITS = "KB";
 	private final String[] MODES = {"aggregate"};
@@ -49,6 +49,7 @@ public class ApplicationDataSource extends DataSource {
 	public ApplicationDataSource(Context context) {
 		super(context);
 		setDBHelper(new ApplicationMapping(context));
+		
 	}
 
 	private void addRow(Application app) {
@@ -163,7 +164,7 @@ public class ApplicationDataSource extends DataSource {
 		// "Atlanta, GA");
 		return null;
 	}
-	
+
 	public ArrayList<GraphPoint> getAggregateGraphData(HashMap<String, String> filter) {
 
 		List<Map<String, String>> allData = getDataStores(filter);
@@ -175,7 +176,7 @@ public class ApplicationDataSource extends DataSource {
 		Map<String, GraphPoint> pointmap = new HashMap<String, GraphPoint>();
 
 		for (Map<String, String> data : allData) {
-			
+
 			int newValue = extractValue(data);
 			int difference = 0;
 			if (newValue < oldValue)

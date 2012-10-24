@@ -84,32 +84,19 @@ public class MeasurementTask extends ServerTask{
 		measurement = new Measurement();
 		MeasurementListener listener= new MeasurementListener();
 		measurement.setManual(isManual);
-		// TODO Run ping task with list of things such as ip address and number of pings	
-		//android.os.Debug.startMethodTracing("lsd");
+	
 		Values session = this.getValues();
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
-
-
-		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
-		try {
-			Thread.sleep(session.SHORT_SLEEP_TIME);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(session.SHORT_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				this.killAll();
-				return;
-			}
-
-			Log.v(this.toString(),"Installing Binaries...");
-		}
-		Log.v(this.toString(),"Binaries Installed");
-
 		ArrayList<Address> dsts = session.getPingServers();
+		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
+		
+		for(Address dst : dsts)
+		{
+			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new FakeListener()));
+		}
+		
+		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
+		serverhelper.waitOnTasks();
+	
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
@@ -129,23 +116,7 @@ public class MeasurementTask extends ServerTask{
 
 		startTime = System.currentTimeMillis();
 
-		try {
-			Thread.sleep(session.NORMAL_SLEEP_TIME);
-		} catch (InterruptedException e1) {
-			this.killAll();
-			return;
-		}
-
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(session.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				this.killAll();
-				return;	
-			}
-		}
-
-
+		serverhelper.waitOnTasks();
 
 		while((gpsRunning||signalRunning/*||wifiRunning*/) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
 			try {
@@ -154,13 +125,7 @@ public class MeasurementTask extends ServerTask{
 				return;
 			}
 		}
-		/*
-		if(gpsRunning){
-			locationResult.gotLocation(null);
-		}*/
-
-
-
+		
 		if(doThroughput){
 			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
 		}
@@ -168,22 +133,8 @@ public class MeasurementTask extends ServerTask{
 			new MeasurementListener().onCompleteThroughput(new Throughput());
 		}
 
-		try {
-			Thread.sleep(session.NORMAL_SLEEP_TIME);
-		} catch (InterruptedException e) {
-			this.killAll();
-			return;
-		}
-
-		while(serverhelper.getThreadPoolExecutor().getActiveCount()>0){
-			try {
-				Thread.sleep(session.NORMAL_SLEEP_TIME);
-			} catch (InterruptedException e) {
-				this.killAll();
-				return;
-			}
-
-		}
+		serverhelper.waitOnTasks();
+		
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

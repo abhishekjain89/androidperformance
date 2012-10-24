@@ -4,6 +4,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 
+import android.util.Log;
+
+import com.num.Values;
 import com.num.tasks.ServerTask;
 import com.num.utils.IDThreadPoolExecutor;
 
@@ -32,6 +35,23 @@ public class ThreadPoolHelper {
 	}
 	public void shutdown(){
 		tpe.shutdownNow();		
+	}
+	
+	public void waitOnTasks() {
+		try {
+			Thread.sleep(Values.SHORT_SLEEP_TIME);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while(getThreadPoolExecutor().getActiveCount()>0){
+			try {
+				Thread.sleep(Values.SHORT_SLEEP_TIME);
+			} catch (InterruptedException e) {
+				shutdown();
+				return;
+			}
+		}
 	}
 	
 	

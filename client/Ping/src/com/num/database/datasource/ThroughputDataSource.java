@@ -33,12 +33,18 @@ public class ThroughputDataSource extends DataSource {
 	
 	private final String GRAPH_TYPE = "area";
 	private final String Y_AXIS_UNITS = "kbps";
+	private final boolean IS_PURGE_ALLOWED = true;
 		
 	private final String[] MODES = {"normal","aggregate"};
 	
 	public ThroughputDataSource(Context context) {
 		super(context);
 		setDBHelper(new ThroughputMapping(context));
+	}
+	
+
+	public boolean isPurgeAllowed() {
+		return IS_PURGE_ALLOWED;
 	}
 	
 	public void addRow(Link l, String type, String connectionType) {

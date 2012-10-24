@@ -20,7 +20,7 @@ public class AppUsageUtil {
 			String name = pm.getPackagesForUid(uid)[0];
 			label = (String) pm.getApplicationLabel(getAppInfo(c,name));
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} catch (NullPointerException e)
 		{

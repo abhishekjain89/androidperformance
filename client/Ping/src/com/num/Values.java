@@ -29,7 +29,7 @@ public class Values extends Application{
 
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
-	public  int UPLINKPORT=9912; //change to 9915
+	public  int UPLINKPORT=9915;
 	public  static int UPLINK_DURATION=25000;
 	public  int DOWNLINKPORT=9710;
 	public  static int DOWNLINK_DURATION=20000;
@@ -39,7 +39,7 @@ public class Values extends Application{
 	public  int TCP_PACKET_SIZE=1380;
 
 	public  int NORMAL_SLEEP_TIME = 1000;
-	public  int SHORT_SLEEP_TIME = 100;
+	public  static int SHORT_SLEEP_TIME = 100;
 	public  int ONE_MINUTE_TIME = 60 * 1000;
 	
 	public DatabasePicker picker;
