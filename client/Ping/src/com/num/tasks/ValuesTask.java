@@ -57,7 +57,7 @@ public class ValuesTask extends ServerTask{
 	}
 
 	public void runTask() {
-
+		/*
 		HTTPUtil http = new HTTPUtil();
 
 		try {
@@ -75,7 +75,7 @@ public class ValuesTask extends ServerTask{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		*/
 
 	}
 
