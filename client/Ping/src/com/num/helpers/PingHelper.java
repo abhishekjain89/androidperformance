@@ -35,7 +35,7 @@ public class PingHelper {
 			if (!output.contains("ttl")) {
 				if (!output.contains("From")){
 					while(!output.contains("From")) {
-						options 	= "-n -s 56 -c 1 -i 0.2 -t" + ++ttl;
+						options 	= "-n -s 56 -c 1 -t " + ++ttl;
 						output = cmdUtil.runCommand(cmd, ipDst, options);
 						if (ttl > 50) {
 							break;

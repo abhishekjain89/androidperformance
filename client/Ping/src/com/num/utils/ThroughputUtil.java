@@ -128,9 +128,6 @@ public class ThroughputUtil {
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);
 			
-			
-			
-			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

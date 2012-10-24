@@ -32,7 +32,7 @@ import com.num.models.Model;
 import com.num.models.Ping;
 import com.num.models.Throughput;
 import com.num.utils.DeviceUtil;
-import com.sun.org.apache.regexp.internal.recompile;
+//import com.sun.org.apache.regexp.internal.recompile;
 
 public class LatencyDataSource extends DataSource {
 	
