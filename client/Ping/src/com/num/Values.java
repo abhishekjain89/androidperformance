@@ -70,7 +70,7 @@ public class Values extends Application{
 
 	public void savePreferences(){
 
-		//PreferencesUtil.setDataInt("throughput", throughput,this);
+ 		//PreferencesUtil.setDataInt("throughput", throughput,this);
 	}
 	
 	public DatabasePicker createPicker(DataSource dataSource) {

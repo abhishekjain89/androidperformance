@@ -157,7 +157,7 @@ public class Usage implements MainModel{
 			if(app.getTotal_recv() + app.getTotal_sent() < 1000000) continue;
 
 			try {
-				data.add(new Row(app));
+				data.add(new Row(app,getTotal()));
 			} catch (Exception e) {
 				System.out.print(e.getLocalizedMessage());
 			}

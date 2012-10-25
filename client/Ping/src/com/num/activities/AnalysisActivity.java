@@ -61,6 +61,7 @@ public class AnalysisActivity extends Activity {
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -72,97 +73,115 @@ public class AnalysisActivity extends Activity {
 		session = (Values) getApplicationContext();
 		session.loadValues();
 		listview = (ListView) findViewById(R.id.listview);
-		
+
 		serverhelper = new ThreadPoolHelper(10, 30);
 
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
 		ServiceHelper.processRestartService(this);
 		ArrayList<Row> cells = new ArrayList<Row>();
 
-		cells.add(new Row(new ActivityItem("Application Usage", "Get data breakdown by app", new Handler() {
+		cells.add(new Row(new ActivityItem("Application Usage",
+				"Get data breakdown by app", new Handler() {
 
-			public void handleMessage(Message msg) {
-				Intent myIntent = new Intent(activity,
-						FullDisplayActivity.class);
-				myIntent.putExtra("model_key", "usage");
-				startActivity(myIntent);
-			}
-
-		}, R.drawable.usage)));		
-
-		cells.add(new Row(new ActivityItem("Speed Test", "Get Down/Up speed, 40 sec", new Handler() {
-			public void handleMessage(Message msg) {
-				Intent myIntent = new Intent(activity,
-						FullDisplayActivity.class);
-				myIntent.putExtra("model_key", "throughput");
-				myIntent.putExtra("time", "45");
-				startActivity(myIntent);}
-
-		}, R.drawable.throughput)));
-
-
-		cells.add(new Row(new ActivityItem("Latency", "Get time to reach server, 5 sec", new Handler() {
-			public void handleMessage(Message msg) {
-				Intent myIntent = new Intent(activity,
-						FullDisplayActivity.class);
-				myIntent.putExtra("model_key", "latency");
-				myIntent.putExtra("time", "15");
-				startActivity(myIntent);}
-
-		}, R.drawable.stopwatch)));
-		
-		cells.add(new Row(new ActivityItem("Configure", "Change preference", new Handler() {
-			public void handleMessage(Message msg) {
-				Intent myIntent = new Intent(activity, UserFormActivity.class);
-				myIntent.putExtra("force",true);
-				startActivity(myIntent);
-				}
-
-		}, R.drawable.configure)));
-		
-		cells.add(new Row(new ActivityItem("About Us", "Read about this project", new Handler() {
-			public void handleMessage(Message msg) {
-				Intent myIntent = new Intent(activity, AboutUsActivity.class);				
-				startActivity(myIntent);
-				}
-
-		}, R.drawable.team)));
-		
-		cells.add(new Row(new ActivityItem("Graphing", "Quick Graph", new Handler() {
-			public void handleMessage(Message msg) {
-				
-				DatabasePicker picker = session.createPicker(new LatencyDataSource(activity));
-				picker.setTitle("Latency Graph");
-				picker.filterBy(LatencyMapping.COLUMN_TYPE,"ping","Type");
-				picker.filterBy(LatencyMapping.COLUMN_DSTIP,"gsoogle","Destination");
-				picker.filterBy(LatencyMapping.COLUMN_MEASUREMENT,"average","Metric");
-				picker.filterBy(LatencyMapping.COLUMN_CONNECTION,DeviceUtil.getNetworkInfo(activity),"Connection");
-				Intent myIntent = new Intent(activity, GraphActivity.class);				
-				activity.startActivity(myIntent);
-                                             
-				}
-
-		}, R.drawable.measure)));
-		
-		if(session.DEBUG == true)
-		{
-			cells.add(new Row(new ActivityItem("TraceRoute", "Trace hops to Georgia Tech server", new Handler() {
-				public void handleMessage(Message msg) {
-					Intent myIntent = new Intent(activity, FullDisplayActivity.class);	
-					myIntent.putExtra("model_key", "traceroute");
-					startActivity(myIntent);
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "usage");
+						startActivity(myIntent);
 					}
 
-			}, R.drawable.team)));
+				}, R.drawable.usage)));
+
+		cells.add(new Row(new ActivityItem("Speed Test",
+				"Get Down/Up speed, 40 sec", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "throughput");
+						myIntent.putExtra("time", "45");
+						startActivity(myIntent);
+					}
+
+				}, R.drawable.throughput)));
+
+		cells.add(new Row(new ActivityItem("Latency",
+				"Get time to reach server, 5 sec", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "latency");
+						myIntent.putExtra("time", "15");
+						startActivity(myIntent);
+					}
+
+				}, R.drawable.stopwatch)));
+
+		cells.add(new Row(new ActivityItem("Configure", "Change preference",
+				new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								UserFormActivity.class);
+						myIntent.putExtra("force", true);
+						startActivity(myIntent);
+					}
+
+				}, R.drawable.configure)));
+
+		cells.add(new Row(new ActivityItem("About Us",
+				"Read about this project", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								AboutUsActivity.class);
+						startActivity(myIntent);
+					}
+
+				}, R.drawable.team)));
+
+		if (session.DEBUG == true) {
+			cells.add(new Row(new ActivityItem("Graphing", "Quick Graph",
+					new Handler() {
+						public void handleMessage(Message msg) {
+
+							DatabasePicker picker = session
+									.createPicker(new LatencyDataSource(
+											activity));
+							picker.setTitle("Latency Graph");
+							picker.filterBy(LatencyMapping.COLUMN_TYPE, "ping",
+									"Type");
+							picker.filterBy(LatencyMapping.COLUMN_DSTIP,
+									"gsoogle", "Destination");
+							picker.filterBy(LatencyMapping.COLUMN_MEASUREMENT,
+									"average", "Metric");
+							picker.filterBy(LatencyMapping.COLUMN_CONNECTION,
+									DeviceUtil.getNetworkInfo(activity),
+									"Connection");
+							Intent myIntent = new Intent(activity,
+									GraphActivity.class);
+							activity.startActivity(myIntent);
+
+						}
+
+					}, R.drawable.measure)));
+		}
+		if (session.DEBUG == true) {
+			cells.add(new Row(new ActivityItem("TraceRoute",
+					"Trace hops to Georgia Tech server", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									FullDisplayActivity.class);
+							myIntent.putExtra("model_key", "traceroute");
+							startActivity(myIntent);
+						}
+
+					}, R.drawable.team)));
 		}
 
-
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
-		for(Row cell: cells)
+		for (Row cell : cells)
 			itemadapter.add(cell);
 		listview.setAdapter(itemadapter);
 		itemadapter.notifyDataSetChanged();
-		UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
+		UIUtil.setListViewHeightBasedOnChildren(listview, itemadapter);
 
 	}
 

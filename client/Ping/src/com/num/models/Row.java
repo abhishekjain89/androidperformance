@@ -68,8 +68,8 @@ public class Row {
 		viewgen = new LatencyViewGenerator(pingGraph);
 	}
 	
-	public Row(Application app) {
-		viewgen = new ApplicationViewGenerator(app);
+	public Row(Application app,long total) {
+		viewgen = new ApplicationViewGenerator(app,total);
 	}
 	
 	public Row(DatabasePicker picker, String column) {

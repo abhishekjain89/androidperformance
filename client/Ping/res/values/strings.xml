@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, PingActivity!</string>
-    <string name="app_name">Network Usage Monitor</string>
+    <string name="app_name">My Speed Test</string>
     <string name="testButton">Full Test</string>
     <string name="pingButton">Latency</string>
     <string name="wifiButton">Wifi</string>

@@ -64,18 +64,33 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical" >
 
-                    
-                    <com.num.graph.TimelineView
-                        android:id="@+id/timeline"
+                    <RelativeLayout                        
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="0dp" />
-                    
-                     <com.num.graph.BarView
-                        android:id="@+id/barchart"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="0dp" />
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="0dp" >
+                        
+                        <ProgressBar
+                            android:id="@+id/load"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true" />
+
+                        <com.num.graph.TimelineView
+                            android:id="@+id/timeline"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp" />
+
+                        <com.num.graph.BarView
+                            android:id="@+id/barchart"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp" />
+
+                        
+
+                    </RelativeLayout>
 
                     <ListView
                         android:id="@+id/listview"

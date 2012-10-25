@@ -32,6 +32,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ public class GraphActivity extends Activity {
 
 	private ListView listview;
 	private ChartView chart;
+	private ProgressBar load;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,13 +88,13 @@ public class GraphActivity extends Activity {
 		else if (picker.getChartType().equals("bar")){
 			chart = (ChartView) this.findViewById(R.id.barchart);
 		}
-		
+		load = (ProgressBar) this.findViewById(R.id.load);
 		listview = (ListView) findViewById(R.id.listview);
 		chart.setPicker(picker);
 		title.setText(picker.getTitle());
 
 		chart.constructGraph();
-		// chart.updateGraph();
+		//updateGraphHandler.sendEmptyMessage(0);
 
 		populatePicker();
 
@@ -101,7 +103,9 @@ public class GraphActivity extends Activity {
 	public Handler updateGraphHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
+			load.setVisibility(View.VISIBLE);
 			chart.updateGraph();
+			load.setVisibility(View.GONE);
 
 		}
 

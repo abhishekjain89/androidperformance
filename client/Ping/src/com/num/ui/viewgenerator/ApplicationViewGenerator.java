@@ -28,10 +28,12 @@ public class ApplicationViewGenerator extends ViewGenerator{
 
 	ViewHolder holder;
 	Application app;
-
-	public ApplicationViewGenerator(Application app) {
-		super(R.layout.cell_view_iconkeyprogress);
+	long totalData;
+	
+	public ApplicationViewGenerator(Application app,long totalData) {
+		super(R.layout.cell_view_application);
 		this.app = app;
+		this.totalData = totalData;
 		holder = new ViewHolder();
 	}
 
@@ -39,11 +41,10 @@ public class ApplicationViewGenerator extends ViewGenerator{
 	public ViewHolder fillViewHolder(View view, LayoutInflater inflater) {
 		
 		holder.first =  (TextView) view.findViewById(R.id.key);
-		holder.second =  (TextView) view.findViewById(R.id.message);
+		holder.second =  (TextView) view.findViewById(R.id.data);
 		holder.progress =  (ProgressBar) view.findViewById(R.id.value);
 		holder.imageview = (ImageView) view.findViewById(R.id.icon);
-		holder.second2 =  (TextView) view.findViewById(R.id.message2);
-		holder.progress2 =  (ProgressBar) view.findViewById(R.id.value2);
+		holder.third =  (TextView) view.findViewById(R.id.percentage);
 		holder.linear = (LinearLayout) view.findViewById(R.id.main);
 		return holder;
 	}
@@ -52,11 +53,10 @@ public class ApplicationViewGenerator extends ViewGenerator{
 		
 		final Values values = (Values) context.getApplicationContext();
 		holder.first.setText(app.getName());
-		holder.progress.setProgress(getValue(app.getTotal_sent()));
-		holder.second.setText("Sent: " + getOutput(app.getTotal_sent()));
-		holder.progress2.setProgress(getValue(app.getTotal_sent()));
-		holder.second2.setText("Recv: " + getOutput(app.getTotal_recv()));
+		holder.progress.setProgress(getValue(app.getTotal()));
+		holder.second.setText(getOutput(app.getTotal()));		
 		holder.imageview.setImageDrawable(app.getAppIcon());
+		holder.third.setText(100*app.getTotal()/totalData + "%");
 		
 		holder.linear.setOnClickListener(new View.OnClickListener() {
 			

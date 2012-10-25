@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TimeZone;
 
 import android.content.ContentValues;
@@ -44,9 +45,9 @@ public abstract class DataSource {
 
 	public DataSource(Context context) {
 		this.context = context;
-		
 
 	}
+
 	public boolean isPurgeAllowed() {
 		return IS_PURGE_ALLOWED;
 	}
@@ -59,8 +60,9 @@ public abstract class DataSource {
 			e.printStackTrace();
 		}
 	}
+
 	// TODO this right now
-	
+
 	public void waitForTransaction() {
 
 		while (inTransaction) {
@@ -83,7 +85,7 @@ public abstract class DataSource {
 
 	public void close() {
 		inTransaction = false;
-		
+
 		dbHelper.close();
 	}
 
@@ -104,8 +106,16 @@ public abstract class DataSource {
 
 	public void setDBHelper(BaseMapping helper) {
 		dbHelper = helper;
-		if(isPurgeAllowed())
-			purgeOldData(5,10);
+		if (isPurgeAllowed()) {
+			purgeOldData(5, 10);
+
+			Random random = new Random();
+			int lower = random.nextInt(10) * 5 + 10;
+			int higher = lower + 5;
+
+			purgeOldData(lower, higher);
+
+		}
 	}
 
 	public ArrayList<String> getDistinctValues(String column) {
@@ -126,42 +136,40 @@ public abstract class DataSource {
 		System.out.println("fetch Distinct Values " + column + " DONE");
 		return ret;
 	}
-	
 
 	private void purgeOldData(int startdays, int enddays) {
-		
-		Calendar cal = Calendar.getInstance();		
+
+		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1 * enddays);
 		Date endDelete = cal.getTime();
 		cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, -1 * startdays);		
+		cal.add(Calendar.DAY_OF_MONTH, -1 * startdays);
 		Date onDelete = cal.getTime();
-		
-		
+
 		open();
-		
-		while(onDelete.after(endDelete)) {
+
+		while (onDelete.after(endDelete)) {
 			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String s= sdf.format(onDelete);
-			System.out.println("s is " + s);			
-			database.delete(
-					dbHelper.getTableName(),
-					ApplicationMapping.COLUMN_TIME + " LIKE '%" + s + "%'", null);
+			String s = sdf.format(onDelete);
+			System.out.println("s is " + s);
+			database.delete(dbHelper.getTableName(),
+					ApplicationMapping.COLUMN_TIME + " LIKE '%" + s + "%'",
+					null);
 			System.out.println("delete happened : for real");
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 			onDelete = cal.getTime();
 		}
-		
+
 		close();
 
 	}
 
 	protected List<Map<String, String>> getDataStores(
-			HashMap<String, String> filter) {		
+			HashMap<String, String> filter) {
 		open();
-	
+
 		List<Map<String, String>> dataStores = new ArrayList<Map<String, String>>();
-		
+
 		String selection = "";
 		String[] arguments = new String[filter.size()];
 
@@ -186,23 +194,18 @@ public abstract class DataSource {
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			
-			
-			
+
 			Map<String, String> dataStore = dbHelper.getDatabaseColumns()
 					.getDataStore(cursor);
 			dataStores.add(dataStore);
-			
-			
+
 			cursor.moveToNext();
 		}
 		// Make sure to close the cursor
 		cursor.close();
-		
-				
-		
+
 		close();
-				
+
 		return dataStores;
 
 	}
@@ -211,7 +214,7 @@ public abstract class DataSource {
 
 		open();
 		List<Map<String, String>> dataStores = new ArrayList<Map<String, String>>();
-		
+
 		Cursor cursor = database.query(dbHelper.getTableName(), getColumns(),
 				null, null, null, null, "_id");
 
@@ -225,14 +228,14 @@ public abstract class DataSource {
 		// Make sure to close the cursor
 		cursor.close();
 		close();
-		
+
 		return dataStores;
 	}
 
 	public void insert(Model model) {
 		Log.w("db", "inserting");
 		open();
-		insertModel(model);		
+		insertModel(model);
 		close();
 
 	}
