@@ -7,6 +7,7 @@ import com.num.*;
 import com.num.models.Measurement;
 import com.num.models.Screen;
 import com.num.utils.HTTPUtil;
+import com.num.utils.SDCardFileReader;
 
 import org.json.JSONObject;
 import android.content.Context;
@@ -36,6 +37,10 @@ public class MeasurementHelper {
 		Values session = (Values) context.getApplicationContext();
 		HTTPUtil http = new HTTPUtil();
 		JSONObject object = new JSONObject();
+		
+		if(session.DEBUG) {
+			SDCardFileReader.saveData("measurement_last.txt",measurement.toJSON().toString());			
+		}
 
 		try {
 			object = measurement.toJSON();
@@ -46,6 +51,8 @@ public class MeasurementHelper {
 			
 		}
 		GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success New","");
+		
+		
 		
 		
 		try {

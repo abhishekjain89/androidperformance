@@ -202,7 +202,6 @@ CREATE TABLE network (
     measurementid integer,
     networktype varchar(10),
     connectiontype varchar(10),
-    mobilenetworkinfo text,
     wifistate varchar(20),
     cellid varchar(20),
     datastate varchar(30),
