@@ -21,6 +21,7 @@ import com.num.database.DatabaseOutput;
 import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.LatencyMapping;
 import com.num.database.mapping.ThroughputMapping;
+import com.num.helpers.GAnalytics;
 import com.num.models.GraphData;
 
 import com.num.models.GraphPoint;
@@ -105,6 +106,7 @@ public class LatencyDataSource extends DataSource {
 		try{			
 			addRow((Ping) model, currentConnectionType);
 		} catch (Exception e) {
+			GAnalytics.log(GAnalytics.DATABASE, "Insert Fail " + dbHelper.getDBName(),e.getMessage());
 			e.printStackTrace();
 		}
 	}

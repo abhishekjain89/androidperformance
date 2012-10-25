@@ -57,7 +57,7 @@ public class Traceroute implements MainModel{
 		
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 	public ArrayList<Row> getDisplayData(Context context) {
 		

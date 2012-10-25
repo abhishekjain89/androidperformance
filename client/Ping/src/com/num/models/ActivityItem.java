@@ -1,5 +1,7 @@
 package com.num.models;
 
+import com.num.helpers.GAnalytics;
+
 import android.R.integer;
 import android.app.Activity;
 import android.os.Handler;
@@ -45,7 +47,4 @@ public class ActivityItem {
 		this.imageResource = imageResource;
 	}
 	
-	
-	
-
 }

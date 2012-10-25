@@ -11,4 +11,5 @@
     <string name="cancelButton">Cancel</string>
     <string name="saveButton">Save</string>
     <string name="backButton">Back</string>
+    <string name="ga_api_key">UA-32909196-1</string>
 </resources>

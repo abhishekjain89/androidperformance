@@ -1,5 +1,6 @@
 package com.num.activities;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.helpers.MenuHelper;
 
 import android.app.Activity;
@@ -10,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends TrackedActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

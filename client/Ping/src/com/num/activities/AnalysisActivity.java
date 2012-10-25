@@ -22,12 +22,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.database.DatabasePicker;
 import com.num.database.datasource.ApplicationDataSource;
 import com.num.database.datasource.LatencyDataSource;
 import com.num.database.mapping.ApplicationMapping;
 import com.num.database.mapping.LatencyMapping;
+import com.num.helpers.GAnalytics;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -52,7 +54,7 @@ import com.num.ui.adapter.ItemAdapter;
 import com.num.utils.DeviceUtil;
 import com.num.R;
 
-public class AnalysisActivity extends Activity {
+public class AnalysisActivity extends TrackedActivity {
 
 	private ListView listview;
 	private TextView apptext;
@@ -88,6 +90,7 @@ public class AnalysisActivity extends Activity {
 								FullDisplayActivity.class);
 						myIntent.putExtra("model_key", "usage");
 						startActivity(myIntent);
+						
 					}
 
 				}, R.drawable.usage)));
@@ -100,6 +103,7 @@ public class AnalysisActivity extends Activity {
 						myIntent.putExtra("model_key", "throughput");
 						myIntent.putExtra("time", "45");
 						startActivity(myIntent);
+						GAnalytics.log(GAnalytics.ACTION, "Click","Speed Test");
 					}
 
 				}, R.drawable.throughput)));

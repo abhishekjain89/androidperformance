@@ -85,7 +85,7 @@ public class Measure implements Model{
 	
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 
 

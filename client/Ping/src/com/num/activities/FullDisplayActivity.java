@@ -20,8 +20,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.activities.RunActivity.MeasurementListener;
+import com.num.helpers.GAnalytics;
 import com.num.helpers.TaskHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
@@ -46,7 +48,7 @@ import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
-public class FullDisplayActivity extends Activity {
+public class FullDisplayActivity extends TrackedActivity {
 
 	Values session;
 	TextView title;
@@ -67,7 +69,7 @@ public class FullDisplayActivity extends Activity {
 		String key = extras.getString("model_key");
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-		
+		GAnalytics.log(GAnalytics.ACTION, "Click",key);
 		showLoadPage();
 		
 		

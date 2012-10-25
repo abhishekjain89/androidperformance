@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="ga_debug" type="bool">false</item>
+    <item name="ga_auto_activity_tracking" type="bool">true</item>
+
+</resources>

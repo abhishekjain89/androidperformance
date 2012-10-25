@@ -111,7 +111,7 @@ public class WifiNeighbor implements MainModel,Comparable<WifiNeighbor>{
 	
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 
 	

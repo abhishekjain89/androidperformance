@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.models.MainModel;
 import com.num.models.Row;
@@ -15,7 +16,7 @@ import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
-public class DisplayActivity extends Activity {
+public class DisplayActivity extends TrackedActivity {
 	
 	Values session;
 	TextView title;

@@ -69,7 +69,7 @@ public class TracerouteEntry implements Model{
 		
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 	public ArrayList<Row> getDisplayData(Context context) {
 		// TODO Auto-generated method stub

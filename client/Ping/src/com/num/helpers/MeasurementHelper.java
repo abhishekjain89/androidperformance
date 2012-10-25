@@ -41,29 +41,32 @@ public class MeasurementHelper {
 			object = measurement.toJSON();
 		} catch (Exception e) {
 			e.printStackTrace();
+			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail New",e.getMessage());
 			return "Failure";
+			
 		}
-
+		GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success New","");
 		
-		String isSuccess = "Failure";
+		
 		try {
 
 			String output = http.request(new HashMap<String,String>(), "POST", "measurement", "", object.toString());
 			System.out.println(object.toString());
 			System.out.println(output);
 			session.screenBuffer = new ArrayList<Screen>();
-			isSuccess = "Success";
+		
 
 			MeasurementHelper.attemptSendingUnsentMeasurements(context);
-
+			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success Old","");
 		} catch (Exception e) {
 			e.printStackTrace();
-			isSuccess = "Failure";
-
-			session.unsentMeasurements.addMeasurment(measurement);
+	
+			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail Old",e.getMessage());
+			return "Failure";
+			
 		}
 		
-		return isSuccess;
+		return "Success";
 	}
 
 }

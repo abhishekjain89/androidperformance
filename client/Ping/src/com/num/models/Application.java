@@ -107,6 +107,6 @@ public class Application implements Model,Comparable<Application> {
 	
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 }

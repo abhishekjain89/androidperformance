@@ -139,7 +139,7 @@ public class WifiPreference implements Model{
 	
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 
 

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cell_layout" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" >
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="35dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="center"
+            android:src="@drawable/info" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:padding="0px"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/info"
+            android:layout_toRightOf="@+id/icon"
+            android:orientation="horizontal"
+            android:weightSum="10" >
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/data_layout"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true" >
+
+                <TextView
+                    android:id="@+id/data"
+                    android:layout_width="fill_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:gravity="clip_vertical|right"
+                    android:padding="0px"
+                    android:text="58.7 MB"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_below="@id/data"
+                    android:ellipsize="end"
+                    android:gravity="clip_vertical|right"
+                    android:padding="0px"
+                    android:text="16.7%"                    
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/data_layout" >
+
+                <TextView
+                    android:id="@+id/key"
+                    android:layout_width="fill_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:padding="0px"
+                    android:text="Keysdggsfgsfgdggshsfghsfhsfggf"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18dp" />
+
+                <ProgressBar
+                    android:id="@+id/value"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/key"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="2dp"
+                    android:progressDrawable="@drawable/progress"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

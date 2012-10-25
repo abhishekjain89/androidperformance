@@ -62,7 +62,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="fill"
-                android:text="This project was developed inside Georgia Tech. It hopes to provide thorough and relevant network information to cellphone users. While gathering anonymous periodic data from the devices we hope to better understand the cellular ecosystem. Support us by rating the app on the marketplace."
+                android:text="This application hopes to provide thorough and relevant network information to cellphone users. While gathering anonymous periodic data from the devices we plan to better understand the cellular ecosystem. Provide feedback and support us by reviewing and rating the app on the marketplace."
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_primary"
                 android:textSize="20dp" />

@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.R;
 import com.num.Values;
 import com.num.helpers.ThreadPoolHelper;
@@ -37,7 +38,7 @@ import com.num.tasks.UrlTask;
 import com.num.utils.PreferencesUtil;
 
 
-public class PrivacyActivity extends Activity 
+public class PrivacyActivity extends TrackedActivity 
 {
 	
 	//private TableLayout table;

@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.database.DatabasePicker;
 import com.num.graph.ChartView;
@@ -63,7 +64,7 @@ import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.R;
 
-public class GraphActivity extends Activity {
+public class GraphActivity extends TrackedActivity {
 	Values values;
 	DatabasePicker picker;
 

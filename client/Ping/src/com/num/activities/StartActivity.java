@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.activities.FullDisplayActivity.MeasurementListener;
 import com.num.helpers.ServiceHelper;
@@ -59,7 +60,7 @@ import com.num.utils.PreferencesUtil;
 import com.num.R;
 
 
-public class StartActivity extends Activity 
+public class StartActivity extends TrackedActivity 
 {
 
 	//private TableLayout table;

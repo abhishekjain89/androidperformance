@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.Values;
 import com.num.helpers.AppRater;
 
@@ -24,7 +25,7 @@ import com.num.R;
 
 
 
-public class AboutUsActivity extends Activity 
+public class AboutUsActivity extends TrackedActivity
 {
 	private Activity activity;
 	private Button rateButton;

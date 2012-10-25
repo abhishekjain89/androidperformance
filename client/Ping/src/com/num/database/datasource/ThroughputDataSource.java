@@ -20,6 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.num.database.DatabaseOutput;
 import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.ThroughputMapping;
+import com.num.helpers.GAnalytics;
 import com.num.models.GraphData;
 
 import com.num.models.GraphPoint;
@@ -65,10 +66,13 @@ public class ThroughputDataSource extends DataSource {
 	}
 	
 	protected void insertModel(Model model) {
-		
+		try {
 		String currentConnectionType = DeviceUtil.getNetworkInfo(context);
 		addRow(((Throughput)model).getDownLink(), "downlink", currentConnectionType);
-		addRow(((Throughput)model).getUpLink(), "uplink", currentConnectionType);		
+		addRow(((Throughput)model).getUpLink(), "uplink", currentConnectionType);
+		} catch (Exception e) {
+			GAnalytics.log(GAnalytics.DATABASE, "Insert Fail " + dbHelper.getDBName(),e.getMessage());
+		}
 	}
 	
 	public DatabaseOutput getOutput(String currentConnectionType) {

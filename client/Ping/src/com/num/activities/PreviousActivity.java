@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.R;
 import com.num.Values;
 import com.num.helpers.ThreadPoolHelper;
@@ -15,7 +16,7 @@ import com.num.listeners.FakeListener;
 import com.num.models.PingData;
 import com.num.tasks.ValuesTask;
 
-public class PreviousActivity extends Activity 
+public class PreviousActivity extends TrackedActivity 
 {
 	
 	private ListView listview;

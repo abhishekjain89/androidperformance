@@ -142,7 +142,7 @@ public class Battery  implements MainModel{
 
 	public int getIcon() {
 
-		return R.drawable.battery;
+		return R.drawable.usage;
 	}
 
 
