@@ -40,7 +40,7 @@ public abstract class DataSource {
 	public Context context;
 	public BaseMapping dbHelper;
 	public boolean inTransaction = false;
-	private final boolean IS_PURGE_ALLOWED = false;
+	private final boolean IS_PURGE_ALLOWED = true;
 	public int currentMode = 0;
 
 	public DataSource(Context context) {

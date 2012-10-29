@@ -82,6 +82,14 @@ public class GraphActivity extends TrackedActivity {
 		picker = values.getPicker();
 		picker.setGraphUpdateHandler(updateGraphHandler);
 
+		
+	
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
 		TextView title = (TextView) this.findViewById(R.id.title);
 		
 		if (picker.getChartType().equals("area"))
@@ -98,19 +106,40 @@ public class GraphActivity extends TrackedActivity {
 		//updateGraphHandler.sendEmptyMessage(0);
 
 		populatePicker();
-
+		
 	}
+
 
 	public Handler updateGraphHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
-			load.setVisibility(View.VISIBLE);
+			loadStart.sendEmptyMessage(0);
 			chart.updateGraph();
-			load.setVisibility(View.GONE);
+			loadEnd.sendEmptyMessage(0);
 
 		}
 
 	};
+	
+	public Handler loadStart = new Handler() {
+
+		public void handleMessage(Message msg) {
+			load.setVisibility(View.VISIBLE);
+			
+		}
+
+	};
+	
+	public Handler loadEnd = new Handler() {
+
+		public void handleMessage(Message msg) {
+			load.setVisibility(View.VISIBLE);
+			
+		}
+
+	};
+	
+	
 
 	private void populatePicker() {
 

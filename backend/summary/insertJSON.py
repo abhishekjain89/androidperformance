@@ -5,106 +5,106 @@ from backend.summary.models import *
 
 import random
 from datetime import datetime, timedelta
-from time import time,mktime,strftime
+from time import time, mktime, strftime
 import hashlib
 import ast
 import error_message_helper
 
 
-def device(dev,m_deviceid,m_sim):
+def device(dev, m_deviceid, m_sim):
     
-    count=0
+    count = 0
     
     d = Device()
     try:
-        d=Device.objects.filter(deviceid=m_deviceid)[0]
+        d = Device.objects.filter(deviceid=m_deviceid)[0]
     except:
         d = Device()
         try:
             d.deviceid = m_deviceid
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
     
     try:
         
         try:
-            d.phonenumber=dev['phoneNumber']
+            d.phonenumber = dev['phoneNumber']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:
             d.phonetype = dev['phoneType']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:                         
             d.softwareversion = dev['softwareVersion']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:
             d.phonemodel = dev['phoneModel']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:
             d.androidversion = dev['androidVersion']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:
             d.phonebrand = dev['phoneBrand']
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("device",inst)
+            print error_message_helper.insert_entry_fail("device", inst)
         try:
             d.devicedesign = dev['deviceDesign']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.manufacturer = dev['manufacturer']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.productname = dev['productName']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.radioversion = dev['radioVersion']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.boardname = dev['boardName']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.datacap = dev['datacap']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.billingcycle = dev['billingcycle']
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.networkcountry = dev["networkCountry"]
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         try:
             d.networkname = dev["networkName"]
         except Exception as inst:
-            error_message_helper.insert_entry_fail("device",inst)
+            error_message_helper.insert_entry_fail("device", inst)
         
         try:           
-            s =sim(m_sim);
+            s = sim(m_sim);
             d.serialnumber = s
         except Exception as inst:
-            print error_message_helper.insert_entry_fail("sim",inst) 
+            print error_message_helper.insert_entry_fail("sim", inst) 
         
         
         d.save()
 	
         print "Device inserted"
     except Exception as inst:
-        print error_message_helper.insert_entry_fail("device",inst) 
+        print error_message_helper.insert_entry_fail("device", inst) 
        
     return d
 
 
-def network(dev,m):
+def network(dev, m):
     
     print "trying network"
     n = Network()
@@ -120,59 +120,38 @@ def network(dev,m):
         n.connectiontype = dev["connectionType"]
     except:
         pass
-    try:    
-        n.mobilenetworkinfo = parse(dev["mobileNetworkInfo"])
-    except:
-        pass
-    print "trying cell" 
+    
     try:
-        result = Cell.objects.filter(cellid=parse(dev['cellId']))[0]
-    
+        n.cellid = parse(dev['cellId'])
     except:
-        try:
-            result = Cell()
-            try:
-                result.cellid = parse(dev['cellId'])
-            except:
-                pass
+        pass
             
-            try:
-                result.celllac = parse(dev["cellLac"])
-            except:
-                pass
-            try:
-                result.celltype= parse(dev["cellType"])
-            except:
-                pass
-            try:
-                result.longitude= parseFloat(dev["basestationLong"],-99)
-            except:
-                result.longitude= -99
-            try:
-                result.latitude= parseFloat(dev["basestationLat"],-99)
-            except:
-                result.latitude= -99
-            try:
-                result.networkid= parseInt(dev["networkid"],-1)
-            except:
-                result.networkid= -1
-            
-            try:
-                result.systemid= parseInt(dev["systemid"],-1)
-            except:
-                result.systemid= -1
-            
-            result.save()
-            print "Cell inserted"
-        except Exception as inst:
-            print error_message_helper.insert_entry_fail("cell",inst)
-            
-        
-    try:        
-        n.cellid = result
+    try:
+        n.celllac = parse(dev["cellLac"])
     except:
         pass
     
+    try:
+        n.celltype = parse(dev["cellType"])
+    except:
+        pass
+    try:
+        n.longitude = parseFloat(dev["basestationLong"], -99)
+    except:
+        n.longitude = -99
+    try:
+        n.latitude = parseFloat(dev["basestationLat"], -99)
+    except:
+        n.latitude = -99
+    try:
+        n.networkid = parseInt(dev["networkid"], -1)
+    except:
+        n.networkid = -1            
+    try:
+        n.systemid = parseInt(dev["systemid"], -1)
+    except:
+        n.systemid = -1
+            
     try:     
         n.datastate = dev["dataState"]
     except:
@@ -185,7 +164,7 @@ def network(dev,m):
         n.signalstrength = dev["signalStrength"]
     except:
         pass
-    
+    print "saving"
     n.save()
     print "Network inserted"
        
@@ -219,11 +198,11 @@ def sim(dev):
         s.save()
         print "Sim inserted"
     except Exception as inst:
-        print error_message_helper.insert_entry_fail("sim",inst)
+        print error_message_helper.insert_entry_fail("sim", inst)
        
     return s
 
-def gps(dev,m):
+def gps(dev, m):
     
     g = Gps() 
     try:
@@ -238,7 +217,7 @@ def gps(dev,m):
        
     return g
 
-def battery(dev,m):
+def battery(dev, m):
     
     g = Battery()
     g.measurementid = m.measurementid
@@ -304,7 +283,7 @@ def link(dev):
     return l
 
 
-def screen(arrdev,device):
+def screen(arrdev, device):
     
     for dev in arrdev:
         s = Screen()
@@ -324,14 +303,14 @@ def screen(arrdev,device):
     print "Screen inserted"
     
 
-def throughput(dev,m):
+def throughput(dev, m):
     
     t = Throughput()
     
     try:
         t.measurementid = m.measurementid
-        t.uplinkid=link(dev['upLink'])
-        t.downlinkid=link(dev['downLink'])
+        t.uplinkid = link(dev['upLink'])
+        t.downlinkid = link(dev['downLink'])
         t.save()
         print "Throughput inserted"
     except:
@@ -341,12 +320,12 @@ def throughput(dev,m):
     return t
 
 
-def usage(dev,m):
+def usage(dev, m):
     
     u = Usage()
-    u.measurementid=m.measurementid
+    u.measurementid = m.measurementid
     
-    last =  None
+    last = None
     
     try:
         print m.deviceid.deviceid
@@ -357,20 +336,20 @@ def usage(dev,m):
         pass
     
     try:
-        u.total_sent=dev['total_sent']
+        u.total_sent = dev['total_sent']
     except:
         pass
     
     try:
-        u.total_recv=dev['total_recv']
+        u.total_recv = dev['total_recv']
     except:
         pass
     try:
-        u.mobile_sent=dev['mobile_sent']
+        u.mobile_sent = dev['mobile_sent']
     except:
         pass
     try:
-        u.mobile_recv=dev['mobile_recv']
+        u.mobile_recv = dev['mobile_recv']
     except:
         pass
     u.total_till_now = 0
@@ -382,7 +361,7 @@ def usage(dev,m):
         try:
             result = Application.objects.filter(package=app['packageName'][:50])[0]
         except:
-            result = Application(package=app['packageName'][:50],name=app['name'][:20])
+            result = Application(package=app['packageName'][:50], name=app['name'][:20])
             result.save()
         
         appUse = ApplicationUse()
@@ -392,22 +371,22 @@ def usage(dev,m):
         except:
             pass
         try:
-            appUse.total_sent=app['total_sent']
+            appUse.total_sent = app['total_sent']
         except:
             pass
         try:
             if app['isRunning'] == 1:
-                appUse.isrunning=True
+                appUse.isrunning = True
             else:
-                appUse.isrunning=False
+                appUse.isrunning = False
         except:
             pass
         try:
-            appUse.total_recv=app['total_recv']
+            appUse.total_recv = app['total_recv']
         except:
             pass
         try:
-            appUse.measurementid=m
+            appUse.measurementid = m
         except:
             pass
         
@@ -422,7 +401,7 @@ def usage(dev,m):
     return u
     
 
-def pings(pings,measurement):
+def pings(pings, measurement):
     
     for p in pings:
         ping = Ping()
@@ -465,7 +444,7 @@ def pings(pings,measurement):
         
         ping.save()
         
-def lastmiles(lastmiles,measurement):
+def lastmiles(lastmiles, measurement):
     
     for p in lastmiles:
         lastmile = Lastmile()
@@ -518,28 +497,28 @@ def lastmiles(lastmiles,measurement):
 
 def calculate_log(range):
     print "im in"
-    current_time= datetime.utcnow()
+    current_time = datetime.utcnow()
     ranged = timedelta(hours=float(range))
     l_time = current_time - ranged
     
     print str(range) + " hours" 
     print current_time
     print l_time
-    log = CalculateLog(log_time = current_time,time = l_time)
+    log = CalculateLog(log_time=current_time, time=l_time)
     log.save()
         
-def error_log(message,device,request):
+def error_log(message, device, request):
     
     error_log = ErrorLog()
     error_log.log_time = datetime.utcnow()
-    error_log.deviceid =device
+    error_log.deviceid = device
     error_log.error_text = str(message)
     error_log.user_agent = str(request.META['HTTP_USER_AGENT'])
     error_log.remote_addr = str(request.META['REMOTE_ADDR'])
     
     error_log.save()
         
-def wifi(dev,m):
+def wifi(dev, m):
     
     w = Wifi()
     w.measurementid = m.measurementid
@@ -587,23 +566,23 @@ def wifi(dev,m):
 
 def parse(object):
    
-    if object==None:
+    if object == None:
         return ''
     else:
         return object
     
-def parseInt(object,backup):
+def parseInt(object, backup):
     
     try:
-        a=int(object)
+        a = int(object)
         return object
     except:
         return backup
     
-def parseFloat(object,backup):
+def parseFloat(object, backup):
     object = parse(object)
     try:
-        a=float(object)
+        a = float(object)
         return object
     except:
         return backup

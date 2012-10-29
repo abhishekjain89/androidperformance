@@ -24,7 +24,7 @@ import com.num.models.Throughput;
 
 public class ThroughputUtil {
 	
-	static long responseListenerUpdateFrequency = 800;
+	static long responseListenerUpdateFrequency = 100;
 	
 	public static String generateRandom()
 	{

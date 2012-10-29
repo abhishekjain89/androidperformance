@@ -203,13 +203,9 @@ CREATE TABLE network (
     networktype varchar(10),
     connectiontype varchar(10),
     wifistate varchar(20),
-    cellid varchar(20),
     datastate varchar(30),
     dataactivity varchar(30),
-    signalstrength varchar(3)
-);
-
-CREATE TABLE cell(
+    signalstrength varchar(3),
 	cellid varchar(20),
 	celltype varchar(10),
     celllac varchar(20),
@@ -382,8 +378,6 @@ ALTER TABLE ONLY wifi_hotspot
     ADD CONSTRAINT wifi_hotspot_pkey PRIMARY KEY (macaddress);
 ALTER TABLE ONLY wifi_neighbor
     ADD CONSTRAINT wifi_neighbor_pkey PRIMARY KEY (wifi_neighbor_id);
-ALTER TABLE ONLY cell
-    ADD CONSTRAINT cell_pkey PRIMARY KEY (cellid);
 ALTER TABLE ONLY state
     ADD CONSTRAINT state_measurement_pkey PRIMARY KEY (measurementid);
 ALTER TABLE ONLY screen
@@ -406,8 +400,6 @@ ALTER TABLE ONLY wifi_neighbor
     ADD CONSTRAINT wifi_neighbor_macaddress_fkey FOREIGN KEY (macaddress) REFERENCES wifi_hotspot(macaddress);
 ALTER TABLE ONLY wifi
     ADD CONSTRAINT wifi_macaddress_fkey FOREIGN KEY (connection) REFERENCES wifi_hotspot(macaddress);
-ALTER TABLE ONLY network
-    ADD CONSTRAINT network_cellid_fkey FOREIGN KEY (cellid) REFERENCES cell(cellid);
 ALTER TABLE ONLY device
 	ADD CONSTRAINT device_serialnumber_fkey FOREIGN KEY (serialnumber) REFERENCES sim(serialnumber);
 ALTER TABLE ONLY lastmile

@@ -157,6 +157,7 @@ class Screen(models.Model):
     time = models.DateTimeField()
     localtime = models.DateTimeField()
     turnedon = models.BooleanField()
+    
     class Meta:
         db_table = u'screen'
         
@@ -181,18 +182,20 @@ class KillList(models.Model):
 class Network(models.Model):
     measurementid = models.IntegerField(primary_key=True)
     networktype = models.CharField(max_length=10)
-    connectiontype = models.CharField(max_length=10)
-    mobilenetworkinfo = models.TextField()
+    connectiontype = models.CharField(max_length=10)    
     wifistate = models.CharField(max_length=20)
-    cellid = models.ForeignKey(Cell, to_field='cellid', db_column='cellid')
     datastate = models.CharField(max_length=30)
     dataactivity = models.CharField(max_length=30)
     signalstrength = models.CharField(max_length=3)
+    cellid = models.CharField(max_length=20, primary_key=True)
+    celltype = models.CharField(max_length=10)
+    celllac = models.CharField(max_length=20)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    systemid = models.IntegerField()
+    networkid = models.IntegerField()
     class Meta:
         db_table = u'network'
-
-
-
 
 class State(models.Model):
     measurementid = models.IntegerField(primary_key=True)
