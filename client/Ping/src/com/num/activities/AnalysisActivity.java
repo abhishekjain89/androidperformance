@@ -90,7 +90,7 @@ public class AnalysisActivity extends TrackedActivity {
 								FullDisplayActivity.class);
 						myIntent.putExtra("model_key", "usage");
 						startActivity(myIntent);
-						
+
 					}
 
 				}, R.drawable.usage)));
@@ -103,7 +103,8 @@ public class AnalysisActivity extends TrackedActivity {
 						myIntent.putExtra("model_key", "throughput");
 						myIntent.putExtra("time", "45");
 						startActivity(myIntent);
-						GAnalytics.log(GAnalytics.ACTION, "Click","Speed Test");
+						GAnalytics
+								.log(GAnalytics.ACTION, "Click", "Speed Test");
 					}
 
 				}, R.drawable.throughput)));

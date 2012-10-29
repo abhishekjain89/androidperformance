@@ -47,11 +47,12 @@ public class SDCardFileReader {
 		try {
 			BufferedWriter writer  = new BufferedWriter(new FileWriter(file));
 		    writer.write(data);
-			
+			writer.close();
 		}
 		catch (IOException e) {
 		    e.printStackTrace();
 		}		
+		
 	}
 
 }

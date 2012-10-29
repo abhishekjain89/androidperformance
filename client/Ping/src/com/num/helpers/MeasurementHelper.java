@@ -39,6 +39,7 @@ public class MeasurementHelper {
 		JSONObject object = new JSONObject();
 		
 		if(session.DEBUG) {
+			System.out.println("file saved");
 			SDCardFileReader.saveData("measurement_last.txt",measurement.toJSON().toString());			
 		}
 
