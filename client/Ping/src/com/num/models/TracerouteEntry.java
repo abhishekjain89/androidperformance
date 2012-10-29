@@ -9,7 +9,7 @@ import android.content.Context;
 
 import com.num.R;
 
-public class TracerouteEntry implements Model{
+public class TracerouteEntry implements Model, Comparable<TracerouteEntry>{
 	
 	String ipAddr = "";
 	double rtt = -1;
@@ -74,6 +74,13 @@ public class TracerouteEntry implements Model{
 	public ArrayList<Row> getDisplayData(Context context) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public int compareTo(TracerouteEntry another) {
+		
+		if(this.hopnumber > another.hopnumber) return 1;
+		if(this.hopnumber == another.hopnumber) return 0;
+		return -1;
+		
 	}
 
 

@@ -23,6 +23,7 @@ import com.num.ui.viewgenerator.PickerOutlierViewGenerator;
 import com.num.ui.viewgenerator.PickerViewGenerator;
 import com.num.ui.viewgenerator.ThroughputViewGenerator;
 import com.num.ui.viewgenerator.TitleViewGenerator;
+import com.num.ui.viewgenerator.TracerouteEntryViewGenerator;
 import com.num.ui.viewgenerator.ViewGenerator;
 import com.num.R;
 
@@ -78,6 +79,11 @@ public class Row {
 	
 	public Row(DatabasePicker picker ) {
 		viewgen = new PickerOutlierViewGenerator(picker);
+	}
+
+	
+	public Row(TracerouteEntry entry) {
+		viewgen = new TracerouteEntryViewGenerator(entry);
 	}
 
 

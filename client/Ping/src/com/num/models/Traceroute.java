@@ -1,6 +1,7 @@
 package com.num.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 
@@ -63,8 +64,10 @@ public class Traceroute implements MainModel{
 		
 		ArrayList<Row> data = new ArrayList<Row>();
 		
+		Collections.sort(traceroutelist);
+		
 		for(TracerouteEntry entry : traceroutelist) {
-			data.add(new Row(""+entry.hopnumber,""+entry.ipAddr));
+			data.add(new Row(entry));		
 		}
 		
 		return data;
