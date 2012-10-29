@@ -61,7 +61,7 @@ public class ThroughputUtil {
 		
 		do
 		{
-			out.println(buf);			
+			out.write(buf);			
 			end = System.currentTimeMillis();
 			
 			if (end>endSecond+responseListenerUpdateFrequency) {
