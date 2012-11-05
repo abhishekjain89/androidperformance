@@ -8,25 +8,32 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.num.R;
-
-public class TracerouteEntry implements MainModel{
+public class TracerouteEntry implements Model, Comparable<TracerouteEntry>{
 	
+	String hostname = "";
 	String ipAddr = "";
 	String rtt = "";
-	int hopnumber = -1;
+	int hopnumber = -1;	
 	
 	private static String DESCRIPTION = "";
 
 	public String getDescription() {
 		return DESCRIPTION;
 	}
-	public TracerouteEntry(String ipAddr, String rtt, int hopnumber){
+	public TracerouteEntry(String ipAddr, String hostname, String rtt, int hopnumber){
 		this.ipAddr = ipAddr;
 		this.rtt = rtt;
+		this.hostname= hostname;
 		this.hopnumber = hopnumber;
 	}
 	
 	
+	public String getHostname() {
+		return hostname;
+	}
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
 	public String getIpAddr() {
 		return ipAddr;
 	}
@@ -51,6 +58,7 @@ public class TracerouteEntry implements MainModel{
 		try {
 			
 			obj.putOpt("ipAddr",  ipAddr);
+			obj.putOpt("hostname",  hostname);
 			obj.putOpt("rtt", rtt);
 			obj.putOpt("hopnumber", hopnumber);
 			
@@ -74,6 +82,13 @@ public class TracerouteEntry implements MainModel{
 	public ArrayList<Row> getDisplayData(Context context) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public int compareTo(TracerouteEntry another) {
+		
+		if(this.hopnumber > another.hopnumber) return 1;
+		if(this.hopnumber == another.hopnumber) return 0;
+		return -1;
+		
 	}
 
 

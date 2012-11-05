@@ -1,6 +1,5 @@
 package com.num.ui.viewgenerator;
 
-import com.num.models.Model;
 import com.num.models.Row;
 import com.num.R;
 

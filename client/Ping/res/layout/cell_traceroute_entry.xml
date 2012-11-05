@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:padding="2px" >
+
+        <TextView
+            android:id="@+id/index"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:padding="0px"
+            android:text="Key"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:textSize="18dp" />
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            
+            android:layout_toLeftOf="@+id/rtt"
+            android:layout_toRightOf="@+id/index" >
+
+            <TextView
+                android:id="@+id/ipaddress"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:gravity="left|fill_vertical"
+                android:scrollHorizontally="false"
+                android:text="Value"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dark_gray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/hostname"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:gravity="left|fill_vertical"
+                android:scrollHorizontally="false"
+                android:layout_below="@id/ipaddress"
+                android:text="Value"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dark_gray"
+                android:textSize="16dp" />
+        </RelativeLayout>
+        <TextView
+                android:id="@+id/rtt"
+                android:layout_width="50dp"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                
+                
+                android:text="288ms"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dark_gray"
+                android:textSize="16dp" />
+    </RelativeLayout>
+</LinearLayout>

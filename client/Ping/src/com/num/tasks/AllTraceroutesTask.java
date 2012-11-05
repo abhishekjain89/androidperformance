@@ -93,13 +93,7 @@ public class AllTraceroutesTask extends ServerTask{
 		}
 			
 		serverhelperTraceroute.waitOnTasks();
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			return;
-
-		}
-		
+				
 		(new MeasurementListener()).onCompleteTraceroute(traceroute);
 		
 		
@@ -224,6 +218,7 @@ public class AllTraceroutesTask extends ServerTask{
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroutehop) {
 			traceroute.addToList(traceroutehop);
+			getResponseListener().onCompleteTraceroute(traceroute);
 			
 			
 		}

@@ -33,9 +33,9 @@ public class TracerouteHelper {
 	
 	static TracerouteEntry parseResult(String result, int index)
 	{
-		String ipAddr = null;
-		String ipName=null;
-		String ipBits = null;
+		String ipAddr = "";
+		String ipName="";
+		String ipBits = "";
 		boolean found = false;
 		String parsedResult= "";
 		int pos;
@@ -68,19 +68,19 @@ public class TracerouteHelper {
 				e.printStackTrace();
 				ipAddr=parsedResult;
 			}
+			
 			if(ipAddr.indexOf('/')!=-1)
 			{
 				ipName = ipAddr.substring(0,ipAddr.indexOf('/'));
-				ipBits = ipAddr.substring(ipAddr.indexOf('/')+1);
-				ipAddr = ipName+'\n'+ipBits;
+				ipBits = ipAddr.substring(ipAddr.indexOf('/')+1);				
 			}
 			rtt = getHopRTT(parsedResult);
 			Log.d("TraceHelp","Parsed result "+ parsedResult);
-			return new TracerouteEntry(ipAddr, ""+rtt, index);
+			return new TracerouteEntry(ipBits,ipName, ""+rtt, index);
 		}
 		else
 		{
-			return new TracerouteEntry("***", "*", index);
+			return new TracerouteEntry("***","*", "*", index);
 		}
 	}
 	
