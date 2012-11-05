@@ -21,9 +21,9 @@ import com.num.utils.PreferencesUtil;
 
 public class Values extends Application{
 
-	public boolean DEBUG = true;
+	public boolean DEBUG = false;
 	
-	public  int FREQUENCY_SECS = 15*60;
+	public  static int FREQUENCY_SECS = 1*60;
 
 	DeviceUtil util = new DeviceUtil();
 
@@ -31,12 +31,12 @@ public class Values extends Application{
 
 	public  int UPLINKPORT=9915;
 	public  static int UPLINK_DURATION=25000;
-	public  int DOWNLINKPORT=9710;
+	public  static int DOWNLINKPORT=9710;
 	public  static int DOWNLINK_DURATION=20000;
-	public  int DOWNLINK_BUFFER_SIZE=12000;
+	public  static int DOWNLINK_BUFFER_SIZE=12000;
 
-	public  int TCP_HEADER_SIZE=54;
-	public  int TCP_PACKET_SIZE=1380;
+	public  static int TCP_HEADER_SIZE=54;
+	public  static int TCP_PACKET_SIZE=1380;
 
 	public  int NORMAL_SLEEP_TIME = 1000;
 	public  static int SHORT_SLEEP_TIME = 100;

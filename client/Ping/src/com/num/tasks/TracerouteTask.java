@@ -44,7 +44,7 @@ public class TracerouteTask extends ServerTask {
 	@Override
 	public void runTask() {
 
-		Traceroute traceroute = TracerouteHelper.TraceHelp(dst.ip, startindex, endindex);
+		Traceroute traceroute = TracerouteHelper.traceHelp(dst.ip, startindex, endindex);
 		/*traceroute.addToList(new TracerouteEntry("cc.gatech",0,1));
 		traceroute.addToList(new TracerouteEntry("kacb.gatech",0,2));
 		traceroute.addToList(new TracerouteEntry("oit.gatech",0,3));*/

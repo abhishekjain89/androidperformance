@@ -47,6 +47,7 @@ public class ThreadPoolHelper {
 		while(getThreadPoolExecutor().getActiveCount()>0){
 			try {
 				Thread.sleep(Values.SHORT_SLEEP_TIME);
+				System.out.print("waiting");
 			} catch (InterruptedException e) {
 				shutdown();
 				return;

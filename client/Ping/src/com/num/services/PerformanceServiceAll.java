@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,7 +45,11 @@ import com.num.utils.GPSUtil;
 import com.num.utils.PreferencesUtil;
 import com.num.utils.StateUtil;
 
-public class PerformanceServiceAll extends Service{
+public class PerformanceServiceAll extends IntentService{
+
+	public PerformanceServiceAll() {		
+		super(PerformanceServiceAll.class.getName());
+	}
 
 	private Context context;
 	private ThreadPoolHelper serverhelper;
@@ -54,55 +59,44 @@ public class PerformanceServiceAll extends Service{
 	public static String TAG = "PerformanceService-All";
 	BroadcastReceiver mReceiver;
 	PowerManager.WakeLock wl;
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
+	
 
 	@Override
-	public void onCreate() {
-
-		updateTimer = new Timer("measurementTaskAll");
+	protected void onHandleIntent(Intent arg0) {
 		context = this.getApplicationContext();
+		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+				PerformanceServiceAll.class.getName());
+		wl.acquire();
+		ServiceHelper.recurringStartService(context);
+		
+		updateTimer = new Timer("measurementTaskAll");
+		
 		Values session = (Values) context.getApplicationContext();
 		serverhelper = new ThreadPoolHelper(1,session.THREADPOOL_KEEPALIVE_SEC);
 
 		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		mReceiver = new ScreenReceiver();
-		registerReceiver(mReceiver, filter);
 		
-		/*PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
-		wl.acquire();*/
+		System.out.println("wakelock acquired");
+		runTask();
+		
+		
 	}
+	
 
-	@Override
-	public void onDestroy() {
+
+	public void onEnd() {
+		onDestroy();
 		updateTimer.cancel();
-		unregisterReceiver(mReceiver);
+		//unregisterReceiver(mReceiver);
 		serverhelper.shutdown();
+		wl.release();
+		System.out.println("wakelock released");
 		//wl.release();
 		Log.v(TAG,"Destroying " + TAG);
 	}
 
-	@Override
-	public void onStart(Intent intent, int startId) {
-
-	super.onStart(intent, startId);
-	runTask();
-	
-	}
-
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		
-		runTask();   
-		ServiceHelper.recurringStartService(context);
-		return Service.START_STICKY;
-	}
-
-	
-	
 	boolean doThroughput = false;
 	
 
@@ -140,21 +134,18 @@ public class PerformanceServiceAll extends Service{
 
 		Log.i(TAG," Throughput:" + session.getThroughput());
 
-
+		serverhelper.waitOnTasks();
+		
+		onEnd();
 
 	}
-
-
-	public void onDestroyed(){
-		super.onDestroy();
-	}
-
 
 	public class Listener extends BaseResponseListener{
 		Values session = (Values) context.getApplicationContext();
 		public void onComplete(String response) {
 			System.out.println("throughput succeed");
 			ThroughputHandler.sendEmptyMessage(0);
+			onEnd();
 
 		}
 
@@ -163,6 +154,7 @@ public class PerformanceServiceAll extends Service{
 			session.decrementThroughput();
 			doThroughput=false;
 			NoThroughputHandler.sendEmptyMessage(0);
+			onEnd();
 		}
 
 		public void onCompletePing(Ping response) {
@@ -282,6 +274,8 @@ public class PerformanceServiceAll extends Service{
 		}
 
 	}
+
+
 
 
 }

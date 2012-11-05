@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -81,7 +82,21 @@ public class MeasurementTask extends ServerTask{
 	}
 
 	public void runTask() {
-
+		Looper.prepare();
+		
+		Handler signalHandler = new Handler() {
+			public void  handleMessage(Message msg) {
+				try {
+					SignalUtil.getSignal(signalResult, getContext());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Looper.loop();
+		
+		
 		measurement = new Measurement();
 		MeasurementListener listener= new MeasurementListener();
 		measurement.setManual(isManual);
@@ -110,7 +125,9 @@ public class MeasurementTask extends ServerTask{
 
 		signalRunning = true;
 	
-		SignalHandler.sendEmptyMessage(0);
+		
+		//SignalUtil.getSignal(signalResult, getContext());
+		signalHandler.sendEmptyMessage(0);
 
 		measurement.setPings(pings);
 		measurement.setLastMiles(lastMiles);
@@ -119,9 +136,10 @@ public class MeasurementTask extends ServerTask{
 
 		serverhelper.waitOnTasks();
 
-		while((gpsRunning||signalRunning/*||wifiRunning*/) && (System.currentTimeMillis() - startTime)<session.GPS_TIMEOUT){
+		while(signalRunning){
 			try {
 				Thread.sleep(session.NORMAL_SLEEP_TIME);
+				System.out.println("waiting for signal");
 			} catch (InterruptedException e) {
 				return;
 			}
@@ -133,7 +151,7 @@ public class MeasurementTask extends ServerTask{
 		else{
 			new MeasurementListener().onCompleteThroughput(new Throughput());
 		}
-
+		
 		serverhelper.waitOnTasks();
 		
 		try {
@@ -237,9 +255,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteWifi(Wifi wifi) {		
-			//if (wifiRunning)
-			//{
-			//	wifiRunning = false;
+			
 			if (wifi.isWifi()) {
 
 				measurement.setWifi(wifi);
@@ -345,44 +361,6 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 
-	/*public NeighborResult neighborResult = new NeighborResult(){
-		@Override
-		public void gotNeighbor(List<ScanResult> wifiList){
-			Wifi wifi = measurement.getWifi();
-			ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
-			ArrayList<WifiPreference> prefers = wifi.getPreference();
-			for (int i = 0; i < wifiList.size(); i++) {
-				WifiNeighbor n = new WifiNeighbor();
-				String bssid = wifiList.get(i).BSSID;
-				String capability = wifiList.get(i).capabilities;
-				int frequency = wifiList.get(i).frequency;
-				int signalLevel = wifiList.get(i).level;
-				String ssid = wifiList.get(i).SSID;
-
-				n.setCapability(capability);
-				n.setMacAddress(bssid);
-				n.setFrequency(frequency);
-				n.setSignalLevel(signalLevel);
-				n.setSSID(ssid);
-				n.setPreferred(false);
-				if (ssid.equalsIgnoreCase(wifi.getSsid())) {
-					n.setConnected(true);
-				}
-				else {
-					n.setConnected(false);
-				}
-				for (int j = 0; j < prefers.size(); j++) {
-					if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
-						n.setPreferred(true);
-						break;
-					}
-				}
-				neighbors.add(n);
-			}
-			wifi.setNeighbors(neighbors);	
-			(new MeasurementListener()).onCompleteWifi(wifi);
-		}
-	};*/
 
 	public LocationResult locationResult = new LocationResult(){
 		@Override

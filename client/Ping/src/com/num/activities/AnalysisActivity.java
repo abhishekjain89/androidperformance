@@ -81,20 +81,7 @@ public class AnalysisActivity extends TrackedActivity {
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
 		ServiceHelper.processRestartService(this);
 		ArrayList<Row> cells = new ArrayList<Row>();
-
-		cells.add(new Row(new ActivityItem("Application Usage",
-				"Get data breakdown by app", new Handler() {
-
-					public void handleMessage(Message msg) {
-						Intent myIntent = new Intent(activity,
-								FullDisplayActivity.class);
-						myIntent.putExtra("model_key", "usage");
-						startActivity(myIntent);
-
-					}
-
-				}, R.drawable.usage)));
-
+		
 		cells.add(new Row(new ActivityItem("Speed Test",
 				"Get Down/Up speed, 40 sec", new Handler() {
 					public void handleMessage(Message msg) {
@@ -108,6 +95,19 @@ public class AnalysisActivity extends TrackedActivity {
 					}
 
 				}, R.drawable.throughput)));
+
+		cells.add(new Row(new ActivityItem("Application Usage",
+				"Get data breakdown by app", new Handler() {
+
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "usage");
+						startActivity(myIntent);
+
+					}
+
+				}, R.drawable.usage)));
 
 		cells.add(new Row(new ActivityItem("Latency",
 				"Get time to reach server, 5 sec", new Handler() {

@@ -10,7 +10,7 @@ public class TracerouteHelper {
 	
 	public static CommandLineUtil cmdUtil;
 	public static final String SERVER_ADDRESS = "cc.gatech.edu";
-	public static Traceroute TraceHelp(String ipDst, int startindex, int endindex)
+	public static Traceroute traceHelp(String ipDst, int startindex, int endindex)
 	{
 		String result = null;
 		String cmd 		= "ping";
