@@ -45,10 +45,10 @@ public class UsageTask extends ServerTask{
 	public void runTask() {
 		
 		Usage usage = AppUsageHelper.getUsageData(getContext());
-		
+		getResponseListener().onCompleteUsage(usage);
 		ApplicationDataSource dataSource = new ApplicationDataSource(getContext());		
 		dataSource.insert(usage);
-		getResponseListener().onCompleteUsage(usage);
+		
 		
 	}
 

@@ -101,7 +101,7 @@ public class Application implements Model,Comparable<Application> {
 	}
 	public int compareTo(Application other) {
 		if(this.totalDataInMB() > other.totalDataInMB()) return -1;
-		
+		if(this.totalDataInMB()==other.totalDataInMB()) return 0;
 		return 1;
 	}
 	

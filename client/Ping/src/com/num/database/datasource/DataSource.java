@@ -39,7 +39,7 @@ public abstract class DataSource {
 	public SQLiteDatabase database;
 	public Context context;
 	public BaseMapping dbHelper;
-	public boolean inTransaction = false;
+	public static boolean inTransaction = false;
 	private final boolean IS_PURGE_ALLOWED = true;
 	public int currentMode = 0;
 
@@ -113,7 +113,7 @@ public abstract class DataSource {
 			int lower = random.nextInt(10) * 5 + 10;
 			int higher = lower + 5;
 
-			purgeOldData(lower, higher);
+			//purgeOldData(lower, higher);
 
 		}
 	}
@@ -151,11 +151,11 @@ public abstract class DataSource {
 		while (onDelete.after(endDelete)) {
 			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String s = sdf.format(onDelete);
-			System.out.println("s is " + s);
+			
 			database.delete(dbHelper.getTableName(),
 					ApplicationMapping.COLUMN_TIME + " LIKE '%" + s + "%'",
 					null);
-			System.out.println("delete happened : for real");
+			
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 			onDelete = cal.getTime();
 		}

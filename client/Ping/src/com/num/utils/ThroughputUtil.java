@@ -24,7 +24,7 @@ import com.num.models.Throughput;
 
 public class ThroughputUtil {
 	
-	static long responseListenerUpdateFrequency = 100;
+	static long responseListenerUpdateFrequency = 800;
 	
 	public static String generateRandom()
 	{
@@ -67,7 +67,7 @@ public class ThroughputUtil {
 			if (end>endSecond+responseListenerUpdateFrequency) {
 				endSecond = end;
 				link.setCount(count);
-				link.setMessage_size(message.length+(54*3));
+				link.setMessage_size(message.length+(Values.TCP_HEADER_SIZE*3));
 				link.setTime(end-start);
 				link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
 				link.setDstPort(session.UPLINKPORT+"");				
@@ -85,7 +85,7 @@ public class ThroughputUtil {
 		Log.d("Uplink Measurement", "Received total "+ total);
 		long time = (long) Integer.parseInt(in.readLine());
 		Log.d("Uplink Measurement", "Received Time " + time);
-		total+=count*54*3;		
+		total+=count*Values.TCP_HEADER_SIZE*3;		
 		link.setCount(1);
 		link.setMessage_size(total);
 		link.setTime(time);

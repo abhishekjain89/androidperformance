@@ -5,8 +5,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 
-
-
 public class SignalUtil {
 
 	private static TelephonyManager telephonyManager;

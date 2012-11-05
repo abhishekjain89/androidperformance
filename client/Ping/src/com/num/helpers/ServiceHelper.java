@@ -21,8 +21,6 @@ public class ServiceHelper {
 	final static String Bigtag = "ServiceHelper";
 	
 	private static PendingIntent pendingIntent;
-	
-	static PowerManager.WakeLock wl;
 
 	public static Values values;
 	
