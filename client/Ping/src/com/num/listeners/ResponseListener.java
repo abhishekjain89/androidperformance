@@ -20,6 +20,7 @@ import com.num.models.Ping;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Traceroute;
+import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.Wifi;
 import com.num.models.WifiNeighbor;
@@ -75,6 +76,8 @@ public interface ResponseListener {
 	public void onUpdateDownLink(Link link);
 	
 	public void onCompleteTraceroute(Traceroute traceroute);
+
+	public void onCompleteTracerouteHop(TracerouteEntry traceroute);
 
 	
 

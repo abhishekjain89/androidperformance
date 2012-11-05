@@ -31,6 +31,7 @@ import com.num.models.Screen;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Traceroute;
+import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.Wifi;
 import com.num.utils.GPSUtil;
@@ -216,6 +217,11 @@ public class AllPingTask extends ServerTask{
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
 			
 		}

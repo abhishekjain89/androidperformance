@@ -1,6 +1,7 @@
 package com.num.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -13,35 +14,37 @@ import com.num.R;
 
 public class Traceroute implements MainModel{
 
-	ArrayList<TracerouteEntry> traceroutelist = new ArrayList<TracerouteEntry>();
-	
+	HashMap<Integer,TracerouteEntry> traceroutemap = new HashMap<Integer, TracerouteEntry>();
+	int startindex, endindex;
 	private static String DESCRIPTION = "List of ip address of hops from your device to Georgia tech server";
 
 	public String getDescription() {
 		return DESCRIPTION;
 	}
-	public Traceroute(){
-		this.traceroutelist = new ArrayList<TracerouteEntry>();
+	public Traceroute(int startindex, int endindex){
+		this.startindex = startindex;
+		this.endindex = endindex;
 	}
 	
 	
-	public ArrayList<TracerouteEntry> getTraceroutelist() {
-		return traceroutelist;
+	public HashMap<Integer, TracerouteEntry> getTraceroutelist() {
+		return traceroutemap;
 	}
-	public void setTraceroutelist(ArrayList<TracerouteEntry> traceroutelist) {
-		this.traceroutelist = traceroutelist;
+	public void setTraceroutelist(HashMap<Integer, TracerouteEntry> traceroutemap) {
+		this.traceroutemap = traceroutemap;
 	}
 	
 	public void addToList(TracerouteEntry traceentry)
 	{
-		traceroutelist.add(traceentry);
+		
+		traceroutemap.put(traceentry.hopnumber,traceentry);
 	}
 	
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
 		try {
 			
-			obj.putOpt("traceroutelist",  traceroutelist);
+			obj.putOpt("traceroutelist",  traceroutemap);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -63,8 +66,12 @@ public class Traceroute implements MainModel{
 		
 		ArrayList<Row> data = new ArrayList<Row>();
 		
-		for(TracerouteEntry entry : traceroutelist) {
-			data.add(new Row(""+entry.hopnumber,""+entry.ipAddr));
+		for(int i = startindex; i <= endindex; i++) 
+		{
+			if(traceroutemap.containsKey(i))
+			{
+				data.add(new Row(""+i,""+traceroutemap.get(i).ipAddr+"\n"+ traceroutemap.get(i).rtt));
+			}
 		}
 		
 		return data;

@@ -9,10 +9,10 @@ import android.content.Context;
 
 import com.num.R;
 
-public class TracerouteEntry implements Model{
+public class TracerouteEntry implements MainModel{
 	
 	String ipAddr = "";
-	double rtt = -1;
+	String rtt = "";
 	int hopnumber = -1;
 	
 	private static String DESCRIPTION = "";
@@ -20,7 +20,7 @@ public class TracerouteEntry implements Model{
 	public String getDescription() {
 		return DESCRIPTION;
 	}
-	public TracerouteEntry(String ipAddr, double rtt, int hopnumber){
+	public TracerouteEntry(String ipAddr, String rtt, int hopnumber){
 		this.ipAddr = ipAddr;
 		this.rtt = rtt;
 		this.hopnumber = hopnumber;
@@ -33,10 +33,10 @@ public class TracerouteEntry implements Model{
 	public void setIpAddr(String ipAddr) {
 		this.ipAddr = ipAddr;
 	}
-	public double getRtt() {
+	public String getRtt() {
 		return rtt;
 	}
-	public void setRtt(double rtt) {
+	public void setRtt(String rtt) {
 		this.rtt = rtt;
 	}
 	public int getHopnumber() {
