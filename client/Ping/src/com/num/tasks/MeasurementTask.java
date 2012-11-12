@@ -60,9 +60,6 @@ public class MeasurementTask extends ServerTask{
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
 	public boolean gpsRunning  = false;
-	public boolean signalRunning = false;
-	//public boolean wifiRunning = false;
-	public long startTime = 0;
 
 	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
 			boolean isManual, ResponseListener listener) {
@@ -70,7 +67,7 @@ public class MeasurementTask extends ServerTask{
 		this.doGPS = doGPS;
 		this.doThroughput = doThroughput;
 		this.isManual = isManual;
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(getValues().THREADPOOL_MAX_SIZE,getValues().THREADPOOL_KEEPALIVE_SEC);
+		
 	}
 
 	public void killAll(){
@@ -83,20 +80,6 @@ public class MeasurementTask extends ServerTask{
 	}
 
 	public void runTask() {
-		Looper.prepare();
-		
-		Handler signalHandler = new Handler() {
-			public void  handleMessage(Message msg) {
-				try {
-					SignalUtil.getSignal(signalResult, getContext());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		
-		Looper.loop();
-		
 		
 		measurement = new Measurement();
 		MeasurementListener listener= new MeasurementListener();
@@ -106,45 +89,30 @@ public class MeasurementTask extends ServerTask{
 		ArrayList<Address> dsts = session.getPingServers();
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
-		for(Address dst : dsts)
-		{
+		
+		for(Address dst : dsts) {
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new FakeListener()));
 		}
 		
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
-		serverhelper.waitOnTasks();
-	
+		serverhelper.waitOnTasks();	
 		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		//serverhelper.execute(new WifiTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new SignalStrengthTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		
+		
+		
 		for(Address dst : dsts)
 		{
 			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, listener));
 		}
 		
-
-		signalRunning = true;
-	
-		
-		//SignalUtil.getSignal(signalResult, getContext());
-		signalHandler.sendEmptyMessage(0);
-
 		measurement.setPings(pings);
 		measurement.setLastMiles(lastMiles);
 
-		startTime = System.currentTimeMillis();
-
 		serverhelper.waitOnTasks();
 
-		while(signalRunning){
-			try {
-				Thread.sleep(session.NORMAL_SLEEP_TIME);
-				System.out.println("waiting for signal");
-			} catch (InterruptedException e) {
-				return;
-			}
-		}
 		
 		if(doThroughput){
 			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
@@ -169,15 +137,10 @@ public class MeasurementTask extends ServerTask{
 			scrs.add(s);
 
 		measurement.setScreens(scrs);
+		
 		getResponseListener().onCompleteMeasurement(measurement);
 
 		String isSuccess = MeasurementHelper.sendMeasurement(getContext(), measurement);
-
-		if (isManual) {
-			new MeasurementListener().makeToast(isSuccess);
-
-		}
-
 
 	}
 
@@ -185,6 +148,7 @@ public class MeasurementTask extends ServerTask{
 	public String toString() {
 		return "Measurement Task";
 	}
+	
 
 
 	private class MeasurementListener extends BaseResponseListener{
@@ -224,7 +188,7 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteSignal(String signalStrength) {
-			signalRunning = false;
+			
 			Network network = measurement.getNetwork();
 			int i = 100;
 			while(network == null) {
@@ -333,39 +297,6 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 
-
-	/*private Handler WifiHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			try {
-				WifiUtil wifiUtil = new WifiUtil();
-				Wifi wifi = wifiUtil.getWifiDetail(getContext());
-				measurement.setWifi(wifi);
-
-				NeighborWifiUtil neighborWifiUtil = new NeighborWifiUtil();
-				neighborWifiUtil.getNeighborWifi(getContext(),neighborResult  );
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
-	 */
-
-	private Handler SignalHandler = new Handler() {
-		public void  handleMessage(Message msg) {
-			try {
-				SignalUtil.getSignal(signalResult, getContext());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	public SignalResult signalResult = new SignalResult() { 
-		public void gotSignal(String signal) {
-			(new MeasurementListener()).onCompleteSignal(signal);
-		}
-	};
 
 
 	public LocationResult locationResult = new LocationResult(){

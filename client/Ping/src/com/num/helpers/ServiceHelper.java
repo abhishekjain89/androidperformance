@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import com.num.Values;
 import com.num.receivers.ScreenReceiver;
-import com.num.services.PerformanceServiceAll;
+import com.num.services.MeasurementService;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -25,27 +25,22 @@ public class ServiceHelper {
 	public static Values values;
 	
 	public static void processStartService(Context context) {
-		/*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock TAG");
-		wl.acquire();*/
 		
 		recurringStartService(context);
 	}
 	
 	public static void recurringStartService(Context context) {
-		Intent serviceIntent = new Intent(context, PerformanceServiceAll.class);
-		serviceIntent.putExtras(makeBundle(2));
-		
-		pendingIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
+		Intent serviceIntent = new Intent(context, MeasurementService.class);
+				
+		pendingIntent = PendingIntent.getService(context, 0, serviceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
 		
-		values = (Values) context.getApplicationContext();
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, values.FREQUENCY_SECS);
+        calendar.add(Calendar.SECOND, Values.FREQUENCY_SECS);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
+        
 		
 		Log.i(Bigtag, "STARTED service");
 	}
@@ -61,17 +56,18 @@ public class ServiceHelper {
 	
 	public static void processStopService(Context context) {
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
-
+		
+		try{
 		alarmManager.cancel(pendingIntent);
-
-		/*if(wl!=null)
-			if(wl.isHeld())
-				wl.release();*/
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		Log.i(Bigtag, "STOPPED: service");
 	}
 	
 	public static void processRestartService(Context context){
 		Log.i(Bigtag, "RESTARTING....... service");
+		
 		processStopService(context);
 		processStartService(context);
 	}

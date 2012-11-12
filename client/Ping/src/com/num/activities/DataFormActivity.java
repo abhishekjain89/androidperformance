@@ -48,7 +48,6 @@ import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.models.Wifi;
-import com.num.services.PerformanceServiceAll;
 import com.num.tasks.InstallBinariesTask;
 import com.num.tasks.MeasurementTask;
 import com.num.tasks.SummaryTask;

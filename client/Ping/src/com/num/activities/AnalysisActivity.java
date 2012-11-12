@@ -1,6 +1,7 @@
 package com.num.activities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +48,7 @@ import com.num.models.Throughput;
 import com.num.models.Usage;
 import com.num.models.Wifi;
 import com.num.tasks.MeasurementTask;
+import com.num.tasks.SignalStrengthTask;
 import com.num.tasks.SummaryTask;
 import com.num.tasks.ValuesTask;
 import com.num.ui.UIUtil;
@@ -81,7 +83,7 @@ public class AnalysisActivity extends TrackedActivity {
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
 		ServiceHelper.processRestartService(this);
 		ArrayList<Row> cells = new ArrayList<Row>();
-		
+
 		cells.add(new Row(new ActivityItem("Speed Test",
 				"Get Down/Up speed, 40 sec", new Handler() {
 					public void handleMessage(Message msg) {
@@ -95,20 +97,20 @@ public class AnalysisActivity extends TrackedActivity {
 					}
 
 				}, R.drawable.throughput)));
+		if (session.DEBUG == true) {
+			cells.add(new Row(new ActivityItem("Application Usage",
+					"Get data breakdown by app", new Handler() {
 
-		cells.add(new Row(new ActivityItem("Application Usage",
-				"Get data breakdown by app", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									FullDisplayActivity.class);
+							myIntent.putExtra("model_key", "usage");
+							startActivity(myIntent);
 
-					public void handleMessage(Message msg) {
-						Intent myIntent = new Intent(activity,
-								FullDisplayActivity.class);
-						myIntent.putExtra("model_key", "usage");
-						startActivity(myIntent);
+						}
 
-					}
-
-				}, R.drawable.usage)));
-
+					}, R.drawable.usage)));
+		}
 		cells.add(new Row(new ActivityItem("Latency",
 				"Get time to reach server, 5 sec", new Handler() {
 					public void handleMessage(Message msg) {
@@ -176,6 +178,22 @@ public class AnalysisActivity extends TrackedActivity {
 									FullDisplayActivity.class);
 							myIntent.putExtra("model_key", "traceroute");
 							startActivity(myIntent);
+						}
+
+					}, R.drawable.team)));
+		}
+
+		if (session.DEBUG == true) {
+			cells.add(new Row(new ActivityItem("Signal Strength",
+					"Signal Strength debugging", new Handler() {
+						public void handleMessage(Message msg) {
+							ThreadPoolHelper serverhelper = new ThreadPoolHelper(
+									session.THREADPOOL_MAX_SIZE,
+									session.THREADPOOL_KEEPALIVE_SEC);
+							serverhelper.executeOnUIThread(activity,
+									new SignalStrengthTask(activity,
+											new HashMap<String, String>(),
+											new FakeListener()));
 						}
 
 					}, R.drawable.team)));

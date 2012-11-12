@@ -1,23 +1,10 @@
 package com.num.services;
 
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+
+
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
-
-import android.app.IntentService;
-import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
-import android.os.PowerManager;
-import android.util.Log;
 
 import com.num.Values;
 import com.num.helpers.ServiceHelper;
@@ -39,123 +26,122 @@ import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.Wifi;
-import com.num.receivers.ScreenReceiver;
 import com.num.tasks.MeasurementTask;
 import com.num.tasks.ParameterTask;
-import com.num.utils.GPSUtil;
-import com.num.utils.PreferencesUtil;
 import com.num.utils.StateUtil;
 
-public class PerformanceServiceAll extends IntentService{
+import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PowerManager;
+import android.util.Log;
 
-	public PerformanceServiceAll() {		
-		super(PerformanceServiceAll.class.getName());
+public class MeasurementService extends IntentService {
+	private PowerManager.WakeLock wakeLock;
+	
+	public static boolean isExecuting;
+	private ThreadPoolHelper serverhelper;
+	private boolean doThroughput;
+	private Context context;
+
+	public MeasurementService() {
+		super(MeasurementService.class.getName());
 	}
 
-	private Context context;
-	private ThreadPoolHelper serverhelper;
+	public void onBegin() {
+		isExecuting = true;
+		context = this;
+		// obtain wake lock, otherways our service ma stop executing
+		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+				MeasurementService.class.getName());
+		wakeLock.acquire();
+		System.out.println("wakelock acquired");
+		ServiceHelper.recurringStartService(this);
 
-	private Timer updateTimer;
-	
-	public static String TAG = "PerformanceService-All";
-	BroadcastReceiver mReceiver;
-	PowerManager.WakeLock wl;
-	
+	}
+
+	private void onEnd() {
+		wakeLock.release();
+		System.out.println("wakelock released");
+		isExecuting = false;
+	}
 
 	@Override
-	protected void onHandleIntent(Intent arg0) {
-		context = this.getApplicationContext();
-		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-				PerformanceServiceAll.class.getName());
-		wl.acquire();
-		ServiceHelper.recurringStartService(context);
+	protected void onHandleIntent(Intent intent) {
 		
-		updateTimer = new Timer("measurementTaskAll");
-		
-		Values session = (Values) context.getApplicationContext();
-		serverhelper = new ThreadPoolHelper(1,session.THREADPOOL_KEEPALIVE_SEC);
-
-		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		
-		System.out.println("wakelock acquired");
-		runTask();
-		
-		
+		try {			
+			onBegin();
+			runTask();
+			onEnd();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-
-
-	public void onEnd() {
-		onDestroy();
-		updateTimer.cancel();
-		//unregisterReceiver(mReceiver);
-		serverhelper.shutdown();
-		wl.release();
-		System.out.println("wakelock released");
-		//wl.release();
-		Log.v(TAG,"Destroying " + TAG);
-	}
-
-	boolean doThroughput = false;
-	
-
 	private void runTask() {
 
-		Values session = (Values) context.getApplicationContext();
-
+		Values session = (Values) this.getApplicationContext();
 		
-		doThroughput=session.doThroughput();
+		serverhelper = new ThreadPoolHelper(1,
+				session.THREADPOOL_KEEPALIVE_SEC);
 
-		
+		doThroughput = session.doThroughput();
+
 		session.incrementThroughput();
 
+		if (doThroughput) {
 
-		if(doThroughput){
-
-			StateUtil stateutil = new StateUtil(context);
+			StateUtil stateutil = new StateUtil(this);
 			boolean clear = stateutil.isNetworkClear();
 
-			if(!clear){
+			if (!clear) {
 				session.decrementThroughput();
-				doThroughput=false;
+				doThroughput = false;
 			}
 		}
 		UserDataHelper userhelp = new UserDataHelper(this);
-		
-		doThroughput = doThroughput && (userhelp.getDataEnable()==1);
-		
-		if(doThroughput){
-			serverhelper.execute(new ParameterTask(context,(new Listener())));
-		}
-		else{
-			serverhelper.execute(new MeasurementTask(context,false,false, false, new FakeListener()));
+
+		doThroughput = doThroughput && (userhelp.getDataEnable() == 1);
+
+		if (doThroughput) {
+			serverhelper.execute(new ParameterTask(this, (new Listener())));
+		} else {
+			serverhelper.execute(new MeasurementTask(this, false, false,
+					false, new FakeListener()));
 		}
 
-		Log.i(TAG," Throughput:" + session.getThroughput());
+		Log.i("MeasurementService", " Throughput:" + session.getThroughput());
 
-		serverhelper.waitOnTasks();
-		
-		onEnd();
+		serverhelper.waitOnTasks(120);
 
 	}
+	
+	
 
-	public class Listener extends BaseResponseListener{
+	public static void poke(Context ctx) {
+		ctx.startService(new Intent(ctx, MeasurementService.class));
+	}
+	
+
+	public class Listener extends BaseResponseListener {
 		Values session = (Values) context.getApplicationContext();
+
 		public void onComplete(String response) {
 			System.out.println("throughput succeed");
 			ThroughputHandler.sendEmptyMessage(0);
-			onEnd();
 
 		}
 
-		public void onFail(String response){
+		public void onFail(String response) {
 			System.out.println("throughput failed");
 			session.decrementThroughput();
-			doThroughput=false;
+			doThroughput = false;
 			NoThroughputHandler.sendEmptyMessage(0);
-			onEnd();
+
 		}
 
 		public void onCompletePing(Ping response) {
@@ -225,13 +211,13 @@ public class PerformanceServiceAll extends IntentService{
 
 		public void onCompleteSummary(JSONObject Object) {
 
-
 		}
 
 		private Handler ThroughputHandler = new Handler() {
-			public void  handleMessage(Message msg) {
+			public void handleMessage(Message msg) {
 				try {
-					serverhelper.execute(new MeasurementTask(context,false,true, false,new FakeListener()));
+					serverhelper.execute(new MeasurementTask(context, false,
+							true, false, new FakeListener()));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -240,48 +226,48 @@ public class PerformanceServiceAll extends IntentService{
 		};
 
 		private Handler NoThroughputHandler = new Handler() {
-			public void  handleMessage(Message msg) {
+			public void handleMessage(Message msg) {
 				try {
-					serverhelper.execute(new MeasurementTask(context,false,false, false,new FakeListener()));
+					serverhelper.execute(new MeasurementTask(context, false,
+							false, false, new FakeListener()));
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		};
+
 		public void onCompleteLastMile(LastMile lastMile) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateUpLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateDownLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateThroughput(Throughput throughput) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 	}
 
-
-
-
+	
 }
