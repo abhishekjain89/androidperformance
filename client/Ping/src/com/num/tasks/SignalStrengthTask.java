@@ -61,10 +61,8 @@ public class SignalStrengthTask extends ServerTask {
 		while(signalRunning) {
 			
 			try {
-				Thread.sleep(Values.NORMAL_SLEEP_TIME);
-				System.out.println("waiting");
+				Thread.sleep(Values.NORMAL_SLEEP_TIME);				
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

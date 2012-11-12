@@ -23,7 +23,7 @@ public class Values extends Application{
 
 	public boolean DEBUG = true;
 	
-	public  static int FREQUENCY_SECS = 1*60;
+	public  static int FREQUENCY_SECS = 15*60;
 
 	DeviceUtil util = new DeviceUtil();
 
@@ -44,10 +44,7 @@ public class Values extends Application{
 	
 	public DatabasePicker picker;
 	
-	
-
 	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
-
 
 	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
 	public  String API_SERVER_ADDRESS="https://ruggles.gtnoise.net";

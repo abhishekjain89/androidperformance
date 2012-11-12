@@ -8,6 +8,7 @@ import java.util.TimeZone;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings.Secure;
 import android.telephony.CellLocation;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
@@ -471,8 +472,12 @@ public class DeviceUtil {
 		String srvnName = Context.TELEPHONY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 		
-		// Read the IMEI for GSM or MEID for CDMA
-		String deviceId = telephonyManager.getDeviceId();
+		String deviceId = null;
+		if (telephonyManager.getDeviceId() != null) {
+			deviceId = telephonyManager.getDeviceId(); //*** use for mobiles
+		} else {
+			deviceId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID); //** use for tablet
+		}
 		
 		return deviceId;
 	}

@@ -24,7 +24,7 @@ public class MeasurementHelper {
 			
 
 			try {
-				String output = http.request(new HashMap<String,String>(), "POST", "measurement", "", input);
+				String output = http.request(new HashMap<String,String>(), "POST", "measurement_v2", "", input);
 				session.unsentMeasurements.removeLastMeasurement();
 			} catch (Exception e) {
 				return;
@@ -58,7 +58,7 @@ public class MeasurementHelper {
 		
 		try {
 
-			String output = http.request(new HashMap<String,String>(), "POST", "measurement", "", object.toString());
+			String output = http.request(new HashMap<String,String>(), "POST", "measurement_v2", "", object.toString());
 			System.out.println(object.toString());
 			System.out.println(output);
 			session.screenBuffer = new ArrayList<Screen>();

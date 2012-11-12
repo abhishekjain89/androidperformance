@@ -61,7 +61,8 @@ def devicesummary(request):
     except:
             return render_to_response('error.html', {'deviceid': device_id})
         
-    
+def old_measurement(request):
+    return HttpResponse("ignored")
 
 def measurement(request):
 
