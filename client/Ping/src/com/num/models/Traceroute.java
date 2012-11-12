@@ -2,6 +2,7 @@ package com.num.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -15,26 +16,25 @@ import com.num.R;
 public class Traceroute implements MainModel{
 
 	ArrayList<TracerouteEntry> traceroutelist = new ArrayList<TracerouteEntry>();
-	
+	int startindex, endindex;
 	private static String DESCRIPTION = "List of ip address of hops from your device to Georgia tech server";
 
 	public String getDescription() {
 		return DESCRIPTION;
 	}
-	public Traceroute(){
-		this.traceroutelist = new ArrayList<TracerouteEntry>();
+	public Traceroute(int startindex, int endindex){
+		this.startindex = startindex;
+		this.endindex = endindex;
 	}
 	
 	
 	public ArrayList<TracerouteEntry> getTraceroutelist() {
 		return traceroutelist;
 	}
-	public void setTraceroutelist(ArrayList<TracerouteEntry> traceroutelist) {
-		this.traceroutelist = traceroutelist;
-	}
 	
 	public void addToList(TracerouteEntry traceentry)
 	{
+		
 		traceroutelist.add(traceentry);
 	}
 	
@@ -63,7 +63,6 @@ public class Traceroute implements MainModel{
 	public ArrayList<Row> getDisplayData(Context context) {
 		
 		ArrayList<Row> data = new ArrayList<Row>();
-		
 		Collections.sort(traceroutelist);
 		
 		for(TracerouteEntry entry : traceroutelist) {

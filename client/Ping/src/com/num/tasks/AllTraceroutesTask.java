@@ -2,6 +2,7 @@ package com.num.tasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -34,10 +35,7 @@ import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.Wifi;
-import com.num.utils.GPSUtil;
-import com.num.utils.GPSUtil.LocationResult;
-import com.num.utils.SignalUtil;
-import com.num.utils.SignalUtil.SignalResult;
+
 
 /*
  * Measurement Task 
@@ -47,22 +45,35 @@ import com.num.utils.SignalUtil.SignalResult;
  * 
  * 
  */
-public class AllPingTask extends ServerTask{
+public class AllTraceroutesTask extends ServerTask{
 	Measurement measurement; 
-	ThreadPoolHelper serverhelperPing;
-	ThreadPoolHelper serverhelperLastMile;
-	ArrayList<Ping> pings = new ArrayList<Ping>();
-	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
-	LatencyDataSource dataSource = new LatencyDataSource(getContext());
-	public AllPingTask(Context context, ResponseListener listener) {
+	ThreadPoolHelper serverhelperTraceroute;
+	int startindex;
+	int endindex;
+	Address dst;
+	Traceroute traceroute;
+	
+	public AllTraceroutesTask(Context context, Map<String, String> reqParams,
+			Address dst, int startindex, int endindex, ResponseListener listener) {
 		super(context, new HashMap<String,String>(), listener);
-
+		this.startindex = startindex;
+		this.endindex = endindex;
+		this.dst = dst;
+		traceroute = new Traceroute(startindex, endindex);
 	}
+	public AllTraceroutesTask(Context context, Map<String, String> reqParams,
+			Address dst,  int endindex, ResponseListener listener) {
+		super(context, new HashMap<String,String>(), listener);
+		this.startindex = 2;
+		this.endindex = endindex;
+		this.dst = dst;
+		traceroute = new Traceroute(startindex, endindex);
+	}
+	
 	
 	public void killAll(){
 		try{
-		serverhelperPing.shutdown();
-		serverhelperLastMile.shutdown();
+		serverhelperTraceroute.shutdown();
 		}
 		catch(Exception e){
 			
@@ -73,48 +84,39 @@ public class AllPingTask extends ServerTask{
 		
 		MeasurementListener listener= new MeasurementListener();
 		
-		measurement = new Measurement();
-		measurement.setPings(pings);
-		measurement.setLastMiles(lastMiles);
-		measurement.isComplete = false;
-		
 		Values session = this.getValues();
-		ThreadPoolHelper serverhelperPing = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
-		ThreadPoolHelper serverhelperLastMile = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelperTraceroute = new ThreadPoolHelper(20,session.THREADPOOL_KEEPALIVE_SEC);
 		
-		ArrayList<Address> dsts = session.getPingServers();
-
-		for(Address dst : dsts)
-			if(dst.getType().equals("ping"))
-				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
-			else
-				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
-		
-		serverhelperPing.waitOnTasks();
+		for(int i = 2; i < 20; i++)
+		{
+			serverhelperTraceroute.execute(new TracerouteTask(getContext(),new HashMap<String,String>(),dst, i ,listener));
+		}
+			
+		serverhelperTraceroute.waitOnTasks();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			return;
 
 		}
-		measurement.isComplete = true;
-		(new MeasurementListener()).onCompleteMeasurement(measurement);
+		
+		(new MeasurementListener()).onCompleteTraceroute(traceroute);
+		
+		
 
 
 	}
 
 	@Override
 	public String toString() {
-		return "Measurement Task";
+		return "All Traceroute Task";
 	}
 
 
 	private class MeasurementListener extends BaseResponseListener{
 
 		public void onCompletePing(Ping response) {
-			dataSource.insert(response);
-			pings.add(response);			
-			onCompleteMeasurement(measurement);
+			
 		}
 
 		public void onComplete(String response) {
@@ -197,8 +199,7 @@ public class AllPingTask extends ServerTask{
 		}
 
 		public void onCompleteLastMile(LastMile lastMile) {
-			lastMiles.add(lastMile);
-			dataSource.insert(lastMile);
+			
 		}
 
 		public void onUpdateUpLink(Link link) {
@@ -217,12 +218,13 @@ public class AllPingTask extends ServerTask{
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
-			// TODO Auto-generated method stub
+			getResponseListener().onCompleteTraceroute(traceroute);
 			
 		}
 
-		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
-			// TODO Auto-generated method stub
+		public void onCompleteTracerouteHop(TracerouteEntry traceroutehop) {
+			traceroute.addToList(traceroutehop);
+			
 			
 		}
 	}

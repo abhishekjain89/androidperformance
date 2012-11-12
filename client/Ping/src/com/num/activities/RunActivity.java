@@ -52,6 +52,7 @@ import com.num.models.Ping;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Traceroute;
+import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.Wifi;
 import com.num.tasks.MeasurementTask;
@@ -282,6 +283,11 @@ public class RunActivity extends BaseActivityGroup
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
 			
 		}

@@ -22,33 +22,23 @@ import com.num.models.TracerouteEntry;
  */
 public class TracerouteTask extends ServerTask {
 	Address dst;
-	int endindex = -1;
-	int startindex = -1;
+	int index = -1;
+	
 	
 	public TracerouteTask(Context context, Map<String, String> reqParams,
-			Address dst, int endindex, ResponseListener listener) {
+			Address dst, int index, ResponseListener listener) {
 		super(context, reqParams, listener);
 		this.dst = dst;
-		this.startindex = 2;
-		this.endindex = endindex;
+		this.index = index;
+		
 	}
 	
-	public TracerouteTask(Context context, Map<String, String> reqParams,
-			Address dst, int startindex, int endindex, ResponseListener listener) {
-		super(context, reqParams, listener);
-		this.dst = dst;
-		this.startindex = startindex;
-		this.endindex = endindex;
-	}
-	
+		
 	@Override
 	public void runTask() {
 
-		Traceroute traceroute = TracerouteHelper.traceHelp(dst.ip, startindex, endindex);
-		/*traceroute.addToList(new TracerouteEntry("cc.gatech",0,1));
-		traceroute.addToList(new TracerouteEntry("kacb.gatech",0,2));
-		traceroute.addToList(new TracerouteEntry("oit.gatech",0,3));*/
-		this.getResponseListener().onCompleteTraceroute(traceroute);
+		TracerouteEntry traceroute = TracerouteHelper.TraceHelp(dst.ip, index);
+		this.getResponseListener().onCompleteTracerouteHop(traceroute);
 	}
 
 	@Override
