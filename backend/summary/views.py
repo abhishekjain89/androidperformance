@@ -280,8 +280,6 @@ def summary(request):
 
     data['total-apps'] = len(Application.objects.all())
     data['total-devices'] = devices
-    data['total-cells'] = len(Cell.objects.all())
-    data['total-wifis'] = len(WifiHotspot.objects.all())
     return HttpResponse(json.dumps(data))
 
 def values(request):
