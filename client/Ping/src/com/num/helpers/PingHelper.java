@@ -3,18 +3,19 @@ package com.num.helpers;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import com.num.models.Address;
 import com.num.models.LastMile;
 import com.num.models.Measure;
 import com.num.models.Ping;
+import com.num.models.WarmupExperiment;
 import com.num.utils.CommandLineUtil;
 import com.num.utils.ParseUtil;
 
 public class PingHelper {
 
 	public static CommandLineUtil cmdUtil;
-	public static String pingOutput;
 
 	public static LastMile firstHopHelp(Address address, int count) {
 
@@ -85,7 +86,6 @@ public class PingHelper {
 		cmdUtil = new CommandLineUtil();
 
 		output = cmdUtil.runCommand(cmd, ipDst, options);
-		pingOutput = output;
 
 		Measure ping_measurement = ParseUtil.PingParser(output);
 
@@ -106,9 +106,21 @@ public class PingHelper {
 		return p;
 	}
 
-	public static String getPingOutput() {
-		return pingOutput;
-	}
+	
+	public static void warmupSequenceHelp(WarmupExperiment experiment) {
+		Ping p 			= null;
+		String ipDst 	= experiment.getAddress().getIp();
+		String cmd 		= "ping";
+		String options 	= "-c " + experiment.getTotal_count() + " -i " + experiment.getTime_gap();
+		String output 	= "";
+
+		cmdUtil = new CommandLineUtil();
+
+		output = cmdUtil.runCommand(cmd, ipDst, options);
+		
+		ParseUtil.warmupParser(output,experiment);
+ 	}
+
 
 
 }

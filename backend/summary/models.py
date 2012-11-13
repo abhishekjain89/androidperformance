@@ -276,4 +276,31 @@ class ErrorLog(models.Model):
     remote_addr = models.CharField(max_length=20)
     class Meta:
         db_table = u'error_log'
+        
+class WarmupExperiment(models.Model):
+    lowest = models.FloatField(null=True, blank=True)
+    version = models.CharField(max_length=10, blank=True)
+    dstip = models.CharField(max_length=20, blank=True)
+    total_count = models.IntegerField(null=True, blank=True)
+    gap = models.FloatField(null=True, blank=True)
+    measurementid = models.IntegerField(primary_key=True)
+    class Meta:
+        db_table = u'warmup_experiment'
 
+class WarmupPing(models.Model):
+    value = models.FloatField(null=True, blank=True)
+    sequence_count = models.IntegerField(null=True, blank=True)
+    period = models.FloatField(null=True, blank=True)
+    warmupid = models.AutoField(primary_key=True)
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
+    class Meta:
+        db_table = u'warmup_ping'
+
+class ClientLog(models.Model):
+    log_time = models.DateTimeField(primary_key=True)
+    deviceid = models.CharField(max_length=40)
+    error_text = models.TextField()
+    tag = models.TextField()
+    value = models.IntegerField(null=True, blank=True)
+    class Meta:
+        db_table = u'client_log'

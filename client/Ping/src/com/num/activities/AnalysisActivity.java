@@ -37,6 +37,7 @@ import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
 import com.num.models.ActivityItem;
 import com.num.models.Battery;
+import com.num.models.ClientLog;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.Measurement;
@@ -72,7 +73,9 @@ public class AnalysisActivity extends TrackedActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.measurement_screen);
-
+		
+		ClientLog.log(this, "text", "tag");
+		
 		activity = this;
 		session = (Values) getApplicationContext();
 		session.loadValues();

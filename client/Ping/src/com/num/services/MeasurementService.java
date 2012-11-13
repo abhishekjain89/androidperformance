@@ -25,6 +25,7 @@ import com.num.models.Throughput;
 import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
+import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 import com.num.tasks.MeasurementTask;
 import com.num.tasks.ParameterTask;
@@ -265,6 +266,11 @@ public class MeasurementService extends IntentService {
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
 
+		}
+
+		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

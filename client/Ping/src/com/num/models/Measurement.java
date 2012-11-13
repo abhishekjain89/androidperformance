@@ -26,6 +26,7 @@ public class Measurement implements MainModel{
 	Network network; 
 	Sim sim; 
 	Throughput throughput;
+	WarmupExperiment warmupExperiment;
 	public boolean isComplete = false;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
 	boolean isManual = false;
@@ -149,7 +150,13 @@ public class Measurement implements MainModel{
 		this.time = time;
 	}
 
+	public WarmupExperiment getWarmupExperiment() {
+		return warmupExperiment;
+	}
 
+	public void setWarmupExperiment(WarmupExperiment warmupExperiment) {
+		this.warmupExperiment = warmupExperiment;
+	}
 
 	public String getDeviceId() {
 		return deviceId;
@@ -230,6 +237,7 @@ public class Measurement implements MainModel{
 			putSafe(obj,"battery", battery.toJSON());
 			putSafe(obj,"usage",usage.toJSON());
 			putSafe(obj,"network",network.toJSON());
+			putSafe(obj,"warmup_experiment",warmupExperiment.toJSON());
 			putSafe(obj,"sim",sim.toJSON());
 			if(wifi!=null)
 				putSafe(obj,"wifi", wifi.toJSON());

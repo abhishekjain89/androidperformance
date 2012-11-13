@@ -33,6 +33,7 @@ import com.num.models.Throughput;
 import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
+import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 import com.num.utils.GPSUtil;
 import com.num.utils.GPSUtil.LocationResult;
@@ -222,6 +223,11 @@ public class AllPingTask extends ServerTask{
 		}
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
 			// TODO Auto-generated method stub
 			
 		}

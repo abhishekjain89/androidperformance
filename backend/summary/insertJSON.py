@@ -264,6 +264,46 @@ def battery(dev, m):
        
     return g
 
+def warmup(warm, m):
+    
+    w = WarmupExperiment()
+    w.measurementid = m.measurementid
+    
+    try:        
+        w.lowest = warm['base_avg']
+    except:
+        pass
+    try:
+        w.version = warm['version']
+    except:
+        pass
+    try:
+        w.total_count = warm['total_count']
+    except:
+        pass
+    try:
+        w.gap = warm['time_gap']
+    except:
+        pass
+    try:
+        w.dstip = warm['dstip']
+    except:
+        pass
+    
+    w.save()
+    
+    for entry in warm['sequence']:
+        e = WarmupPing()
+        e.value = entry['value']
+        e.sequence_count = entry['sequence']
+        e.period = entry['period']
+        e.measurementid = m
+        e.save()
+    
+    print "Warmup inserted"
+       
+    return w
+
 
 def link(dev):
     

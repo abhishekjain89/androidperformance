@@ -109,18 +109,18 @@ def measurement(request):
         count+=1
         m_battery = request_object['battery']
         count+=1
+        m_warmup = request_object['warmup_experiment']
+        count+=1
         m_screens = request_object['screens']
         count+=1
         try:
             m_wifi = request_object['wifi']
         except:
             pass
-        
         try:
             m_state = request_object['state']
         except:
             pass
-        
         try:
             m_ismanual = request_object['isManual']
         except:
@@ -199,6 +199,12 @@ def measurement(request):
         battery=insertJSON.battery(m_battery,measurement)
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("battery",inst))
+    
+    try:
+        battery=insertJSON.warmup(m_warmup,measurement)
+    except Exception as inst:
+        message.append(error_message_helper.insert_entry_fail("warmup",inst))
+    
     
     try:
         usage=insertJSON.usage(m_usage,measurement)
@@ -284,6 +290,24 @@ def values(request):
     data['values'] = getJSON.values()
     return HttpResponse(json.dumps(data))
 
+def clientlog(request):
+    
+    try:
+        request_object = ast.literal_eval(request.read())
+    except:
+        return HttpResponse(error_message_helper.invalid_format())
+    
+    log = ClientLog()
+    log.log_time = request_object['time']
+    log.deviceid = request_object['deviceid']
+    log.error_text = request_object['text']
+    log.tag = request_object['tag']
+    log.value = request_object['value']
+    
+    log.save()
+    
+    
+    return HttpResponse("")
 
 def parameterCheck(request):
     response = {}

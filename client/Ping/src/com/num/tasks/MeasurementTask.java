@@ -34,6 +34,7 @@ import com.num.models.Throughput;
 import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
+import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 import com.num.utils.GPSUtil;
 import com.num.utils.GPSUtil.LocationResult;
@@ -89,17 +90,14 @@ public class MeasurementTask extends ServerTask{
 		ArrayList<Address> dsts = session.getPingServers();
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
+		serverhelper.execute(new WarmupSequenceTask(getContext(), listener));
 		
-		for(Address dst : dsts) {
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, new FakeListener()));
-		}
-		
+		serverhelper.waitOnTasks();
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
-		serverhelper.waitOnTasks();	
-		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), new MeasurementListener(), measurement));
+		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), listener, measurement));
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
-		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		serverhelper.execute(new SignalStrengthTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
+		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), listener));
+		serverhelper.execute(new SignalStrengthTask(getContext(),new HashMap<String,String>(), listener));
 		
 		
 		
@@ -281,6 +279,11 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
+			measurement.setWarmupExperiment(experiment);
 			
 		}
 	}

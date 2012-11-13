@@ -34,6 +34,7 @@ import com.num.models.Throughput;
 import com.num.models.Traceroute;
 import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
+import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 
 
@@ -220,6 +221,11 @@ public class AllTraceroutesTask extends ServerTask{
 			traceroute.addToList(traceroutehop);
 			getResponseListener().onCompleteTraceroute(traceroute);
 			
+			
+		}
+
+		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
+			// TODO Auto-generated method stub
 			
 		}
 	}

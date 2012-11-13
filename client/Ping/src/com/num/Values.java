@@ -56,15 +56,15 @@ public class Values extends Application{
 	public  String UNAVAILABLE_CELLID = "65535";
 	public  String UNAVAILABLE_CELLLAC = "65535";
 
-	public  int THREADPOOL_MAX_SIZE = 10;
-	public  int THREADPOOL_KEEPALIVE_SEC = 30;
+	public static int THREADPOOL_MAX_SIZE = 10;
+	public static int THREADPOOL_KEEPALIVE_SEC = 30;
 
 	public ThroughputDataSource datasource;
 
 	public ArrayList<Address> PING_SERVERS;
 	public static Address PING_SEQUENCE_ADDRESS = new Address("143.215.131.173", "Atlanta, GA", "ping");
 	public static float PING_WARMUP_SEQUENCE_GAP = 1;
-	public static float PING_WARMUP_SEQUENCE_TOTAL = 20;
+	public static int PING_WARMUP_SEQUENCE_TOTAL = 20;
 	public static float PING_SEQUENCE_VERSION= 1;
 	public static float PING_COOLDOWN_TIME = 20;
 	public static float[] PING_SEQUENCE_GAPS = new float[]{0.5f,1,1.5f,2,3,4,5,7.5f,10};

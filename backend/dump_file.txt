@@ -50,6 +50,15 @@ CREATE SEQUENCE lastmile_seq
     
 SELECT pg_catalog.setval('lastmile_seq', 1, false);
 
+CREATE SEQUENCE warmup_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483648
+    CACHE 1;
+    
+SELECT pg_catalog.setval('warmup_seq', 1, false);
+
 CREATE SEQUENCE ping_seq
     START WITH 1
     INCREMENT BY 1
@@ -321,6 +330,16 @@ CREATE TABLE error_log (
     remote_addr varchar(20)
 );
 
+CREATE TABLE client_log (
+
+	"log_time" timestamp without time zone,
+	deviceid varchar(40),
+	error_text text,
+	tag text,
+	value integer
+);
+
+
 CREATE TABLE lastmile (
     avg double precision ,
     stdev double precision ,
@@ -333,6 +352,23 @@ CREATE TABLE lastmile (
     hopcount integer,
     measurementid integer DEFAULT nextval('measurement_seq'::regclass),
     lastmileid integer DEFAULT nextval('lastmile_seq'::regclass) 
+);
+
+CREATE TABLE warmup_experiment (
+    lowest double precision ,    
+    version varchar(10),
+    dstip varchar(20),
+    total_count integer,
+    gap double precision,
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) 
+);
+
+CREATE TABLE warmup_ping (
+    value double precision,    
+    sequence_count integer,
+    period double precision,
+    warmupid integer DEFAULT nextval('warmup_seq'::regclass),
+    measurementid integer DEFAULT nextval('measurement_seq'::regclass) 
 );
 
 ALTER TABLE ONLY device
@@ -363,6 +399,8 @@ ALTER TABLE ONLY ping_servers
 	ADD CONSTRAINT ping_servers_pkey PRIMARY KEY (ipaddress);
 ALTER TABLE ONLY error_log
 	ADD CONSTRAINT error_log_pkey PRIMARY KEY (log_time);
+ALTER TABLE ONLY client_log
+	ADD CONSTRAINT client_log_pkey PRIMARY KEY (log_time);
 ALTER TABLE ONLY calculate_log
 	ADD CONSTRAINT calculate_log_pkey PRIMARY KEY (log_time);	
 ALTER TABLE ONLY application_use
@@ -404,6 +442,8 @@ ALTER TABLE ONLY device
 	ADD CONSTRAINT device_serialnumber_fkey FOREIGN KEY (serialnumber) REFERENCES sim(serialnumber);
 ALTER TABLE ONLY lastmile
     ADD CONSTRAINT lastmile_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
+ALTER TABLE ONLY warmup_ping
+    ADD CONSTRAINT warmup_measurementid_fkey FOREIGN KEY (measurementid) REFERENCES measurement(measurementid);
 
 
 alter sequence measurement_seq owned by measurement.measurementid;
@@ -417,6 +457,8 @@ alter sequence wifi_neighbor_seq owned by wifi_neighbor.wifi_neighbor_id;
 alter sequence screen_seq owned by screen.screenid;
 
 alter sequence values_seq owned by values.valueid;
+
+alter sequence warmup_seq owned by warmup_ping.warmupid;
 
 insert into kill_list VALUES('144c38fa58e8e98c42c239354820b43676838fa9');
 

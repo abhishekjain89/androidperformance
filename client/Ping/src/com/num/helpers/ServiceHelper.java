@@ -25,11 +25,14 @@ public class ServiceHelper {
 	public static Values values;
 	
 	public static void processStartService(Context context) {
-		
-		recurringStartService(context);
+		startService(context, 5);
 	}
 	
 	public static void recurringStartService(Context context) {
+		startService(context, Values.FREQUENCY_SECS);        
+	}
+	
+	public static void startService(Context context,int seconds) {
 		Intent serviceIntent = new Intent(context, MeasurementService.class);
 				
 		pendingIntent = PendingIntent.getService(context, 0, serviceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -37,21 +40,10 @@ public class ServiceHelper {
 		
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, Values.FREQUENCY_SECS);
+        calendar.add(Calendar.SECOND, seconds);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 		
-        
-		
 		Log.i(Bigtag, "STARTED service");
-	}
-	
-	
-	
-	public static Bundle makeBundle(int f){
-		Bundle b = new Bundle();
-		b.putInt("freq", f);
-		
-		return b;
 	}
 	
 	public static void processStopService(Context context) {
