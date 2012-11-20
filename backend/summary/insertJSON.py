@@ -271,9 +271,14 @@ def warmup(warm, m):
     w.measurementid = m.measurementid
     
     try:        
-        w.lowest = warm['base_avg']
+        w.lowest = warm['lowest']
     except:
         pass
+    try:        
+        w.highest = warm['highest']
+    except:
+        pass
+    
     try:
         w.version = warm['version']
     except:

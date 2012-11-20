@@ -279,6 +279,7 @@ class ErrorLog(models.Model):
         
 class WarmupExperiment(models.Model):
     lowest = models.FloatField(null=True, blank=True)
+    highest = models.FloatField(null=True, blank=True)
     version = models.CharField(max_length=10, blank=True)
     dstip = models.CharField(max_length=20, blank=True)
     total_count = models.IntegerField(null=True, blank=True)

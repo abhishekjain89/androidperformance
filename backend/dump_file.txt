@@ -355,7 +355,8 @@ CREATE TABLE lastmile (
 );
 
 CREATE TABLE warmup_experiment (
-    lowest double precision ,    
+    lowest double precision ,
+    highest double precision ,    
     version varchar(10),
     dstip varchar(20),
     total_count integer,

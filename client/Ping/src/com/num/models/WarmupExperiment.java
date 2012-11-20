@@ -18,7 +18,8 @@ import com.num.Values;
 public class WarmupExperiment implements Model{
 
 	
-	double base_avg = -1;
+	double lowest = -1;
+	double highest = -1;
 	static String version="1";
 	Address address=Values.PING_SEQUENCE_ADDRESS;
 	int total_count = Values.PING_WARMUP_SEQUENCE_TOTAL;
@@ -29,20 +30,6 @@ public class WarmupExperiment implements Model{
 	public WarmupExperiment() {
 		
 	}
-	
-	
-	
-	public double getBase_avg() {
-		return base_avg;
-	}
-
-
-
-	public void setBase_avg(double base_avg) {
-		this.base_avg = base_avg;
-	}
-
-
 
 	public static String getVersion() {
 		return version;
@@ -109,7 +96,8 @@ public class WarmupExperiment implements Model{
 		JSONObject obj = new JSONObject();
 		try {
 			
-			obj.putOpt("base_avg", base_avg);
+			obj.putOpt("highest", highest);
+			obj.putOpt("lowest", lowest);
 			obj.putOpt("version", version);
 			obj.putOpt("total_count", total_count);
 			obj.putOpt("time_gap", time_gap);
@@ -130,8 +118,12 @@ public class WarmupExperiment implements Model{
 	
 	public void addSequence(double value,int count) {
 		
-		if(value<base_avg || base_avg == -1) {
-			base_avg = value;
+		if(value<lowest || lowest == -1) {
+			lowest = value;
+		}
+		
+		if(value>highest|| highest == -1) {
+			highest = value;
 		}
 		
 		sequence.add(new WarmupPing(value, count, time_gap));

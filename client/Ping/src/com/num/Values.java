@@ -21,7 +21,7 @@ import com.num.utils.PreferencesUtil;
 
 public class Values extends Application{
 
-	public boolean DEBUG = true;
+	public boolean DEBUG = false;
 	
 	public  static int FREQUENCY_SECS = 15*60;
 
