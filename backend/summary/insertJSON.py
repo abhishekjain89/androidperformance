@@ -155,15 +155,15 @@ def network(dev, m):
     try:     
         n.datastate = dev["dataState"]
     except:
-        pass
+        n.datastate="null"
     try:    
         n.dataactivity = dev["dataActivity"]
     except:
-        pass
+        n.dataactivity = "null"
     try:    
         n.signalstrength = dev["signalStrength"]
     except:
-        pass
+        n.signalstrength = "-1"
     print "saving"
     n.save()
     print "Network inserted"
