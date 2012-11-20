@@ -115,26 +115,26 @@ def network(dev, m):
     try:                
         n.networktype = dev["networkType"]
     except:
-        pass
+        n.networktype = "null"
     try:    
         n.connectiontype = dev["connectionType"]
     except:
-        pass
+        n.connectiontype = "null"
     
     try:
         n.cellid = parse(dev['cellId'])
     except:
-        pass
+        n.cellid = "null"
             
     try:
         n.celllac = parse(dev["cellLac"])
     except:
-        pass
+        n.celllac = "null"
     
     try:
         n.celltype = parse(dev["cellType"])
     except:
-        pass
+        n.celltype = "null"
     try:
         n.longitude = parseFloat(dev["basestationLong"], -99)
     except:
@@ -166,6 +166,7 @@ def network(dev, m):
         n.signalstrength = "-1"
     print "saving"
     n.save()
+    print n.systemid
     print "Network inserted"
        
     return n

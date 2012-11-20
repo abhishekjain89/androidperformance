@@ -187,7 +187,7 @@ class Network(models.Model):
     datastate = models.CharField(max_length=30)
     dataactivity = models.CharField(max_length=30)
     signalstrength = models.CharField(max_length=3)
-    cellid = models.CharField(max_length=20, primary_key=True)
+    cellid = models.CharField(max_length=20)
     celltype = models.CharField(max_length=10)
     celllac = models.CharField(max_length=20)
     longitude = models.FloatField()

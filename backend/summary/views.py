@@ -173,6 +173,7 @@ def measurement(request):
     try:
         network=insertJSON.network(m_network,measurement)
     except Exception as inst:
+       print inst
        message.append(error_message_helper.insert_entry_fail("network",inst))    
     
     try:
