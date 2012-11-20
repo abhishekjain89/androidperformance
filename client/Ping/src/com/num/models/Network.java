@@ -129,8 +129,7 @@ public class Network implements MainModel{
 		try {
 			obj.putOpt("networkOperatorId", networkOperatorId);
 			obj.putOpt("networkType", networkType);
-			obj.putOpt("connectionType", connectionType);
-			obj.putOpt("mobileNetworkInfo", mobileNetworkInfo);
+			obj.putOpt("connectionType", connectionType);		
 			obj.putOpt("wifiState", wifiState);
 			obj.putOpt("cellType",cellType );
 			obj.putOpt("cellId", cellId);

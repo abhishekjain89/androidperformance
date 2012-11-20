@@ -1,7 +1,5 @@
 package com.num.services;
 
-
-
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -13,6 +11,7 @@ import com.num.helpers.UserDataHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
 import com.num.models.Battery;
+import com.num.models.ClientLog;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -41,7 +40,7 @@ import android.util.Log;
 
 public class MeasurementService extends IntentService {
 	private PowerManager.WakeLock wakeLock;
-	
+
 	public static boolean isExecuting;
 	private ThreadPoolHelper serverhelper;
 	private boolean doThroughput;
@@ -53,42 +52,53 @@ public class MeasurementService extends IntentService {
 
 	public void onBegin() {
 		isExecuting = true;
-		context = this;
 		// obtain wake lock, otherways our service ma stop executing
-		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-				MeasurementService.class.getName());
-		wakeLock.acquire();
+		try {
+			PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+			wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+					MeasurementService.class.getName());
+			wakeLock.acquire();
+		} catch (Exception e) {
+			ClientLog.log(context, e.getLocalizedMessage(), "wakelock-acquire");
+		}
 		System.out.println("wakelock acquired");
-		ServiceHelper.recurringStartService(this);
+		try {
+			ServiceHelper.recurringStartService(this);
+		} catch (Exception e) {
+			ClientLog.log(context, e, "service-recurring");
+		}
 
 	}
 
 	private void onEnd() {
-		wakeLock.release();
+		try {
+			wakeLock.release();
+		} catch (Exception e) {
+			ClientLog.log(context, e, "wakelock-release");
+		}
 		System.out.println("wakelock released");
 		isExecuting = false;
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		
-		try {			
+		context = this;
+		try {
+
 			onBegin();
 			runTask();
 			onEnd();
-			
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			ClientLog.log(context, e, "service-onHandle");
 		}
 	}
-	
+
 	private void runTask() {
 
 		Values session = (Values) this.getApplicationContext();
-		
-		serverhelper = new ThreadPoolHelper(1,
-				session.THREADPOOL_KEEPALIVE_SEC);
+
+		serverhelper = new ThreadPoolHelper(1, session.THREADPOOL_KEEPALIVE_SEC);
 
 		doThroughput = session.doThroughput();
 
@@ -111,8 +121,8 @@ public class MeasurementService extends IntentService {
 		if (doThroughput) {
 			serverhelper.execute(new ParameterTask(this, (new Listener())));
 		} else {
-			serverhelper.execute(new MeasurementTask(this, false, false,
-					false, new FakeListener()));
+			serverhelper.execute(new MeasurementTask(this, false, false, false,
+					new FakeListener()));
 		}
 
 		Log.i("MeasurementService", " Throughput:" + session.getThroughput());
@@ -120,13 +130,10 @@ public class MeasurementService extends IntentService {
 		serverhelper.waitOnTasks(120);
 
 	}
-	
-	
 
 	public static void poke(Context ctx) {
 		ctx.startService(new Intent(ctx, MeasurementService.class));
 	}
-	
 
 	public class Listener extends BaseResponseListener {
 		Values session = (Values) context.getApplicationContext();
@@ -233,6 +240,8 @@ public class MeasurementService extends IntentService {
 							false, false, new FakeListener()));
 
 				} catch (Exception e) {
+
+					ClientLog.log(context, e, "service-measurementTask");
 					e.printStackTrace();
 				}
 			}
@@ -270,10 +279,9 @@ public class MeasurementService extends IntentService {
 
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 	}
 
-	
 }

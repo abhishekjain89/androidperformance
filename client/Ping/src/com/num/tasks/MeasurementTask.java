@@ -21,6 +21,7 @@ import com.num.listeners.FakeListener;
 import com.num.listeners.ResponseListener;
 import com.num.models.Address;
 import com.num.models.Battery;
+import com.num.models.ClientLog;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -76,7 +77,7 @@ public class MeasurementTask extends ServerTask{
 			serverhelper.shutdown();
 		}
 		catch(Exception e){
-
+			ClientLog.log(getContext(), e, toString());
 		}
 	}
 

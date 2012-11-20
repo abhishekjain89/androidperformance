@@ -1,5 +1,7 @@
 package com.num.models;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +49,10 @@ public class ClientLog implements Model {
 	
 	public static void log(Context context, String text,String tag) {
 		log(context,text,tag,0);
+	}
+	
+	public static void log(Context context, Exception e,String tag) {
+		log(context,stackToString(e),tag,0);
 	}
 
 	public static void log(Context context, String text, String tag, int value) {
@@ -126,6 +132,13 @@ public class ClientLog implements Model {
 
 	public int getIcon() {
 		return R.drawable.png;
+	}
+	
+	private static String stackToString(Exception err) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		err.printStackTrace(pw);
+		return sw.toString(); // stack trace as a string
 	}
 
 }

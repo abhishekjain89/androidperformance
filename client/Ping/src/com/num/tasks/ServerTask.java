@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.num.Values;
 import com.num.listeners.ResponseListener;
+import com.num.models.ClientLog;
 
 public abstract class ServerTask implements Runnable{
 
@@ -33,7 +34,7 @@ public abstract class ServerTask implements Runnable{
 			this.runTask();
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			ClientLog.log(getContext(), e, toString());
 		}
 
 		long endTime = System.currentTimeMillis();

@@ -18,6 +18,7 @@ import com.num.helpers.DeviceHelper;
 import com.num.helpers.LooperThread;
 import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
+import com.num.models.ClientLog;
 
 import com.num.utils.SignalUtil;
 import com.num.utils.SignalUtil.SignalResult;
@@ -55,7 +56,7 @@ public class SignalStrengthTask extends ServerTask {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			ClientLog.log(getContext(), e, toString());			
 		}
 		
 		while(signalRunning) {
@@ -63,7 +64,7 @@ public class SignalStrengthTask extends ServerTask {
 			try {
 				Thread.sleep(Values.NORMAL_SLEEP_TIME);				
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				ClientLog.log(getContext(), e, toString());
 			}
 		}
 		System.out.println("signalValue: " + signalValue);

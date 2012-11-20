@@ -74,8 +74,6 @@ public class AnalysisActivity extends TrackedActivity {
 
 		setContentView(R.layout.measurement_screen);
 		
-		ClientLog.log(this, "text", "tag");
-		
 		activity = this;
 		session = (Values) getApplicationContext();
 		session.loadValues();
