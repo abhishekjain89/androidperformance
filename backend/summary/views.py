@@ -284,7 +284,7 @@ def summary(request):
 	
 
     data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time_3h).distinct('deviceid'))
-    data['last-1hr'] = len(Measurement.objects.filter(time__gte=l_time_1h).distinct('deviceid'))
+    data['last-1hr'] = len(Measurement.objects.filter(time__gte=l_time_1h))
     
     #data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))
     return HttpResponse(json.dumps(data))
