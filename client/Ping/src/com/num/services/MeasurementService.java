@@ -127,7 +127,7 @@ public class MeasurementService extends IntentService {
 
 		Log.i("MeasurementService", " Throughput:" + session.getThroughput());
 
-		serverhelper.waitOnTasks(120);
+		serverhelper.waitOnTasks(240);
 
 	}
 

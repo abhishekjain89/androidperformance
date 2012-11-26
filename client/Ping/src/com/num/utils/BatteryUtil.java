@@ -41,8 +41,11 @@ public class BatteryUtil {
 				e.printStackTrace();
 			}
 		}
-		
+		try{
 		context.unregisterReceiver(battery_receiver);
+		} catch (Exception e) {
+			
+		}
 
 		return ""; 
 	}

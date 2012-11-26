@@ -3,6 +3,8 @@ package com.num.utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import com.num.models.ClientLog;
+
 import android.util.Log;
 
 public class CommandLineUtil {
@@ -35,9 +37,7 @@ public class CommandLineUtil {
 			}
 			int status = process.waitFor();
 			Log.d("CommandLineUtil", "Current Status: " + status);
-		} catch (Exception e) {
-			message = "Error" + e.toString();
-			Log.d("CommandLineUtil", e.getLocalizedMessage());
+		} catch (Exception e) {								
 		}
 		return message;
 	}

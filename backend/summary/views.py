@@ -99,8 +99,11 @@ def measurement(request):
         count+=1
         m_network = request_object['network']
         count+=1
-        m_sim = request_object['sim']
-        count+=1
+        try:
+            m_sim = request_object['sim']
+        except:
+            pass
+        
         m_throughput = request_object['throughput']
         count+=1
         m_gps = request_object['gps']
@@ -108,8 +111,10 @@ def measurement(request):
         m_usage = request_object['usage']
         count+=1
         m_battery = request_object['battery']
-        count+=1
-        m_warmup = request_object['warmup_experiment']
+        try:
+            m_warmup = request_object['warmup_experiment']
+        except:
+            pass
         count+=1
         m_screens = request_object['screens']
         count+=1
@@ -271,16 +276,17 @@ def measurement(request):
 
 def summary(request):
 	
-    data={}
-    data['status']='Working Fine'
-    current_time= datetime.utcnow()
-    ranged = timedelta(hours=float(3))
-    l_time = current_time - ranged
-    devices=str(len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))) + " from " + str(len(Device.objects.all()))
+    data={}    
+    current_time= datetime.utcnow()    
+    l_time_3h = current_time - timedelta(hours=float(3))
+    l_time_1h = current_time - timedelta(hours=float(1))    
+    #devices=str(len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))) + " from " + str(len(Device.objects.all()))
 	
 
-    data['total-apps'] = len(Application.objects.all())
-    data['total-devices'] = devices
+    data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time_3h).distinct('deviceid'))
+    data['last-1hr'] = len(Measurement.objects.filter(time__gte=l_time_1h).distinct('deviceid'))
+    
+    #data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))
     return HttpResponse(json.dumps(data))
 
 def values(request):

@@ -92,10 +92,11 @@ public class MeasurementTask extends ServerTask{
 		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
 		serverhelper.execute(new WarmupSequenceTask(getContext(), listener));
+		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), listener, measurement));
 		
 		serverhelper.waitOnTasks();
 		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
-		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), listener, measurement));
+		
 		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
 		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), listener));
 		serverhelper.execute(new SignalStrengthTask(getContext(),new HashMap<String,String>(), listener));
@@ -188,21 +189,8 @@ public class MeasurementTask extends ServerTask{
 
 		public void onCompleteSignal(String signalStrength) {
 			
-			Network network = measurement.getNetwork();
-			int i = 100;
-			while(network == null) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				network = measurement.getNetwork();
-				if (i-- == 0) {
-					break;
-				}
-			}
-			network.setSignalStrength("" + signalStrength);
+			Network network = measurement.getNetwork();	
+			network.setSignalStrength(signalStrength);
 			measurement.setNetwork(network);
 		}
 		public void onCompleteUsage(Usage usage) {
