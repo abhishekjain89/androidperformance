@@ -279,14 +279,16 @@ def summary(request):
     data={}    
     current_time= datetime.utcnow()    
     l_time_3h = current_time - timedelta(hours=float(3))
-    l_time_1h = current_time - timedelta(hours=float(1))    
-    #devices=str(len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))) + " from " + str(len(Device.objects.all()))
+    l_time_1h = current_time - timedelta(hours=float(1))        
 	
-
-    data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time_3h).distinct('deviceid'))
-    data['last-1hr'] = len(Measurement.objects.filter(time__gte=l_time_1h))
+    filter_3h = Measurement.objects.filter(time__gte=l_time_3h)
+    filter_1h = Measurement.objects.filter(time__gte=l_time_1h)
     
-    #data['last-3hr'] = len(Measurement.objects.filter(time__gte=l_time).distinct('deviceid'))
+    data['last-3hr'] = len(filter_3h) 
+    data['last-1hr'] = len(filter_1h)
+    data['total_devices'] = len(Device.objects.all())
+    
+    
     return HttpResponse(json.dumps(data))
 
 def values(request):
