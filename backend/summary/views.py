@@ -287,6 +287,7 @@ def summary(request):
     data['last-3hr'] = len(filter_3h) 
     data['last-1hr'] = len(filter_1h)
     data['total_devices'] = len(Device.objects.all())
+    data['debug'] = len(Measurement.objects.all().distinct('deviceid'))
     
     
     return HttpResponse(json.dumps(data))
