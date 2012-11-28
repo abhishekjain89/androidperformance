@@ -58,8 +58,6 @@ public class TracerouteEntry implements Model, Comparable<TracerouteEntry>{
 		try {
 			
 			obj.putOpt("ipAddr",  ipAddr);
-			obj.putOpt("hostname",  hostname);
-			obj.putOpt("rtt", rtt);
 			obj.putOpt("hopnumber", hopnumber);
 			
 			
