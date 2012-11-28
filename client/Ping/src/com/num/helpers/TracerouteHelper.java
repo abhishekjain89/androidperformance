@@ -75,6 +75,10 @@ public class TracerouteHelper {
 				ipName = ipAddr.substring(0,ipAddr.indexOf('/'));
 				ipBits = ipAddr.substring(ipAddr.indexOf('/')+1);				
 			}
+			else
+			{
+				ipBits = ipAddr;
+			}
 			//rtt = getHopRTT(parsedResult);
 			Log.d("TraceHelp","Parsed result "+ parsedResult);
 			return new TracerouteEntry(ipBits,ipName, ""+rtt, index);
