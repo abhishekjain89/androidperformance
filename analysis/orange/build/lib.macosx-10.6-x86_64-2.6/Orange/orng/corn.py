@@ -1,1 +1,0 @@
-from Orange.corn import *

@@ -1,1 +1,0 @@
-.. automodule :: OrangeWidgets.plot.owplot

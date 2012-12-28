@@ -1,5 +1,0 @@
-(0.40) Cola
-(0.40) Cola Diapers
-(0.40) Cola Diapers Milk
-(0.40) Cola Milk
-(0.60) Beer

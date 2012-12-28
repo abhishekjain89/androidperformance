@@ -1,2 +1,0 @@
-Redundant features (3 of 13):
-age, cholesterol, rest SBP
