@@ -121,7 +121,7 @@ public class MeasurementService extends IntentService {
 		if (doThroughput) {
 			serverhelper.execute(new ParameterTask(this, (new Listener())));
 		} else {
-			serverhelper.execute(new MeasurementTask(this, false, false, false,
+			serverhelper.execute(new MeasurementTask(this, new Throughput(), false,
 					new FakeListener()));
 		}
 
@@ -140,7 +140,7 @@ public class MeasurementService extends IntentService {
 
 		public void onComplete(String response) {
 			System.out.println("throughput succeed");
-			ThroughputHandler.sendEmptyMessage(0);
+			NoThroughputHandler.sendEmptyMessage(0);
 
 		}
 
@@ -221,27 +221,13 @@ public class MeasurementService extends IntentService {
 
 		}
 
-		private Handler ThroughputHandler = new Handler() {
-			public void handleMessage(Message msg) {
-				try {
-					serverhelper.execute(new MeasurementTask(context, false,
-							true, false, new FakeListener()));
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-
 		private Handler NoThroughputHandler = new Handler() {
 			public void handleMessage(Message msg) {
 				try {
-					serverhelper.execute(new MeasurementTask(context, false,
-							false, false, new FakeListener()));
+					serverhelper.execute(new MeasurementTask(context, null,
+							false, new FakeListener()));
 
 				} catch (Exception e) {
-
-					ClientLog.log(context, e, "service-measurementTask");
 					e.printStackTrace();
 				}
 			}

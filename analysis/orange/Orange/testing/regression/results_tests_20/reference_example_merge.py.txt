@@ -1,0 +1,3 @@
+First example:  [1, 2], {"m1":3, "m2":4}
+Second example:  [1, 2.5], {"m1":3, "m3":4.5}
+Merge:  <Orange.feature.Continuous 'a1', Orange.feature.Continuous 'a3', Orange.feature.Continuous 'm1'>

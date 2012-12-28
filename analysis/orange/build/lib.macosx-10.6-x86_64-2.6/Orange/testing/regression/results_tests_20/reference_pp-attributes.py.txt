@@ -1,0 +1,20 @@
+
+
+Preprocessor_select
+
+Attributes: <Orange.feature.Discrete 'age', Orange.feature.Discrete 'tear_rate'>, classVar None
+['young', 'reduced']
+['young', 'normal']
+['young', 'reduced']
+['young', 'normal']
+['young', 'reduced']
+
+
+Preprocessor_ignore
+
+Attributes: <Orange.feature.Discrete 'prescription', Orange.feature.Discrete 'astigmatic'>, classVar Orange.feature.Discrete 'lenses'
+['myope', 'no', 'none']
+['myope', 'no', 'soft']
+['myope', 'yes', 'none']
+['myope', 'yes', 'hard']
+['hypermetrope', 'no', 'none']

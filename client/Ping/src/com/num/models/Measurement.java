@@ -30,6 +30,7 @@ public class Measurement implements MainModel{
 	public boolean isComplete = false;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
 	boolean isManual = false;
+	
 
 
 	private static String DESCRIPTION = "Details of delay in milliseconds experienced on the network for the different destination servers";
@@ -270,9 +271,10 @@ public class Measurement implements MainModel{
 
 	public ArrayList<Row> getDisplayData(Context context){
 		ArrayList<Row> data = new ArrayList<Row>();
+		try{
 		data.add(new Row("ROUND TRIP"));
 		
-		int pingMax = 1;		
+		int pingMax = 1;
 		for(Ping p: pings) pingMax = Math.max((int)p.measure.getAverage(), pingMax);
 		pingMax*=1.2;
 		
@@ -288,6 +290,9 @@ public class Measurement implements MainModel{
 					}
 				}
 			}
+		}
+		} catch (Exception e) {
+			ClientLog.log(context, e, "Measurement Display");
 		}
 		/*data.add(new Row("FIRST HOP"));
 		for(LastMile p: lastMiles){

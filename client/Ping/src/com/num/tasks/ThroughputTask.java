@@ -9,9 +9,12 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Message;
 
+import com.num.Values;
 import com.num.database.datasource.ThroughputDataSource;
+import com.num.helpers.ThreadPoolHelper;
 import com.num.helpers.ThroughputHelper;
 import com.num.listeners.BaseResponseListener;
+import com.num.listeners.FakeListener;
 import com.num.listeners.ResponseListener;
 import com.num.models.Battery;
 import com.num.models.Device;
@@ -30,10 +33,13 @@ import com.num.utils.DeviceUtil;
 
 public class ThroughputTask extends ServerTask{
 	
+	ThreadPoolHelper serverhelper;
+	
 	public ThroughputTask(Context context, Map<String, String> reqParams, 
 			ResponseListener listener) {
 		super(context, new HashMap<String, String>(), listener);
-		
+		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,
+				Values.THREADPOOL_KEEPALIVE_SEC);
 	}
 
 	@Override
@@ -46,6 +52,7 @@ public class ThroughputTask extends ServerTask{
 			ThroughputDataSource datasource = new ThroughputDataSource(getContext());			
 			datasource.insert(t);
 			getResponseListener().onCompleteThroughput(t);
+			serverhelper.execute(new MeasurementTask(getContext(), t, true, getResponseListener()));
 			
 			
 		} catch (Exception e) {

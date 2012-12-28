@@ -33,7 +33,7 @@ public class TaskHelper {
 			return new ThroughputTask(context,new HashMap<String,String>(), listener);
 		}
 		else if(key.equals("usage")){
-			return new UsageTask(context,new HashMap<String,String>(),true, listener);
+			return new UsageTask(context,new HashMap<String,String>(), listener);
 		}
 		else if(key.equals("traceroute")){
 			return new AllTraceroutesTask(context,new HashMap<String,String>(), new Address("cc.gatech.edu", "Atlanta, GA", "traceroute"), 20, listener);

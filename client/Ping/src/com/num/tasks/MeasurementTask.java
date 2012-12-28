@@ -50,97 +50,75 @@ import com.num.utils.SignalUtil.SignalResult;
  * 
  * 
  */
-public class MeasurementTask extends ServerTask{
+public class MeasurementTask extends ServerTask {
 
 	ThreadPoolHelper serverhelper;
-	boolean doGPS;
-	boolean doThroughput;
+	Values session;
+	MeasurementListener listener;
+	Throughput throughput;
 	LatencyDataSource dataSource = new LatencyDataSource(getContext());
-	boolean isManual = false;
-
-	Measurement measurement; 
+	Measurement measurement;
 	ArrayList<Ping> pings = new ArrayList<Ping>();
 	ArrayList<LastMile> lastMiles = new ArrayList<LastMile>();
-	public boolean gpsRunning  = false;
 
-	public MeasurementTask(Context context,boolean doGPS,boolean doThroughput,
+	public MeasurementTask(Context context, Throughput throughput,
 			boolean isManual, ResponseListener listener) {
-		super(context, new HashMap<String,String>(), listener);
-		this.doGPS = doGPS;
-		this.doThroughput = doThroughput;
-		this.isManual = isManual;
-		
+		super(context, new HashMap<String, String>(), listener);
+		measurement = new Measurement();
+		measurement.setManual(isManual);
+		listener = new MeasurementListener();
+		session = this.getValues();
+		serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,
+				session.THREADPOOL_KEEPALIVE_SEC);
+		this.throughput = throughput;
 	}
 
-	public void killAll(){
-		try{
+	public void killAll() {
+		try {
 			serverhelper.shutdown();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			ClientLog.log(getContext(), e, toString());
 		}
 	}
 
 	public void runTask() {
-		
-		measurement = new Measurement();
-		MeasurementListener listener= new MeasurementListener();
-		measurement.setManual(isManual);
-	
-		Values session = this.getValues();
+
 		ArrayList<Address> dsts = session.getPingServers();
-		ThreadPoolHelper serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
+		if(throughput!=null)
+			listener.onCompleteThroughput(throughput);
+
 		serverhelper.execute(new WarmupSequenceTask(getContext(), listener));
-		serverhelper.execute(new DeviceTask(getContext(),new HashMap<String,String>(), listener, measurement));
+		serverhelper.execute(new DeviceTask(getContext(),
+				new HashMap<String, String>(), listener, measurement));
+		
 		
 		serverhelper.waitOnTasks();
-		serverhelper.execute(new InstallBinariesTask(getContext(),new HashMap<String,String>(), new String[0], new FakeListener()));
-		
-		serverhelper.execute(new UsageTask(getContext(),new HashMap<String,String>(), doThroughput, listener));
-		serverhelper.execute(new BatteryTask(getContext(),new HashMap<String,String>(), listener));
-		serverhelper.execute(new SignalStrengthTask(getContext(),new HashMap<String,String>(), listener));
-		
-		
-		
-		for(Address dst : dsts)
-		{
-			serverhelper.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5, listener));
+		// serverhelper.execute(new InstallBinariesTask(getContext(),new
+		// HashMap<String,String>(), new String[0], new FakeListener()));
+
+		serverhelper.execute(new UsageTask(getContext(),
+				new HashMap<String, String>(), listener));
+		serverhelper.execute(new BatteryTask(getContext(),
+				new HashMap<String, String>(), listener));
+		serverhelper.execute(new SignalStrengthTask(getContext(),
+				new HashMap<String, String>(), listener));
+		//serverhelper.execute(new TracerouteTask(getContext(),
+		//		new HashMap<String, String>(), null, 0, listener));
+
+		for (Address dst : dsts) {
+			serverhelper.execute(new PingTask(getContext(),
+					new HashMap<String, String>(), dst, 5, listener));
 		}
-		
+
 		measurement.setPings(pings);
 		measurement.setLastMiles(lastMiles);
 
 		serverhelper.waitOnTasks();
 
-		
-		if(doThroughput){
-			serverhelper.execute(new ThroughputTask(getContext(),new HashMap<String,String>(), new MeasurementListener()));
-		}
-		else{
-			new MeasurementListener().onCompleteThroughput(new Throughput());
-		}
-		
-		serverhelper.waitOnTasks();
-		
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			return;
-
-		}
-
-		ArrayList<Screen> scrs = new ArrayList<Screen>();
-
-		ArrayList<Screen> buffer = session.screenBuffer;
-		for(Screen s: buffer)
-			scrs.add(s);
-
-		measurement.setScreens(scrs);
-		
 		getResponseListener().onCompleteMeasurement(measurement);
 
-		String isSuccess = MeasurementHelper.sendMeasurement(getContext(), measurement);
+		MeasurementHelper.sendMeasurement(getContext(), measurement);
 
 	}
 
@@ -148,10 +126,8 @@ public class MeasurementTask extends ServerTask{
 	public String toString() {
 		return "Measurement Task";
 	}
-	
 
-
-	private class MeasurementListener extends BaseResponseListener{
+	private class MeasurementListener extends BaseResponseListener {
 
 		public void onCompletePing(Ping response) {
 			pings.add(response);
@@ -160,7 +136,7 @@ public class MeasurementTask extends ServerTask{
 
 		public void onComplete(String response) {
 
-		} 
+		}
 
 		public void onCompleteMeasurement(Measurement response) {
 			getResponseListener().onCompleteMeasurement(response);
@@ -188,11 +164,12 @@ public class MeasurementTask extends ServerTask{
 		}
 
 		public void onCompleteSignal(String signalStrength) {
-			
-			Network network = measurement.getNetwork();	
+
+			Network network = measurement.getNetwork();
 			network.setSignalStrength(signalStrength);
 			measurement.setNetwork(network);
 		}
+
 		public void onCompleteUsage(Usage usage) {
 			measurement.setUsage(usage);
 			getResponseListener().onCompleteUsage(usage);
@@ -203,11 +180,10 @@ public class MeasurementTask extends ServerTask{
 			measurement.setThroughput(throughput);
 			getResponseListener().onCompleteThroughput(throughput);
 
-
 		}
 
-		public void onCompleteWifi(Wifi wifi) {		
-			
+		public void onCompleteWifi(Wifi wifi) {
+
 			if (wifi.isWifi()) {
 
 				measurement.setWifi(wifi);
@@ -248,38 +224,37 @@ public class MeasurementTask extends ServerTask{
 
 		public void onUpdateUpLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateDownLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateThroughput(Throughput throughput) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
-			// TODO Auto-generated method stub
-			
+			//
+
 		}
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
 			measurement.setWarmupExperiment(experiment);
-			
+
 		}
 	}
 
-
 	private Handler GPSHandler = new Handler() {
-		public void  handleMessage(Message msg) {
+		public void handleMessage(Message msg) {
 			try {
 				boolean gps = GPSUtil.getLocation(getContext(), locationResult);
 
@@ -289,29 +264,23 @@ public class MeasurementTask extends ServerTask{
 		}
 	};
 
-
-
-	public LocationResult locationResult = new LocationResult(){
+	public LocationResult locationResult = new LocationResult() {
 		@Override
-		public void gotLocation(final Location location){
+		public void gotLocation(final Location location) {
 			GPS gps = new GPS();
-			if (location != null)
-			{
+			if (location != null) {
 				gps.setAltitude("" + location.getAltitude());
 				gps.setLatitude("" + location.getLatitude());
 				gps.setLongitude("" + location.getLongitude());
-				gpsRunning = false;
+				// gpsRunning = false;
 
+			} else {
+				gps = new GPS("Not Found", "Not Found", "Not Found");
+				// gpsRunning = false;
 			}
-			else{
-				gps = new GPS("Not Found","Not Found","Not Found");        
-				gpsRunning = false;
-			}
-
 
 			(new MeasurementListener()).onCompleteGPS(gps);
 		}
 	};
-
 
 }

@@ -1,0 +1,89 @@
+EnumVariable
+attr name
+
+AssociationRulesInducer
+conf confidence
+supp support
+
+AssociationRulesSparseInducer
+conf confidence
+supp support
+
+AssociationLearner
+conf confidence
+supp support
+
+EquiDistDiscretizer
+firstVal first_cut
+
+SymMatrix
+getitems get_items
+
+ExampleGenerator
+getitems get_items
+
+ExampleTable
+getitemsref get_items_ref
+selectlist select_list
+selectref select_ref
+selectbool select_bool
+filterlist filter_list
+filterref filter_ref
+filterbool filter_bool
+randomexample random_example
+random_instance random_example
+
+ClassifierByExampleTable
+boundset bound_set
+
+ClassifierByLookupTable
+boundset bound_set
+getindex get_index
+
+ContingencyClass
+add_attrclass add_var_class
+
+TreeNode
+treesize tree_size
+removestoredinfo remove_stored_info
+instances examples
+
+TreeStopCriteria_common
+min_examples min_instances
+
+TreeClassifier
+treesize tree_size
+
+C45Learner
+commandline command_line
+
+Domain
+metaid meta_id
+hasmeta has_meta
+getmeta get_meta
+getmetas get_metas
+addmeta add_meta
+addmetas add_metas
+removemeta remove_meta
+
+ExamplesDistance_Normalized
+feature_distances attribute_distances
+
+TransformValue
+sub_transformer subtransformer
+
+ImputerConstructor
+impute_class imputeClass
+
+Filter_random
+random_generator randomGenerator
+
+ValueFilter
+accept_special acceptSpecial
+
+FindNearest_BruteForce
+instances examples
+
+Rule
+instances examples
+

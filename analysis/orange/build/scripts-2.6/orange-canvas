@@ -1,0 +1,8 @@
+#!/opt/local/Library/Frameworks/Python.framework/Versions/2.6/Resources/Python.app/Contents/MacOS/Python
+
+import os
+import Orange
+__file = Orange.__file__
+
+__canvas = os.path.join(os.path.split(__file)[0], "OrangeCanvas", "orngCanvas.pyw")
+execfile(__canvas) 

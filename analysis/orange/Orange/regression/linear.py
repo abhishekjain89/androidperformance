@@ -1,0 +1,620 @@
+"""\
+##############################
+Linear regression (``linear``)
+##############################
+
+.. index:: regression, linear model
+
+.. `Linear regression`: http://en.wikipedia.org/wiki/Linear_regression
+
+
+`Linear regression <http://en.wikipedia.org/wiki/Linear_regression>`_ 
+is a statistical regression method which tries to predict a value of 
+a continuous response (class) variable based on the values of several 
+predictors. The model assumes that the response variable is a linear
+combination of the predictors, the task of linear regression is 
+therefore to fit the unknown coefficients.
+
+To fit the regression parameters on housing data set use the following code:
+
+.. literalinclude:: code/linear-example.py
+   :lines: 7,9,10,11
+   
+
+.. autoclass:: LinearRegressionLearner
+    :members:
+
+.. autoclass:: LinearRegression
+    :members:
+
+Utility functions
+-----------------
+
+.. autofunction:: stepwise
+
+
+========
+Examples
+========
+
+==========
+Prediction
+==========
+
+Predict values of the first 5 data instances
+
+.. literalinclude:: code/linear-example.py
+   :lines: 13-15
+
+The output of this code is
+
+::
+
+    Actual: 24.00, predicted: 30.00
+    Actual: 21.60, predicted: 25.03
+    Actual: 34.70, predicted: 30.57
+    Actual: 33.40, predicted: 28.61
+    Actual: 36.20, predicted: 27.94
+
+=========================
+Poperties of fitted model
+=========================
+
+
+Print regression coefficients with standard errors, t-scores, p-values
+and significances 
+
+.. literalinclude:: code/linear-example.py
+   :lines: 17
+
+The code output is
+
+::
+
+      Variable  Coeff Est  Std Error    t-value          p      
+     Intercept     36.459      5.103      7.144      0.000   ***
+          CRIM     -0.108      0.033     -3.287      0.001    **
+            ZN      0.046      0.014      3.382      0.001   ***
+         INDUS      0.021      0.061      0.334      0.738      
+          CHAS      2.687      0.862      3.118      0.002    **
+           NOX    -17.767      3.820     -4.651      0.000   ***
+            RM      3.810      0.418      9.116      0.000   ***
+           AGE      0.001      0.013      0.052      0.958      
+           DIS     -1.476      0.199     -7.398      0.000   ***
+           RAD      0.306      0.066      4.613      0.000   ***
+           TAX     -0.012      0.004     -3.280      0.001    **
+       PTRATIO     -0.953      0.131     -7.283      0.000   ***
+             B      0.009      0.003      3.467      0.001   ***
+         LSTAT     -0.525      0.051    -10.347      0.000   ***
+
+
+===================
+Stepwise regression
+===================
+
+To use stepwise regression initialize learner with ``stepwise=True``.
+The upper and lower bound for significance are controlled with
+``add_sig`` and ``remove_sig``.
+
+.. literalinclude:: code/linear-example.py
+   :lines: 20-23,25
+
+As you can see from the output, the non-significant coefficients
+have been removed from the model.
+
+::
+
+    Variable  Coeff Est  Std Error    t-value          p
+     Intercept     36.341      5.067      7.171      0.000   ***
+         LSTAT     -0.523      0.047    -11.019      0.000   ***
+            RM      3.802      0.406      9.356      0.000   ***
+       PTRATIO     -0.947      0.129     -7.334      0.000   ***
+           DIS     -1.493      0.186     -8.037      0.000   ***
+           NOX    -17.376      3.535     -4.915      0.000   ***
+          CHAS      2.719      0.854      3.183      0.002    **
+             B      0.009      0.003      3.475      0.001   ***
+            ZN      0.046      0.014      3.390      0.001   ***
+          CRIM     -0.108      0.033     -3.307      0.001    **
+           RAD      0.300      0.063      4.726      0.000   ***
+           TAX     -0.012      0.003     -3.493      0.001   ***
+    Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 . 0.1 empty 1
+
+"""
+
+
+import Orange
+from Orange.regression import base
+import numpy
+
+try:
+    from scipy import stats
+except ImportError:
+    from Orange import statc as stats
+
+from numpy import dot, sqrt, std
+from numpy.linalg import inv, pinv
+
+
+from Orange.utils import deprecated_members, deprecated_keywords
+
+class LinearRegressionLearner(base.BaseRegressionLearner):
+
+    """Fits the linear regression model, i.e. learns the regression parameters
+    The class is derived from
+    :class:`Orange.regression.base.BaseRegressionLearner`
+    which is used for preprocessing the data (continuization and imputation)
+    before fitting the regression parameters.
+
+    """
+
+    def __init__(self, name='linear regression', intercept=True,
+                 compute_stats=True, ridge_lambda=None, imputer=None,
+                 continuizer=None, use_vars=None, stepwise=False,
+                 add_sig=0.05, remove_sig=0.2, **kwds):
+        """
+        :param name: name of the linear model, default 'linear regression'
+        :type name: string
+        :param intercept: if True, the intercept beta0 is included
+            in the model
+        :type intercept: bool
+        :param compute_stats: if True, statistical properties of
+            the estimators (standard error, t-scores, significances)
+            and statistical properties of the model
+            (sum of squares, R2, adjusted R2) are computed
+        :type compute_stats: bool
+        :param ridge_lambda: if not None, ridge regression is performed 
+                             with the given lambda parameter controlling
+                             the regularization
+        :type ridge_lambda: :obj:`int` or :obj:`None`
+        :param use_vars: the list of independent varaiables included in
+            regression model. If None (default) all variables are used
+        :type use_vars: list of Orange.feature.Descriptor or None
+        :param stepwise: if True, `stepwise regression
+            <http://en.wikipedia.org/wiki/Stepwise_regression>`_
+            based on F-test is performed. The significance parameters are
+            add_sig and remove_sig
+        :type stepwise: bool
+        :param add_sig: lower bound of significance for which the variable
+            is included in regression model
+            default value = 0.05
+        :type add_sig: float
+        :param remove_sig: upper bound of significance for which
+            the variable is excluded from the regression model
+            default value = 0.2
+        :type remove_sig: float
+        """
+        self.name = name
+        self.intercept = intercept
+        self.compute_stats = compute_stats
+        self.ridge_lambda = ridge_lambda
+        self.set_imputer(imputer=imputer)
+        self.set_continuizer(continuizer=continuizer)
+        self.stepwise = stepwise
+        self.add_sig = add_sig
+        self.remove_sig = remove_sig
+        self.use_vars = use_vars
+        self.__dict__.update(kwds)
+
+    def __call__(self, table, weight=None, verbose=0):
+        """
+        :param table: data instances.
+        :type table: :class:`Orange.data.Table`
+        :param weight: the weights for instances. Default: None, i.e.
+            all data instances are equally important in fitting
+            the regression parameters
+        :type weight: None or list of Orange.feature.Continuous
+            which stores weights for instances
+        """
+        if self.use_vars is not None:
+            new_domain = Orange.data.Domain(self.use_vars,
+                                            table.domain.class_var)
+            new_domain.addmetas(table.domain.getmetas())
+            table = Orange.data.Table(new_domain, table)
+
+        # discrete values are continuized
+        table = self.continuize_table(table)
+
+        # missing values are imputed
+        table = self.impute_table(table)
+
+        if self.stepwise:
+            use_vars = stepwise(table, weight, add_sig=self.add_sig,
+                                remove_sig=self.remove_sig)
+            new_domain = Orange.data.Domain(use_vars, table.domain.class_var)
+            new_domain.addmetas(table.domain.getmetas())
+            table = Orange.data.Table(new_domain, table)
+
+        domain = table.domain
+
+        # convert to numpy
+        X, y, w = table.to_numpy()
+        n, m = numpy.shape(X)
+
+        if self.intercept:
+            X = numpy.insert(X, 0, 1, axis=1) # adds a column of ones
+
+        if weight:
+            weights = numpy.sqrt([float(ins[weight]) for ins in table])
+            X = weights.reshape(n, 1) * X
+            y = weights * y
+
+        cov = dot(X.T, X)
+
+        if self.ridge_lambda:
+            stride = cov.shape[0] + 1
+            cov.flat[self.intercept * stride::stride] += self.ridge_lambda
+
+        # adds some robustness by computing the pseudo inverse;
+        # normal inverse could fail due to the singularity of X.T * X
+        invcov = pinv(cov)
+        D = dot(invcov, X.T)
+        coefficients = dot(D, y)
+
+        mu_y, sigma_y = numpy.mean(y), numpy.std(y)
+        if m > 0:
+            # standardized coefficients
+            std_coefficients = std(X, axis=0, ddof=1) / sigma_y * coefficients
+        else:
+            std_coefficients = None
+
+        # TODO: find inferential properties of the estimators for ridge
+        if self.compute_stats is False or self.ridge_lambda:
+            return LinearRegression(domain.class_var, domain,
+                coefficients=coefficients, std_coefficients=std_coefficients,
+                intercept=self.intercept)
+
+        fitted = dot(X, coefficients)
+        residuals = [ins.get_class() - fitted[i]
+                     for i, ins in enumerate(table)]
+
+        # model summary
+        df_reg = n - m - self.intercept
+        # total sum of squares (total variance)
+        sst = numpy.sum((y - mu_y) ** 2)
+        # regression sum of squares (explained variance)
+        ssr = numpy.sum((fitted - mu_y) ** 2)
+        # residual sum of squares
+        sse = numpy.sum((y - fitted) ** 2)
+        # coefficient of determination
+        r2 = ssr / sst
+        r2 = 1 - sse / sst
+        r2adj = 1 - (1 - r2) * (n - 1) / df_reg
+        F = (ssr / m) / ((sst - ssr) / df_reg) if m else 0
+        sigma_square = sse / df_reg
+        # standard error of the regression estimator, t-scores and p-values
+        std_error = sqrt(sigma_square * invcov.diagonal())
+        t_scores = coefficients / std_error
+        df_res = n - 2
+        p_vals = [stats.betai(df_res * 0.5, 0.5, df_res / (df_res + t * t))
+                  for t in t_scores]
+
+        # dictionary of regression coefficients with standard errors
+        # and p-values
+        dict_model = {}
+        if self.intercept:
+            dict_model["Intercept"] = (coefficients[0], std_error[0],
+                                       t_scores[0], p_vals[0])
+        for i, var in enumerate(domain.features):
+            j = i + 1 if self.intercept else i
+            dict_model[var.name] = (coefficients[j], std_error[j],
+                                    t_scores[j], p_vals[j])
+
+        return LinearRegression(domain.class_var, domain, coefficients, F,
+                 std_error=std_error, t_scores=t_scores, p_vals=p_vals,
+                 dict_model=dict_model, fitted=fitted, residuals=residuals,
+                 m=m, n=n, mu_y=mu_y, r2=r2, r2adj=r2adj, sst=sst, sse=sse,
+                 ssr=ssr, std_coefficients=std_coefficients,
+                 intercept=self.intercept)
+
+deprecated_members({"ridgeLambda": "ridge_lambda",
+                    "computeStats": "compute_stats",
+                    "useVars": "use_vars",
+                    "addSig": "add_sig",
+                    "removeSig": "remove_sig",
+                    }
+                   , ["__init__"],
+                   in_place=True)(LinearRegressionLearner)
+
+class LinearRegression(Orange.classification.Classifier):
+
+    """Linear regression predicts value of the response variable
+    based on the values of independent variables.
+
+    .. attribute:: F
+
+        F-statistics of the model.
+
+    .. attribute:: coefficients
+
+        Regression coefficients stored in list. If the intercept is included
+        the first item corresponds to the estimated intercept.
+
+    .. attribute:: std_error
+
+        Standard errors of the coefficient estimator, stored in list.
+
+    .. attribute:: t_scores
+
+        List of t-scores for the estimated regression coefficients.
+
+    .. attribute:: p_vals
+
+        List of p-values for the null hypothesis that the regression
+        coefficients equal 0 based on t-scores and two sided
+        alternative hypothesis.
+
+    .. attribute:: dict_model
+
+        Statistical properties of the model in a dictionary:
+        Keys - names of the independent variables (or "Intercept")
+        Values - tuples (coefficient, standard error,
+        t-value, p-value)
+
+    .. attribute:: fitted
+
+        Estimated values of the dependent variable for all instances
+        from the training table.
+
+    .. attribute:: residuals
+
+        Differences between estimated and actual values of the
+        dependent variable for all instances from the training table.
+
+    .. attribute:: m
+
+        Number of independent (predictor) variables.
+
+    .. attribute:: n
+
+        Number of instances.
+
+    .. attribute:: mu_y
+
+        Sample mean of the dependent variable.
+
+    .. attribute:: r2
+
+        `Coefficient of determination
+        <http://en.wikipedia.org/wiki/Coefficient_of_determination>`_.
+
+
+    .. attribute:: r2adj
+
+        Adjusted coefficient of determination.
+
+    .. attribute:: sst, sse, ssr
+
+        Total sum of squares, explained sum of squares and
+        residual sum of squares respectively.
+
+    .. attribute:: std_coefficients
+
+        Standardized regression coefficients.
+
+    """
+
+    def __init__(self, class_var=None, domain=None, coefficients=None, F=None,
+                 std_error=None, t_scores=None, p_vals=None, dict_model=None,
+                 fitted=None, residuals=None, m=None, n=None, mu_y=None,
+                 r2=None, r2adj=None, sst=None, sse=None, ssr=None,
+                 std_coefficients=None, intercept=None):
+        """
+        :param model: fitted linear regression model
+        :type model: :class:`LinearRegressionLearner`
+        """
+        self.class_var = class_var
+        self.domain = domain
+        self.coefficients = coefficients
+        self.F = F
+        self.std_error = std_error
+        self.t_scores = t_scores
+        self.p_vals = p_vals
+        self.dict_model = dict_model
+        self.fitted = fitted
+        self.residuals = residuals
+        self.m = m
+        self.n = n
+        self.mu_y = mu_y
+        self.r2 = r2
+        self.r2adj = r2adj
+        self.sst = sst
+        self.sse = sse
+        self.ssr = ssr
+        self.std_coefficients = std_coefficients
+        self.intercept = intercept
+
+    def __call__(self, instance,
+                 result_type=Orange.classification.Classifier.GetValue):
+        """
+        :param instance: data instance for which the value of the response
+                         variable will be predicted
+        :type instance: :obj:`~Orange.data.Instance`
+        """
+        ins = Orange.data.Instance(self.domain, instance)
+        ins = numpy.array(ins.native())
+        if "?" in ins: # missing value -> corresponding coefficient omitted
+            def miss_2_0(x): return x if x != "?" else 0
+            ins = map(miss_2_0, ins)
+
+        if self.intercept:
+            if len(self.coefficients) > 1:
+                y_hat = self.coefficients[0] + dot(self.coefficients[1:],
+                                                   ins[:-1])
+            else:
+                if len(ins) == 1:
+                    print ins
+                    y_hat = self.mu_y
+                else:
+                    y_hat = dot(self.coefficients, ins[:-1])
+        else:
+            y_hat = dot(self.coefficients, ins[:-1])
+#        y_hat = Orange.data.Value(y_hat)
+        y_hat = self.class_var(y_hat)
+        dist = Orange.statistics.distribution.Continuous(self.class_var)
+        dist[y_hat] = 1.
+        if result_type == Orange.classification.Classifier.GetValue:
+            return y_hat
+        if result_type == Orange.classification.Classifier.GetProbabilities:
+            return dist
+        return (y_hat, dist)
+
+    def to_string(self):
+        """Pretty-prints linear regression model,
+        i.e. estimated regression coefficients with standard errors, t-scores
+        and significances.
+
+        """
+        def get_star(p):
+            if p < 0.001: return  "*" * 3
+            elif p < 0.01: return "*" * 2
+            elif p < 0.05: return "*"
+            elif p < 0.1: return  "."
+            else: return " "
+
+        labels = ("Variable", "Coeff Est", "Std Error", "t-value", "p", "")
+        names = [a.name for a in self.domain.attributes]
+
+        if self.intercept:
+            names = ["Intercept"] + names
+
+        float_fmt = "%10.3f"
+        float_str = float_fmt.__mod__
+
+        coefs = map(float_str, self.coefficients)
+        if self.std_error is not None:
+            std_error = map(float_str, self.std_error)
+        else:
+            std_error = None
+
+        if self.t_scores is not None:
+            t_scores = map(float_str, self.t_scores)
+        else:
+            t_scores = None
+
+        if self.p_vals is not None:
+            p_vals = map(float_str, self.p_vals)
+            stars = [get_star(p) for p in self.p_vals]
+        else:
+            p_vals = None
+            stars = None
+
+        columns = [names, coefs, std_error, t_scores, p_vals, stars]
+        labels = [label for label, c in zip(labels, columns) if c is not None]
+        columns = [c for c in columns if c is not None]
+        name_len = max([len(name) for name in names] + [10])
+        fmt_name = "%%%is" % name_len
+        lines = [" ".join([fmt_name % labels[0]] + \
+                          ["%10s" % l for l in labels[1:]])
+                 ]
+
+        if p_vals is not None:
+            fmt = fmt_name + " " + " ".join(["%10s"] * (len(labels) - 2)) + " %5s"
+        else:
+            fmt = fmt_name + " " + " ".join(["%10s"] * (len(labels) - 1))
+
+        for i in range(len(names)):
+            lines.append(fmt % tuple([c[i] for c in columns]))
+
+        if self.p_vals is not None:
+            lines.append("Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 . 0.1 empty 1")
+        return "\n".join(lines)
+
+    def __str__(self):
+        return self.to_string()
+
+
+def compare_models(c1, c2):
+    """ Compares if classifiaction model c1 is significantly better
+    than model c2. The comparison is based on F-test, the p-value
+    is returned.
+
+    :param c1, c2: linear regression model objects.
+    :type lr: :class:`LinearRegression`
+
+    """
+    if c1 == None or c2 == None:
+        return 1.0
+    p1, p2, n = c1.m, c2.m, c1.n
+    RSS1, RSS2 = c1.sse, c2.sse
+    if RSS1 <= RSS2 or p2 <= p1 or n <= p2 or RSS2 <= 0:
+        return 1.0
+    F = ((RSS1 - RSS2) / (p2 - p1)) / (RSS2 / (n - p2))
+    return stats.fprob(int(p2 - p1), int(n - p2), F)
+
+
+@deprecated_keywords({"addSig": "add_sig", "removeSig": "remove_sig"})
+def stepwise(table, weight, add_sig=0.05, remove_sig=0.2):
+    """ Performs `stepwise linear regression
+    <http://en.wikipedia.org/wiki/Stepwise_regression>`_:
+    on table and returns the list of remaing independent variables
+    which fit a significant linear regression model.coefficients
+
+    :param table: data instances.
+    :type table: :class:`Orange.data.Table`
+    :param weight: the weights for instances. Default: None, i.e. all data
+        instances are eqaully important in fitting the regression parameters
+    :type weight: None or list of Orange.feature.Continuous
+        which stores the weights
+    :param add_sig: lower bound of significance for which the variable
+        is included in regression model
+        default value = 0.05
+    :type add_sig: float
+    :param remove_sig: upper bound of significance for which the variable
+        is excluded from the regression model
+        default value = 0.2
+    :type remove_sig: float
+    """
+
+    inc_vars = []
+    not_inc_vars = table.domain.attributes
+
+    changed_model = True
+    while changed_model:
+        changed_model = False
+        # remove all unsignificant conditions (learn several models,
+        # where each time one variable is removed and check significance)
+        c0 = LinearRegressionLearner(table, use_vars=inc_vars)
+        reduced_model = [] # reduced model
+        for ati in range(len(inc_vars)):
+            try:
+                reduced_model.append(LinearRegressionLearner(table, weight,
+                        use_vars=inc_vars[:ati] + inc_vars[(ati + 1):]))
+            except Exception:
+                reduced_model.append(None)
+
+        sigs = [compare_models(r, c0) for r in reduced_model]
+        if sigs and max(sigs) > remove_sig:
+            # remove that variable, start again
+            crit_var = inc_vars[sigs.index(max(sigs))]
+            not_inc_vars.append(crit_var)
+            inc_vars.remove(crit_var)
+            changed_model = True
+            continue
+
+        # add all significant conditions (go through all attributes in
+        # not_inc_vars, is there one that significantly improves the model?
+        extended_model = []
+        for ati in range(len(not_inc_vars)):
+            try:
+                extended_model.append(LinearRegressionLearner(table,
+                        weight, use_vars=inc_vars + [not_inc_vars[ati]]))
+            except Exception:
+                extended_model.append(None)
+
+        sigs = [compare_models(c0, r) for r in extended_model]
+        if sigs and min(sigs) < add_sig:
+            best_var = not_inc_vars[sigs.index(min(sigs))]
+            inc_vars.append(best_var)
+            not_inc_vars.remove(best_var)
+            changed_model = True
+    return inc_vars
+
+
+if __name__ == "__main__":
+
+    import Orange
+    from Orange.regression import linear
+
+    table = Orange.data.Table("housing.tab")
+    c = LinearRegressionLearner(table)
+    print c

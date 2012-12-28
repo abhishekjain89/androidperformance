@@ -1,0 +1,71 @@
+import sys
+sys.path.append('../')
+import database
+from queryconstructor import QueryConstructor
+from plotconstructor import LinePlot,Mapping
+
+filename_prefix = "ping_avg_distribution"
+networkcountry="us"
+ 
+filename=filename_prefix
+
+qc = QueryConstructor()
+qc.setGroupOrderSelectBy("ping", "5*cast((avg/5) as int)")
+qc.addSelectField("count(*)")
+qc.addWhereEqualsString("network","connectiontype","Mobile: 3G")
+qc.addWhereEqualsString("device","networkcountry",networkcountry)
+qc.addWhereEqualsString("ping","dstip","www.google.com")
+qc.addWhereLessThan("ping","avg",700)
+qc.applyMobileClauses()
+qc.applyLatencyClauses("www.google.com")
+qc.addWhereEqualsString("device","networkname",'AT&T')
+result = database.query(qc.toString())
+qc = QueryConstructor()
+qc.setGroupOrderSelectBy("ping", "5*cast((avg/5) as int)")
+qc.addSelectField("count(*)")
+qc.addWhereEqualsString("network","connectiontype","Mobile: 3G")
+qc.addWhereEqualsString("device","networkcountry",networkcountry)
+qc.addWhereEqualsString("ping","dstip","www.google.com")
+qc.addWhereLessThan("ping","avg",700)
+qc.applyMobileClauses()
+qc.applyLatencyClauses("www.google.com")
+qc.addWhereEqualsString("device","networkname","T-Mobile")
+result2 = database.query(qc.toString())
+qc = QueryConstructor()
+qc.setGroupOrderSelectBy("ping", "5*cast((avg/5) as int)")
+qc.addSelectField("count(*)")
+qc.addWhereEqualsString("network","connectiontype","Mobile: 3G")
+qc.addWhereEqualsString("device","networkcountry",networkcountry)
+qc.addWhereEqualsString("ping","dstip","www.google.com")
+qc.addWhereLessThan("ping","avg",700)
+qc.applyMobileClauses()
+qc.applyLatencyClauses("www.google.com")
+qc.addWhereEqualsString("device","networkname","Verizon Wireless")
+result3 = database.query(qc.toString())
+qc = QueryConstructor()
+qc.setGroupOrderSelectBy("ping", "5*cast((avg/5) as int)")
+qc.addSelectField("count(*)")
+qc.addWhereEqualsString("network","connectiontype","Mobile: 3G")
+qc.addWhereEqualsString("device","networkcountry",networkcountry)
+qc.addWhereEqualsString("ping","dstip","www.google.com")
+qc.addWhereLessThan("ping","avg",700)
+qc.applyMobileClauses()
+qc.applyLatencyClauses("www.google.com")
+qc.addWhereEqualsString("device","networkname","Sprint")
+result4 = database.query(qc.toString())
+
+plot = LinePlot()
+plot.addMapping(Mapping(result,0,1,"AT&T"))
+plot.addMapping(Mapping(result2,0,1,"T-Mobile"))
+plot.addMapping(Mapping(result3,0,1,"Verizon Wireless"))
+plot.addMapping(Mapping(result4,0,1,"Sprint"))
+
+plot.setYLabel("F(x)")
+plot.setXLabel("ms")
+plot.setTitle("Roundtrip latency CDF Graph, for top carriers in US (3G only)") 
+plot.setLegend("count")
+plot.transformToCDF()
+plot.construct()
+
+plot.save(filename)
+plot.show()

@@ -1,0 +1,1 @@
+?package(orange-canvas):needs="X11" section="Applications/Science/Data Analysis" title="Orange" icon="/usr/share/pixmaps/orange.xpm" command="/usr/bin/orange"

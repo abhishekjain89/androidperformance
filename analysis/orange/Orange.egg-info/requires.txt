@@ -1,0 +1,9 @@
+setuptools
+numpy
+
+[GUI]
+PyQt4
+PyQwt
+
+[reST]
+numpydoc

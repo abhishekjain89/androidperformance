@@ -15,7 +15,7 @@ def query(text):
 
 		# conn.cursor will return a cursor object, you can use this cursor to perform queries
 		cursor = conn.cursor()
-
+		print text
 		# execute our Query
 		cursor.execute(text)
 
@@ -27,7 +27,7 @@ def query(text):
 		# for most people this isn't very useful so we'll show you how to return
 		# columns as a dictionary (hash) in the next example.
 		#pprint.pprint(records)
-
+		
 		return records
 	except:
 		# Get the most recent exception

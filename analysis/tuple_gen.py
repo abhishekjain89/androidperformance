@@ -8,6 +8,16 @@ def base_str(result,column):
 	
 	return tup
 
+def base_smart(result,column):
+	classType=result[0][column].__class__.__name__
+	
+	if classType=='int':
+		return base_int(result,column)
+	if classType=='float':
+		return base_float(result,column)
+	elif classType=='str':
+		return base_str(result,column)
+
 
 def base_int(result,column):
 		tup = ()
@@ -23,7 +33,19 @@ def base_float(result,column):
 
 		return tup
 
+def getbounds(result,ycolumn,columnLow,columnHigh):
+	tup_low = subtract(ycolumn,base_int(result,columnLow))
+	tup_high = subtract(base_int(result,columnHigh),ycolumn)
+	
+	return (tup_low,tup_high)
 
+def subtract(tup1,tup2):
+	new_tup = ()
+	
+	for i in range(0,len(tup1)):
+		new_tup = new_tup + (tup1[i]-tup2[i],)
+	return new_tup 
+	
 
 def toarray(tup):
 	
@@ -67,6 +89,8 @@ def hour_minute_period(result,column1,column2,period):
 		
 	
 	return tup
+
+
 
 def hour_minute_in_mins(result,column1,column2):
 	tup = ()

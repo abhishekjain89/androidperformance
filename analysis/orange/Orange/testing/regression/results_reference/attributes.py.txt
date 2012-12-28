@@ -1,0 +1,4 @@
+Orange.feature.Discrete 'status'
+Attributes {}
+Set a=12
+Attributes {'a': '12'}

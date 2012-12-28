@@ -1,0 +1,19 @@
+Actual: 24.00, predicted: 30.45
+Actual: 21.60, predicted: 25.60
+Actual: 34.70, predicted: 31.48
+Actual: 33.40, predicted: 30.18
+Actual: 36.20, predicted: 29.59
+  Variable  Coeff Est  Std Error          p
+ Intercept     22.533
+      CRIM     -0.023      0.024      0.050     .
+      CHAS      1.970      1.331      0.040     *
+       NOX     -4.226      2.944      0.010     *
+        RM      4.270      0.934      0.000   ***
+       DIS     -0.373      0.170      0.010     *
+   PTRATIO     -0.798      0.117      0.000   ***
+         B      0.007      0.003      0.020     *
+     LSTAT     -0.519      0.102      0.000   ***
+Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 . 0.1 empty 1
+
+For 5 variables the regression coefficient equals 0:
+ZN, INDUS, AGE, RAD, TAX

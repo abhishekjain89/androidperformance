@@ -1,6 +1,5 @@
 package com.num.activities;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
@@ -60,22 +59,19 @@ import com.num.tasks.MeasurementTask;
 import com.num.ui.adapter.ListAdapter;
 import com.num.R;
 
-
-public class RunActivity extends BaseActivityGroup
-{
-	//private LinearLayout table;
+public class RunActivity extends BaseActivityGroup {
+	// private LinearLayout table;
 
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
 	private Activity activity;
-	private boolean firstPing=true;
-	private static final int SWIPE_MIN_DISTANCE = 180; 
+	private boolean firstPing = true;
+	private static final int SWIPE_MIN_DISTANCE = 180;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	private GestureDetector gestureDetector;
 	View.OnTouchListener gestureListener;
 	static int timeCount = 70;
-
 
 	public ArrayList<Model> items;
 	public ListView listview;
@@ -86,10 +82,9 @@ public class RunActivity extends BaseActivityGroup
 
 	Resources res;
 	TabHost tabHost;
-	TabHost.TabSpec spec;  // Resusable TabSpec for each tab
-	Intent intent;  // Reusable Intent for each tab
+	TabHost.TabSpec spec; // Resusable TabSpec for each tab
+	Intent intent; // Reusable Intent for each tab
 	public Button load;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -98,8 +93,7 @@ public class RunActivity extends BaseActivityGroup
 
 		activity = this;
 
-		serverhelper = new ThreadPoolHelper(5,10);
-
+		serverhelper = new ThreadPoolHelper(5, 10);
 
 		ServiceHelper.processStopService(this);
 		session = (Values) this.getApplicationContext();
@@ -107,29 +101,28 @@ public class RunActivity extends BaseActivityGroup
 		items = new ArrayList<Model>();
 		nextButton = (Button) findViewById(R.id.next);
 		progress = (ProgressBar) findViewById(R.id.progress);
-		//listadapter = new ListAdapter(activity,noteButton,R.layout.item_view,items);
-		serverhelper.execute(new MeasurementTask(activity,true,true,true, new MeasurementListener()));
-		//listview.setAdapter(listadapter);
+		// listadapter = new
+		// ListAdapter(activity,noteButton,R.layout.item_view,items);
+		serverhelper.execute(new MeasurementTask(activity, null, true,
+				new MeasurementListener()));
+		// listview.setAdapter(listadapter);
 		scroll = (HorizontalScrollView) findViewById(R.id.scroller);
 		load = (Button) findViewById(R.id.load);
 
 		res = getResources(); // Resource object to get Drawables
-		tabHost =  (TabHost) findViewById(R.id.tabhost);
+		tabHost = (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(this.getLocalActivityManager());
-		
-		
 
-		nextButton.setOnClickListener(new OnClickListener()  {
-			public void onClick(View v) {	
+		nextButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
 
 				int id = tabHost.getCurrentTab();
-				tabHost.setCurrentTab(id+1);
-
+				tabHost.setCurrentTab(id + 1);
 
 				View v1 = tabHost.getCurrentTabView();
 				int diff = v1.getLeft() - scroll.getScrollX() - 154;
 				moveScrollBy(diff);
-				LastChosen =v1;
+				LastChosen = v1;
 
 				toggleVisibility();
 			}
@@ -139,8 +132,9 @@ public class RunActivity extends BaseActivityGroup
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				timeCount--;		
-				Message msg=Message.obtain(LoadMessageHandler, 0, new Integer(timeCount));
+				timeCount--;
+				Message msg = Message.obtain(LoadMessageHandler, 0,
+						new Integer(timeCount));
 				LoadMessageHandler.sendMessage(msg);
 			}
 
@@ -148,40 +142,34 @@ public class RunActivity extends BaseActivityGroup
 
 	}
 
-	private Handler LoadMessageHandler = new Handler(){
-		public void  handleMessage(Message msg) {
-			Integer time= (Integer)msg.obj;
+	private Handler LoadMessageHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			Integer time = (Integer) msg.obj;
 
-			
-				
-			
-			if(time>0)
-				load.setText("Loading ...   will take about " + (time) + " seconds");
+			if (time > 0)
+				load.setText("Loading ...   will take about " + (time)
+						+ " seconds");
 			else
 				load.setText("Loading ...   Very soon!");
-		}	
+		}
 	};
 
+	public void toggleVisibility() {
 
-
-
-	public void toggleVisibility(){
-
-		if(tabHost.getCurrentTab()==tabHost.getTabWidget().getTabCount()-1){
+		if (tabHost.getCurrentTab() == tabHost.getTabWidget().getTabCount() - 1) {
 			nextButton.setVisibility(View.INVISIBLE);
 			progress.setVisibility(View.VISIBLE);
-		}
-		else{
+		} else {
 			nextButton.setVisibility(View.VISIBLE);
 			progress.setVisibility(View.GONE);
 		}
 	}
 
-	public class MeasurementListener extends BaseResponseListener{
+	public class MeasurementListener extends BaseResponseListener {
 
 		public void onCompletePing(Ping response) {
 
-			//onCompleteOutput(response);
+			// onCompleteOutput(response);
 		}
 
 		public void onCompleteDevice(Device response) {
@@ -194,9 +182,9 @@ public class RunActivity extends BaseActivityGroup
 			onCompleteOutput(response);
 		}
 
-		public void onCompleteOutput(MainModel model){
+		public void onCompleteOutput(MainModel model) {
 
-			Message msg2=Message.obtain(UIHandler, 0, model);
+			Message msg2 = Message.obtain(UIHandler, 0, model);
 			UIHandler.sendMessage(msg2);
 		}
 
@@ -204,8 +192,8 @@ public class RunActivity extends BaseActivityGroup
 
 		}
 
-		public void onUpdateProgress(int val){
-			Message msg=Message.obtain(progressBarHandler, 0, val);
+		public void onUpdateProgress(int val) {
+			Message msg = Message.obtain(progressBarHandler, 0, val);
 			progressBarHandler.sendMessage(msg);
 		}
 
@@ -215,7 +203,7 @@ public class RunActivity extends BaseActivityGroup
 		}
 
 		public void makeToast(String text) {
-			Message msg=Message.obtain(toastHandler, 0, text);
+			Message msg = Message.obtain(toastHandler, 0, text);
 			toastHandler.sendMessage(msg);
 
 		}
@@ -223,6 +211,7 @@ public class RunActivity extends BaseActivityGroup
 		public void onCompleteSignal(String signalStrength) {
 
 		}
+
 		public void onCompleteUsage(Usage response) {
 			onCompleteOutput(response);
 
@@ -249,7 +238,7 @@ public class RunActivity extends BaseActivityGroup
 		}
 
 		public void onCompleteSIM(Sim response) {
-			//onCompleteOutput(response);
+			// onCompleteOutput(response);
 
 		}
 
@@ -270,40 +259,40 @@ public class RunActivity extends BaseActivityGroup
 
 		public void onUpdateUpLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateDownLink(Link link) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onUpdateThroughput(Throughput throughput) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteTraceroute(Traceroute traceroute) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteTracerouteHop(TracerouteEntry traceroute) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
 	private Handler toastHandler = new Handler() {
-		public void  handleMessage(Message msg) {
+		public void handleMessage(Message msg) {
 			try {
-				String text = (String)msg.obj;
-				//Toast.makeText(activity, text, 1000);
+				String text = (String) msg.obj;
+				// Toast.makeText(activity, text, 1000);
 				Toast.makeText(RunActivity.this, text, 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -311,86 +300,82 @@ public class RunActivity extends BaseActivityGroup
 		}
 	};
 
+	private Handler UIHandler = new Handler() {
+		public void handleMessage(Message msg) {
 
-
-	private Handler UIHandler = new Handler(){
-		public void  handleMessage(Message msg) {
-
-
-
-			MainModel item = (MainModel)msg.obj;
+			MainModel item = (MainModel) msg.obj;
 			items.add(item);
-			/*listadapter.add(item);			
-			listadapter.notifyDataSetChanged();*/
+			/*
+			 * listadapter.add(item); listadapter.notifyDataSetChanged();
+			 */
 			intent = new Intent().setClass(activity, DisplayActivity.class);
 
 			session.storeModel(item);
 
-			intent.putExtra("model_key",item.getTitle());
+			intent.putExtra("model_key", item.getTitle());
 
-			
-			View tabview = createTabView(tabHost.getContext(),item);					
-			tabview.setTag(item.getTitle());			
+			View tabview = createTabView(tabHost.getContext(), item);
+			tabview.setTag(item.getTitle());
 			spec = tabHost.newTabSpec(item.getTitle()).setIndicator(tabview)
 					.setContent(intent);
 
-			
 			tabHost.addTab(spec);
 
-			if(LastChosen==null){
+			if (LastChosen == null) {
 				LastChosen = tabview;
-			}else{
+			} else {
 				int diff = LastChosen.getLeft() - scroll.getScrollX() - 154;
 				moveScrollBy(diff);
 			}
 			tabHost.setCurrentTabByTag(tabHost.getCurrentTabTag());
 
 			toggleVisibility();
-			tabview.setOnClickListener(new OnClickListener()  {
-				public void onClick(View v) {	
+			tabview.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
 					tabHost.setCurrentTabByTag((String) v.getTag());
 
 					int diff = v.getLeft() - scroll.getScrollX() - 154;
 					moveScrollBy(diff);
-					LastChosen =v;
+					LastChosen = v;
 					toggleVisibility();
 				}
 			});
 
-
 		}
 	};
-	
 
-	private void moveScrollBy(int diff){
+	private void moveScrollBy(int diff) {
 		final long time = diff;
 		System.out.println("Difference is " + diff);
 		final int scrollIni = scroll.getScrollX();
-		if(time>0){
-			new CountDownTimer(time, 10) { 
+		if (time > 0) {
+			new CountDownTimer(time, 10) {
 
-				public void onTick(long millisUntilFinished) { 
+				public void onTick(long millisUntilFinished) {
 
-					scroll.scrollTo((int) (scrollIni+((time-millisUntilFinished))), 0); 
-				} 
+					scroll.scrollTo(
+							(int) (scrollIni + ((time - millisUntilFinished))),
+							0);
+				}
 
-				public void onFinish() { 
+				public void onFinish() {
 
-				} 
+				}
 			}.start();
-		}
-		else{
+		} else {
 
-			new CountDownTimer(-time, 10) { 
+			new CountDownTimer(-time, 10) {
 
-				public void onTick(long millisUntilFinished) { 
+				public void onTick(long millisUntilFinished) {
 
-					scroll.scrollTo((int) (scrollIni-((-time-millisUntilFinished))), 0); 
-				} 
+					scroll.scrollTo(
+							(int) (scrollIni - ((-time - millisUntilFinished))),
+							0);
+				}
 
-				public void onFinish() { 
+				public void onFinish() {
 
-				} 
+				}
 			}.start();
 
 		}
@@ -398,8 +383,8 @@ public class RunActivity extends BaseActivityGroup
 
 	private View LastChosen;
 
-	private Handler LoadBarHandler = new Handler(){
-		public void  handleMessage(Message msg) {
+	private Handler LoadBarHandler = new Handler() {
+		public void handleMessage(Message msg) {
 			load.setVisibility(View.GONE);
 			ServiceHelper.processStopService(activity);
 			ServiceHelper.processStartService(activity);
@@ -408,10 +393,10 @@ public class RunActivity extends BaseActivityGroup
 
 	private Handler progressBarHandler = new Handler() {
 
-		public void  handleMessage(Message msg) {
+		public void handleMessage(Message msg) {
 			try {
-				int value=(Integer)msg.obj;
-				//progressBar.setProgress(value);
+				int value = (Integer) msg.obj;
+				// progressBar.setProgress(value);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -420,18 +405,17 @@ public class RunActivity extends BaseActivityGroup
 
 	private static View createTabView(final Context context, Model item) {
 
-		View view = LayoutInflater.from(context).inflate(R.layout.tabs_hg, null);
-		view.setPadding(0,0,0,0);
+		View view = LayoutInflater.from(context)
+				.inflate(R.layout.tabs_hg, null);
+		view.setPadding(0, 0, 0, 0);
 
-
-		//ImageView tv = (ImageView) view.findViewById(R.id.icon);
-		TextView tv =  (TextView) view.findViewById(R.id.text);
+		// ImageView tv = (ImageView) view.findViewById(R.id.icon);
+		TextView tv = (TextView) view.findViewById(R.id.text);
 
 		tv.setText(item.getTitle().toUpperCase());
 
 		return view;
 
 	}
-
 
 }

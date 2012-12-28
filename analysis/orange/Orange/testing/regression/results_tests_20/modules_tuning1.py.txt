@@ -1,0 +1,112 @@
+*** optimization  1: 0.97069929:
+*** optimization  2: 0.97432071:
+*** optimization  3: 0.98338802:
+*** optimization  4: 0.98788178:
+*** optimization  5: 0.98894239:
+*** optimization  10: 0.98692032:
+*** optimization  15: 0.98842239:
+*** optimization  20: 0.97804067:
+*** Optimal parameter: minSubset = 5
+Optimal setting:  5
+*** optimization  1: 0.98321909:
+*** optimization  2: 0.97819892:
+*** optimization  3: 0.99126792:
+*** optimization  4: 0.99376568:
+*** optimization  5: 0.99075045:
+*** optimization  10: 0.98726478:
+*** optimization  15: 0.98976927:
+*** optimization  20: 0.99105063:
+*** Optimal parameter: minSubset = 4
+*** optimization  1: 0.97296371:
+*** optimization  2: 0.97278674:
+*** optimization  3: 0.98086246:
+*** optimization  4: 0.98209901:
+*** optimization  5: 0.98543683:
+*** optimization  10: 0.98856855:
+*** optimization  15: 0.99162634:
+*** optimization  20: 0.98600806:
+*** Optimal parameter: minSubset = 15
+*** optimization  1: 0.98023073:
+*** optimization  2: 0.98306900:
+*** optimization  3: 0.98245296:
+*** optimization  4: 0.98960125:
+*** optimization  5: 0.98472670:
+*** optimization  10: 0.98965278:
+*** optimization  15: 0.98743504:
+*** optimization  20: 0.97437948:
+*** Optimal parameter: minSubset = 10
+*** optimization  1: 0.96825045:
+*** optimization  2: 0.97633289:
+*** optimization  3: 0.97483423:
+*** optimization  4: 0.98026658:
+*** optimization  5: 0.97956765:
+*** optimization  10: 0.97693324:
+*** optimization  15: 0.97734543:
+*** optimization  20: 0.97408154:
+*** Optimal parameter: minSubset = 4
+*** optimization  1: 0.96405914:
+*** optimization  2: 0.97413978:
+*** optimization  3: 0.97834677:
+*** optimization  4: 0.98721102:
+*** optimization  5: 0.98688396:
+*** optimization  10: 0.98780690:
+*** optimization  15: 0.98020833:
+*** optimization  20: 0.97671371:
+*** Optimal parameter: minSubset = 10
+*** optimization  1: 0.97435708:
+*** optimization  2: 0.97433705:
+*** optimization  3: 0.97782107:
+*** optimization  4: 0.97559295:
+*** optimization  5: 0.98345645:
+*** optimization  10: 0.98451828:
+*** optimization  15: 0.98160682:
+*** optimization  20: 0.98027819:
+*** Optimal parameter: minSubset = 10
+*** optimization  1: 0.97647017:
+*** optimization  2: 0.98519869:
+*** optimization  3: 0.98775030:
+*** optimization  4: 0.98942575:
+*** optimization  5: 0.98909228:
+*** optimization  10: 0.98262769:
+*** optimization  15: 0.98151338:
+*** optimization  20: 0.98251312:
+*** Optimal parameter: minSubset = 4
+*** optimization  1: 0.98090168:
+*** optimization  2: 0.99166557:
+*** optimization  3: 0.98834444:
+*** optimization  4: 0.98843880:
+*** optimization  5: 0.99087896:
+*** optimization  10: 0.98963769:
+*** optimization  15: 0.98902970:
+*** optimization  20: 0.98413508:
+*** Optimal parameter: minSubset = 2
+*** optimization  1: 0.97177195:
+*** optimization  2: 0.97940412:
+*** optimization  3: 0.98024642:
+*** optimization  4: 0.98027106:
+*** optimization  5: 0.98310708:
+*** optimization  10: 0.98413978:
+*** optimization  15: 0.98651210:
+*** optimization  20: 0.97995520:
+*** Optimal parameter: minSubset = 15
+*** optimization  1: 0.97084229:
+*** optimization  2: 0.97555108:
+*** optimization  3: 0.98384185:
+*** optimization  4: 0.97722222:
+*** optimization  5: 0.98428539:
+*** optimization  10: 0.98924731:
+*** optimization  15: 0.98778002:
+*** optimization  20: 0.98074149:
+*** Optimal parameter: minSubset = 10
+Untuned tree: 0.926
+Tuned tree: 0.983
+*** optimization  1: 0.97069929:
+*** optimization  2: 0.97432071:
+*** optimization  3: 0.98338802:
+*** optimization  4: 0.98788178:
+*** optimization  5: 0.98894239:
+*** optimization  10: 0.98692032:
+*** optimization  15: 0.98842239:
+*** optimization  20: 0.97804067:
+*** Optimal parameter: ['split.continuousSplitConstructor.minSubset', 'split.discreteSplitConstructor.minSubset'] = 5
+Optimal setting:  5.0

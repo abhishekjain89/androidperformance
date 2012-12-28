@@ -30,15 +30,11 @@ import com.num.utils.SHA1Util;
  * 
  * 
  */
-public class UsageTask extends ServerTask{
-	String dstIp;
-	int count;
-	boolean getAll;
+public class UsageTask extends ServerTask{		
 	
-	public UsageTask(Context context, Map<String, String> reqParams, boolean getAll,
+	public UsageTask(Context context, Map<String, String> reqParams,
 			ResponseListener listener) {
-		super(context, reqParams, listener);
-		this.getAll = getAll;
+		super(context, reqParams, listener);		
 	}
 
 	@Override
@@ -48,8 +44,7 @@ public class UsageTask extends ServerTask{
 		getResponseListener().onCompleteUsage(usage);
 		ApplicationDataSource dataSource = new ApplicationDataSource(getContext());		
 		dataSource.insert(usage);
-		
-		
+				
 	}
 
 	@Override

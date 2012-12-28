@@ -1,0 +1,80 @@
+orange.Domain(["Na", "Mg"], domain)
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'Na'>
+
+orange.Domain(["Na", "Mg"], 1, domain)
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'Na'>
+
+orange.Domain(["Na", "Mg"], 0, domain)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain(["Na", "Mg"], domain.variables)
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'Na'>
+
+orange.Domain(["Na", "Mg"], 1, domain.variables)
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'Na'>
+
+orange.Domain(["Na", "Mg"], 0, domain.variables)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], "Mg"], 0, domain.variables)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], "Mg"], 0, domain)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], "Mg"], 0, domain.variables)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], domain["Mg"]], 0)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], domain["Mg"]], 1)
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'Na'>
+
+orange.Domain([domain["Na"], domain["Mg"]], None)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain([domain["Na"], domain["Mg"]], orange.EnumVariable("something completely different"))
+  classVar: Orange.feature.Discrete 'something completely different'
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg'>
+
+orange.Domain(domain)
+  classVar: Orange.feature.Continuous 'y'
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe'>
+
+orange.Domain(domain, 0)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe', Orange.feature.Continuous 'y'>
+
+orange.Domain(domain, 1)
+  classVar: Orange.feature.Continuous 'y'
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe'>
+
+orange.Domain(domain, "Mg")
+  classVar: Orange.feature.Continuous 'Mg'
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe', Orange.feature.Continuous 'y'>
+
+orange.Domain(domain, domain[0])
+  classVar: Orange.feature.Continuous 'RI'
+  attributes: <Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe', Orange.feature.Continuous 'y'>
+
+orange.Domain(domain, None)
+  classVar: None
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe', Orange.feature.Continuous 'y'>
+
+orange.Domain(domain, orange.FloatVariable("nothing completely different"))
+  classVar: Orange.feature.Continuous 'nothing completely different'
+  attributes: <Orange.feature.Continuous 'RI', Orange.feature.Continuous 'Na', Orange.feature.Continuous 'Mg', Orange.feature.Continuous 'Al', Orange.feature.Continuous 'Si', Orange.feature.Continuous 'K', Orange.feature.Continuous 'Ca', Orange.feature.Continuous 'Ba', Orange.feature.Continuous 'Fe', Orange.feature.Continuous 'y'>
+
