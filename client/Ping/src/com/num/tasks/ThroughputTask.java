@@ -52,7 +52,7 @@ public class ThroughputTask extends ServerTask{
 			ThroughputDataSource datasource = new ThroughputDataSource(getContext());			
 			datasource.insert(t);
 			getResponseListener().onCompleteThroughput(t);
-			serverhelper.execute(new MeasurementTask(getContext(), t, true, getResponseListener()));
+			serverhelper.execute(new MeasurementTask(getContext(), t, true, new FakeListener()));
 			
 			
 		} catch (Exception e) {

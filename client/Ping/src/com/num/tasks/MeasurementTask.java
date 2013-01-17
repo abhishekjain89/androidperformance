@@ -66,7 +66,7 @@ public class MeasurementTask extends ServerTask {
 		super(context, new HashMap<String, String>(), listener);
 		measurement = new Measurement();
 		measurement.setManual(isManual);
-		listener = new MeasurementListener();
+		this.listener = new MeasurementListener();
 		session = this.getValues();
 		serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,
 				session.THREADPOOL_KEEPALIVE_SEC);
@@ -253,7 +253,7 @@ public class MeasurementTask extends ServerTask {
 		}
 	}
 
-	private Handler GPSHandler = new Handler() {
+	/*private Handler GPSHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			try {
 				boolean gps = GPSUtil.getLocation(getContext(), locationResult);
@@ -262,7 +262,7 @@ public class MeasurementTask extends ServerTask {
 				e.printStackTrace();
 			}
 		}
-	};
+	};*/
 
 	public LocationResult locationResult = new LocationResult() {
 		@Override
