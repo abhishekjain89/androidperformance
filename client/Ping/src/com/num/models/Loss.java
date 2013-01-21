@@ -12,9 +12,12 @@ import android.content.Context;
 public class Loss implements MainModel
 {
 
+	
+
 	int total;
-	int received_count;
+	int lost;
 	double losspercentage;
+	Ipdv ipdv;
 	private static String DESCRIPTION = "Measures the loss on the network. Takes about 1 minute";
 	
 	
@@ -28,12 +31,12 @@ public class Loss implements MainModel
 		this.total = total;
 	}
 
-	public int getReceived_count() {
-		return received_count;
+	public int getLost() {
+		return lost;
 	}
 
-	public void setReceived_count(int received_count) {
-		this.received_count = received_count;
+	public void setLost(int lost) {
+		this.lost = lost;
 	}
 
 	public double getLosspercentage() {
@@ -42,6 +45,14 @@ public class Loss implements MainModel
 
 	public void setLosspercentage(double losspercentage) {
 		this.losspercentage = losspercentage;
+	}
+	
+	public Ipdv getIpdv() {
+		return ipdv;
+	}
+
+	public void setIpdv(Ipdv ipdv) {
+		this.ipdv = ipdv;
 	}
 	
 	public String getDescription()

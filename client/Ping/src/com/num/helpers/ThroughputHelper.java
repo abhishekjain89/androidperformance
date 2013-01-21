@@ -15,6 +15,7 @@ import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
 import com.num.models.Link;
+import com.num.models.Loss;
 import com.num.models.MainModel;
 import com.num.models.Measure;
 import com.num.models.Measurement;
@@ -136,6 +137,11 @@ public class ThroughputHelper {
 		}
 
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteLoss(Loss loss) {
 			// TODO Auto-generated method stub
 			
 		}

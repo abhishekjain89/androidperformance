@@ -305,3 +305,22 @@ class ClientLog(models.Model):
     value = models.IntegerField(null=True, blank=True)
     class Meta:
         db_table = u'client_log'
+
+class Loss(models.Model):
+    total = models.IntegerField()
+    lost = models.IntegerField()
+    losspercentage = models.FloatField()
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
+    lossid = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = u'loss'
+
+class Ipdv(models.Model):
+    sequencenumber = models.IntegerField()
+    ipdv = models.IntegerField()
+    measurementid = models.ForeignKey(Measurement, to_field='measurementid', db_column='measurementid')
+    ipdvid = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = u'ipdv'
+
+

@@ -26,6 +26,7 @@ import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
 import com.num.models.Link;
+import com.num.models.Loss;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -102,6 +103,8 @@ public class MeasurementTask extends ServerTask {
 		serverhelper.execute(new BatteryTask(getContext(),
 				new HashMap<String, String>(), listener));
 		serverhelper.execute(new SignalStrengthTask(getContext(),
+				new HashMap<String, String>(), listener));
+		serverhelper.execute(new LossTask(getContext(), 
 				new HashMap<String, String>(), listener));
 		//serverhelper.execute(new TracerouteTask(getContext(),
 		//		new HashMap<String, String>(), null, 0, listener));
@@ -250,6 +253,12 @@ public class MeasurementTask extends ServerTask {
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
 			measurement.setWarmupExperiment(experiment);
 
+		}
+
+		public void onCompleteLoss(Loss loss) {
+			measurement.setLoss(loss);
+			getResponseListener().onCompleteLoss(loss);
+			
 		}
 	}
 

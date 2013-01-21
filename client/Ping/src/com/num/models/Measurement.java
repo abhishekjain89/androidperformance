@@ -26,6 +26,8 @@ public class Measurement implements MainModel{
 	Network network; 
 	Sim sim; 
 	Throughput throughput;
+	Loss loss;
+	Ipdv ipdv;
 	WarmupExperiment warmupExperiment;
 	public boolean isComplete = false;
 	ArrayList<Screen> screens = new ArrayList<Screen>();
@@ -327,6 +329,12 @@ public class Measurement implements MainModel{
 	public int getIcon() {
 
 		return R.drawable.png;
+	}
+
+	public void setLoss(Loss loss) {
+		this.loss = loss;
+		this.ipdv = loss.ipdv;
+		
 	}
 
 

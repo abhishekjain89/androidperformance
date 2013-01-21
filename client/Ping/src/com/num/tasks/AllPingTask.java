@@ -24,6 +24,7 @@ import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
 import com.num.models.Link;
+import com.num.models.Loss;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -228,6 +229,11 @@ public class AllPingTask extends ServerTask{
 		}
 
 		public void onCompleteWarmupExperiment(WarmupExperiment experiment) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteLoss(Loss loss) {
 			// TODO Auto-generated method stub
 			
 		}

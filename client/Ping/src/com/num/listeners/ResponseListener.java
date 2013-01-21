@@ -14,6 +14,7 @@ import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
 import com.num.models.Link;
+import com.num.models.Loss;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
@@ -53,6 +54,8 @@ public interface ResponseListener {
 	public void onCompleteUsage(Usage usage);
 	
 	public void onCompleteThroughput(Throughput throughput);
+	
+	public void onCompleteLoss(Loss loss);
 
 	public void makeToast(String text);
 
