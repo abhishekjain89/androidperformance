@@ -51,6 +51,7 @@ public class LossHelper
 			
 			clientSocket = new DatagramSocket();
 			clientSocket.connect(InetAddress.getByName(Values.LOSS_SERVER_ADDRESS), Values.LOSS_PORT);
+			clientSocket.setSoTimeout(60000);
 			clientSocket.send(getRequestPacket());
 			//receive_data = new byte[PACKET_SIZE];
 			//DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length);
@@ -100,7 +101,7 @@ public class LossHelper
 						seq_count++;
 						dT2 = timestamp-rec_timestamp;
 						//Log.d("Loss Test Worker", "dT2");
-						ipdv.addToList(new IpdvUnit(seq_count++,(dT2 - dT1)));
+						ipdv.addToList(new IpdvUnit(seq_count,(dT2 - dT1)));
 						n = 0;
 						dT1 = dT2 = 0;
 					}

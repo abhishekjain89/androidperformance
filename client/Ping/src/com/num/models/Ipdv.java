@@ -37,7 +37,7 @@ public class Ipdv implements MainModel
 			for(IpdvUnit entry : ipdvlist) {
 				array.put(entry.toJSON());
 			}
-			obj.put("entries", array);
+			obj.put("ipdvlist", array);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

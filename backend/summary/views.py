@@ -77,6 +77,9 @@ def measurement(request):
     m_state = {}
     lastmiles = {}
     count = 0
+    m_loss = None
+    delay_variation = {}
+    m_delay_variation = 0
     try:
         try:
             m_deviceid = request_object['deviceid']
@@ -130,6 +133,16 @@ def measurement(request):
             m_ismanual = request_object['isManual']
         except:
             m_ismanual = 0
+	try:
+	    m_loss = request_object['loss']
+	except:
+	    pass
+	try:
+	    delay_variation = request_object['delay_variation']
+	    m_delay_variation = 1
+	except:
+            m_delay_variation = 0
+	    pass
 
     except Exception as inst:
        message.append(error_message_helper.insert_entry_fail("measurement-extract",inst))
@@ -216,6 +229,12 @@ def measurement(request):
         usage=insertJSON.usage(m_usage,measurement)
     except Exception as inst:
         message.append(error_message_helper.insert_entry_fail("usage",inst))
+
+    try:
+        if not m_loss == None:
+            loss=insertJSON.loss(m_loss,measurement)
+    except Exception as inst:
+       message.append(error_message_helper.insert_entry_fail("loss",inst))
    
     try:
        if not throughput.measurementid == None:
@@ -261,7 +280,15 @@ def measurement(request):
         insertJSON.lastmiles(lastmiles,measurement)    
     except Exception as inst:
         
-        message.append(error_message_helper.insert_entry_fail("lastmile",inst))            
+        message.append(error_message_helper.insert_entry_fail("lastmile",inst))
+
+    try:
+	if not m_delay_variation == 0:        
+            insertJSON.delay_variation(delay_variation,measurement)    
+    except Exception as inst:
+        
+        message.append(error_message_helper.insert_entry_fail("delay_variation",inst))
+    
     print "measurement insertion ended"
     
     print str(message)

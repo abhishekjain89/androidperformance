@@ -250,6 +250,11 @@ public class Measurement implements MainModel{
 				putSafe(obj, "isManual", 1);
 			else
 				putSafe(obj, "isManual", 0);
+			if(loss!=null)
+				putSafe(obj, "loss", loss.toJSON());
+			
+			if(ipdv!=null)
+				putSafe(obj, "delay_variation", ipdv.toJSON());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -66,7 +66,9 @@ public class Loss implements MainModel
 		JSONObject obj = new JSONObject();
 		
 		try {
-			obj.put("loss", losspercentage);
+			obj.put("total", total);
+			obj.put("lost", lost);
+			obj.put("losspercentage", losspercentage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}// TODO Auto-generated method stub

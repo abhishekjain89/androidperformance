@@ -610,6 +610,29 @@ def wifi(dev, m):
     w.save()
     return w
 
+def delay_variation(delay_variation, m):
+    
+    for entry in delay_variation['ipdvlist']:
+        e = Ipdv()
+        e.sequencenumber = entry['sequence']
+	e.ipdv = entry['ipdv']
+        e.measurementid = m
+        e.save()
+    
+    print "Ipdv inserted"
+             
+def loss(loss, m):
+    
+    l = Loss()
+    l.measurementid = m
+    l.total = loss['total']
+    l.lost = loss['lost']
+    l.losspercentage = loss['losspercentage']
+    l.save()
+    
+    print "Loss inserted"
+    return l
+
 def parse(object):
    
     if object == None:
