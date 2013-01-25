@@ -1,6 +1,7 @@
 package com.num.tasks;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -85,7 +86,7 @@ public class MeasurementTask extends ServerTask {
 	public void runTask() {
 
 		ArrayList<Address> dsts = session.getPingServers();
-		
+		Calendar calendar = Calendar.getInstance();
 		if(throughput!=null)
 			listener.onCompleteThroughput(throughput);
 
@@ -104,8 +105,11 @@ public class MeasurementTask extends ServerTask {
 				new HashMap<String, String>(), listener));
 		serverhelper.execute(new SignalStrengthTask(getContext(),
 				new HashMap<String, String>(), listener));
-		serverhelper.execute(new LossTask(getContext(), 
+		if((calendar.get(Calendar.HOUR)%2==0)&&(calendar.get(Calendar.MINUTE)>45))
+		{
+			serverhelper.execute(new LossTask(getContext(), 
 				new HashMap<String, String>(), listener));
+		}
 		//serverhelper.execute(new TracerouteTask(getContext(),
 		//		new HashMap<String, String>(), null, 0, listener));
 

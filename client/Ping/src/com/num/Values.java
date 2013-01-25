@@ -52,7 +52,7 @@ public class Values extends Application{
 	public static final String LOSS_SERVER_ADDRESS = "ruggles.gtnoise.net";
 	public static final int LOSS_PORT = 8888;
 	public static final int LOSS_THRESHOLD = 10000;
-	public static final int LOSS_TOTAL = 1000;
+	public static final int LOSS_TOTAL = 500;
 
 	public  int GPS_TIMEOUT = 20000;
 	public  int SIGNALSTRENGTH_TIMEOUT = 10000;

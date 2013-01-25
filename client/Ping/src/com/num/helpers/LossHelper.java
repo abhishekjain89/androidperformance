@@ -69,7 +69,10 @@ public class LossHelper
 			long dT1 = 0;
 			long dT2 = 0;
 			long n = 0;
-			
+			int[] diffarray = {9,7,5,3,1};
+			int[] seedarray = {1,2,3,4,5};
+			int diff = 0;
+			int seed = 0;
 			while(!received.equals("terminate"))
 			{
 				clientSocket.receive(receive_packet);
@@ -91,12 +94,12 @@ public class LossHelper
 						count++;
 						continue;
 					}
-					if(sequence_number%10==9)
+					if(sequence_number%10==seedarray[(seed%5)])
 					{
 						dT1 = timestamp-rec_timestamp;
 						n = sequence_number;
 					}
-					else if(sequence_number==(n+1))
+					else if(sequence_number==(n+diffarray[(diff%5)]))
 					{
 						seq_count++;
 						dT2 = timestamp-rec_timestamp;
@@ -104,6 +107,10 @@ public class LossHelper
 						ipdv.addToList(new IpdvUnit(seq_count,(dT2 - dT1)));
 						n = 0;
 						dT1 = dT2 = 0;
+						//Log.d("Loss Test Worker", "Pair: "+seedarray[seed%5]+" "+(n+diffarray[diff%5]));
+						seed++;
+						diff++;
+						
 					}
 					
 				}
@@ -119,7 +126,7 @@ public class LossHelper
 			
 			Log.d("Loss Test Worker", ""+count);
 			received = null;
-			losspercentage = ((double)count)/1000*100;
+			losspercentage = ((double)count)/Values.LOSS_TOTAL*100;
 			/*for(Long item: ddTList)
 			{
 				Log.d("Loss Test Worker", "ipdv: "+item);
@@ -148,7 +155,11 @@ public class LossHelper
 			l.setLosspercentage(100);
 			l.setLost(0);
 			l.setTotal(Values.LOSS_TOTAL);
-			
+			if(ipdv!=null)
+			{
+				if(ipdv.getIpdvlist().size()>0)
+					l.setIpdv(ipdv);
+			}
 					
 		}
 		catch (IOException e)
