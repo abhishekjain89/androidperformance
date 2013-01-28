@@ -614,9 +614,18 @@ def delay_variation(delay_variation, m):
     
     for entry in delay_variation['ipdvlist']:
         e = Ipdv()
-        e.sequencenumber = entry['sequence']
-	e.ipdv = entry['ipdv']
-        e.measurementid = m
+        try:
+	    e.sequencenumber = entry['sequence']
+	except:
+	    pass	
+	try:
+  	    e.ipdv = entry['ipdv']
+	except:
+	    pass        
+	try:
+	    e.measurementid = m
+	except:
+	    pass 
         e.save()
     
     print "Ipdv inserted"
@@ -624,10 +633,23 @@ def delay_variation(delay_variation, m):
 def loss(loss, m):
     
     l = Loss()
-    l.measurementid = m
-    l.total = loss['total']
-    l.lost = loss['lost']
-    l.losspercentage = loss['losspercentage']
+    try:    
+	l.measurementid = m
+    except:
+	pass    
+    try:
+	l.total = loss['total']
+    except:
+	pass
+    try:
+	l.lost = loss['lost']
+    except:
+	pass
+    try:
+	l.losspercentage = loss['losspercentage']
+    except:
+	pass
+    
     l.save()
     
     print "Loss inserted"

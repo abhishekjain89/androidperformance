@@ -64,6 +64,11 @@ def devicesummary(request):
 def old_measurement(request):
     return HttpResponse("ignored")
 
+
+def reset_database_connection():
+    from django import db
+    db.close_connection()
+
 def measurement(request):
 
     response = {}
