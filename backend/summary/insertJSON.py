@@ -89,8 +89,9 @@ def device(dev, m_deviceid, m_sim):
             error_message_helper.insert_entry_fail("device", inst)
         
         try:           
-            s = sim(m_sim);
-            d.serialnumber = s
+            if not m_sim == None:
+		s = sim(m_sim);
+            	d.serialnumber = s
         except Exception as inst:
             print error_message_helper.insert_entry_fail("sim", inst) 
         
@@ -99,7 +100,7 @@ def device(dev, m_deviceid, m_sim):
 	
         print "Device inserted"
     except Exception as inst:
-        print error_message_helper.insert_entry_fail("device", inst) 
+        print error_message_helper.insert_entry_fail("device+", inst) 
        
     return d
 

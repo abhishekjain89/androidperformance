@@ -79,6 +79,7 @@ def measurement(request):
     except:
         return HttpResponse(error_message_helper.invalid_format())
     m_wifi = None
+    m_sim = None
     m_state = {}
     lastmiles = {}
     count = 0
@@ -182,7 +183,7 @@ def measurement(request):
         details=insertJSON.device(m_device,m_deviceid,m_sim)
         measurement.deviceid = details
     except Exception as inst:
-        message.append(error_message_helper.insert_entry_fail("device",inst))
+        message.append(error_message_helper.insert_entry_fail("device++",inst))
         insertJSON.error_log(message,m_deviceid,request)
         return HttpResponse(str(message))  
         
