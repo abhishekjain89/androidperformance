@@ -88,9 +88,9 @@ public class AllPingTask extends ServerTask{
 
 		for(Address dst : dsts)
 			if(dst.getType().equals("ping"))
-				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
+				serverhelperPing.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 15,listener));
 			else
-				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 5,listener));
+				serverhelperLastMile.execute(new PingTask(getContext(),new HashMap<String,String>(), dst, 15,listener));
 		
 		serverhelperPing.waitOnTasks();
 		try {

@@ -46,6 +46,8 @@ public class LossHelper
 		DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length);
 		//List<Long> ddTList = new ArrayList<Long>();
 		ipdv = new Ipdv();
+		int count = 0;
+		int recvd = 0;
 		try 
 		{
 			
@@ -62,7 +64,7 @@ public class LossHelper
 			clientSocket = null;
 			clientSocket = new DatagramSocket();
 			clientSocket.connect(InetAddress.getByName(Values.LOSS_SERVER_ADDRESS), Integer.parseInt(received));
-			int count = 0;
+			
 			clientSocket.setSoTimeout(120000);
 			clientSocket.send(getRequestPacket());
 			int seq_count = 0;
@@ -77,6 +79,7 @@ public class LossHelper
 			{
 				clientSocket.receive(receive_packet);
 				long timestamp = new Date().getTime();//System.currentTimeMillis();
+				recvd++;
 				received = null;
 				String seq_number = (new String(receive_packet.getData(),0,4));
 				received = new String(receive_packet.getData(),4,receive_packet.getLength()-4);
@@ -92,7 +95,7 @@ public class LossHelper
 					if(timestamp - rec_timestamp>Values.LOSS_THRESHOLD)
 					{
 						count++;
-						continue;
+						//continue;
 					}
 					if(sequence_number%10==seedarray[(seed%5)])
 					{
@@ -120,8 +123,8 @@ public class LossHelper
 					continue;
 					
 				}
-				//Log.d("Loss Test Worker", "Seq number = "+sequence_number);
-				//Log.d("Loss Test Worker", "Time Diff = "+ (timestamp-rec_timestamp));
+				Log.d("Loss Test Worker", "Seq number = "+sequence_number);
+				Log.d("Loss Test Worker", "Time Diff = "+ (timestamp-rec_timestamp));
 			}
 			
 			Log.d("Loss Test Worker", ""+count);
@@ -152,8 +155,8 @@ public class LossHelper
 		{
 			e.printStackTrace();
 			Log.d("Loss Test Worker", "Socket timed out. Loss = 100%");
-			l.setLosspercentage(100);
-			l.setLost(0);
+			l.setLosspercentage((Values.LOSS_TOTAL-recvd+count)/Values.LOSS_TOTAL);
+			l.setLost(Values.LOSS_TOTAL-recvd+count);
 			l.setTotal(Values.LOSS_TOTAL);
 			if(ipdv!=null)
 			{

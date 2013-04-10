@@ -80,7 +80,8 @@ public class PingHelper {
 		Ping p 			= null;
 		String ipDst 	= address.getIp();
 		String cmd 		= "ping";
-		String options 	= "-c " + count;
+		double timegap = 0.5;
+		String options 	= "-c " + count +" -i "+timegap;
 		String output 	= "";
 
 		cmdUtil = new CommandLineUtil();

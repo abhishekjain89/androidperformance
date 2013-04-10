@@ -1,4 +1,9 @@
 package com.num;
+import java.io.FileNotFoundException;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,6 +22,7 @@ import com.num.models.Buffer;
 import com.num.models.MainModel;
 import com.num.models.Screen;
 import com.num.utils.DeviceUtil;
+import com.num.utils.HTTPUtil;
 import com.num.utils.PreferencesUtil;
 
 public class Values extends Application{
@@ -30,10 +36,10 @@ public class Values extends Application{
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
 	public  int UPLINKPORT=9915;
-	public  static int UPLINK_DURATION=25000;
+	public  static int UPLINK_DURATION=15000;
 	public  static int DOWNLINKPORT=9710;
 	public  static int DOWNLINK_DURATION=20000;
-	public  static int DOWNLINK_BUFFER_SIZE=12000;
+	public  static int DOWNLINK_BUFFER_SIZE=50000;
 
 	public  static int TCP_HEADER_SIZE=54;
 	public  static int TCP_PACKET_SIZE=1380;
@@ -69,7 +75,7 @@ public class Values extends Application{
 	public ArrayList<Address> PING_SERVERS;
 	public static Address PING_SEQUENCE_ADDRESS = new Address("143.215.131.173", "Atlanta, GA", "ping");
 	public static float PING_WARMUP_SEQUENCE_GAP = 0.2f;
-	public static int PING_WARMUP_SEQUENCE_TOTAL = 40;
+	public static int PING_WARMUP_SEQUENCE_TOTAL = 20;
 	public static float PING_SEQUENCE_VERSION= 1;
 	public static float PING_COOLDOWN_TIME = 20;
 	public static float[] PING_SEQUENCE_GAPS = new float[]{0.5f,1,1.5f,2,3,4,5,7.5f,10};
@@ -97,12 +103,12 @@ public class Values extends Application{
 
 		PING_SERVERS = new ArrayList<Address>();
 		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA", "ping"));
-		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "ping"));
+		//PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "ping"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "ping"));
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "ping"));
 		PING_SERVERS.add(new Address("www.google.com", "Google", "ping"));
 		PING_SERVERS.add(new Address("143.215.131.173", "Atlanta, GA", "firsthop"));
-		PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "firsthop"));
+		//PING_SERVERS.add(new Address("143.225.229.254", "Napoli, ITALY", "firsthop"));
 		PING_SERVERS.add(new Address("128.48.110.150", "Oakland, CA", "firsthop"));
 		PING_SERVERS.add(new Address("www.facebook.com", "Facebook", "firsthop"));
 		PING_SERVERS.add(new Address("www.google.com", "Google", "firsthop"));
@@ -121,7 +127,80 @@ public class Values extends Application{
 	}
 
 	public ArrayList<Address> getPingServers(){
-		return PING_SERVERS;
+		
+		HTTPUtil http = new HTTPUtil();
+		String response = "";
+		int exception = 0;
+		try {
+			response = http.request(new HashMap<String,String>(), "GET", "values", "", "");
+		} catch (FileNotFoundException e1) {
+			exception = 1;
+			e1.printStackTrace();
+		} catch (MalformedURLException e1) {
+			exception = 1;
+			e1.printStackTrace();
+		} catch (NoSuchAlgorithmException e1) {
+			exception = 1;
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			exception = 1;
+			e1.printStackTrace();
+		}
+		if(exception==1)
+		{
+			return PING_SERVERS;
+		}
+		DeviceUtil device = new DeviceUtil();
+		String country = device.getNetworkCountry(this.getBaseContext());
+		if(country == null)
+		{
+			country = "xx";
+		}
+		ArrayList<Address> DYN_PING_SERVERS = null;
+		boolean specialcountry = false;
+		try {
+			JSONObject obj = new JSONObject(response);
+			JSONObject pingObj = obj.getJSONObject("values").getJSONObject("ping_servers").getJSONObject("servers");
+			DYN_PING_SERVERS = new ArrayList<Address>();
+			JSONArray countryArray = obj.getJSONObject("values").getJSONArray("countries");
+			
+			for(int i =0; i<countryArray.length(); i++)
+			{
+				if(country.equals(countryArray.getJSONObject(i).getString("code")))
+				{
+					specialcountry = true;
+					break;
+				}
+			}
+			JSONArray pingArray = null;
+			if(specialcountry)
+			{
+				try{
+					pingArray = pingObj.getJSONArray(country);
+				}
+				catch(JSONException e)
+				{
+					pingArray = pingObj.getJSONArray("default");
+				}
+			}
+			else
+			{
+				pingArray = pingObj.getJSONArray("default");
+			}
+			for(int i=0;i<pingArray.length();i++){
+				JSONObject pingObject = pingArray.getJSONObject(i);
+				Address address = new Address(pingObject.getString("ipaddress"),pingObject.getString("tag"), "ping");
+				DYN_PING_SERVERS.add(address);
+				Address address2 = new Address(pingObject.getString("ipaddress"),pingObject.getString("tag"), "firsthop");
+				DYN_PING_SERVERS.add(address2);
+			}
+
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return PING_SERVERS;
+		}
+		return DYN_PING_SERVERS;
 	}
 
 	public void loadValues(){

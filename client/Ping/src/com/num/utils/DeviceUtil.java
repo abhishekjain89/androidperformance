@@ -547,5 +547,14 @@ public class DeviceUtil {
 		}
 		return stateDetail;
 	}
+	
+	public String getNetworkCountry(Context context)
+	{
+		String srvnName = Context.TELEPHONY_SERVICE;
+		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
+		String networkCountry = telephonyManager.getNetworkCountryIso();
+		String networkcountry = null;
+		return networkcountry;
+	}
      
 }

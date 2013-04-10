@@ -40,8 +40,8 @@ public class ThroughputUtil {
 	public static Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
 	{
 		Values session = (Values) context.getApplicationContext();
-		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.UPLINKPORT);
+		String serveraddress="ruggles.gtnoise.net";
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,9915);
 		Socket uplinkclient=new Socket();
 		uplinkclient.connect(serversocket);
 
@@ -91,6 +91,7 @@ public class ThroughputUtil {
 		link.setTime(time);
 		link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
 		link.setDstPort(session.UPLINKPORT+"");
+		throughput = total*8/time/1000;
 		System.out.println(link.toJSON());
 		//tensecthroughput = tenseccount*((long)message.length+(54*3))/((end-intermediate)*8);
 		try{
@@ -115,12 +116,12 @@ public class ThroughputUtil {
 	{
 		
 		Values session = (Values) context.getApplicationContext();
-		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.DOWNLINKPORT);
+		String serveraddress="newton.noise.gatech.edu";
+		SocketAddress serversocket = new InetSocketAddress(serveraddress, 9720);
 		Socket downlinkclient=new Socket();
 		downlinkclient.connect(serversocket);
 
-		DataInputStream in = new DataInputStream(downlinkclient.getInputStream());
+		BufferedReader in = new BufferedReader(new InputStreamReader(downlinkclient.getInputStream()));
 		DataOutputStream out = new DataOutputStream(downlinkclient.getOutputStream());
 		System.out.println("Starting downlink test:");
 		Link link = new Link();
@@ -133,17 +134,24 @@ public class ThroughputUtil {
 			e.printStackTrace();
 		}
 		int messagebytes=0;
-		int totalbytes=0;
+		int message = 0;
+		long totalbytes=0;
+		long slowstartcorrect = 0;
 		int count=0;
 		long start=System.currentTimeMillis();
+		long mid = 0;
+		int flag = 0;
+		
 		long endSecond =  System.currentTimeMillis();
 		long end=System.currentTimeMillis();
-		byte[] buffer=new byte[session.DOWNLINK_BUFFER_SIZE];
+		char[] buffer=new char[session.DOWNLINK_BUFFER_SIZE];
 		do
 		{
-			messagebytes=in.read(buffer, 0, session.DOWNLINK_BUFFER_SIZE);
+			message = in.read(buffer, 0, session.DOWNLINK_BUFFER_SIZE);
+			//messagebytes=message.length();
+			//System.out.println("The message size is "+ message);
 			count++;
-			if(messagebytes<=0)
+			if(message<=0)
 				break;
 			
 
@@ -157,12 +165,19 @@ public class ThroughputUtil {
 				responseListener.onUpdateDownLink(link);
 			}
 			
-			totalbytes+=messagebytes;
+			
+			totalbytes+=message;
 			end=System.currentTimeMillis();
+			if(flag==0&&end-start>=5000)
+			{
+				flag =1;
+				mid = end;
+				slowstartcorrect = totalbytes;
+			}
 		}while(true);
 		link.setCount(1);
-		link.setMessage_size(totalbytes*((session.TCP_PACKET_SIZE+session.TCP_HEADER_SIZE)/(session.TCP_PACKET_SIZE)));
-		link.setTime(end-start);
+		link.setMessage_size((totalbytes-slowstartcorrect)*((session.TCP_PACKET_SIZE+session.TCP_HEADER_SIZE)/(session.TCP_PACKET_SIZE)));
+		link.setTime(end-mid);
 		link.setDstIp(serveraddress);
 		link.setDstPort(session.DOWNLINKPORT+"");
 		System.out.println("Downlink test complete");

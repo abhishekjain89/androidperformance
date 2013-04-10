@@ -105,7 +105,7 @@ public class MeasurementTask extends ServerTask {
 				new HashMap<String, String>(), listener));
 		serverhelper.execute(new SignalStrengthTask(getContext(),
 				new HashMap<String, String>(), listener));
-		if((calendar.get(Calendar.HOUR)%2==0)&&(calendar.get(Calendar.MINUTE)>45))
+		//if((calendar.get(Calendar.HOUR)%2==0)&&(calendar.get(Calendar.MINUTE)>45))
 		{
 			serverhelper.execute(new LossTask(getContext(), 
 				new HashMap<String, String>(), listener));
