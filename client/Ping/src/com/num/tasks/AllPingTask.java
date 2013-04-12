@@ -84,7 +84,7 @@ public class AllPingTask extends ServerTask{
 		ThreadPoolHelper serverhelperPing = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		ThreadPoolHelper serverhelperLastMile = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,session.THREADPOOL_KEEPALIVE_SEC);
 		
-		ArrayList<Address> dsts = session.getPingServers();
+		ArrayList<Address> dsts = session.getPingServers(getContext());
 
 		for(Address dst : dsts)
 			if(dst.getType().equals("ping"))

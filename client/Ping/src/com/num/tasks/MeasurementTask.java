@@ -85,7 +85,7 @@ public class MeasurementTask extends ServerTask {
 
 	public void runTask() {
 
-		ArrayList<Address> dsts = session.getPingServers();
+		ArrayList<Address> dsts = session.getPingServers(getContext());
 		Calendar calendar = Calendar.getInstance();
 		if(throughput!=null)
 			listener.onCompleteThroughput(throughput);

@@ -123,8 +123,8 @@ public class LossHelper
 					continue;
 					
 				}
-				Log.d("Loss Test Worker", "Seq number = "+sequence_number);
-				Log.d("Loss Test Worker", "Time Diff = "+ (timestamp-rec_timestamp));
+				//Log.d("Loss Test Worker", "Seq number = "+sequence_number);
+				//Log.d("Loss Test Worker", "Time Diff = "+ (timestamp-rec_timestamp));
 			}
 			
 			Log.d("Loss Test Worker", ""+count);

@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -40,14 +41,32 @@ public class ThroughputUtil {
 	public static Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
 	{
 		Values session = (Values) context.getApplicationContext();
-		String serveraddress="ruggles.gtnoise.net";
-		SocketAddress serversocket = new InetSocketAddress(serveraddress,9915);
+		DeviceUtil device = new DeviceUtil();
+		String countrycode = device.getNetworkCountry(context);
+		String serveraddress= session.THROUGHPUT_SERVER_ADDRESS;
+		if(countrycode.equals("za"))
+		{
+			serveraddress = session.SA_THROUGHPUT_SERVER_ADDRESS;
+		}
+		
+		SocketAddress serversocket = new InetSocketAddress(serveraddress,session.UPLINKPORT);
 		Socket uplinkclient=new Socket();
-		uplinkclient.connect(serversocket);
-
+		Link link = new Link();
+		try{
+			uplinkclient.connect(serversocket);
+		}
+		catch(ConnectException e)
+		{
+			link.setCount(1);
+			link.setMessage_size(0);
+			link.setTime(1);
+			link.setDstIp(serveraddress);
+			link.setDstPort(session.UPLINKPORT+"");
+			return link;
+		}
 		BufferedReader in = new BufferedReader(new InputStreamReader(uplinkclient.getInputStream()));
 		PrintWriter out = new PrintWriter(uplinkclient.getOutputStream(), true);
-		Link link = new Link();
+		
 		System.out.println("Starting uplink test:");
 		String buf= generateRandom();
 		byte[] message = buf.getBytes();
@@ -69,13 +88,13 @@ public class ThroughputUtil {
 				link.setCount(count);
 				link.setMessage_size(message.length+(Values.TCP_HEADER_SIZE*3));
 				link.setTime(end-start);
-				link.setDstIp(session.THROUGHPUT_SERVER_ADDRESS);
+				link.setDstIp(serveraddress);
 				link.setDstPort(session.UPLINKPORT+"");				
 				responseListener.onUpdateUpLink(link);
 			}
 			
 			count++;
-			
+			//System.out.println("Throughput time diff = "+(end-start));
 		}while(end-start<=session.UPLINK_DURATION);
 		System.out.println("Writing end");
 		out.println();
@@ -116,15 +135,33 @@ public class ThroughputUtil {
 	{
 		
 		Values session = (Values) context.getApplicationContext();
-		String serveraddress="newton.noise.gatech.edu";
-		SocketAddress serversocket = new InetSocketAddress(serveraddress, 9720);
+		DeviceUtil device = new DeviceUtil();
+		String countrycode = device.getNetworkCountry(context);
+		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
+		if(countrycode.equals("za"))
+		{
+			serveraddress = session.SA_THROUGHPUT_SERVER_ADDRESS;
+		}
+		
+		SocketAddress serversocket = new InetSocketAddress(serveraddress, session.DOWNLINKPORT);
+		Link link = new Link();
 		Socket downlinkclient=new Socket();
-		downlinkclient.connect(serversocket);
-
+		try{
+			downlinkclient.connect(serversocket);
+		}
+		catch(ConnectException e)
+		{
+			link.setCount(1);
+			link.setMessage_size(0);
+			link.setTime(1);
+			link.setDstIp(serveraddress);
+			link.setDstPort(session.DOWNLINKPORT+"");
+			return link;
+		}
 		BufferedReader in = new BufferedReader(new InputStreamReader(downlinkclient.getInputStream()));
 		DataOutputStream out = new DataOutputStream(downlinkclient.getOutputStream());
 		System.out.println("Starting downlink test:");
-		Link link = new Link();
+		
 		out.flush();
 		try {
 			Thread.sleep(session.NORMAL_SLEEP_TIME);

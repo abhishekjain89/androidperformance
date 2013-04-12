@@ -553,8 +553,8 @@ public class DeviceUtil {
 		String srvnName = Context.TELEPHONY_SERVICE;
 		TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(srvnName);
 		String networkCountry = telephonyManager.getNetworkCountryIso();
-		String networkcountry = null;
-		return networkcountry;
+		//String networkcountry = null;
+		return networkCountry;
 	}
      
 }

@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.num.database.DatabasePicker;
 import com.num.database.datasource.DataSource;
@@ -35,9 +36,9 @@ public class Values extends Application{
 
 	public  int THROUGHPUT_FREQ = (3600/FREQUENCY_SECS)*19; //19 hours
 
-	public  int UPLINKPORT=9915;
+	public  int UPLINKPORT=10020;
 	public  static int UPLINK_DURATION=15000;
-	public  static int DOWNLINKPORT=9710;
+	public  static int DOWNLINKPORT=10030;
 	public  static int DOWNLINK_DURATION=20000;
 	public  static int DOWNLINK_BUFFER_SIZE=50000;
 
@@ -53,6 +54,7 @@ public class Values extends Application{
 	public HashMap<String,MainModel> dataStore = new HashMap<String,MainModel>();
 
 	public  String THROUGHPUT_SERVER_ADDRESS="ruggles.gtnoise.net";
+	public String SA_THROUGHPUT_SERVER_ADDRESS = "measurements-bismark.cs.uct.ac.za";
 	public  String API_SERVER_ADDRESS="https://ruggles.gtnoise.net";
 	
 	public static final String LOSS_SERVER_ADDRESS = "ruggles.gtnoise.net";
@@ -126,7 +128,7 @@ public class Values extends Application{
 		return dataStore.get(key);
 	}
 
-	public ArrayList<Address> getPingServers(){
+	public ArrayList<Address> getPingServers(Context context){
 		
 		HTTPUtil http = new HTTPUtil();
 		String response = "";
@@ -151,7 +153,7 @@ public class Values extends Application{
 			return PING_SERVERS;
 		}
 		DeviceUtil device = new DeviceUtil();
-		String country = device.getNetworkCountry(this.getBaseContext());
+		String country = device.getNetworkCountry(context);
 		if(country == null)
 		{
 			country = "xx";
@@ -201,6 +203,7 @@ public class Values extends Application{
 			return PING_SERVERS;
 		}
 		return DYN_PING_SERVERS;
+		//return PING_SERVERS;
 	}
 
 	public void loadValues(){
